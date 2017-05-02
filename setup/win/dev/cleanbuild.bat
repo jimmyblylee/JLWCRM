@@ -3,7 +3,7 @@ title Doing clean build to all the Project
 set BASEDIR=%~sdp0
 call %BASEDIR%\setEnv.bat >NUL
 
-pushd %PROJECT_HOME%
+pushd %PROJECT_HOME%\src\crm
     call mvn clean package
 popd
 
