@@ -1,0 +1,16 @@
+{
+    "sys.dict": {
+        "pageTitle": "字典管理",
+        "templateUrl": "packages/dict/views/main.html",
+        "controller": "DictListCtrl",
+        "files":[
+            "packages/dict/js/DictListCtrl.js",
+            "packages/dict/js/DictModifiedCtrl.js",
+            "packages/dict/js/DictParentCtrl.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    }
+}

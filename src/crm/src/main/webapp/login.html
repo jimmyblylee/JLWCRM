@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js" data-ng-app="MetronicApp" > <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js" data-ng-app="MetronicApp"> <![endif]-->
+<html lang="en" data-ng-app="MetronicApp">
+    <head>
+        <meta charset="utf-8" />
+        <title>CRM</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <link href="resources/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="resources/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" />
+        <link href="resources/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="resources/global/css/components-md.min.css" rel="stylesheet" id="style_components" />
+        <link href="resources/global/css/plugins-md.min.css" rel="stylesheet" />
+        <link id="ng_load_plugins_before" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link href="resources/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="resources/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="packages/common/resources/css/login-4.css" rel="stylesheet">
+        <link rel="shortcut icon" href="favicon.ico" />
+    </head>
+    <body class=" login">
+
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+            <a href="javascript:">
+                <img src="resources/layouts/layout/img/logo.png" alt="" style="width: 160px;" /> </a>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form" name="signInForm" novalidate
+                  ng-controller="signInFormCtrl" method="post" ng-keyup="loginKeyUp($event)">
+                <h3 class="form-title">CRM系统登录</h3>
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span> 请输入帐号和密码 </span>
+                </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">帐号</label>
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input class="form-control form-control-solid placeholder-no-fix"
+                               ng-focus="hideZMError()" ng-change="verifyAccountRequired()"
+                               name="account" id="accountId" type="text" placeholder="请输入账号"
+                               required maxlength="20" ng-model='user.account'>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <div class="input-icon">
+                        <i class="fa fa-lock"></i>
+                        <input class="form-control form-control-solid placeholder-no-fix"
+                               name="password" ng-focus="hideZMError()"
+                               ng-change="verifyPswRequired()"
+                               type="password" id="pswId" autocomplete="off" placeholder="请输入密码"
+                               required ng-model="user.password">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" id="remember-me" name="remember" value="1" /> 记住我
+                        <span></span>
+                    </label>
+                    <button type="button" ng-click="submitLoginForm()" class="btn green pull-right"> 登 录 </button>
+                </div>
+                <div class="login-options">
+                    <h4>或者使用其他登录方式</h4>
+                    <ul class="social-icons">
+                        <li>
+                            <a class="facebook" data-original-title="facebook" href="javascript:"> </a>
+                        </li>
+                        <li>
+                            <a class="twitter" data-original-title="Twitter" href="javascript:"> </a>
+                        </li>
+                        <li>
+                            <a class="googleplus" data-original-title="Goole Plus" href="javascript:"> </a>
+                        </li>
+                        <li>
+                            <a class="linkedin" data-original-title="Linkedin" href="javascript:"> </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="forget-password">
+                    <h4>忘记密码 ?</h4>
+                    <p> 不用着急，请按
+                        <a href="javascript:" id="forget-password"> 这里 </a> 重置密码. </p>
+                </div>
+                <div class="create-account">
+                    <p> 没有帐号 ?&nbsp;
+                        <a href="javascript:;" id="register-btn"> 注册一个帐号 </a>
+                    </p>
+                </div>
+            </form>
+            <!-- END LOGIN FORM -->
+            <!-- BEGIN FORGOT PASSWORD FORM -->
+            <form class="forget-form" action="#" method="post">
+                <h3>忘记密码 ?</h3>
+                <p> 输入邮箱重置密码. </p>
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-envelope"></i>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="xxx@xxx.com" name="email" /> </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="back-btn" class="btn red btn-outline">回退 </button>
+                    <button type="submit" class="btn green pull-right"> 提交 </button>
+                </div>
+            </form>
+            <!-- END FORGOT PASSWORD FORM -->
+            <!-- BEGIN REGISTRATION FORM -->
+            <form class="register-form" action="#" method="post">
+                <h3>注册</h3>
+                <p> 请输入以下信息: </p>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">全称</label>
+                    <div class="input-icon">
+                        <i class="fa fa-font"></i>
+                        <input class="form-control placeholder-no-fix" type="text" placeholder="姓名" name="fullname" /> </div>
+                </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">邮箱</label>
+                    <div class="input-icon">
+                        <i class="fa fa-envelope"></i>
+                        <input class="form-control placeholder-no-fix" type="text" placeholder="xxx@xxx.com" name="email" /> </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">地址</label>
+                    <div class="input-icon">
+                        <i class="fa fa-check"></i>
+                        <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="address" /> </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">城市</label>
+                    <div class="input-icon">
+                        <i class="fa fa-location-arrow"></i>
+                        <input class="form-control placeholder-no-fix" type="text" placeholder="xx省xx市" name="city" /> </div>
+                </div>
+                <p> Enter your account details below: </p>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="英文小写" name="username" /> </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <div class="input-icon">
+                        <i class="fa fa-lock"></i>
+                        <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="大于6位小于20位" name="password" /> </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">确认密码</label>
+                    <div class="controls">
+                        <div class="input-icon">
+                            <i class="fa fa-check"></i>
+                            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="重新输入密码" name="rpassword" /> </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" name="remember" value="1" />
+                        <input type="checkbox" name="tnc" /> 我同意
+                        <a href="javascript:">服务声明 </a> 和
+                        <a href="javascript:">服务条款 </a>
+                        <span></span>
+                    </label>
+                    <div id="register_tnc_error"> </div>
+                </div>
+                <div class="form-actions">
+                    <button id="register-back-btn" type="button" class="btn red btn-outline"> 后退 </button>
+                    <button type="submit" id="register-submit-btn" class="btn green pull-right"> 注册 </button>
+                </div>
+            </form>
+            <!-- END REGISTRATION FORM -->
+        </div>
+
+        <script src="resources/global/plugins/jquery.min.js"></script>
+        <script src="resources/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script  src="resources/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+        <script src="resources/global/plugins/angularjs/angular.min.js"></script>
+        <script src="resources/global/plugins/angularjs/angular-sanitize.min.js"></script>
+        <script src="resources/global/plugins/angularjs/angular-touch.min.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/angular-ui-router.min.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/ocLazyLoad.min.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js"></script>
+        <script src="resources/global/scripts/app.js"></script>
+        <script src="resources/layouts/layout/scripts/layout.js"></script>
+        <script src="packages/common/js/SignUpFormController.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/angular-translate.min.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/angular-translate-loader-static-files.min.js"></script>
+        <script src="packages/common/js/CommonService.js"></script>
+        <script src="packages/common/js/MultiLanguage.js"></script>
+        <script src="packages/common/js/json2.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/angular-strap/angular-strap.min.js"></script>
+        <script src="resources/global/plugins/angularjs/plugins/angular-strap/angular-strap.tpl.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="resources/global/plugins/respond.min.js"></script>
+        <script src="resources/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
+        <script src="resources/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="resources/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+        <script src="resources/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="resources/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+        <script src="packages/common/js/login-4.js"></script>
+    </body>
+</html>

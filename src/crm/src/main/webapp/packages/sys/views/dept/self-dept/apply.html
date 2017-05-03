@@ -1,0 +1,29 @@
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="index.html">首页</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{$state.current.data.pageTitle}}</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn blue-hoki btn-sm btn-outline" ng-click="submitApplyDeptForm();">
+                <i class="fa fa-save"></i> 提交申请 </a>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"> 企业信息
+    <small>申请修改本企业基本信息</small>
+</h3>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+
+<div ng-include="'packages/sys/views/dept/self-dept/dept_edit_table.html'"></div>

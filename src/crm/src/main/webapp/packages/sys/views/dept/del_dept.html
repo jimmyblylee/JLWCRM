@@ -1,0 +1,19 @@
+
+<div class="modal global-del" role="dialog" tabindex="-1" id="delDivId">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header t-modal-header">
+					<h4 class="modal-title" >系统提示</h4>
+			</div>
+			<div class="modal-body" ng-bind-html="content"></div>
+			<div class="modal-footer t-modal-footer" ng-show="title">
+				<button class="btn btn-warning" ng-click="$hide()" id="closeDelId">关闭</button>
+			</div>
+			<div class="modal-footer t-modal-footer" ng-hide="title">
+				<button class="btn btn-primary" ng-click="delDeptByid()" id="delAffirmDeptId">确定</button>
+				<button class="btn btn-default"
+					ng-click="$hide()" id="cancelDelDeptId" >关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

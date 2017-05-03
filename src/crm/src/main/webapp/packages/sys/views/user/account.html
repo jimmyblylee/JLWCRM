@@ -1,0 +1,162 @@
+<!-- BEGIN PAGE HEADER 2016-->
+<ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
+
+<div class="row mt20" ng-controller="accountCtrl" id="account-model"  name="accountForm">
+
+    <div class="col-md-6 col-md-offset-3" ng-hide="account" id="modalView">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light bordered" >
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <span class="caption-subject bold uppercase"> 个人资料</span>
+                </div>
+              <!-- <div style="float:right">
+                    <a href="javascript:void(0)" name="accountEdit" ng-click="accountshow()">编辑<i class="fa fa-wrench"></i></a>
+                </div>
+                 -->
+                <div class="top-menu">
+        <ul class="nav navbar-nav pull-right ">
+            <li class="dropdown dropdown-user">
+                <a href="#" class="dropdown-toggle" dropdown-menu-hover="" data-toggle="dropdown" id="editPersonal" data-close-others="true" aria-expanded="false">
+                    <span class="username username-hide-on-mobile ng-binding" >编辑</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default ng-scope" ng-controller="exitCtrl">
+                   <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:;" ng-click="accountshow()" id="information">
+                            <i class="icon-user"></i>注册信息</a>
+                    </li>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:;" ng-click="editPasswordModal()" id="password">
+                            <i class="icon-user"></i>修改密码</a>
+                    </li>
+                    <li class="divider"> </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-checkable order-column" style=" word-break: break-all;word-wrap: break-word;">
+                    <tbody>
+                    <tr>
+                        <td class="Username col-md-3"><strong>账号</strong></td>
+                        <td class="Email col-md-9"><span ng-model="sysUser.account">{{sysUser.account}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="Username"><strong>邮箱</strong></td>
+                        <td class="Email" ><span ng-model="sysUser.email">{{sysUser.email}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="Username"><strong>手机</strong></td>
+                        <td class="Email"><span>{{sysUser.tel}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="Username"><strong>电话</strong></td>
+                        <td class="Email"><span>{{sysUser.fixedTel}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="Username"><strong>公司名称</strong></td>
+                        <td class="Email"><span>{{sysUser.dept.name}}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="Username"><strong>备注</strong></td>
+                        <td class="Email"><span>{{sysUser.remark}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>上次登录</strong>
+                &nbsp;&nbsp;时间：{{loginTime | date:'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+        </div>
+    </div>
+
+    <form role="form" name="accountModelForm"  ng-submit="submitUpdateForm()" novalidate >
+     <div class="col-md-6 col-md-offset-3" ng-show="account">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet light bordered" >
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <span class="caption-subject bold uppercase">个人信息编辑</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+               		<div class="row">
+						<div class="modal-body t-padding t-margin15">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><strong class="pull-right"><font
+                                        color="red">*</font>姓名:</strong></td>
+										<td><input
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" autocomplete="off" name="userName" maxlength="20"
+											ng-model="updateUser.name" value="" placeholder="姓名" required/>
+                                            <div class="error" ng-show="accountModelForm.submitted">
+                                            <div class="alert-danger well-sm"
+                                                    ng-show="accountModelForm.userName.$error.required">姓名不能为空</div>
+                                            </div>
+											</td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right"><font
+										color="red">*</font>邮箱:</strong></td>
+										<td class="ali-middle"><input
+											class="form-control form-control-solid placeholder-no-fix"
+											type="email"  ng-model="updateUser.email" maxlength="32" required
+											name="email" autocomplete="off">
+											<div class="error" ng-show="accountModelForm.submitted">
+											<div class="alert-danger well-sm"
+													ng-show="accountModelForm.email.$error.required">邮箱不能为空</div>
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.email.$error.email">请输入有效的电子邮件地址</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">电话:</strong></td>
+										<td class="ali-middle"><input class="form-control"
+											type="text" ng-model="updateUser.fixedTel" ng-pattern="/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/"
+											style="resize: none" name="fixedTel" maxlength="13">
+											<div class="error" ng-show="accountModelForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.fixedTel.$error.pattern">格式有误</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">手机:</strong></td>
+										<td class="ali-middle"><input class="form-control"
+											type="text" ng-model="updateUser.tel" ng-pattern="/^0?1[3|4|5|7|8][0-9]\d{8}$/"
+											style="resize: none" name="tel"  maxlength="11">
+											<div class="error" ng-show="accountModelForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.tel.$error.pattern">格式有误	</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">备注:</strong></td>
+										<td class="ali-middle"><textarea class="form-control" id="remarkTextAreaId"
+												ng-model="updateUser.remark" name="remark" rows="3" maxlength="100">备注</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+
+            </div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" name="accountUpdateSubmit" type="submit">确定</button>
+					<button class="btn btn-default" name="accountCancel" type="button" ng-click="cancelEdit()" >关闭</button>
+				</div>
+        </div>
+    </div>
+</form>
+</div>
+
+

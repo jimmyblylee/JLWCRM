@@ -1,0 +1,21 @@
+<div role="dialog" tabindex="-1" class="modal global-del">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header t-modal-header">
+				<button ng-click="$hide()" class="close" type="button">×</button>
+				<div class="caption ">提示</div>
+			</div>
+			<div class="modal-body" ng-bind-html="content"></div>
+			<div class="modal-footer t-modal-footer" ng-show="title">
+				<button class="btn btn-warning" id="globalPromptClose1"
+					ng-click="$hide()">关闭</button>
+			</div>
+			<div class="modal-footer t-modal-footer" ng-hide="title">
+				<button class="btn btn-primary" id="globalPromptConfirm"
+					ng-click="delGlobal()">确定</button>
+				<button class="btn btn-default" id="globalPromptClose"
+					ng-click="$hide()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<!-- 查看用户组详情  -->
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+		<form role="form" name="groupForm" novalidate >
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center02">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>		
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								用户组详情		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body" id="parentDeptModalView">
+								<table class="table table-bordered t-table-bottom0">
+									<tbody>
+										<tr>
+											<td class="active"><label class="pull-right">用户组编号:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value={{groupInfo.id}} name="adress" readonly disabled="disabled"></td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>用户组名称：</label></td>
+
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value={{groupInfo.name}} name="adress" readonly disabled="disabled"></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right"><font
+													color="red">*</font>用户组描述:</label></td>
+											<td colspan=3><textarea rows="3" disabled="disabled"
+													class="form-control form-control-solid placeholder-no-fix"
+													type="text" value={{groupInfo.desc}} ng-model=groupInfo.desc
+													name="adress" readonly></textarea></td>
+
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">权限:</label></td>
+											<td colspan=3><div
+													style="height: 60px; overflow: auto; overflow-y: yes;" readonly>
+													<ui>
+													<li ng-repeat="queryRolesList in roleList">{{queryRolesList.name}}</li>
+													</ui>
+												</div></td>
+
+										</tr>
+									</tbody>
+								</table>
+								 <div class="portlet-foot t-modal-footer row">                
+						           <button class="btn btn-default" id="groupInfoClose" ng-click="$hide()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,42 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog" id="addPerMissByRoleWin">
+		<div class="modal-dialog t-role-tree modal-portlet-dialog t-moda-center03  t-moda-left-center02"  id="addDictModal">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								权限设置		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()" > </a>
+				            </div>
+
+				        </div>
+				        <input ng-model="addPerMissRoleId" name="menuIds" type="hidden"	value="">
+				        <div class="portlet-body">
+				        	<div class="t-role-tree-auto">
+								<div id="officeTree" class="ztree roletree">
+									<treecontrol class="tree-dark" tree-model="funcTree"
+										expanded-nodes="expandedNodes" on-selection="showSelected(node)">
+									<span>
+										<button class=" button t-tree-btn chk"
+											ng-class="{'checkbox_true_full':node.checkbox_true,'checkbox_false_full':node.checkbox_false,'checkbox_true_part':node.checkbox_true_part}"
+											ng-click="buttonClick(node,$parentNode)" value="{{node.id}}"></button>{{node.label}}
+									</span>
+									 </treecontrol>
+								</div>
+							</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" type="button" ng-click="addPerMisByRole()" id="addPerMissByRoleWinSave">确定</button>
+									<button type="button" class="btn btn-default" id="addPerMissByRoleWinClose" ng-click="$hide()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	
+</div>
+

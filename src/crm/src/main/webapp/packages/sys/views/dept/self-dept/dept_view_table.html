@@ -1,0 +1,330 @@
+
+<table class="dept-info mt5">
+    <thead>
+        <tr>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="5.5%"></th>
+            <th width="6.5%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="18" style="font-size: 18px; font-weight: bold; text-align: center;">单位基本情况</td>
+        </tr>
+        <tr>
+            <td colspan="13"></td>
+            <td class="tr" colspan="5">表 号：JC001 企业基本情况表</td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">1</td>
+            <td class="t l" colspan="3">单位规范名称：</td>
+            <td class="t tu" colspan="7">{{dept.name}}</td>
+            <td class="t" colspan="2">简称：</td>
+            <td class="t tu" colspan="4">{{dept.orgNameShort}}</td>
+            <td class="t r" colspan="1"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">2</td>
+            <td class="t l" colspan="5">组织机构代码（统一社会信用代码）</td>
+            <td class="t tu" colspan="11">{{dept.orgCode}}</td>
+            <td class="t r" colspan="1"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" rowspan="3">3</td>
+            <td class="t l" colspan="4">行业代码（GB/T 4754-2011）</td>
+            <td class="t tu" colspan="12">{{dept.orgMainBizCode.value}}({{dept.orgMainBizCode.code}})</td>
+            <td class="t r" colspan="1"></td>
+        </tr>
+        <tr>
+            <td class="l r" colspan="17">主要活动（或主要产品）</td>
+        </tr>
+        <tr>
+            <td class="l tar" colspan="1">1</td>
+            <td class="tu" colspan="5">{{dept.orgMainBiz1}}</td>
+            <td class=" tar" colspan="1">2</td>
+            <td class=" tu" colspan="5">{{dept.orgMainBiz1}}</td>
+            <td class=" tar" colspan="1">3</td>
+            <td class="r tu" colspan="4">{{dept.orgMainBiz1}}</td>
+        </tr>
+        <tr>
+            <td class="t l tc" rowspan="5">4</td>
+            <td class="t l r" colspan="17">单位所在地及区划</td>
+        </tr>
+        <tr>
+            <td class="l tar tu" colspan="3">{{dept.orgAddProvince.value}}</td>
+            <td class="" colspan="3">省(自治区、直辖市)</td>
+            <td class="tar tu" colspan="3">{{dept.orgAddCity.value}}</td>
+            <td class="" colspan="3">地(区、市、州、盟)</td>
+            <td class="tar tu" colspan="3">{{dept.orgAddCounty.value}}</td>
+            <td class="r" colspan="2">县(区、市、旗)</td>
+        </tr>
+        <tr>
+            <td class="l  tar tu" colspan="4">{{dept.orgAddTown.value}}</td>
+            <td class="" colspan="2">乡（镇）</td>
+            <td class=" tar tu" colspan="8">{{dept.orgAddStreet}}</td>
+            <td class="r" colspan="3">街(村)、门牌号</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="2">单位位于</td>
+            <td class="tu" colspan="5">{{dept.orgAddDeptDetail}}</td>
+            <td class="" colspan="2">街道办事处</td>
+            <td class="tar tu" colspan="6">{{dept.orgAddVillage.value}}</td>
+            <td class="r" colspan="2">社区(居委会)</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="2">区划代码</td>
+            <td class="tu" colspan="5">{{dept.orgAddScopeCode}}</td>
+            <td class="" colspan="2">城乡代码</td>
+            <td class="tu" colspan="6">{{dept.orgAddVillageCode}}</td>
+            <td class="r" colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" rowspan="5">5</td>
+            <td class="t l r" colspan="17">单位注册地及区划</td>
+        </tr>
+        <tr>
+            <td class="l tar tu" colspan="3">{{dept.orgRegProvince.value}}</td>
+            <td class="" colspan="3">省(自治区、直辖市)</td>
+            <td class="tar tu" colspan="3">{{dept.orgRegCity.value}}</td>
+            <td class="" colspan="3">地(区、市、州、盟)</td>
+            <td class="tar tu" colspan="3">{{dept.orgRegCounty.value}}</td>
+            <td class="r" colspan="2">县(区、市、旗)</td>
+        </tr>
+        <tr>
+            <td class="l  tar tu" colspan="4">{{dept.orgRegTown.value}}</td>
+            <td class="" colspan="2">乡（镇）</td>
+            <td class=" tar tu" colspan="8">{{dept.orgRegStreet}}</td>
+            <td class="r" colspan="3">街(村)、门牌号</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="2">单位位于</td>
+            <td class="tu" colspan="5">{{dept.orgRegDeptDetail}}</td>
+            <td class="" colspan="2">街道办事处</td>
+            <td class="tar tu" colspan="6">{{dept.orgRegVillage.value}}</td>
+            <td class="r" colspan="2">社区(居委会)</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="2">区划代码</td>
+            <td class="tu" colspan="5">{{dept.orgRegScopeCode}}</td>
+            <td class="" colspan="2">城乡代码</td>
+            <td class="tu" colspan="6">{{dept.orgRegVillageCode}}</td>
+            <td class="r" colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">6</td>
+            <td class="t l" colspan="2">上级单位：</td>
+            <td class="t" colspan="3">（1）资产口径上级单位</td>
+            <td class="t tu" colspan="5">{{dept.parentAsset.name}}</td>
+            <td class="t" colspan="3">（2）区域管理上级单位</td>
+            <td class="t r tu" colspan="4">{{dept.parentMgmt.name}}</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">7</td>
+            <td class="t l" colspan="2">一厂多制：</td>
+            <td class="t r tu" colspan="15">
+                        <span class="margin-right-10" ng-repeat="item in dept.childrenPlant"
+                              bs-tooltip data-title="{{item.name}}">
+                            {{item.name | limitTo : 6}}{{item.name.length > 6 ? "..." : ""}}、
+                        </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">1</td>
+            <td class="t l" colspan="4">是否集团公司并表企业：</td>
+            <td class="t tu" colspan="2">{{dept.isConsolidated ? "是" : "否"}}</td>
+            <td class="t" colspan="2">1是 2否</td>
+            <td class="t" colspan="2">并表单位：</td>
+            <td class="t tu" colspan="6">{{dept.consolidatedDeptName}}</td>
+            <td class="t r" colspan="1"></td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">9</td>
+            <td class="t l" colspan="2">发电装机容量</td>
+            <td class="t tc tu" colspan="2">{{dept.orgInstalledCapacityGE}}</td>
+            <td class="t" colspan="2">万千瓦</td>
+            <td class="t" colspan="2">供热装机容量</td>
+            <td class="t tc tu" colspan="2">{{dept.orgInstalledCapacityHD}}</td>
+            <td class="t r" colspan="7">万千瓦</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">10</td>
+            <td class="t l" colspan="2">服务对象</td>
+            <td class="t tc tu" colspan="2">{{dept.orgServiceObject.value}}</td>
+            <td class="t r" colspan="13">1 公用电厂 2 自备电厂</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">11</td>
+            <td class="t l" colspan="2">调度方式</td>
+            <td class="t tc tu" colspan="2">{{dept.orgDispachStyle.value}}</td>
+            <td class="t r" colspan="13">1 国调直调 2 区域调度 3 省调 4 地调 5 县调</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">12</td>
+            <td class="t l" colspan="2">接入电网</td>
+            <td class="t tu tc" colspan="2">{{dept.orgInject.value}}</td>
+            <td class="t r" colspan="13">（如：京津唐电网、河北电网、河南省网）</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">13</td>
+            <td class="t l" colspan="2">能源利用类型1</td>
+            <td class="t tu tc" colspan="2">{{dept.orgEnergyUtilize1.value}}</td>
+            <td class="t r" colspan="13">1 水电 2 火电 3 风电 4 太阳能 5其他</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">14</td>
+            <td class="t l" colspan="2">能源利用类型2</td>
+            <td class="t " colspan="4">{{dept.orgEnergyUtilize2.value}}</td>
+            <td class="t r" colspan="11">1 燃煤（常规燃煤） 2 燃气（常规天然气） 3 煤矸石发电 4 煤层气发电 5 沼气发电 6 余温、余压、余气发电 7 垃圾焚烧发电 8 秸秆、蔗渣、林木质发电</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" rowspan="2">15</td>
+            <td class="t l" colspan="2">水库类型：</td>
+            <td class="t tc tu" colspan="2">{{dept.orgReservoirType.value}}</td>
+            <td class="t r" colspan="13">1径流式 2周调节 3季调节 4年调节 5多年调节</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="l" colspan="2">所属流域：</td>
+            <td class="r tu" colspan="15">{{dept.basin}}</td>
+        </tr>
+        <tr ng-hide="dept.orgLevelType == 9">
+            <td class="t l tc" colspan="1">16</td>
+            <td class="t l" colspan="3">设计利用小时：</td>
+            <td class="t tc tu" colspan="2">{{dept.designHour}}</td>
+            <td class="t r" colspan="12">小时</td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">17</td>
+            <td class="t l" colspan="4">法定代表人(单位负责人)</td>
+            <td class="t r tu" colspan="13">{{dept.orgLegalPerson}}</td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">18</td>
+            <td class="t l" colspan="2">开业(成立)时间</td>
+            <td class="t r" colspan="15">{{dept.orgFoundDate | limitTo : 4}}  年  {{dept.orgFoundDate | limitTo : 2 : 5}}  月</td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1" rowspan="10">19</td>
+            <td class="t l" colspan="2">登记注册类型</td>
+            <td class="t r tu" colspan="15">{{dept.orgSubregisterStyle.value}}</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="7">内资</td>
+            <td class="" colspan="4">港澳台投资</td>
+            <td class="r" colspan="6">外商投资</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">110国有</td>
+            <td class="" colspan="4">159其他有限责任公司</td>
+            <td class="" colspan="4">210与港澳台商合资经营</td>
+            <td class="r" colspan="6">310中外合资经营</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">120集体</td>
+            <td class="" colspan="4">160股份有限公司</td>
+            <td class="" colspan="4">220与港澳台商合作经营</td>
+            <td class="r" colspan="6">320中外合作经营</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">130股份合作</td>
+            <td class="" colspan="4">171私营独资</td>
+            <td class="" colspan="4">230港澳台商独资</td>
+            <td class="r" colspan="6">330外资企业</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">141国有联营</td>
+            <td class="" colspan="4">172私营合伙</td>
+            <td class="" colspan="4">240港澳台商投资股份有限公司</td>
+            <td class="r" colspan="6">340外商投资股份有限公司</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">142集体联营</td>
+            <td class="" colspan="4">173私营有限责任公司</td>
+            <td class="" colspan="4">290其他港澳台投资</td>
+            <td class="r" colspan="6">390其他外商投资</td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">143国有与集体联营</td>
+            <td class="" colspan="4">174私营股份有限公司</td>
+            <td class="" colspan="4"></td>
+            <td class="r" colspan="6"></td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">149其他联营</td>
+            <td class="" colspan="4">190其他</td>
+            <td class="" colspan="4"></td>
+            <td class="r" colspan="6"></td>
+        </tr>
+        <tr>
+            <td class="l" colspan="3">151国有独资公司</td>
+            <td class="" colspan="4"></td>
+            <td class="" colspan="4"></td>
+            <td class="r" colspan="6"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" rowspan="3" colspan="1">20</td>
+            <td class="t l r" colspan="17">股权构成情况（经济类型划分为：国有经济、集体经济、私有经济、港澳台经济和外商经济）</td>
+        </tr>
+        <tr>
+            <td colspan="1"></td>
+            <td colspan="15">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">股东名称</th>
+                            <th>经济类型</th>
+                            <th>出资比例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="stock in stockList">
+                            <td class="tc">{{$index + 1}}</td>
+                            <td class="tu tc" style="width: 30%;">{{stock.holder}}</td>
+                            <td class="tc tu" style="width: 30%;">{{stock.type.value}}</td>
+                            <td class="tc tu" style="width: 30%;">{{stock.ratio}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td class="r" colspan="1"></td>
+        </tr>
+        <tr>
+            <td class="r" colspan="17"></td>
+        </tr>
+        <tr>
+            <td class="t l tc" colspan="1">21</td>
+            <td class="t l" colspan="3">其他需要说明的情况:</td>
+            <td class="t r tu" colspan="14">{{dept.remark}}</td>
+        </tr>
+        <tr>
+            <td class="t tar" colspan="2">单位负责人：</td>
+            <td class="t tu" colspan="4">{{dept.orgPrincipal}}</td>
+            <td class="t tar" colspan="2">统计负责人：</td>
+            <td class="t tu" colspan="4">{{dept.orgStatisticsPrincipal}}</td>
+            <td class="t tar" colspan="2">填表人：</td>
+            <td class="t tu" colspan="4">{{dept.orgCreator}}</td>
+        </tr>
+        <tr>
+            <td class=" tar" colspan="2">联系电话：</td>
+            <td class="tu" colspan="4">{{dept.orgCreatorTel}}</td>
+            <td class=" tar" colspan="2">联系手机：</td>
+            <td class="tu" colspan="4">{{dept.orgCreatorMobile}}</td>
+            <td class=" tar" colspan="2">填报日期：</td>
+            <td class="tu" colspan="4">{{dept.orgCreateDate |date: 'yyyy年MM月dd日'}}</td>
+        </tr>
+    </tbody>
+</table>

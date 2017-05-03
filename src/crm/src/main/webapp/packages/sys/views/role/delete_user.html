@@ -1,0 +1,29 @@
+<div class="modal global-del" tabindex="-1" role="dialog" id="deleteUserByRoleInfoWindow">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header t-modal-header">
+				<button ng-click="$hide()" class="close" type="button">×</button>
+				<h4 class="modal-title">系统提示</h4>
+			</div>
+			<div class="modal-body">
+				<i class="layui-layer-ico layui-layer-ico3"></i>确认要将用户【 <i
+					class="layui-layer-ico layui-layer-ico3">{{deleteUserName}}</i> <i
+					class="layui-layer-ico layui-layer-ico3"></i>】从 <i
+					class="layui-layer-ico layui-layer-ico3"></i>【 <i
+					class="layui-layer-ico layui-layer-ico3">{{deleteUserByRole}}</i>】角色中移除吗？
+			</div>
+			<span class="layui-layer-setwin"><a
+				class="layui-layer-ico layui-layer-close layui-layer-close1"
+				href="javascript:;"></a></span>
+			<div class="modal-footer t-modal-footer">
+				<input type="hidden" name="id" ng-model="deleteUserId"> <input
+					type="hidden" name="id" ng-model="deleteUserByRoleId">
+				<button class="btn btn-primary" id="deleteUserByRoleInfoWindowSave"
+					 ng-click="deleteUser(deleteUserId,deleteUserByRoleId)">确定</button>
+				<button class="btn btn-default" id="deleteUserByRoleInfoWindowClose" ng-click="$hide()">
+					关闭</button>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,123 @@
+{
+    "home": {
+        "pageTitle": "首页",
+        "templateUrl": "packages/index/tpl/blank.html"
+    },
+    "files": {
+        "pageTitle": "文件管理",
+        "templateUrl": "packages/index/tpl/blank.html"
+    },
+    "self": {
+        "pageTitle": "个人资料",
+        "templateUrl": "packages/sys/views/profile/main.html",
+        "files": [
+            "packages/sys/css/profile-2.css",
+            "resources/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css",
+            "resources/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
+        ]
+    },
+    "todo": {
+        "pageTitle": "待办任务",
+        "templateUrl": "packages/ds/views/todo/main.html",
+        "files":[
+            "packages/ds/js/todo/ToDoMgntCtrl.js"
+        ]
+    },
+    "annc": {
+        "pageTitle": "系统公告",
+        "templateUrl": "packages/ds/views/annc/main.html",
+        "files":[
+            "packages/ds/js/annc/sysAnncCtrl.js",
+            "packages/ds/js/annc/sysAnncShowCtrl.js",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.css",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.js",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.zh-CN.js"
+        ]
+    },
+    "sys.settings": {
+        "pageTitle": "全局参数管理",
+        "templateUrl": "packages/index/tpl/blank.html"
+    },
+    "sys.menu": {
+        "pageTitle": "菜单管理",
+        "templateUrl":"packages/sys/views/func/func.html",
+        "files":[
+            "packages/sys/js/FuncController.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    },
+    "sys.role": {
+        "pageTitle": "角色管理",
+        "templateUrl":"packages/sys/views/role/sys_role.html",
+        "files":[
+            "packages/sys/js/RoleController.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    },
+    "sys.role.group": {
+        "pageTitle": "角色管理",
+        "templateUrl":"packages/sys/views/group/group.html",
+        "files":[
+            "packages/sys/js/GroupController.js"
+        ]
+    },
+    "sys.user": {
+        "pageTitle": "用户管理",
+        "templateUrl":"packages/sys/views/enterpriseUser/sys_user.html",
+        "files":[
+            "packages/sys/js/enterpriseUser/UserController.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    },
+    "sys.user.self": {
+        "pageTitle": "用户管理",
+        "templateUrl":"packages/sys/views/user/sys_user.html",
+        "files":[
+            "packages/sys/js/UserController.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    },
+    "sys.dept.mgmt": {
+        "pageTitle": "单位管理",
+        "templateUrl":"packages/sys/views/dept/sys_dept.html",
+        "files":[
+            "packages/sys/css/dept.css",
+
+            "packages/sys/js/DeptController.js",
+            "packages/sys/js/dept/DeptApplyCtrl.js",
+            "packages/sys/js/dept/DeptStockCtrl.js",
+            "packages/sys/js/dept/SelfDeptCtrl.js",
+
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
+            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+        ]
+    },
+    "sys.annc.mgmt": {
+        "pageTitle": "公告管理",
+        "templateUrl": "packages/sys/views/annc/main.html",
+        "controller": "AnnouMgntCtrl",
+        "files": [
+            "packages/sys/js/annc/AnncCtrl.js",
+            "packages/sys/js/annc/AnncAddCtrl.js",
+            "packages/sys/js/annc/AnncModifyCtrl.js",
+            "packages/sys/js/annc/AnncShowCtrl.js",
+             "packages/sys/js/annc/ModifyUploadFileCtrl.js",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.css",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.js",
+            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.zh-CN.js"
+        ]
+    }
+}

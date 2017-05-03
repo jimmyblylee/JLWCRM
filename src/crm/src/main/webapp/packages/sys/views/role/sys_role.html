@@ -1,0 +1,177 @@
+<div class="ibox" ng-controller="RoleInfoCtrl" id="roleInfoPage">
+    <ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
+
+	<div class="row mt10" >
+	<!-- BEGIN EXAMPLE TABLE PORTLET-->
+	<div class="portlet light bordered full-height-content" >
+		<div class="portlet-body" id="modalView">
+			<div class="row search-bar">
+				<div class="form-group col-md-12 col-lg-4">
+					 <button type="button" class="btn btn-default btn-sm"
+						ng-click="addRoleInfo()" id="addRoleInfo">
+						<span class="glyphicon glyphicon-plus"></span> 添加
+					</button>
+					<button type="button" class="btn btn-default btn-sm"
+						data-target="#deleteRecoverRoleWin" data-toggle="modal"
+						ng-show="deleteRoleButton" id="deleteRoleInfo"
+						ng-click='deleteRoleList("deleteRoleList")'>
+						<span class="fa fa-trash-o"></span> 批量删除
+					</button>
+					<button type="button" class="btn btn-default btn-sm"
+						data-target="#deleteRecoverRoleWin" data-toggle="modal"
+						ng-show="recoverRoleButton" id="recoverRoleInfo"
+						ng-click='recoverRoleList("recoverRoleList")'>
+						<span class="glyphicon glyphicon-repeat"></span> 批量恢复
+					</button>
+					<button type="button" class="btn btn-default btn-sm"
+						ng-click="refreshUserList()" id="refreshRoleInfo">
+						<span class="glyphicon glyphicon-repeat"></span> 刷新
+					</button>
+				</div>
+				<div class="form-inline text-right col-md-12 col-lg-8 t-form-inline" >
+					   <div class="form-group setEnabled"  id="globalState">
+					     <label>状态:&nbsp;</label>
+						 <div class="btn-group">
+							<select ng-model="roleInfo.roleStatus" id="roleStatusSelect"
+								ng-options='roleIsEnabledJson.code as roleIsEnabledJson.value group by roleIsEnabledJson.group for roleIsEnabledJson in roleIsEnabledJson'
+								class="form-control valid" ng-click="getRoleIsEnabled()">
+							</select>
+						 </div>
+					  </div>
+					  <div class="form-group">
+					   <input type="text" ng-model="roleInfo.queryParams"
+							class="form-control form-control-solid" value="" id="roleNameQuery" placeholder="角色名称"  ng-keyup="keyup($event)">
+					  </div>
+					   <div class="form-group">
+						 <button type="button" 	id="queryRoleInfoByName" ng-click="requestPageService('false')" class="btn submit green t-btn-green">
+								 <span class="glyphicon glyphicon-search"></span> 搜索
+							</button>
+						</div>
+				</div>
+		</div>
+			<div class="table-responsive">
+					<table class="table-both-scroll full-height-content" style="min-width:920px;" >
+						<thead>
+							<tr>
+								<th>
+									<table
+										class="table table-striped table-bordered table-hover table-checkable order-column"	>
+										<thead>
+											<tr>
+												<th class="width-50px"><input type="checkbox" id="roleCheckParent"
+													ng-click="checkAll()" /></th>
+												<th class="text-center wid220px">角色名称</th>
+												<th class="text-center wid180px">备注</th>
+												<th class="text-center" style="width: 400px;">操作</th>
+											</tr>
+										</thead>
+										</table>
+
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<table
+											class="table table-striped table-bordered table-hover table-checkable order-column"	>
+											<tbody>
+												<tr class="odd gradeX" ng-repeat="item in roleList">                    <!--如果是超级用户可以全部显示，或者不是超级用户但是false的  -->
+													<td class="width-50px"><input type="checkbox" name="roleCheckChild" ng-if="sysUserType == 'ADMIN' || (sysUserType != 'ADMIN' && item.isBaseRole  == false)"
+														value="{{item.id}}"></td>
+													<td class="wid220px text-center ">{{item.name}}</td>
+													<td class="wid180px">{{item.desc }}</td>
+													<td style="width: 400px;" class="text-center ">
+														<button type="button" class="btn green btn-xs" id="viewRoleInfoWin"
+															ng-click="viewRole(item.id)" >
+															<span class="fa fa-search-plus"></span> 查看
+														</button>
+
+														<button type="button" class="btn btn-primary btn-xs" id="updateRoleInfoWin"
+															ng-click="changeRole(item.id)" ng-show="deleteRoleButton" ng-disabled="item.isBaseRole  == true && sysUserType != 'ADMIN'">
+															<span class="fa fa-edit"></span> 修改
+														</button>
+														<button type="button" ng-show="deleteRoleButton"
+															class="btn btn-danger btn-xs" id="deleteRoleInfoWin" ng-disabled="item.isBaseRole  == true && sysUserType != 'ADMIN'"
+															ng-click="deleteRole(item.id,bigCurrentPage)">
+															<i class="fa fa-trash" ></i> 删除
+														</button>
+														<button type="button" ng-show="recoverRoleButton"
+															class="btn btn-danger btn-xs" id="recoverRoleInfoWin"  ng-disabled="item.isBaseRole  == true && sysUserType != 'ADMIN'"
+															ng-click="recoverRole(item.id,bigCurrentPage)">
+															<i class="fa fa-undo"></i> 恢复
+														</button>
+														<button type="button" ng-show="deleteRoleButton" id="addPerMinssFuncWin"   ng-disabled="item.isBaseRole  == true && sysUserType != 'ADMIN'"
+															class="btn green btn-xs" ng-click="addPerMissButton(item.id)">
+															<span class="fa fa-edit"></span> 权限设置
+														</button>
+														<button type="button" ng-show="deleteRoleButton"  ng-disabled="item.isBaseRole  == true && sysUserType != 'ADMIN'"
+															class="btn btn-warning btn-xs" id="addUserByRoleInfo"
+															ng-click="userRoleList(item.id,item.name)">
+															<span class="glyphicon glyphicon-plus"></span> 分配用户
+														</button>
+
+													</td>
+												</tr>
+											</tbody>
+										</table>
+								</td>
+
+							</tr>
+						</tbody>
+					 </table>
+		</div>
+
+		<div class="row">
+
+			<div class="pull-left mt20 col-md-5">
+				<label>总共 {{bigTotalItems}} 条记录，每页显示</label><select id="roleInfoPageNumber"
+					ng-change="changRolePage()"
+					ng-model='itemsPerPage'
+					ng-options='Pagenum as Pagenum group by Pagenum.group for Pagenum in Pagenum' class="pagenuml">
+				</select>条记录
+			</div>
+
+			<div class="pull-right col-md-7 text-right">
+				<pagination total-items="bigTotalItems" ng-model="bigCurrentPage" id="roleInfoPage"
+					items-per-page="itemsPerPage"  max-size="4" class="pagination-sm"
+					boundary-links="true" rotate="false" previous-text="&lsaquo;"
+					next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+					ng-change="requestPageService('true')"></pagination>
+			</div>
+
+		</div>
+	</div>
+	</div>
+</div>
+		<div aria-hidden="true" aria-labelledby="deleteRoleListModel"
+			role="dialog" tabindex="10" class="modal global-del" id="deleteRecoverRoleWin">
+			<form role="form" name="editorForm" ng-submit="submitForm()"
+				novalidate >
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header t-modal-header">
+							<button aria-hidden="true" data-dismiss="modal" class="close"
+								type="button">×</button>
+							<h4 class="modal-title" style="font-weight: bold">系统提示</h4>
+						</div>
+						<div class="modal-body">{{warnMessage}}</div>
+						<div class="modal-footer t-modal-footer" ng-show='deleteRoleButton'>
+							<button class="btn btn-primary" data-dismiss="modal"
+								ng-show='confirmShow' id="deleteRoleInfoWinConfirm"
+								ng-click='deleteRoleList("delete")'>确定</button>
+							<button class="btn btn-default" data-dismiss="modal" id="deleteRoleInfoWinClose"
+								ng-show="confirmErrorShow" ng-click='deleteRoleList("clear")'>关闭</button>
+						</div>
+						<div class="modal-footer t-modal-footer" ng-show='recoverRoleButton'>
+							<button class="btn btn-primary" data-dismiss="modal" id="recoverRoleInfoWinCinfirm"
+								ng-show='confirmShow' id="confirm"
+								ng-click='recoverRoleList("recover")'>确定</button>
+							<button class="btn btn-default" data-dismiss="modal"
+								ng-show="confirmErrorShow" ng-click='recoverRoleList("clear")'  id="recoverRoleInfoWinclose">关闭</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+</div>

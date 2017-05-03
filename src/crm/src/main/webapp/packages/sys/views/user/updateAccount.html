@@ -1,0 +1,72 @@
+<div class="modal" tabindex="-1" role="dialog" >
+	<form role="form" name="accountModelForm"
+		ng-submit="submitAccountForm()" novalidate >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header t-modal-header">
+					<button ng-click="$hide()" class="close" type="button">×</button>
+					<h4 class="modal-title" id="show_title">个人信息编辑</h4>
+				</div>
+				
+						<div class="modal-body">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><strong class="pull-right">姓名:</strong></td>
+										<td><input
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" autocomplete="off" name="userName" required
+											ng-model="updateUser.name" value="" placeholder="姓名" />
+											<div class="error" ng-show="accountModelForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.userName.$error.required">姓名不能为空</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">邮箱:</strong></td>
+										<td class="ali-middle"><input
+											class="form-control form-control-solid placeholder-no-fix"
+											type="email" required ng-model="updateUser.email"
+											name="email" autocomplete="off">
+											<div class="error" ng-show="accountModelForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.email.$error.email">请输入有效的电子邮件地址</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">电话:</strong></td>
+										<td class="ali-middle"><input class="form-control"
+											type="text" ng-model="updateUser.fixedTel"
+											style="resize: none" name="variableDescribe"></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">手机:</strong></td>
+										<td class="ali-middle"><input class="form-control"
+											type="text" required ng-model="updateUser.tel"
+											style="resize: none" name="telephone">
+											<div class="error" ng-show="accountModelForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="accountModelForm.telephone.$error.required">手机号码不能为空</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="ali-middle"><strong class="pull-right">备注:</strong></td>
+										<td class="ali-middle"><textarea class="form-control"
+												ng-model="updateUser.remark" name="remark" rows="3">备注</textarea>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+				
+				<div class="modal-footer t-modal-footer">
+					<button class="btn btn-primary" type="submit">确定</button>
+					<button class="btn btn-default" ng-click="$hide()">关闭</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+

@@ -1,0 +1,21 @@
+<div class="modal global-del" tabindex="-1" role="dialog" id="exitWindow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header t-modal-header">
+                <button ng-click="$hide()" class="close" type="button">×</button>
+                <h4 class="modal-title">系统提示</h4>
+            </div>
+
+            <div class="modal-body">
+                <i class="layui-layer-ico layui-layer-ico3"></i>您确定要退出吗？
+            </div>
+            <div class="modal-footer t-modal-footer"  ng-hide="title">
+                <button class="btn btn-primary" id="conExitWindow"
+                        ng-click="confirmExitSys()">确定</button>
+                <button class="btn btn-default" id="hideExitWindowClose" ng-click="$hide()">
+                    关闭</button>
+            </div>
+        </div>
+
+    </div>
+</div>

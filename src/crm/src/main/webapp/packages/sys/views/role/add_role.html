@@ -1,0 +1,73 @@
+
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="roleForm" ng-submit="addRole()" novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								新增角色		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="addhideModal();"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+								<table class="table table-bordered t-table-bottom0">
+									<tbody>
+										<tr>
+											<td class="active wid140px"><label class="pull-right"><font
+													color="red">*</font>角色名称:</label></td>
+											<td class="wid330px"><input ng-model="role.name" name="name"
+												class="form-control" type="text" value=""
+												ng-maxlength="32" aria-required="true" required
+												aria-invalid="true">
+												<div class="error" ng-show="roleForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="roleForm.name.$error.required">角色名称不能为空</div>
+													<div class="alert-danger well-sm"
+														ng-show="roleForm.name.$error.maxlength">角色名称长度最长32位</div>
+													<div class="alert-danger well-sm"
+														ng-show="addRoleNameErrorShow" ng-model="addRoleNameError">
+													</div>
+												</div></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">是否系统数据:</label></td>
+											<td class="wid330px">
+											<select  class="form-control" ng-model="roleTypeCode"
+												ng-options='roleIsVisibleJosns.code as roleIsVisibleJosns.value group by roleIsVisibleJosns.group for roleIsVisibleJosns in roleIsVisibleJosns'
+												class="form-control valid"></select><span class="help-inline">“是”代表此数据只有超级用户能进行修改，“否”则表示拥有角色修改人员的权限都能进行修改，默认情况下为“否”</span></td>								
+
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">备注:</label></td>
+											<td class="wid330px"><textarea ng-model="role.desc"
+													name="desc" ng-maxlength="64" class="form-control " rows="3" class="form-control"></textarea>
+												<div class="error" ng-show="roleForm.submitted">
+
+													<div class="alert-danger well-sm"
+														ng-show="roleForm.desc.$error.maxlength">备注信息长度最长64位</div>
+													<div class="alert-danger well-sm"
+														ng-show="addRoleNameErrorShow" ng-model="addRoleNameError">
+													</div>
+												</div></td>
+										</tr>
+									</tbody>
+								</table>
+								 <div class="portlet-foot t-modal-footer row">                
+						            	<button class="btn btn-primary" type="submit" id="addrole-submit-btn">确定</button>
+										<button type="button" class="btn btn-default" ng-click="addhideModal()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+

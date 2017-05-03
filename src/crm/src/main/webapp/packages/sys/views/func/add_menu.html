@@ -1,0 +1,66 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <form role="form" name="addMenuFrom" 
+        novalidate >
+        <div class="modal-dialog" id="container02">
+            <div class="modal-content">
+                <div class="modal-header t-modal-header">
+                    <button ng-click="$hide()" class="close" type="button">×</button>
+                    <h4 class="modal-title" >添加菜单 </h4>
+                </div>              
+                        <div class="modal-body">
+                            <table class="table table-bordered t-table-bottom0">
+                                <tbody>
+                                    <tr>
+                                        <td class="active"><label class="pull-right">上级菜单:</label></td>
+                                        <td><input
+                                            class="form-control form-control-solid placeholder-no-fix"
+                                            type="text"  readonly="readonly"
+                                            placeholder="上级菜单已默认" 
+                                            name="parentname" ng-model="parentname" /> <input
+                                            id="parentid" name="parentid" class="form-control"
+                                            type="hidden" ng-model="formData.parent.id"></td>
+                                        <td class="active"><label class="pull-right">菜单名称：</label></td>
+                                        <td><input
+                                            class="form-control form-control-solid placeholder-no-fix"
+                                            type="text" placeholder="菜单名称" name="name" required
+                                            ng-model="formData.name" />
+                                            <div class="error" ng-show="deptModelForm.submitted">
+                                                <div class="alert-danger well-sm"
+                                                    ng-show="addMenuFrom.name.$error.required">菜单名称不能为空.</div>
+                                            </div></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="active"><label class="pull-right">编码名称：</label></td>
+                                        <td><input
+                                            class="form-control form-control-solid placeholder-no-fix"
+                                            type="text" placeholder="编码名称" name="code" required
+                                            ng-model="formData.code" />
+                                            <div class="error" ng-show="deptModelForm.submitted">
+                                                <div class="alert-danger well-sm"
+                                                    ng-show="addMenuFrom.code.$error.required">编码名称不能为空.</div>
+                                            </div></td>
+                                        <td class="active ali-middle"><label class="pull-right">URL:</label></td>
+                                        <td class="ali-middle"><input
+                                            class="form-control form-control-solid placeholder-no-fix"
+                                            type="text" value="" ng-model="formData.url"
+                                            name="orderby" placeholder="URL:"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="active ali-middle"><label class="pull-right">类型:</label></td>
+                                        <td><div >
+                                            <input type="text" ng-value="{{funcType.typeCode}}" >
+                                        </div>                                        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+           
+                <div class="modal-footer t-modal-footer">
+                    <button class="btn btn-primary" type="submit" ng-click="addMenuFuncs(formData)">确定</button>
+                    <button class="btn btn-default" ng-click="$hide()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

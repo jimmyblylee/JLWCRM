@@ -1,0 +1,18 @@
+{
+    "color" : {
+        "DEPT_REGISTER":"blue",
+        "DEPT_UPDATE":"yellow-gold",
+        "DEPT_DELETE":"red",
+        "EQP_REGISTER":"blue",
+        "EQP_UPDATE":"yellow-gold",
+        "EQP_DELETE":"blue"
+    },
+    "message" : {
+        "DEPT_REGISTER":"注册新企业",
+        "DEPT_UPDATE":"申请企业信息变更",
+        "DEPT_DELETE":"申请企业注销",
+        "EQP_REGISTER":"注册电厂新设备",
+        "EQP_UPDATE":"申请电厂设备变更",
+        "EQP_DELETE":"申请退役设备"
+    }
+}

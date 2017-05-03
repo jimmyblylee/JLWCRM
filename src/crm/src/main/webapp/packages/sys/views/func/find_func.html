@@ -1,0 +1,118 @@
+ <div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="updaFuncsForm" ng-submit="updateFuncs()"
+		novalidate="novalidate">
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03"  id="updateFuncInfoWin">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption" ng-show="viewFuncShow">			
+								查看菜单	
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+							<div class="error" ng-show="updaFuncsForm.funcCheckLinkAndLinkValue">
+								<div class="alert-danger well-sm" ng-show="upFuncErrMsg">{{errorUpFuncMsg}}</div>
+							</div>
+							<table class="table table-bordered t-table-bottom0">
+								<tbody>
+									<tr>
+										<td class="active wid100px" ><label
+											class="pull-right">上级菜单:</label></td>
+										<td id="addSelParentFunc" class="wid220px" >
+											<div class="input-group">
+												<input disabled="disabled" readonly="readonly" id="funcName"
+													style="cursor: pointer"
+													class="form-control form-control-solid placeholder-no-fix"
+													type="text" name="parentname"
+													ng-model="updateFuncInfoParentName"  /> <span
+													class="input-group-btn">
+													<button type="button" class="btn green ">
+														<i class="fa fa-search"></i>
+													</button>
+												</span>
+											</div> <input disabled="disabled" type="hidden" ng-model="updateFuncInfoParentId" />
+										</td>
+										<td class="active wid100px" ><label
+											class="pull-right"><font color="red">*</font>菜单名称：</label></td>
+										<td><input disabled="disabled"
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" placeholder="菜单名称" name="name" required
+											ng-maxlength="15" ng-model="updateFuncInfo.name" />
+											<div class="error" ng-show="updaFuncsForm.submitted">
+												<div class="alert-danger well-sm"
+													ng-show="updaFuncsForm.name.$error.required">菜单名称不能为空.</div>
+												<div class="alert-danger well-sm"
+													ng-show="updaFuncsForm.name.$error.maxlength">菜单名称最大为15位</div>
+											</div></td>
+									</tr>
+									<tr>
+										<td class="active"><label class="pull-right">路由配置:</label></td>
+										<td ><input disabled="disabled"
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" placeholder="路由配置" name="code" maxlength="30"
+											ng-model="updateFuncInfo.code" /></td>
+										<td class="active"><label class="pull-right">图标:</label></td>
+										<td class="wid220px">
+											<div class="input-group">
+												<input disabled="disabled" readonly="readonly" id="funcName"
+													class="form-control form-control-solid placeholder-no-fix"
+													type="text" name="parentname" ng-model="icon" /> <span
+													class="input-group-btn">
+													<button type="button" class="btn green ">
+														<i class="fa fa-search"></i>
+													</button>
+												</span>
+											</div>
+										</td>
+
+
+									</tr>
+									<tr>
+										<td class="active"><label class="pull-right">功能类型:</label></td>
+										<td><select disabled="disabled" ng-model="funcTypeCode"
+											ng-options='funcTypeCodeJosns.code as funcTypeCodeJosns.value group by funcTypeCodeJosns.group for funcTypeCodeJosns in funcTypeCodeJosns'
+											class="form-control valid">
+										</select></td>
+										<td class="active"><label class="pull-right">是否可用:</label></td>
+										<td><select disabled="disabled" ng-model="funcIsVisible"
+											ng-options='funcIsVisibleJosns.code as funcIsVisibleJosns.value group by funcIsVisibleJosns.group for funcIsVisibleJosns in funcIsVisibleJosns'
+											class="form-control valid"></select></td>
+									</tr>
+									<tr>
+										<td class="active"><label class="pull-right"><font color="red">*</font>排序:</label></td>
+										<td><input disabled="disabled"
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" placeholder="排序" name="order" maxlength="6"
+											ng-blur="checkSort()" 
+											ng-model="updateFuncInfo.order" />
+											
+										   <div class="alert-danger well-sm" ng-show="orderError">排序必须是数字!</div>	
+										</td>
+
+										<td class="active"><label class="pull-right">链接:</label></td>
+										<td class="ali-middle"><input disabled="disabled"
+											class="form-control form-control-solid placeholder-no-fix"
+											type="text" ng-model="updateFuncInfo.url" id="funcUpUrlId" placeholder="链接"  ng-blur="checkUrl()" ng-focus="urlFocus()"
+											maxlength="150">
+											<div class="alert-danger well-sm" ng-show="urlError">链接格式有误!</div>
+											</td>
+									</tr>
+								</tbody>
+							</table>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" ng-click="$hide()" ng-show="viewFuncShow">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

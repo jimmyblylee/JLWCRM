@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm.xsd"
+                 version="2.1">
+
+    <!-- QUERY START SYS_GROUP_ROLE -->
+    <named-query name="sys.hql.removeRelOfGroupRoleByGroupId">
+        <query>
+            <![CDATA[delete from RelSysGroupRole where groupId = :groupId]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.removeRelOfGroupRoleByGroupIdAndRoleId">
+        <query>
+            <![CDATA[delete from RelSysGroupRole where groupId = :groupId and roleId = :roleId]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getRelOfGroupRoleByGroupIdAndRoleId">
+        <query>
+            <![CDATA[from RelSysGroupRole where groupId = :groupId and roleId = :roleId]]>
+        </query>
+    </named-query>
+    <!-- QUERY END SYS_GROUP_ROLE -->
+
+
+    <!-- QUERY START SYS_ROLE_FUNC -->
+    <named-query name="sys.hql.removeRelOfRoleFuncByRoleId">
+        <query>
+            <![CDATA[delete from RelSysRoleFunc where roleId = :roleId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeRelOfRoleFuncByRoleIdAndFuncId">
+        <query>
+            <![CDATA[delete from RelSysRoleFunc where roleId = :roleId and funcId = :funcId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.queryRoleFuncByFuncId">
+        <query>
+            <![CDATA[ from RelSysRoleFunc where funcId = :funcId]]>
+        </query>
+    </named-query>
+    <!-- QUERY END SYS_ROLE_FUNC -->
+
+    <!-- QUERY START SYS_USER_GROUP -->
+    <named-query name="sys.hql.removeRelOfUserGroupByGroupId">
+        <query>
+            <![CDATA[delete from RelSysUserGroup where groupId = :groupId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeRelOfUserGroupByGroupIdAndUserId">
+        <query>
+            <![CDATA[delete from RelSysUserGroup where groupId = :groupId and userId = :userId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeRelOfUserGroupByUserId">
+        <query>
+            <![CDATA[delete from RelSysUserGroup where userId = :userId]]>
+        </query>
+    </named-query>
+    <!-- QUERY END SYS_USER_GROUP -->
+
+    <!-- QUERY START SYS_USER_ROLE -->
+    <named-query name="sys.hql.removeRelOfUserRoleByUserId">
+        <query>
+            <![CDATA[delete from RelSysUserRole where userId = :userId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeRelOfUserRoleByRoleIdAndUserId">
+        <query>
+            <![CDATA[delete from RelSysUserRole where userId = :userId and roleId = :roleId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.getRelOfUserRoleByRoleIdAndUserId">
+        <query>
+            <![CDATA[from RelSysUserRole where userId = :userId and roleId = :roleId]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeRelOfUserRoleByRoleId">
+        <query>
+            <![CDATA[delete from RelSysUserRole where roleId = :roleId]]>
+        </query>
+    </named-query>
+    <!-- QUERY END SYS_USER_ROLE -->
+</entity-mappings>

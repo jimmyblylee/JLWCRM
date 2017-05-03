@@ -1,0 +1,56 @@
+<div class="modal" tabindex="-1" role="dialog">
+	<form role="form" class="form-horizontal" validate>
+		<div class="modal-dialog"
+			style="width: 30%; margin-top: 60px; margin-bottom: 0px;">
+			<div class="tab-content">
+				<div class="portlet box form blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-settings"></i> <span
+								class="caption-subject bold uppercase ng-binding">修改组名称</span>
+						</div>
+						<div class="tools">
+							<a ng-click="$hide()" href=""
+								class="remove"> </a>
+						</div>
+					</div>
+					<div class="portlet-body"
+						style="padding: 0px; height: auto;  display: block;">
+						<div class="portlet light " style="margin-bottom: 1px;">
+							<div class="portlet-body form">
+								<table class="table table-striped table-bordered table-hover table-checkable order-column mt20">
+								<tbody>
+									<tr class="odd gradeX">
+											<td class="active text-center" style="width: 5%;vertical-align: middle"><span
+												style="color: red">*</span>组名称</td>
+											<td class="text-center" style="width: 30%;vertical-align: middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value="" ng-model="selected.name" placeholder="请输入中文"
+												required >
+											</td>
+									</tr>
+								</tbody>
+								</table> 
+							</div>
+							<div class="form-actions" style="padding: 5px">
+							<input type="hidden" ng-model="tabId"
+								class="ng-pristine ng-untouched ng-valid">
+							<div class="row pull-right" style="padding-right: 20px">
+                                <button class="btn green btn-sm"
+                                    ng-click="saveGroupName()" style="margin-right: 5px">
+                                    <i class="fa fa-check"></i>保存
+                                </button>
+								<button class="btn btn-default btn-sm " ng-click="$hide()">
+									<i class="fa fa-times"></i>关闭
+								</button>
+							</div>
+						</div>
+						</div> 
+						
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

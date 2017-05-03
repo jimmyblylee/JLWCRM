@@ -1,0 +1,73 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="roleForm" ng-submit="addRole()" novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03"  >
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								分配用户		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body" id="addUserbyRole">
+				        	<div class="t-role_auto">
+										<div class="container-fluid breadcrumb">
+											<div class="row-fluid span12">
+												<span class="span4">角色名称: <b>{{addUserRoleName}}</b></span>
+											</div>
+											<input type="hidden" name="id" ng-model="addUserRoleId">
+										</div>
+
+										<div class="breadcrumb">
+											<button id="assignButton" class="btn btn-outline btn-primary btn-sm"
+												title="添加人员" ng-click="addUser(addUserRoleId)">
+												<i class="fa fa-plus"></i> 添加人员
+											</button>
+										</div>
+										<div class="t-role_table_auto">
+										<table id="contentTable"
+											class="table table-striped table-bordered t-table-bottom0">
+											<thead>
+												<tr>
+													<th>归属机构</th>
+													<th>登录名</th>
+													<th>姓名</th>
+													<th>电话</th>
+													<th>手机</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="odd gradeX" ng-repeat="item in addUserItems">
+													<td>{{item.dept.name}}</td>
+													<td>{{item.account}}</td>
+													<td>{{item.name}}</td>
+													<td>{{item.fixedTel}}</td>
+													<td>{{item.tel}}</td>
+													<td>
+														<a href="#" style="color:#337ab7; text-decoration: none;" id="removeUserByUSerId"
+															ng-click='deleteUsersByRoleId(item.id,addUserRoleId,item.name)'>
+															移除
+														</a></td>
+												</tr>
+											</tbody>
+										</table>
+										</div>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            	 <button type="button" class="btn btn-default" id="addUserbyRoleWinClose" ng-click="$hide()" >关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+

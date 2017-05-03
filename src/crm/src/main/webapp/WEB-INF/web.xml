@@ -30,6 +30,16 @@
         <url-pattern>/mvc/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <display-name>LoginFilter</display-name>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.asdc.jbp.sys.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/mvc/dispatch</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
