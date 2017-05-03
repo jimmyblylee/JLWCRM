@@ -1,0 +1,128 @@
+ <div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="addFuncsForm" ng-submit="addFuncs()"
+		novalidate="novalidate">
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03" id="addFuncInfoWin">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								{{funcAddTitle}}		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="closefuncAdd()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+								<div class="error" ng-show="addFuncsForm.funcCheckLinkAndLinkValue">
+									<div class="alert-danger well-sm" ng-show="funcErrMsg">{{errorFuncMsg}}</div>
+								</div>
+								<div class="alert-danger well-sm" ng-show="funcTypeAndLink">当选择的类型为链接时,链接值不能为空</div>
+								<div class="alert-danger well-sm" ng-show="funcTypeAndCode">当选择的类型为模块时,路由配置不能为空</div>
+								<div class="alert-danger well-sm" ng-show="funcIsExit">路由是唯一的</div>
+								<div class="alert-danger well-sm" ng-show="funcIsExitYes">已删除了此路由,可以恢复</div>
+								<table class="table table-bordered t-table-bottom0">
+									<tbody>
+										<tr>
+											<td class="active wid100px"><label
+												class="pull-right">上级菜单:</label></td>
+											<td  id="addSelParentFunc"
+												ng-click="chooseParentFunc()" class="wid220px">
+												<div class="input-group">
+													<input readonly="readonly" id="funcName"
+														style="cursor: pointer"
+														class="form-control form-control-solid placeholder-no-fix"
+														type="text" name="parentname"
+														ng-model="addFuncInfoParentName" /> <span
+														class="input-group-btn">
+														<button type="button" class="btn green ">
+															<i class="fa fa-search"></i>
+														</button>
+													</span>
+												</div> <input type="hidden" ng-model="addFuncInfoParentId" />
+											</td>
+											<td class="active wid100px" ><label
+												class="pull-right"><font color="red">*</font>菜单名称：</label></td>
+											<td class="wid220px"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" placeholder="菜单名称" name="name" required
+												maxlength="15" ng-model="formData.name" />
+												<div class="error" ng-show="addFuncsForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="addFuncsForm.name.$error.required">菜单名称不能为空</div>
+													<div class="alert-danger well-sm"
+														ng-show="addFuncsForm.name.$error.maxlength">菜单名称最大为15位</div>
+												</div></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">路由配置:</label></td>
+											<td ><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" placeholder="路由配置" name="code" id="codeId"
+												maxlength="30" ng-model="formData.code" ng-focus = "hideErrorCode()"/>
+												<div class="error" ng-show="addFuncsForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="addFuncsForm.code.$error.maxlength">路由配置最大为30位</div>
+												</div></td>
+											<td class="active"><label class="pull-right">图标:</label></td>
+											<td class="wid220px" ng-click="chooseIcon()">
+												<div class="input-group">
+														<input readonly="readonly" id="funcName"
+															class="form-control form-control-solid placeholder-no-fix"
+															type="text" name="parentname" ng-model="icon" />
+															<span class="input-group-btn">
+																<button type="button" class="btn green ">
+																	<i class="fa fa-search"></i>
+																</button>
+														   </span>
+													</div>
+											</td>								
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">功能类型:</label></td>
+											<td><select ng-model="funcTypeCode" ng-click="getData()" ng-change="hideErrorTypeInfo()"
+												ng-options='funcTypeCodeJosns.code as funcTypeCodeJosns.value group by funcTypeCodeJosns.group for funcTypeCodeJosns in funcTypeCodeJosns'
+												class="form-control valid">
+											</select></td>
+												
+											<td class="active"><label class="pull-right">是否可用:</label></td>
+											<td><select ng-model="funcIsVisible"
+												ng-options='funcIsVisibleJosns.code as funcIsVisibleJosns.value group by funcIsVisibleJosns.group for funcIsVisibleJosns in funcIsVisibleJosns'
+												class="form-control valid"></select></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right"><font color="red">*</font>排序:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix" id="orderId"
+												type="text" placeholder="排序" name="order" ng-blur="checkSort()" required
+												ng-change="changeSort()" maxlength="6" ng-model="formData.order" />
+												
+												<div class="error" ng-show="addFuncsForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="addFuncsForm.order.$error.required">排序不能为空</div>
+												</div>
+												<div class="alert-danger well-sm" ng-show="orderError">排序只能输入整数</div>
+											</td>
+												
+											<td class="active"><label class="pull-right">链接:</label></td>
+											<td class="ali-middle"><input  placeholder="链接" maxlength="150" 
+												class="form-control form-control-solid placeholder-no-fix"	type="text"  ng-focus="urlFocus()"
+												ng-model="formData.url" id="funcUrlId">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" type="submit">确定</button>
+									<button class="btn btn-default" type="button" ng-focus="closefuncAdd();">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

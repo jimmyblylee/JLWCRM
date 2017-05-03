@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm.xsd"
+                 version="2.1">
+    <named-query name="sys.hql.getUserIdByAccountAndPwd">
+        <query>
+            <![CDATA[select id from SysUserPwd where account = :account and password = :password and isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getUserIdByAccount">
+        <query>
+            <![CDATA[select id from SysUser where account = :account and isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getCountByAccount">
+        <query>
+            <![CDATA[select count(*)  from SysUser where account = :account]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getUserByAccount">
+        <query>
+            <![CDATA[select u from SysUser as u where u.account = :account]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getUserIdByEmail">
+        <query>
+            <![CDATA[select id from SysUser where email = :email and isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.queryGroupsByUserId">
+        <query>
+            <![CDATA[select g from SysGroup as g, RelSysUserGroup as rel where g.id = rel.groupId and g.isEnabled = true and rel.userId = :userId]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.queryDirectRolesByUserId">
+        <query>
+            <![CDATA[select r from SysRole as r, RelSysUserRole as rel where r.id = rel.roleId and r.isEnabled = true and rel.userId = :userId]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.querySysUsersByDeptAndAccountAndName">
+        <query>
+            <![CDATA[select u from SysUser as u left join fetch u.dept left join fetch u.sex left join fetch u.idType left join fetch u.type where
+	        (:isEnabled is null or u.isEnabled = :isEnabled)
+	        and (:deptId is null or u.dept.id = :deptId)
+	        and (:name is null or u.name like :name or :account is null or u.account like :account)
+        ]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.querySysUsersByDeptAndAccountAndNameCount">
+        <query>
+            <![CDATA[select count(*) from SysUser as u where
+	        (:isEnabled is null or u.isEnabled = :isEnabled)
+	        and (:deptId is null or u.dept.id = :deptId)
+	        and (:name is null or u.name like :name or :account is null or u.account like :account)
+        ]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getUserById">
+        <query>
+            <![CDATA[select u from SysUser as u left join fetch u.dept left join fetch u.sex left join fetch u.idType left join fetch u.type where u.isEnabled = true and u.id = :id]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getCountByEmail">
+        <query>
+            <![CDATA[select count(*) from SysUser where email = :email and isEnabled = true]]>
+        </query>
+    </named-query>
+    <!--通过deptId查找用户是否存在  -->
+    <named-query name="sys.hql.getUserByDeptId">
+        <query>
+            <![CDATA[select count(*) from SysUser where  dept.id = :deptId and isEnabled = true]]>
+        </query>
+    </named-query>
+</entity-mappings>

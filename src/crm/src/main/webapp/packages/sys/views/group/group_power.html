@@ -1,0 +1,52 @@
+<!-- 用户组分配角色 -->
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="groupForm" novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center02">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>		
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								分配角色		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()" id="groupDistributionRoleX"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body" id="parentDeptModalView">
+					        	<div class="t-modal-group-auto">
+									<table class="table t-table-bottom0 ">
+									<tbody>
+										<tr align="left">
+											<td colspan="" rowspan="" headers=""><label class="pull-left" >用户组权限:</label></td>
+										</tr>
+										<tr>
+											<td>
+													<ui>
+													<li ng-repeat="groupRoleList in groupRoleList"
+														ng-if=groupRoleList.isEnabled><input name="groupRole"
+														type="checkbox" value={{groupRoleList.id}}
+														checked="checked" />{{groupRoleList.name}}</li>
+													<li ng-repeat="groupRoleList in groupRoleList"
+														ng-if=groupRoleList.isEnabled==false><input
+														name="groupRole" type="checkbox" value="{{groupRoleList.id}}" id="groupRoleList" />{{groupRoleList.name}}</li>
+													</ui>
+												</td>
+										</tr>
+									 </tbody>
+								    </table>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" id="groupPowerConfirm" ng-click="replaceRolesToGroup()">确定</button>
+									<button class="btn btn-default" id="groupPowerClose" ng-click="$hide()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

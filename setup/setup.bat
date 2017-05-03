@@ -26,7 +26,25 @@ set TEMP=%BASE_HOME%\setup\temp
 rmdir /S /Q %TEMP% >NUL 2>NUL
 mkdir %TEMP%
 pushd %TEMP%
-    %ARIA% -o %PACKAGE% "%PACKAGE_URL%"
+    set CONF_INI_FILE=%BASE_HOME%\setup\conf\env.ini
+    if exist %CONF_INI_FILE% (
+        for /F "tokens=*" %%I in (%CONF_INI_FILE%) do (
+            set %%I
+        )
+    )
+
+    if not defined RESOURCES_LOCAL_PATH (
+        SET RESOURCES_LOCAL_PATH=NONE
+        echo "[INFO] There is no RESOURCES_LOCAL_PATH in env.ini or system environment variable"
+    ) else (
+        echo "[INFO] Found RESOURCES_LOCAL_PATH %RESOURCES_LOCAL_PATH%"
+    )
+    if exist %RESOURCES_LOCAL_PATH%\%PACKAGE% (
+        copy /Y %RESOURCES_LOCAL_PATH%\%PACKAGE% %PACKAGE% >NUL
+    ) else (
+        %ARIA% -o %PACKAGE% "%PACKAGE_URL%"
+    )
+    
     echo %TEMP%\%PACKAGE%
     %ZIP% x -o. %TEMP%\%PACKAGE%
     

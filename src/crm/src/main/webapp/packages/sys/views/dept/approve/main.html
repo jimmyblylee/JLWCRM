@@ -1,0 +1,72 @@
+<!-- BEGIN PAGE HEADER-->
+<div data-ng-include="'packages/index/tpl/page-header.html'"></div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"> 企业基本信息变更申请
+    <small>管理企业基本信息变更</small>
+</h3>
+<!-- END PAGE TITLE-->
+<div class="portlet box blue" ng-controller="DeptApproveCtrl">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class=" icon-briefcase"></i>
+            <span class="caption-subject bold">申请列表</span>
+        </div>
+        <div class="tools">
+            <a href="javascript:" class="fullscreen"></a>
+            <a href="javascript:" class="reload" ng-click="loadTask();"></a>
+        </div>
+        <div class="actions">
+            <a href="javascript:" class="btn btn-sm btn-primary" ng-click='approve("", "passAll")' ng-disabled="taskList.length == 0"><i class="fa fa-check-square"></i>全部通过</a>
+            <a href="javascript:" class="btn btn-sm btn-danger" ng-click='approve("", "rejectAll")' ng-disabled="taskList.length == 0"><i class="fa fa-ban"></i> 全部驳回</a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>待审核机构名称</th>
+                    <th>申请人</th>
+                    <th>电话</th>
+                    <th>手机</th>
+                    <th>申请时间</th>
+                    <th>申请项目</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in taskList">
+                    <td><a href="/#viewDeptToBeApprovedDetailModal" data-toggle="modal" ng-click='showDetail(item.tempDept.id)'>{{item.creatorDeptName}}</a></td>
+                    <td>{{item.creatorName}}</td>
+                    <td>{{item.creatorTel}}</td>
+                    <td>{{item.creatorMobile}}</td>
+                    <td>{{item.createDate | date: 'yyyy年MM月dd日'}}</td>
+                    <td>
+                        <span class="label label-sm" ng-class="'bg-' + statusCfg.color[item.type]" ng-bind="statusCfg.message[item.type]"></span>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" ng-click='approve(item.id, "pass")'><i class="fa fa-check-square"></i> 通过</a>
+                        <a class="btn btn-danger btn-xs" ng-click='approve(item.id, "reject")'><i class="fa fa-ban"></i> 驳回</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div table-paging-footer></div>
+    </div>
+</div>
+<div class="modal fade" id="viewDeptToBeApprovedDetailModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="SelfDeptCtrl">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-home"></i> 企业基本信息变更申请</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-include="'packages/sys/views/dept/self-dept/dept_view_table.html'"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

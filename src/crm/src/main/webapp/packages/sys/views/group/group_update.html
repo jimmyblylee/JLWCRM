@@ -1,0 +1,69 @@
+<!-- 修改用户组  -->
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+		<form role="form" name="editGroupForm" novalidate ng-submit="groupUpdate()">
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>		
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								修改用户组		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="hideModelUpdate();"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body" id="parentDeptModalView">
+								<table class="table table-bordered t-table-bottom0">
+									<tbody>
+										<tr>
+											<td class="active"><label class="pull-right">用户组编号:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value={{editGroupForm.id}}
+												ng-model="updateGroup.id" name="id" readonly></td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>用户组名称:</label></td>
+											<td class="ali-middle"><input required maxlength="32"
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" ng-model="updateGroup.name" name="name" required>
+												<div class="error" ng-show="editGroupForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="editGroupForm.name.$error.required">用户组名称不能为空.</div>
+													<div class="alert-danger well-sm"
+														ng-show="editGroupForm.name.$error.maxlength">用户组名称最大长度32</div>
+												</div></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right"><font
+													color="red">*</font>用户组描述:</label></td>
+											<td colspan=3><textarea rows="3" required maxlength="64"
+													style="resize: none;"
+													class="form-control form-control-solid placeholder-no-fix"
+													type="text" ng-model="updateGroup.desc" name="desc"></textarea>
+												<div class="error" ng-show="editGroupForm.submitted">
+												<div class="alert-danger well-sm"
+																ng-show="editGroupForm.desc.$error.required">用户组描述不能为空.</div>
+													<div class="alert-danger well-sm"
+														ng-show="editGroupForm.desc.$error.maxlength">用户组描述最大长度50</div>
+												</div></td>
+
+										</tr>
+									</tbody>
+								</table>
+								 <div class="portlet-foot t-modal-footer row">                
+						           <button class="btn btn-primary" id="groupUpdateConfirm" type="submit">确定</button>
+									<button class="btn btn-default" id="groupUpdateClose" type="button" ng-click="hideModelUpdate()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

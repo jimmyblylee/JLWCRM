@@ -1,0 +1,19 @@
+<div role="dialog" tabindex="-1" class="modal global-del">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header t-modal-header">
+                <button ng-click="$hide()" class="close" type="button">×</button>
+                <div class="caption">提示</div>
+            </div>
+            <div class="modal-body" >在关闭之前是否要保存您所输入的内容</div>
+            <div class="modal-footer t-modal-footer">
+                <button class="btn btn-default"
+                        ng-click="determine_close(true)">提交</button>
+                <button class="btn btn-default"
+                        ng-click="$hide()">取消</button>
+                <button class="btn btn-default"
+                        ng-click="determine_close(false)">扔掉</button>
+            </div>
+        </div>
+    </div>
+</div>

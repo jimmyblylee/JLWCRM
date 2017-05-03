@@ -1,0 +1,14 @@
+{
+    "sys": {
+        "name": "sys",
+        "url": "packages/sys/sidebarfile.json"
+    },
+    "dict": {
+        "name": "dict",
+        "url": "packages/dict/sidebarfile.json"
+    },
+    "crm": {
+        "name": "crm",
+        "url": "packages/crm/sidebarfile.json"
+    }
+}

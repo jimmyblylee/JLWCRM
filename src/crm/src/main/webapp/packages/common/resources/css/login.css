@@ -1,0 +1,194 @@
+/*loginpagestyle*/
+* {
+    font-family: "microsoft yahei", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+.loginpage {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background: url(../img/login-bg.png) no-repeat center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.login-container * {
+    font-family: "microsoft yahei", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.loginlogo {
+    background: url(../img/logoandname.png) no-repeat left center;
+    height: 50px;
+    width: 800px;
+    margin: 18vh auto 0;
+    background-size: auto 100%;
+}
+
+.loginpage .mainbox {
+    width: 800px;
+    border-radius: 6px;
+    height: 380px;
+    margin: auto auto;
+    background: rgba(0, 0, 0, 0.4) url(../img/login-leftimg.png) no-repeat 50px center;
+    background-size: auto 70%;
+    position: relative;
+    padding: 20px;
+}
+
+.loginpage .login-container {
+    position: absolute;
+    width: 45%;
+    height: 380px;
+    right: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.loginformarea {
+    margin: 10px auto 0;
+    width: 280px;
+    text-align: center;
+}
+
+.loginformarea .user {
+    background-image: url(../img/username.png);
+}
+
+.loginformarea .key {
+    background-image: url(../img/password.png);
+}
+
+.loginformarea .yzm {
+    height: 45px;
+    margin-top: 20px;
+}
+
+.loginformarea div.yzm .inputbox {
+    width: 90px;
+    float: left;
+    margin-top: 0;
+}
+
+.loginformarea div.yzm img {
+    float: left;
+    margin-left: 10px;
+}
+
+.loginformarea .inputbox {
+    width: 260px;
+    height: 45px;
+    margin-top: 20px;
+    border: 0;
+    padding: 0 10px;
+    background: #a8c7ed no-repeat 250px center;
+    color: #333;
+    font-size: 16px;
+    line-height: 45px;
+    border-radius: 2px;
+}
+
+.loginformarea .errortip {
+    font-size: 12px;
+    color: red;
+    line-height: 30px;
+    text-align: left;
+    height: 30px;
+}
+
+.loginformarea input:autofill {
+    background-color: #999 !important;
+}
+
+.loginformarea input:focus {
+    background-color: #caeeff;
+    border: 0;
+}
+
+.loginformarea input:required {
+    border-color: #fff !important;
+}
+
+.loginformarea :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #cadcf1;
+}
+
+.loginformarea ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #cadcf1;
+}
+
+.loginformarea input:-ms-input-placeholder {
+    color: #cadcf1;
+}
+
+.loginformarea input::-webkit-input-placeholder {
+    color: #cadcf1;
+}
+
+.loginbuttonarea {
+    width: 280px;
+    text-align: left;
+    margin: 5px auto 0;
+}
+
+.loginbuttonarea a {
+    display: inline-block;
+    background-color: #3c6495;
+    height: 45px;
+    width: 280px;
+    color: #fff;
+    line-height: 44px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 15px;
+    margin-right: 7px \9;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.loginbuttonarea a:hover {
+    background-color: #537bad;
+}
+
+.loginbuttonarea a:last-child {
+    margin-right: 0;
+}
+
+.exinfo {
+    width: 280px;
+    height: 30px;
+    margin: 5px auto 0;
+    text-align: left;
+}
+
+.exinfo a {
+    width: 100px;
+    color: #666;
+}
+
+.loginfooter {
+    margin: 0 auto;
+    text-align: right;
+    width: 800px;
+}
+
+.loginfooter .copyright {
+    color: #142d4b;
+    font-size: 12px;
+}
+
+

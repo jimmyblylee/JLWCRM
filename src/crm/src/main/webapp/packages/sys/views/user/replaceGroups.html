@@ -1,0 +1,37 @@
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" 
+	tabindex="10" class="modal global-del" id="replaceUserRoles"
+	>
+	<form role="form" name="editorForm" ng-submit="submitForm()" novalidate>
+		<div class="modal-dialog"
+			style="width: 20%; margin-top: 10px; height: 200px">
+			<div class="modal-content">
+				<div class="modal-header t-modal-header">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button" id="batchUserXMark">×</button>
+						<h4 class="modal-title" >系统提示</h4>
+				</div>
+				<div class="modal-body" id="groupSelect">
+					<div id='groupList' ng-show='replaceGroupWindowShow' style="overflow-y: auto; overflow-x: auto; width: 100%; height: 100px;">
+						<div ng-repeat="group in groupList">
+							<input type="checkbox" name="childs_group" id="check" value="{{group.id}}" />{{group.name}}
+						</div>
+					</div>
+					<div id='groupWarning' ng-show='replaceGroupWindowTipShow'>
+						请至少选择一个用户</div>
+				</div>
+				<div class="modal-footer modal-footer1 t-modal-footer" id='btn_group'
+					ng-show='replaceGroupWindowShow'>
+					<button class="btn btn-primary" data-dismiss="modal"
+						ng-click="replaceUsersGroup('replace')" id="batchComUserId">确定</button>
+					<button class="btn btn-default" data-dismiss="modal" id="batchCloseId">关闭</button>
+				</div>
+
+				<div class="modal-footer modal-footer2 t-modal-footer" id='btn_group_warn'
+					ng-show='replaceGroupWindowTipShow'>
+					<button class="btn btn-default" data-dismiss="modal" id="batchSuccCloseId">关闭</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

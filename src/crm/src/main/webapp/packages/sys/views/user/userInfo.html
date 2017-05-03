@@ -1,0 +1,169 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog"  id="editUserDivId" >
+	<form role="form" name="updateForm" novalidate	ng-controller='userInfoPageCtrl' >
+		<div class="modal-dialog t-user-modal modal-portlet-dialog t-moda-center03  t-moda-left-center03">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								用户信息查看		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="clearFlag();$hide()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+				        	<div class="t-user-modal-auto">
+								<table class="table table-bordered  t-table-bottom0 t-user-table ">
+									<tbody>
+										<tr>
+											<td class="active ali-middle" style="width:13%;"><label
+												class="pull-right">头像：</label></td>
+											<td class="ali-middle"><img src="" alt="" id="updateUserPhoto" 
+												width="80px" height="80px" style="margin-left: 80px;" />
+												<input disabled="disabled" type="file" style="display:none;" id="inputFile" ng-model="userphoto"
+														accept="image/jpeg/png"></td>
+											<td class="active ali-middle" style="width:13%;"><label
+												class="pull-right">用户组:</label></td>
+											<td class="width-35">
+											<div class="t-user-modal-group">
+													<div ng-repeat="group in groupList">
+														<input disabled="disabled" type="checkbox" name="child_group"
+															value="{{group.id}}" />{{group.name}}
+													</div>
+												</div>
+											</td>
+										</tr>
+
+										<tr>
+										    <td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>姓名:</label></td>
+											<td class="ali-middle"><input disabled="disabled" id="description" name="name"
+												class="form-control " type="text" maxlength="50"
+												ng-model="userInfo.name"></td>
+										
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>账号:</label></td>
+											<td>
+												<div class="input-group">
+													<input disabled="disabled" name="account" 
+														 class="form-control disabled " type="text"
+														maxlength="50" ng-model="userInfo.account" required>
+													<span class="input-group-btn">
+														<button type="button" id="officeButton"
+															class="btn green greenbtn btn-primary  ">
+															<i class="fa fa-user"></i>
+														</button>
+													</span>
+												</div>
+											</td>
+										</tr>
+									    <tr>
+											<td class="active ali-middle"><label class="pull-right">密码:</label></td>
+											<td><input disabled="disabled" type="password" ng-change="checkPassword()"
+												class="form-control" ng-model="sysUserPwd.password"
+												name="password" id="password" autocomplete="off" maxlength="9"
+												placeholder="若不修改，密码留空"></td>
+											<td class="active ali-middle"><label class="pull-right">确认密码:</label></td>
+											<td><input disabled="disabled" type="password" ng-change="checkPassword()"
+												autocomplete="off" ng-model="rpassword" name="rePassword"
+												class="form-control" maxlength="9" placeholder=""></td>
+										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">性别:</label></td>
+											<td><select disabled="disabled" class="form-control" ng-model="userInfo.sex"
+												ng-options="sexDict.value for sexDict in sexDicts"
+												style="width: 100%;"></select></td>
+										    
+										    <td class="active ali-middle"><label class="pull-right "><font color="red">*</font>报表组:</label></td>
+											<td><div class="input-group" >
+													<input disabled="disabled" id="dept" name="dept"				
+														class="form-control  pull-left disabled " required type="text"
+														maxlength="50" ng-model="deptNameUpdate"> <span
+														class="input-group-btn">
+														<button type="button" id="companyButton"
+															class="btn btn-primary green greenbtn">
+															<i class="fa fa-search"></i>
+														</button>
+													</span>
+												</div></td>
+										</tr>
+										
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">生日:</label></td>
+											<td>
+												<div class="input-group " style="width: 100%;" >
+													<input disabled="disabled" type="text" class="form-control"
+														 datepicker-popup="{{format}}"
+														ng-model="userInfo.birthday" is-open="opened"
+														max-date="minDate" readonly="readonly"
+														datepicker-options="dateOptions" current-text="今天"
+														clear-text="清除" date-disabled="disabled(date, mode)"
+														close-text="关闭" />
+														
+														<div class="input-group-addon btn green greenbtn t-user-btn-default"><i class="fa fa-calendar" ></i></div>
+												</div>
+											</td>
+											
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>邮箱:</label></td>
+											<td><input disabled="disabled" class="form-control  ng-touched" maxlength="32"
+												type="email" ng-model="userInfo.email"></td>
+										</tr>
+										
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">证件类型:</label></td>
+											<td><select disabled="disabled" class="form-control" ng-model="userInfo.idType"
+												ng-options="idTypeDict.value for idTypeDict in idTypeDicts"
+												style="width: 100%;"></select></td>
+											<td class="active ali-middle"><label class="pull-right">证件号:</label></td>
+											<td><input disabled="disabled" class="form-control  ng-touched" maxlength="32"
+												type="text" ng-model="userInfo.idNum"></td>
+										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">地址:</label></td>
+											<td><input disabled="disabled" class="form-control  digits" type="text"
+												maxlength="11" ng-model="userInfo.address"></td>
+											<td class="active ali-middle"><label class="pull-right">邮编:</label></td>
+											<td><input disabled="disabled" class="form-control  ng-touched"  maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")'
+												type="text" ng-model="userInfo.postalCode"></td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">电话:</label></td>
+											<td><input disabled="disabled"
+												onkeyup='this.value=this.value.replace(/\D/gi,"")'
+												class="form-control  abc" type="text" maxlength="11"
+												ng-model="userInfo.fixedTel"></td>
+											<td class="active ali-middle"><label class="pull-right">手机号:</label></td>
+											<td><input disabled="disabled" name="tel" class="form-control " type="text"
+												onkeyup='this.value=this.value.replace(/\D/gi,"")'
+												maxlength="11" ng-model="userInfo.tel"></td>
+										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">用户类型:</label></td>
+											<td><select disabled="disabled" class="form-control" ng-model="userInfo.type"
+												ng-options="dict.value for dict in userTypeDicts"
+												style="width: 100%;"></select></td>
+											<td class="active ali-middle"><label class="pull-right">头衔:</label></td>
+											<td><input disabled="disabled" class="form-control digits" type="text"
+												maxlength="11" ng-model="userInfo.title"></td>
+										</tr>
+
+									</tbody>
+								</table>
+								 </div>
+								<div class="portlet-foot t-modal-footer row">                
+					            	<button class="btn btn-primary"	ng-click="clearFlag();$hide()" id="viewUserClose"> 关闭	</button>
+						        </div>
+				        </div>				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

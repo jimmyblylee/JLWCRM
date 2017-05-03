@@ -1,0 +1,55 @@
+<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+        <li class="nav-item sidebar-menu-Atest" ng-repeat="item in token.func.children | orderBy:'order' ">
+            <a href="javascript:" class="nav-link nav-toggle" ng-if="item.type.code=='MENU' && item.isVisible && item.hasChildren">
+                <i ng-class="item.icon"></i>
+                <span class="title">{{item.name}}</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu" ng-if="item.type.code=='MENU' && item.isVisible && item.hasChildren">
+                <!-- 二级菜单开始 -->
+                <li class="nav-item" ng-repeat="child in item.children | orderBy:'order'">
+                    <a href="{{sidebarConfig[child.code]['url']}}" ng-if="child.type.code=='FEATURE' && child.isVisible" >
+                        <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[child.code].url,child.name,item.name,null,null);">
+                            <i class="{{child.icon}}"></i>
+                            <span class="title"> {{child.name}} </span>
+                        </div>
+                    </a>
+                    <!-- 三级菜单开始 -->
+                    <a href="javascript:" class="nav-link nav-toggle" ng-if="child.type.code=='MENU' && child.isVisible && child.hasChildren">
+                        <i ng-class="item.icon"></i>
+                        <span class="title">{{child.name}}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" ng-if="child.type.code=='MENU' && child.isVisible && child.hasChildren">
+                        <li class="nav-item" ng-repeat="sub_child in child.children | orderBy:'order'">
+                            <a href="{{sidebarConfig[sub_child.code]['url']}}" ng-if="sub_child.type.code=='FEATURE' && sub_child.isVisible" >
+                                <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[sub_child.code].url,sub_child.name,child.name,null,null);">
+                                    <i class="{{sub_child.icon}}"></i>
+                                    <span class="title"> {{sub_child.name}} </span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- 三级菜单结束 -->
+                </li>
+                <!-- 二级菜单结束 -->
+            </ul>
+            <a href="{{sidebarConfig[item.code]['url']}}" ng-if="item.type.code=='FEATURE' && item.isVisible" >
+                <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[item.code].url,item.name,null,null,null)">
+                    <i class="{{item.icon}}"></i>
+                    <span class="title">{{item.name}}</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>

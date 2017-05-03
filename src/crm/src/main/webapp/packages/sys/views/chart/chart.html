@@ -1,0 +1,68 @@
+
+    <!-- BEGIN PAGE BAR -->
+    <ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
+    <!-- END PAGE BAR -->
+    <div class="mt20 " >
+        <div class="row" ng-controller="echartCtr">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class=" icon-layers font-green"></i>
+                            <span class="caption-subject font-green bold uppercase">Bar Chart</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="echarts_bar" style="height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="echartlineCtr">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class=" icon-layers font-green"></i>
+                            <span class="caption-subject font-green bold uppercase">LINE Chart</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="echarts_line" style="height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="echartsRadarCtr">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class=" icon-layers font-green"></i>
+                            <span class="caption-subject font-green bold uppercase">map Chart</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="echarts_map" style="height:900px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="echartPieCtr">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class=" icon-layers font-green"></i>
+                            <span class="caption-subject font-green bold uppercase">pie Chart</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="echarts_pie" style="height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END : ECHARTS -->
+

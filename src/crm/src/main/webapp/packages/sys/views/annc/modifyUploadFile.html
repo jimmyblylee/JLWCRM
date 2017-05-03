@@ -1,0 +1,39 @@
+ <div class="modal fade" id="ModifyUploadFile1Id" tabindex="-1" role="dialog" ng-controller="ModifyUploadFileCtrl">
+	<form role="form" class="form-horizontal" validate>
+		<div class="modal-dialog pull-center"
+			style="width: 30%; margin-top: 250px; margin-bottom: 0px;">
+			<div class="tab-content">
+				<div class="portlet box form blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="icon-settings"></i> <span
+								class="caption-subject bold uppercase ng-binding">修改附件</span>
+						</div>
+						<div class="row pull-right" style="padding-right: 5px">
+                                <button type="button" class="btn blue " data-dismiss="modal" aria-hidden="true"> x</button>
+						</div>
+					</div>
+					<div class="portlet-body" style="padding: 0px; height: auto;  display: block;">
+						<form role="form">
+			                <div class="form-body">
+			                    <div class="form-group has-success">
+									<input type="file"  id="annouAttInputModifyId" onchange="angular.element(this).scope().changeFile()"/> </div>
+								<span class="layui-layer-setwin"><a
+									class="layui-layer-ico layui-layer-close layui-layer-close1"
+									href="javascript:;"></a></span>   
+			                </div>
+			                <div class="form-actions" style="padding: 5px">
+								<input type="hidden" ng-model="tabId"
+									class="ng-pristine ng-untouched ng-valid">
+								<div class="row pull-right" style="padding-right: 20px">
+		                              <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true" ng-click="ok()"> 确定</button>
+		                              <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+								</div>
+							</div>
+			            </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -4,7 +4,7 @@ call %BASEDIR%\setEnv.bat
 
 title Compiling
 call msg info "[INFO] Compiling" & echo.
-pushd %PROJECT_HOME%
+pushd %PROJECT_HOME%\src\crm
     call mvn clean package
 popd
 
@@ -12,10 +12,10 @@ popd
 title Redeploying
 call msg info "[INFO] Redeploying" & echo.
 call msg info "[INFO] removing the old" & echo.
-rmdir /S /Q %TOMCAT_HOME%\webapps\test >NUL 2>NUL
-del /F /Q %TOMCAT_HOME%\webapps\test.war >NUL 2>NUL
+rmdir /S /Q %TOMCAT_HOME%\webapps\crm >NUL 2>NUL
+del /F /Q %TOMCAT_HOME%\webapps\crm.war >NUL 2>NUL
 call msg info "[INFO] deploying the new" & echo.
-copy /Y %PROJECT_HOME%\target\test.war %TOMCAT_HOME%\webapps\test.war
+copy /Y %PROJECT_HOME%\src\crm\target\crm.war %TOMCAT_HOME%\webapps\crm.war
 call msg info "[INFO] done" & echo.
 
 title Tomcat

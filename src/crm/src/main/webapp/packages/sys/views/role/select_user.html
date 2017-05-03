@@ -1,0 +1,72 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+	<form role="form" name="roleForm" ng-submit="addRole()" novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
+			<div class="modal-content">
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								选择用户		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+							<div id="assignRole" class="t-role-addUser">
+								<div class="col-sm-6" style="border-right: 1px solid #A8A8A8;">
+									<p>所在部门：</p>
+									<div id="officeTree" class="ztree">
+										<treecontrol class="tree-dark" tree-model="treedata"  expanded-nodes="expandedNodes"
+											on-selection="showSelected(node)">
+										<a href="javascript:;" ng-click="getUserByDept(node.id,$event)" id="selectDeptTreeByDeptId" class="treeLink">
+											<span
+											ng-switch on="node.type"> <span
+											ng-switch-when="folder" 
+											class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+											<span ng-switch-when="doc" class="glyphicon glyphicon-file"
+											aria-hidden="true" ></span> 
+										    </span>
+										   {{node.label}}
+										</a>
+										</treecontrol>
+									</div>
+								</div>
+								<div class="col-sm-3 role_add_name">
+									<p>待选人员：</p>
+									<div id="userTree" class="ztree">
+									   <li class="level0" tabindex="0"
+                                            ng-repeat="userList in addUserList" hidefocus="true" treenode="">
+                                            <input type="hidden" name="userList" value="{{userList.id}}">
+                                            <div id="chosseUserByUserId"
+                                            ng-click="chosseUser(userList.id)"  class="roleSelect-name"> {{userList.name}}                                           
+                                            </div>
+                                        </li>
+									</div>
+								</div>
+								<div class="col-sm-3 role_add_name role_add_name_last ">
+									<p>已选人员：</p>
+									<div id="selectedTree" class="ztree">
+										<li class="level0" tabindex="0"
+											ng-repeat="item in selectUsers" hidefocus="true" treenode="" >
+											<input type="hidden" name="userIdList" value="{{item.id}}">
+											<div  id="selectdUserByUserId"
+											ng-click="cancelUser($index)"  class="roleSelect-name" > {{item.name}}
+										    </div>
+										</li>
+									</div>
+								</div>
+							</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            	<button class="btn btn-primary" type="button" ng-click="addUserByRole()" id="selectUserByRoleWinSave">确定</button>
+										<button type="button" class="btn btn-default" id="selectUserByRoleWinClose" ng-click="$hide()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,29 @@
+<div class="modal global-del" tabindex="-1" role="dialog" id="deleteFuncInfoWindow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header t-modal-header">
+                <button ng-click="$hide()" class="close" type="button">×</button>
+                <h4 class="modal-title">系统提示</h4>
+            </div>
+            <div class="modal-body" ng-show="deleteFuncButton">
+                <i class="layui-layer-ico layui-layer-ico3"></i>确认要删除该菜单吗？
+            </div>
+            <div class="modal-body" ng-show="recoverFuncButton">
+                <i class="layui-layer-ico layui-layer-ico3"></i>确认要恢复该菜单,及其上级菜单吗？
+            </div>
+            <span class="layui-layer-setwin"><a
+                class="layui-layer-ico layui-layer-close layui-layer-close1"
+                href="javascript:;"></a></span>
+            <div class="modal-footer t-modal-footer">
+                <button class="btn btn-primary" id="deleteFuncInfoWindowSave" ng-show="deleteFuncButton"
+                     ng-click="deleteFunc()">确定</button>
+                    <button class="btn btn-primary" id="recoverFuncInfoWindowSave" ng-show="recoverFuncButton"
+                     ng-click="deleteFunc()">确定</button>
+                <button class="btn btn-default" id="deleteFuncInfoWindowClose" ng-click="$hide()">
+                                                关闭</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+ 

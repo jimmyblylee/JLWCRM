@@ -1,0 +1,48 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+<form role="form" name="parentDeptModelForm" ng-submit="submitParentDeptForm()" novalidate >
+		<div class="modal-dialog t-modal-parent modal-portlet-dialog t-moda-center02  t-moda-left-center02"  id="addDictModal">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet">
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								选择机构		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()" > </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+				        	<div class="t-modal-parent-auto">
+								<section id="file-style" ng-controller="FileStyleParent">								
+									<div save-content="file-style-html">
+										<treecontrol class="tree-dark" tree-model="treedata" on-selection="showSelected(node)" expanded-nodes="expandedNodes">
+										 <a href="javascript:;"	  id="treeParentNameNodeId"	ng-click="saveChooseParentDept(node.id,node.label,$event)" class="treeLink"> 
+                                            <span ng-switch on="node.type">
+                                                <span ng-switch-when="zongbu" class="fa fa-university font-red-thunderbird" aria-hidden="true" ></span>
+                                                <span ng-switch-when="gongsi" class="fa fa-building font-purple-seance" aria-hidden="true" ></span>
+                                                <span ng-switch-when="dianchang" class="fa fa-flash font-yellow-crusta" aria-hidden="true" ></span>
+                                                <span ng-switch-when="group" class="fa fa-users font-blue-steel" aria-hidden="true" ></span>
+                                            </span>
+										   {{node.label}}
+										</a>
+									    </treecontrol>
+							        </div>
+								</section>
+							</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						           	<button class="btn btn-primary" ng-click="viewChooseParentDept()">确定</button>
+									<button class="btn btn-default" ng-click="$hide()" >关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+
+

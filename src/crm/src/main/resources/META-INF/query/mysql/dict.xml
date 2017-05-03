@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm.xsd"
+                 version="2.1">
+
+    <!-- QUERY START DICTIONARY -->
+    <named-query name="dict.hql.queryAllSysDict">
+        <query>
+            <![CDATA[from SysDict as s left join fetch s.parent where s.isEnabled = true order by s.nature, s.order]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.getAllSysDictCount">
+        <query>
+            <![CDATA[select count(1) from SysDict where isEnabled = true]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.querySysDictByNatureAndCode">
+        <query>
+            <![CDATA[from SysDict as s left join fetch s.parent where s.nature = :nature and s.code = :code and s.isEnabled = true]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.querySysDictByNature">
+        <query>
+            <![CDATA[from SysDict where nature = :nature and isEnabled = true order by order]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.getSysDictCountByNature">
+        <query>
+            <![CDATA[select count (1) from SysDict where nature = :nature and isEnabled = true]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.setDisableByNature">
+        <query>
+            <![CDATA[update SysDict set isEnabled = false where nature = :nature]]>
+        </query>
+    </named-query>
+    <named-query name="dict.hql.updateDisableByNature">
+        <query>
+            <![CDATA[update SysDict set code = :code where id = :id]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.removeDictById">
+        <query>
+            <![CDATA[update SysDict set isEnabled = false where id = :id]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.recoverDictById">
+        <query>
+            <![CDATA[update SysDict set isEnabled = true where id = :id]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.getParentById">
+        <query>
+            <![CDATA[from SysDict as s left join fetch s.parent where s.parent.id = :id and s.isEnabled = true order by s.order]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.queryChildrenByParentCode">
+        <query>
+            <![CDATA[from SysDict as s left join fetch s.parent where s.parent.code = :code and s.isEnabled = true order by s.order]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.queryCodeByValue">
+        <query>
+            <![CDATA[from SysDict as s where s.parent.id = (select id from SysDict where code = :code) and s.value = :value and s.isEnabled = true]]>
+        </query>
+    </named-query>
+    <named-query name="sys.hql.queryValueByCode">
+        <query>
+            <![CDATA[from SysDict as s where s.code = :code and s.isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <named-query name="sys.hql.getCountSysDeptByParentIdManyfields">
+        <query>
+            <![CDATA[select count(*) from SysDict as dict where 1=1
+        and dict.isEnabled = :isEnabled
+        and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value))]]>
+        </query>
+    </named-query>
+
+
+    <named-query name="dict.hql.querySysDeptByParentIdManyfields">
+        <query>
+            <![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
+        and dict.isEnabled = :isEnabled
+        and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value)) order by dict.order]]>
+        </query>
+    </named-query>
+
+    <!--查询没有上级字典属性为null的，也就是只有查询出一个：“字典管理”  -->
+    <named-query name="sys.hql.queryParentDictIsNull">
+        <query>
+            <![CDATA[from SysDict as sd  where sd.parent.id is null and sd.isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <!--查询-->
+    <named-query name="dict.hql.queryDictById">
+        <query>
+            <![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
+        and dict.isEnabled = :isEnabled
+        and dict.id = :id
+        and (:code is null or dict.nature like:nature or dict.code like:code or dict.value like:value))]]>
+        </query>
+    </named-query>
+
+    <!--根据code和nature来判断是否唯一  -->
+    <named-query name="dict.hql.querySysDictByNatureAndCodeIsExist">
+        <query>
+            <![CDATA[select count(*) from SysDict as s  where s.nature = :nature and s.code = :code and s.isEnabled = true]]>
+        </query>
+    </named-query>
+
+    <named-query name="dict.hql.querySysDeptByOrder">
+        <query>
+            <![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
+        and dict.isEnabled = :isEnabled
+        and dict.parent.id = :id
+        and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value)) order by :order]]>
+        </query>
+    </named-query>
+
+
+    <named-query name="dict.hql.getAllDictByNature">
+        <query>
+            <![CDATA[select sd.pinyinShort from SysDict sd where sd.nature = :nature and sd.desc = :desc and sd.isNature = false]]>
+        </query>
+    </named-query>
+    <!-- QUERY END DICTIONARY -->
+</entity-mappings>

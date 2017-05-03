@@ -1,0 +1,35 @@
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="index.html">首页</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>{{$state.current.data.pageTitle}}</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" id="linkToApplyDeptBtn" class="btn blue-hoki btn-sm btn-outline" ng-click="showApplyToEditDept(true);">
+                <i class="fa fa-save"></i> 申请变更 </a>
+            </button>
+            <button type="button" id="submitApplyDeptBtn" class="hide btn blue-hoki btn-sm" ng-click="submitApplyDept();">
+                <i class="fa fa-save"> 提交申请</i>
+            </button>
+            <button type="button" id="cancelApplyDeptBtn" class="hide btn blue-hoki btn-sm btn-outline" ng-click="showApplyToEditDept(false);">
+                <i class="fa fa-ban"> 放弃申请</i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"> 企业信息
+    <small>查看本企业基本信息</small>
+</h3>
+<!-- END PAGE TITLE-->
+<!-- END PAGE HEADER-->
+<div id="viewSelfDept" ng-include="'packages/sys/views/dept/self-dept/dept_view_table.html'"></div>
+<div id="applyToEditDept" class="hide" ng-include="'packages/sys/views/dept/self-dept/dept_edit_table.html'"></div>
