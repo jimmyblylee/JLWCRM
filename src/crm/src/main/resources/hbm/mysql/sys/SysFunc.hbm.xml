@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="SysFunc" table="SYS_FUNC">
+        <id name="id" column="FUNC_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="parent" column="FUNC_PARENT_ID" lazy="proxy" not-found="ignore"/>
+        <property name="code" column="FUNC_CODE"/>
+        <property name="name" column="FUNC_NAME"/>
+        <property name="order" column="FUNC_ORDER"/>
+        <property name="typeCode" column="FUNC_TYPE"/>
+        <many-to-one name="type" lazy="proxy" formula="(SELECT DICT.DICT_ID FROM SYS_DICT DICT WHERE DICT.DICT_NATURE='FUNC_TYPE' AND DICT.DICT_CODE = FUNC_TYPE )"/>
+        <property name="url" column="FUNC_URL"/>
+        <property name="desc" column="FUNC_DESC"/>
+        <property name="icon" column="FUNC_ICON"/>
+        <property name="isVisible" column="IS_VISIBLE"/>
+        <property name="isBaseFunc" column="IS_BASE_FUNC"/>
+        <property name="isEnabled" column="IS_ENABLED"/>
+        <set name="children" cascade="all-delete-orphan" inverse="true" lazy="true" order-by="order">
+            <key column="FUNC_ID" />
+            <one-to-many class="SysFunc"/>
+        </set>
+        <property name="hasChildren" formula="(SELECT CASE WHEN (COUNT(1) > 0) THEN 1 ELSE 0 END FROM SYS_FUNC F WHERE F.FUNC_PARENT_ID = FUNC_ID )"/>
+        <property name="isRoot" formula="(FUNC_PARENT_ID = 0)"/>
+    </class>
+    <query name="sys.hql.queryRolesByFuncId">
+        <![CDATA[select r from SysRole as r, RelSysRoleFunc as rel where r.id = rel.roleId and r.isEnabled = true and rel.funcId = :funcId]]>
+    </query>
+    
+    
+    <!--通过父级菜单id  得到子级菜单。包括子类父类信息  -->
+    <query name="sys.hql.queryParentByFuncId">
+        <![CDATA[from SysFunc as s left join fetch s.parent  where s.parent.id = :funcId and s.isEnabled = true order by  s.order desc]]>
+    </query>
+    
+     <!--通过父级菜单id  得到子级菜单。不包括子类父类信息  -->
+    <query name="sys.hql.queryChildrenFuncByFuncId">
+    	  <![CDATA[from SysFunc as func where func.parent.id = :id and isEnabled = true order by func.order]]>
+    </query>
+    
+      <!--通过父类id判断是否存在下级机构  -->
+    <query name="sys.hql.queryFuncChildrenCountByParentId">
+    	  <![CDATA[select count(*) from SysFunc as func where func.parent.id = :parentId and isEnabled = true]]>
+    </query>
+    
+     <!--通过字典id 得到菜单信息  -->
+    <query name="sys.hql.querynFuncByFuncId">
+    	  <![CDATA[from SysFunc as func where func.id = :id and isEnabled = true]]>
+    </query>
+  
+    <query name="sys.hql.querySysFuncNameCount">
+         <![CDATA[select count(s) from SysFunc as s where isEnabled = true 
+         	or (:funcId is null or s.id = :funcId)
+	        or (:name is null or s.name like :name)
+	        or (:code is null or s.code like :code)]]>
+	</query>
+     <query name="sys.hql.querySysFuncName">
+        <![CDATA[from SysFunc as s left join fetch s.parent  where s.isEnabled = true 
+         	or (:funcId is null or s.id = :funcId)
+	        or (:name is null or s.name like :name)
+	        or (:code is null or s.code like :code)]]>
+	</query> 
+	 
+    <query name="sys.hql.queryGroupsByFuncId">
+        <![CDATA[select g from SysGroup as g, SysRole as r, RelSysGroupRole as rel_gr, RelSysRoleFunc as rel_rf
+         where g.id = rel_gr.groupId 
+            and g.isEnabled = true
+            and rel_rf.roleId = r.id
+            and r.isEnabled = true
+            and rel_rf.roleId = r.id
+            and rel_rf.funcId = :funcId]]>
+    </query>
+    <query name="sys.hql.queryAllSysFuncGroup">
+        <![CDATA[from SysFunc where parent = 0 and isVisible = true  and isEnabled = true]]>
+    </query>
+    
+    <query name="sys.hql.queryAllSysFuncPage">
+        <![CDATA[from SysFunc as f where 1 = 1
+            and (:pageQuery is null or f.name like :pageQuery)
+            and (:isEnabled is null or f.isEnabled = :isEnabled)
+            and (:parentId is null or f.parent.id = :parentId)  order by f.order
+         ]]>
+    </query>
+    <query name="sys.hql.queryFuncTotle">
+        <![CDATA[select count(*) from SysFunc as f where 1 = 1
+            and (:pageQuery is null or f.name like :pageQuery)
+            and (:isEnabled is null or f.isEnabled = :isEnabled)
+            and (:parentId is null or f.parent.id = :parentId)
+         ]]>
+    </query>
+    
+    <!--查询没有上级菜单为null的，也就是只有查询出一个：“功能菜单”  --> 
+	<query name="sys.hql.queryParentFuncIsNull">
+    	  <![CDATA[from SysFunc as sf  where sf.parent.id is null and sf.isEnabled = true]]>
+	</query>
+	
+	<!--根据code来判断是否存在此菜单了，存在就不能添加了--> 
+	<query name="sys.hql.querySysFuncByCode">
+    	  <![CDATA[select count(*) from SysFunc as sf  where sf.code =:code]]>
+	</query>
+	<!--通过id得到菜单信息-->
+	<query name="sys.hql.querySysFuncById">
+    	  <![CDATA[from SysFunc as sf  where sf.code =:code]]>
+	</query>
+	
+	<!--根据funcCode匹配菜单对象个数-->
+	<query name="sys.hql.getFuncCountByFuncCode">
+    	  <![CDATA[select count(*) from SysFunc as sf  where sf.code =:code]]>
+	</query>
+</hibernate-mapping>

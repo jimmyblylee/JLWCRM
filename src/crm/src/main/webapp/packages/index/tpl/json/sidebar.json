@@ -1,0 +1,674 @@
+{
+    "token": {  
+        "func": {
+            "id": -1,
+            "code": "root",
+            "name": "Root",
+            "order": null,
+            "type": null,
+            "url": null,
+            "icon": null,
+            "isVisible": null,
+            "parent": null,
+            "children": [
+                {
+                    "id": -1020100,
+                    "code": "pages",
+                    "name": "通用页面",
+                    "order": 2,
+                    "type": {
+                        "id": -10040003,
+                        "nature": "FUNC_TYPE",
+                        "code": "MENU",
+                        "value": "菜单"
+                    },
+                    "url": null,
+                    "icon": "fa fa-user",
+                    "isVisible": false,
+                    "parent": null,
+                    "children": [
+                        {
+                            "id": -1020900,
+                            "code": "pages.blank",
+                            "name": "500",
+                            "order": 6,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020900,
+                                    "code": "pages.blank",
+                                    "name": "500",
+                                    "order": 6,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": -1020800,
+                            "code": "pages.500",
+                            "name": "500",
+                            "order": 5,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020800,
+                                    "code": "pages.500",
+                                    "name": "500",
+                                    "order": 5,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": -1020700,
+                            "code": "pages.404",
+                            "name": "404",
+                            "order": 4,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020700,
+                                    "code": "pages.404",
+                                    "name": "404",
+                                    "order": 4,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": -1020600,
+                            "code": "pages.403",
+                            "name": "403",
+                            "order": 3,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020600,
+                                    "code": "pages.403",
+                                    "name": "403",
+                                    "order": 3,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": -1020500,
+                            "code": "pages.faq",
+                            "name": "FAQ",
+                            "order": 2,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020500,
+                                    "code": "pages.faq",
+                                    "name": "FAQ",
+                                    "order": 2,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        },
+                        {
+                            "id": -1020200,
+                            "code": "pages.login",
+                            "name": "登录",
+                            "order": 1,
+                            "type": {
+                                "id": -10040003,
+                                "nature": "FUNC_TYPE",
+                                "code": "MENU",
+                                "value": "菜单"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false,
+                            "parent": null,
+                            "children": [
+                                {
+                                    "id": -1020400,
+                                    "code": "pages.login.dev",
+                                    "name": "开发者登录",
+                                    "order": 2,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false,
+                                    "parent": null,
+                                    "children": null,
+                                    "hasChildren": false,
+                                    "isRoot": false,
+                                    "allCloneSubFuncs": [
+                                        {
+                                            "id": -1020400,
+                                            "code": "pages.login.dev",
+                                            "name": "开发者登录",
+                                            "order": 2,
+                                            "type": {
+                                                "id": -10040004,
+                                                "nature": "FUNC_TYPE",
+                                                "code": "FEATURE",
+                                                "value": "模块"
+                                            },
+                                            "url": null,
+                                            "icon": "fa fa-user",
+                                            "isVisible": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": -1020300,
+                                    "code": "pages.login.sys",
+                                    "name": "系统用户登录",
+                                    "order": 1,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false,
+                                    "parent": null,
+                                    "children": null,
+                                    "hasChildren": false,
+                                    "isRoot": false,
+                                    "allCloneSubFuncs": [
+                                        {
+                                            "id": -1020300,
+                                            "code": "pages.login.sys",
+                                            "name": "系统用户登录",
+                                            "order": 1,
+                                            "type": {
+                                                "id": -10040004,
+                                                "nature": "FUNC_TYPE",
+                                                "code": "FEATURE",
+                                                "value": "模块"
+                                            },
+                                            "url": null,
+                                            "icon": "fa fa-user",
+                                            "isVisible": false
+                                        }
+                                    ]
+                                }
+                            ],
+                            "hasChildren": true,
+                            "isRoot": false,
+                            "allCloneSubFuncs": [
+                                {
+                                    "id": -1020200,
+                                    "code": "pages.login",
+                                    "name": "登录",
+                                    "order": 1,
+                                    "type": {
+                                        "id": -10040003,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "MENU",
+                                        "value": "菜单"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": false
+                                }
+                            ]
+                        }
+                    ],
+                    "hasChildren": true,
+                    "isRoot": true,
+                    "allCloneSubFuncs": [
+                        {
+                            "id": -1020100,
+                            "code": "pages",
+                            "name": "通用页面",
+                            "order": 2,
+                            "type": {
+                                "id": -10040003,
+                                "nature": "FUNC_TYPE",
+                                "code": "MENU",
+                                "value": "菜单"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false
+                        },
+                        {
+                            "id": -1020200,
+                            "code": "pages.login",
+                            "name": "登录",
+                            "order": 1,
+                            "type": {
+                                "id": -10040003,
+                                "nature": "FUNC_TYPE",
+                                "code": "MENU",
+                                "value": "菜单"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": false
+                        }
+                    ]
+                },
+                {
+                    "id": -1010100,
+                    "code": "home.home",
+                    "name": "首页",
+                    "order": 1,
+                    "type": {
+                        "id": -10040004,
+                        "nature": "FUNC_TYPE",
+                        "code": "FEATURE",
+                        "value": "模块"
+                    },
+                    "url": null,
+                    "icon": "fa fa-user",
+                    "isVisible": true,
+                    "parent": null,
+                    "children": null,
+                    "hasChildren": false,
+                    "isRoot": true,
+                    "allCloneSubFuncs": [
+                        {
+                            "id": -1010100,
+                            "code": "home.home",
+                            "name": "首页",
+                            "order": 1,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true
+                        }
+                    ]
+                },
+                {
+                    "id": -1010100,
+                    "code": "dashboard",
+                    "name": "dashboard",
+                    "order": 1,
+                    "type": {
+                        "id": -10040004,
+                        "nature": "FUNC_TYPE",
+                        "code": "FEATURE",
+                        "value": "模块"
+                    },
+                    "url": null,
+                    "icon": "fa fa-user",
+                    "isVisible": true,
+                    "parent": null,
+                    "children": null,
+                    "hasChildren": false,
+                    "isRoot": true
+                   
+                },
+                {
+                    "id": -1020100,
+                    "code": "demo",
+                    "name": "AngularJS Features",
+                    "order": 2,
+                    "type": {
+                        "id": -10040003,
+                        "nature": "FUNC_TYPE",
+                        "code": "MENU",
+                        "value": "菜单"
+                    },
+                    "url": null,
+                    "icon": "fa fa-user",
+                    "isVisible": true,
+                    "parent": null,
+                    "children": [
+                        {
+                            "id": -1020900,
+                            "code": "demo.bootstrap",
+                            "name": "Bootstrap",
+                            "order": 6,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false
+                          
+                        },
+                        {
+                            "id": -1020800,
+                            "code": "demo.upload",
+                            "name": "Upload",
+                            "order": 5,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false                           
+                        },
+                        {
+                            "id": -1020700,
+                            "code": "demo.table",
+                            "name": "Table",
+                            "order": 4,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false
+                           
+                        },
+                        {
+                            "id": -1020600,
+                            "code": "demo.echart",
+                            "name": "Echart",
+                            "order": 3,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "FEATURE",
+                                "value": "模块"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": false                            
+                        },
+                        {
+                            "id": -1010100,
+                            "code": "null",
+                            "name": "链接",
+                            "order": 9,
+                            "type": {
+                                "id": -10040004,
+                                "nature": "FUNC_TYPE",
+                                "code": "LINK",
+                                "value": "模块"
+                            },
+                            "url": "http://www.baidu.com",
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": null,
+                            "hasChildren": false,
+                            "isRoot": true                    
+                        },
+                        {
+                            "id": -1020100,
+                            "code": "demo.demo",
+                            "name": "AngularJS Features",
+                            "order": 2,
+                            "type": {
+                                "id": -10040003,
+                                "nature": "FUNC_TYPE",
+                                "code": "MENU",
+                                "value": "菜单"
+                            },
+                            "url": null,
+                            "icon": "fa fa-user",
+                            "isVisible": true,
+                            "parent": null,
+                            "children": [
+                                {
+                                    "id": -1020900,
+                                    "code": "demo.demo.bootstrap",
+                                    "name": "Bootstrap",
+                                    "order": 6,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "FEATURE",
+                                        "value": "模块"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": true,
+                                    "parent": null,
+                                    "children": null,
+                                    "hasChildren": false,
+                                    "isRoot": false
+                                  
+                                },
+                                {
+                                    "id": -1010100,
+                                    "code": null,
+                                    "name": "链接",
+                                    "order": 9,
+                                    "type": {
+                                        "id": -10040004,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "LINK",
+                                        "value": "模块"
+                                    },
+                                    "url": "http://www.baidu.com",
+                                    "icon": "fa fa-user",
+                                    "isVisible": true,
+                                    "parent": null,
+                                    "children": null,
+                                    "hasChildren": false,
+                                    "isRoot": true                    
+                                },
+                                {
+                                    "id": -1020100,
+                                    "code": "demo.demo.demo",
+                                    "name": "dmo",
+                                    "order": 2,
+                                    "type": {
+                                        "id": -10040003,
+                                        "nature": "FUNC_TYPE",
+                                        "code": "MENU",
+                                        "value": "菜单"
+                                    },
+                                    "url": null,
+                                    "icon": "fa fa-user",
+                                    "isVisible": true,
+                                    "parent": null,
+                                    "children": [
+                                        {
+                                            "id": -1020900,
+                                            "code": "demo.demo.demo.bootstrap",
+                                            "name": "Bootstrap",
+                                            "order": 6,
+                                            "type": {
+                                                "id": -10040004,
+                                                "nature": "FUNC_TYPE",
+                                                "code": "FEATURE",
+                                                "value": "模块"
+                                            },
+                                            "url": null,
+                                            "icon": "fa fa-user",
+                                            "isVisible": true,
+                                            "parent": null,
+                                            "children": null,
+                                            "hasChildren": false,
+                                            "isRoot": false
+                                          
+                                        },
+                                        {
+                                            "id": -1010100,
+                                            "code": null,
+                                            "name": "链接",
+                                            "order": 9,
+                                            "type": {
+                                                "id": -10040004,
+                                                "nature": "FUNC_TYPE",
+                                                "code": "LINK",
+                                                "value": "模块"
+                                            },
+                                            "url": "http://www.baidu.com",
+                                            "icon": "fa fa-user",
+                                            "isVisible": true,
+                                            "parent": null,
+                                            "children": null,
+                                            "hasChildren": false,
+                                            "isRoot": true                    
+                                        }
+                                    ],
+                                    "hasChildren": true,
+                                    "isRoot": true
+                                   
+                                }
+                            ],
+                            "hasChildren": true,
+                            "isRoot": true
+                           
+                        }
+                    ],
+                    "hasChildren": true,
+                    "isRoot": true
+                   
+                },
+                {
+                    "id": -1010100,
+                    "code": null,
+                    "name": "链接",
+                    "order": 4,
+                    "type": {
+                        "id": -10040004,
+                        "nature": "FUNC_TYPE",
+                        "code": "LINK",
+                        "value": "模块"
+                    },
+                    "url": "http://www.baidu.com",
+                    "icon": "fa fa-user",
+                    "isVisible": true,
+                    "parent": null,
+                    "children": null,
+                    "hasChildren": false,
+                    "isRoot": true                    
+                }
+
+            ],
+            "hasChildren": true,
+            "isRoot": null           
+        }
+    }
+}

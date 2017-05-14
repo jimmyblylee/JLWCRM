@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="RelSysUserGroup" table="SYS_USER_GROUP">
+        <id name="id" column="REL_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="userId" column="USER_ID" type="int"/>
+        <property name="groupId" column="GROUP_ID" type="int"/>
+    </class>
+    <query name="sys.hql.removeRelOfUserGroupByGroupId">
+        <![CDATA[delete from RelSysUserGroup where groupId = :groupId]]>
+    </query>
+    <query name="sys.hql.removeRelOfUserGroupByGroupIdAndUserId">
+        <![CDATA[delete from RelSysUserGroup where groupId = :groupId and userId = :userId]]>
+    </query>
+    <query name="sys.hql.removeRelOfUserGroupByUserId">
+        <![CDATA[delete from RelSysUserGroup where userId = :userId]]>
+    </query>
+</hibernate-mapping>

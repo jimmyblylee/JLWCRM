@@ -1,0 +1,150 @@
+
+<section id="file-style" ng-controller="FileStyle">
+
+	<div class="row">
+		<div class="show-grid">
+			<div class="panel panel-default">
+				<div class="panel-body" style="background-color: #364150;">
+
+					<div class="example-caption" style="text-align: right">
+						<a>刷新</a>
+					</div>
+
+					<div save-content="file-style-html">
+						<div>
+							<treecontrol class="tree-dark" tree-model="treedata"
+								on-selection="showSelected(node)"> <span ng-switch
+								on="node.type"> <span ng-switch-when="folder"
+								class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+								<span ng-switch-when="pic" class="glyphicon glyphicon-picture"
+								aria-hidden="true"></span> <span ng-switch-when="doc"
+								class="glyphicon glyphicon-file" aria-hidden="true"></span> <span
+								ng-switch-when="file" class="glyphicon glyphicon-floppy-disk"
+								aria-hidden="true"></span> <span ng-switch-when="movie"
+								class="glyphicon glyphicon-film" aria-hidden="true"></span> <span
+								ng-switch-when="email" class="glyphicon glyphicon-envelope"
+								aria-hidden="true"></span> <span ng-switch-when="home"
+								class="glyphicon glyphicon-home" aria-hidden="true"></span> <span
+								ng-switch-when="trash" class="glyphicon glyphicon-trash"
+								aria-hidden="true"></span>
+							</span> {{node.label}} </treecontrol>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	var entityMap = {
+		"&" : "&amp;",
+		"<": "&lt;",
+        ">" : "&gt;",
+		'"' : '&quot;',
+		"'" : '&#39;',
+		"/" : '&#x2F;'
+	};
+	function escapeHtml(string) {
+		return String(string).replace(/[&<>"'\/]/g, function(s) {
+			return entityMap[s];
+		});
+	}
+	var nonSpace = /\S/;
+	function trimIndent(content) {
+		var lines = content.split("\n");
+		var begin = 0;
+		var end = lines.length - 1;
+		while ((nonSpace.exec(lines[begin]) == null) && (begin < lines.length))
+			begin = begin + 1;
+		while ((nonSpace.exec(lines[end]) == null) && end >= begin)
+			end = end - 1;
+		var ident = nonSpace.exec(lines[begin]).index;
+		var formatted = "";
+		for (var i = begin; i <= end; i++) {
+			formatted = formatted + lines[i].slice(ident - 1)
+					+ ((i < end) ? "\n" : "");
+		}
+		return formatted;
+	}
+	var example = angular.module(
+			"example",
+			[ "treeControl", "ui.bootstrap", "template/tabs/tab.html",
+					"template/tabs/tabset.html" ])
+
+	/*工厂*/
+	.factory("$savedContent", function() {
+		return [];
+	})
+	/*定义了一个指令 ----这里了解的时，我们在html中使用自定义指令的时候
+	    1.<save-Content></save-Content>
+	     <div runoob-directive></div>   
+	     <div class="runoob-directive"></div>
+	 */
+	.directive("saveContent", function($savedContent) {
+		return {
+			/*restrict值用来显示该指令在可以在什么时候使用
+			   E 只限元素名使用
+			  A 只限属性使用
+			  C 只限类名使用
+			  M 只限注释使用
+			 */
+			restrict : "A",
+			compile : function($element, $attrs) {
+				var content = $element.html();
+				$savedContent[$attrs.saveContent] = content;
+			}
+		}
+	}).directive("applyContent", function($savedContent) {
+		return {
+			restrict : "EAC",
+			compile : function($element, $attrs) {
+				return function($scope, $element, $attrs) {
+					var content = $savedContent[$attrs.applyContent];
+					var lang = $attrs.highlightLang;
+					if (lang == "html")
+						content = escapeHtml(content);
+					content = trimIndent(content);
+					var pre = prettyPrintOne(content, lang);
+					$element.html(pre);
+				}
+			}
+		}
+	}).directive(
+			"nav",
+			function() {
+				return {
+					restrict : "A",
+					compile : function($element) {
+						var sections = $("section");
+						angular.forEach(sections, function(section) {
+							var $section = $(section);
+							var id = $section.attr('id');
+							var titleHtml = $section.find("h1").html();
+							titleHtml = titleHtml.slice(0,
+									titleHtml.indexOf("<")).trim();
+							$element.append("<li><a href='#"+id+"'>"
+									+ titleHtml + "</a></li>")
+						})
+					}
+				}
+			});
+	var names = [ 'Homer', 'Marge', 'Bart', 'Lisa', 'Mo' ];
+	function createSubTree(level, width, prefix) {//3,4,""
+		if (level > 0) {
+			var res = [];
+			for (var i = 1; i <= width; i++)
+				res.push({
+					"label" : "Node " + prefix + i,
+					"id" : "id" + prefix + i,
+					"i" : i,
+					"children" : createSubTree(level - 1, width, prefix + i
+							+ "."),
+					"name" : names[i % names.length]
+				});
+			return res;
+		} else
+			return [];
+	}
+</script>

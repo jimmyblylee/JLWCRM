@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+	<class name="SysGlobalVariable" table="SYS_GLOBAL_VARIABLE">
+
+		<id name="variableID" column="VARIABLE_ID" type="int">
+			<generator class="identity" />
+		</id>
+		<property name="variableValue" column="VARIABLE_VALUE" />
+		<property name="variableName" column="VARIABLE_NAME" />
+		<property name="variableDescribe" column="VARIABLE_DESCRIBE" />
+		<property name="isEnabled" column="IS_ENABLED" />
+	</class>
+	<query name="sys.hql.getGlobalVariable">
+        <![CDATA[from SysGlobalVariable  where isEnabled = :globalIsEnabled
+         and (:queryData is null or (variableValue like :queryData  or variableName like :queryData or variableDescribe like :queryData) ) 
+ ]]>
+	</query>
+	<query name="sys.hql.getGlobalTotle">
+        <![CDATA[select count(*) from SysGlobalVariable where isEnabled = :globalIsEnabled
+        and (:queryData is null or (variableValue like :queryData  or variableName like :queryData or variableDescribe like :queryData) ) 
+        ]]>
+	</query>
+	<query name="sys.hql.removeGlobalVariable">
+        <![CDATA[update SysGlobalVariable set isEnabled = false where variableID = :id]]>
+	</query>
+	<query name="sys.hql.getGlobalVariableInit">
+        <![CDATA[from SysGlobalVariable where isEnabled = true ]]>
+	</query>
+	
+	<query name="sys.hql.getGlobalLogin">
+        <![CDATA[from SysGlobalVariable where isEnabled = true  
+        and (:queryData is null or (variableName = :queryData) ) 
+    ]]>
+    </query>
+    <!--通过参数编码判断用户是否存在    -->
+    <query name="sys.hql.getCountByvariableValue">
+        <![CDATA[select count(*) from SysGlobalVariable as sgv where  sgv.variableName = :variableName
+    ]]>
+    </query>
+     <!--通过参数编码判断查询用户   -->
+    <query name="sys.hql.getGlobalByvariableValue">
+        <![CDATA[select sgv from SysGlobalVariable as sgv where  sgv.variableName = :variableName
+    ]]>
+	</query>
+
+    <!--根据id得到全部全局参数信息   -->
+    <query name="sys.hql.getGlobalById">
+        <![CDATA[from SysGlobalVariable as sgv where  sgv.variableID = :variableID
+    ]]>
+	</query>
+
+</hibernate-mapping>

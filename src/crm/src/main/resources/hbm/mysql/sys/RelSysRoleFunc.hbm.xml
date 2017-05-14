@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="RelSysRoleFunc" table="SYS_ROLE_FUNC">
+        <id name="id" column="REL_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="roleId" column="ROLE_ID" type="int"/>
+        <property name="funcId" column="FUNC_ID" type="int"/>
+    </class>
+    <query name="sys.hql.removeRelOfRoleFuncByRoleId">
+        <![CDATA[delete from RelSysRoleFunc where roleId = :roleId]]>
+    </query>
+    <query name="sys.hql.removeRelOfRoleFuncByRoleIdAndFuncId">
+        <![CDATA[delete from RelSysRoleFunc where roleId = :roleId and funcId = :funcId]]>
+    </query>
+    <query name="sys.hql.queryRoleFuncByFuncId">
+        <![CDATA[ from RelSysRoleFunc where funcId = :funcId]]>
+    </query>
+   
+</hibernate-mapping>

@@ -1,0 +1,137 @@
+<!--这里使用了ExpandedNodes控制器 -->
+<section id="expandedNodes" ng-controller="ExpandedNodes">
+	<div class="row">
+		<div class="col-md-6 show-grid">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<!--整个树的区域  -->
+					<div save-content="default-expanded-html">
+						<treecontrol class="tree-classic" tree-model="treedata"
+							expanded-nodes="expandedNodes" options="opts">
+						label: {{node.label}} ({{node.id}}) </treecontrol>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<tabset> <tab heading="Markup"> <pre class="code"
+			apply-content="default-expanded-html" highlight-lang="html"></pre> </tab> <tab
+			heading="JavaScript"> <pre class="code"
+			apply-content="default-expanded-js" highlight-lang="js"></pre> </tab> </tabset>
+	</div>
+</section>
+
+<script>
+	var entityMap = {
+		"&" : "&amp;",
+		"<": "&lt;",
+        ">" : "&gt;",
+		'"' : '&quot;',
+		"'" : '&#39;',
+		"/" : '&#x2F;'
+	};
+	function escapeHtml(string) {
+		return String(string).replace(/[&<>"'\/]/g, function(s) {
+			return entityMap[s];
+		});
+	}
+	var nonSpace = /\S/;
+	function trimIndent(content) {
+		var lines = content.split("\n");
+		var begin = 0;
+		var end = lines.length - 1;
+		while ((nonSpace.exec(lines[begin]) == null) && (begin < lines.length))
+			begin = begin + 1;
+		while ((nonSpace.exec(lines[end]) == null) && end >= begin)
+			end = end - 1;
+		var ident = nonSpace.exec(lines[begin]).index;
+		var formatted = "";
+		for (var i = begin; i <= end; i++) {
+			formatted = formatted + lines[i].slice(ident - 1)
+					+ ((i < end) ? "\n" : "");
+		}
+		return formatted;
+	}
+	var example = angular.module(
+			"example",
+			[ "treeControl", "ui.bootstrap", "template/tabs/tab.html",
+					"template/tabs/tabset.html" ])
+
+	/*工厂*/
+	.factory("$savedContent", function() {
+		return [];
+	})
+	/*定义了一个指令 ----这里了解的时，我们在html中使用自定义指令的时候
+	    1.<save-Content></save-Content>
+	     <div runoob-directive></div>   
+	     <div class="runoob-directive"></div>
+	 */
+	.directive("saveContent", function($savedContent) {
+		return {
+			/*restrict值用来显示该指令在可以在什么时候使用
+			   E 只限元素名使用
+			  A 只限属性使用
+			  C 只限类名使用
+			  M 只限注释使用
+			 */
+			restrict : "A",
+			compile : function($element, $attrs) {
+				var content = $element.html();
+				$savedContent[$attrs.saveContent] = content;
+			}
+		}
+	}).directive("applyContent", function($savedContent) {
+		return {
+			restrict : "EAC",
+			compile : function($element, $attrs) {
+				return function($scope, $element, $attrs) {
+					var content = $savedContent[$attrs.applyContent];
+					var lang = $attrs.highlightLang;
+					if (lang == "html")
+						content = escapeHtml(content);
+					content = trimIndent(content);
+					var pre = prettyPrintOne(content, lang);
+					$element.html(pre);
+				}
+			}
+		}
+	}).directive(
+			"nav",
+			function() {
+				return {
+					restrict : "A",
+					compile : function($element) {
+						var sections = $("section");
+						angular.forEach(sections, function(section) {
+							var $section = $(section);
+							var id = $section.attr('id');
+							var titleHtml = $section.find("h1").html();
+							titleHtml = titleHtml.slice(0,
+									titleHtml.indexOf("<")).trim();
+							$element.append("<li><a href='#"+id+"'>"
+									+ titleHtml + "</a></li>")
+						})
+					}
+				}
+			});
+	var names = [ 'Homer', 'Marge', 'Bart', 'Lisa', 'Mo' ];
+	function createSubTree(level, width, prefix) {//3,4,""
+		if (level > 0) {
+			var res = [];
+			for (var i = 1; i <= width; i++)
+				res.push({
+					"label" : "Node " + prefix + i,
+					"id" : "id" + prefix + i,
+					"i" : i,
+					"children" : createSubTree(level - 1, width, prefix + i
+							+ "."),
+					"name" : names[i % names.length]
+				});
+			return res;
+		} else
+			return [];
+	}
+</script>

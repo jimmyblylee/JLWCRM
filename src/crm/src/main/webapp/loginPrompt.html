@@ -1,0 +1,23 @@
+<div  role="dialog" tabindex="-1" class="modal global-del"   >
+    <div class="modal-dialog " >
+        <div class="modal-content">
+            <div class="modal-header t-modal-header">
+                <button  ng-click="$hide()" class="close" type="button">×</button>
+                <div class="caption ">
+                    <i class="icon-settings"></i>
+                    <span class="caption-subject bold uppercase">提示</span>
+                </div>
+            </div>
+            <div class="modal-body" ng-bind-html="content">
+
+            </div>
+            <div class="modal-footer t-modal-footer" ng-show="title">
+                <button class="btn btn-warning"  ng-click="$hide()">关闭</button>
+            </div>
+            <div class="modal-footer t-modal-footer" ng-hide="title">
+                <button class="btn btn-primary"  ng-click="delGlobal()">确定</button>
+                <button class="btn btn-warning"  ng-click="$hide()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

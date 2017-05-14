@@ -1,0 +1,34 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+	tabindex="10" class="modal fade" bs-popup="" ng-model="test"
+	id="updateGroup" style="display: none;">
+	<form role="form" name="editorForm" ng-submit="submitForm()" novalidate
+		style="height: 100%;">
+		<div class="modal-dialog"
+			style="width: 40%; margin-top: 140px; height: 200px">
+			<div class="modal-content">
+				<div class="modal-header alert-info">
+					<button aria-hidden="true" data-dismiss="modal" class="close"
+						type="button">×</button>
+					<h4 id="myModalLabel" class="modal-title">修改权限</h4>
+				</div>
+				组号：<input class="btn-group" type=test value={{updateGroup.id}}>
+				组名：<input type=test value={{updateGroup.name}}> <br/><br/>
+				排序：<input type=test value={{updateGroup.desc}}>
+				状态：<select>
+					<option style="width: 200px">显示</option>
+					<option style="width: 200px">隐藏</option>
+				</select><br/><br/>
+				权限：<br/>
+				<div ng-controller="updateGroupRole">
+					
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">OK</button>
+					<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</form>
+</div>

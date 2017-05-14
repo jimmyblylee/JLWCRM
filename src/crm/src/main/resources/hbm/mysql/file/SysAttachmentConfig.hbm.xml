@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.attachment.ftp.entity">
+    <class name="SysAttachmentConfig" table="SYS_ATT_FTP_CONF">
+        <id name="ip" column="FTP_SERV_IP" type="string"/>
+        <property name="port" column="FTP_SERV_PORT"/>
+        <property name="username" column="FTP_SERV_USER"/>
+        <property name="password" column="FTP_SERV_PWD"/>
+        <property name="basePath" column="FTP_SERV_BASE_PATH"/>
+    </class>
+    <query name="ftp.hql.queryAllCfg">
+        <![CDATA[from SysAttachmentConfig]]>
+    </query>
+</hibernate-mapping>

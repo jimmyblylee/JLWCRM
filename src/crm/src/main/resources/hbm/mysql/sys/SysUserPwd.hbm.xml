@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="SysUserPwd" table="SYS_USER">
+        <id name="id" column="USER_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="account" column="LOGIN_ACCOUNT"/>
+        <property name="password" column="LOGIN_PWD" />
+        <property name="isEnabled" column="IS_ENABLED"/>
+    </class>
+    
+    <query name="sys.hql.getUserIdByAccountAndPwd">
+        <![CDATA[select id from SysUserPwd where account = :account and password = :password and isEnabled = true]]>
+    </query>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.log.entity">
+    <class name="ModifiedEntityTypeEntity" table="LOG_MOD_ENTITY">
+        <id name="id" column="MOD_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="revision" column="REV_ID" class="RevisionEntity" />
+        <property name="entityClassName" column="ENTITY_NAME" />
+        <property name="entityId" column="ENTITY_ID" type="int" />
+        <property name="revisionType" column="REV_TYPE" type="int" />
+    </class>
+</hibernate-mapping>

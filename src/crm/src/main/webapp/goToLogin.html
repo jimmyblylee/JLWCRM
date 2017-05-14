@@ -1,0 +1,19 @@
+<div  role="dialog" tabindex="-1" class="modal">
+    <div class="modal-dialog "  >
+        <div class="modal-content">
+            <div class="modal-header t-modal-header">
+                <button  ng-click="$hide()" class="close" type="button">×</button>
+                <div class="caption ">
+                    <i class="icon-settings"></i>
+                    <span class="caption-subject bold uppercase">系统提示</span>
+                </div>
+            </div>
+            <div class="modal-body t-privacy" ng-bind-html="privacyAndServiceGlobalItem">
+                  
+            </div>
+            <div class="modal-footer t-modal-footer" >
+                <button class="btn btn-warning"  ng-click="$hide()">关闭</button>
+            </div>          
+        </div>
+    </div>
+</div>

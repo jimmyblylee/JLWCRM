@@ -1,0 +1,149 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li><i class="fa fa-home"></i> <a href="#/dashboard.html">Home</a>
+			<i class="fa fa-angle-right"></i></li>
+		<li><a href="#/table.html">Datatables</a></li>
+	</ul>
+	<div class="page-toolbar">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-sm btn-default dropdown-toggle"
+				data-toggle="dropdown" data-hover="dropdown" data-delay="1000"
+				data-close-others="true">
+				Actions <i class="fa fa-angle-down"></i>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li><a href="#"> <i class="icon-user"></i> New User
+				</a></li>
+				<li><a href="#"> <i class="icon-present"></i> New Event <span
+						class="badge badge-success">4</span>
+				</a></li>
+				<li><a href="#"> <i class="icon-basket"></i> New order
+				</a></li>
+				<li class="divider"></li>
+				<li><a href="#"> <i class="icon-flag"></i> Pending Orders <span
+						class="badge badge-danger">4</span>
+				</a></li>
+				<li><a href="#"> <i class="icon-users"></i> Pending Users <span
+						class="badge badge-warning">12</span>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN MAIN CONTENT -->
+
+<!-- END PAGINATION DEMO -->
+<div class="row">
+
+	<div class="col-md-12">
+
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet light bordered" ng-controller="DepttableCtrl">
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="btn-group" ng-controller="ModalDemoCtrl">
+								<button class="btn sbold green" data-target="#myModal" data-toggle="modal">
+									添加机构 <i class="fa fa-plus"></i>
+								</button>
+								<a class="btn sbold green " href="#/editor.html"
+									style="margin-left: 10px;">刷新 <i class="fa fa-plus"></i></a>
+							</div>
+						</div>
+						<div class="col-md-6 text-right">
+							<label>每页显示条数</label> <select
+								ng-change="setPagenum(itemsPerPage)" ng-model='itemsPerPage'
+								ng-options='Pagenum as Pagenum group by Pagenum.group for Pagenum in Pagenum'
+								class="form-control input-inline input-small input-sm">
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<table class="table table-striped table-bordered ">
+					<tr>
+						<td>
+
+							<div class="input-group pull-right" style="max-width: 400px;">
+								<input type="text" class="form-control input-sm col-sx-5"
+									ng-model="query" ng-change="search()" placeholder="检索">
+								<span class="input-group-btn"> <a href="javascript:;"
+									class="btn submit"> <i class="icon-magnifier"></i>
+								</a>
+								</span>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<table
+					class="table table-striped table-bordered table-hover table-checkable order-column">
+					<thead>
+						<tr>
+							<th class="Username"><span>机构名称</span> <a class="fa fa-sort"
+								ng-click="sort_by('Username')" href="javascript:void(0)"></a></th>
+							<th class="Email"><span>所属区域</span> <a class="fa fa-sort"
+								ng-click="sort_by('Email')" href="javascript:void(0)"></a></th>
+							<th class="Points"><span>机构类型</span> <a class="fa fa-sort"
+								ng-click="sort_by('Points')" href="javascript:void(0)"></a></th>
+							<th class="Joined"><span>备注</span> <a class="fa fa-sort"
+								ng-click="sort_by('Joined')" href="javascript:void(0)"></a></th>
+							<th class="Status"><span>操作</span> <a class="fa fa-sort"
+								ng-click="sort_by('Status')" href="javascript:void(0)"></a></th>
+						</tr>
+
+					</thead>
+			
+					<tbody>
+						<tr class="odd gradeX"
+							ng-repeat="item in groupedItems[currentPage-1] | orderBy:order:reverse ">
+							<td>{{item.name}}</td>
+							<td><a href="javascript:void(0)"> {{item.email}} </a></td>
+							<td>{{item.address }}</td>
+							<td class="center">{{item.postalCode}}</td>
+							<td><button ng-click="openDialogView(item.Email)"
+									class="btn sbold blue">查看</button> <a class="btn sbold green">修改
+							</a> <a class="btn sbold red">详情</a> <a class="btn sbold green">添加下级机构
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<pagination direction-links="false" boundary-links="true"
+					total-items="totalItems" items-per-page="itemsPerPage"
+					ng-model="currentPage"></pagination>
+					 <div data-ng-include="'packages/index/views/dept/addDept.html'" > </div>    
+			</div>
+
+			<!-- 封装的树形结构   节点没有完全展开 -->
+			<div data-ng-include="'packages/index/views/dept/tree.html'"></div>
+
+			<!-- 封装的树形结构   节点完全展开 -->
+			<!-- <div data-ng-include="'packages/index/views/dept/fulltree.html'"></div> -->
+
+
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+</div>
+
+<div>
+     <form class="addDept-form" name="addDeptForm" ng-submit="submitForm()" ng-show="addDeptFrom" novalidate ng-controller="addDeptCtrl" methos="post">      
+         <div class="form-group">
+             <label class="control-label visible-ie8 visible-ie9" ></label>
+         </div>
+
+     </form>
+</div>
+
+<script>
+	/*  时间组件选择器 */
+	ComponentsDateTimePickers.init(); // init todo page
+</script>
+
+
+<!-- END MAIN CONTENT -->

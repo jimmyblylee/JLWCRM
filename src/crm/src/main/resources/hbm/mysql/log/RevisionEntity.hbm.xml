@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.log.entity">
+    <class name="RevisionEntity" table="LOG_REV_INFO">
+        <id name="id" column="REV_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="timestamp" column="REV_TIMESTMP" type="long" />
+        <property name="feature" column="FEATURE_CODE" />
+        <property name="function" column="FUNCTION_CODE" />
+        <property name="operatorId" column="OPERATOR_ID" type="int"/>
+        <property name="operatorName" column="OPERATOR_NAME" />
+        <property name="operatiorIp" column="OPERATOR_IP" />
+        <set name="modifiedEntityTypes" cascade="all-delete-orphan" inverse="true">
+            <key column="REV_ID" />
+            <one-to-many class="ModifiedEntityTypeEntity"/>
+        </set>
+    </class>
+    <query name="log.hql.queryAll">
+        <![CDATA[from RevisionEntity]]>
+    </query>
+    <sql-query name="log.sql.queryModByRevId">
+        <![CDATA[SELECT ENTITYNAME FROM LOG_MOD_CHANGES WHERE REV = :rev]]>
+    </sql-query>
+</hibernate-mapping>

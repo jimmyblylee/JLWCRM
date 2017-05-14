@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="SysRole" table="SYS_ROLE">
+        <id name="id" column="ROLE_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="ROLE_NAME"/>
+        <property name="desc" column="ROLE_DESC"/>
+        <property name="isBaseRole" column="IS_BASE_ROLE"/>
+        <property name="isEnabled" column="IS_ENABLED"/>
+    </class>
+    
+    <query name="sys.hql.queryGroupsByRoleId">
+        <![CDATA[select g from SysGroup as g, RelSysGroupRole as rel where g.id = rel.groupId and g.isEnabled = true and rel.roleId = :roleId]]>
+    </query>
+    
+    <query name="sys.hql.queryUsersByRoleId">
+        <![CDATA[select u from SysUser as u, RelSysUserRole as rel where u.id = rel.userId and u.isEnabled = true and rel.roleId = :roleId]]>
+    </query>
+    
+    <query name="sys.hql.queryFuncsByRoleId">
+        <![CDATA[select f from SysFunc as f, RelSysRoleFunc as rel where f.id = rel.funcId  and f.isEnabled = true and rel.roleId = :roleId]]>
+    </query>
+    <query name="sys.hql.queryAllRole">
+        <![CDATA[from SysRole as f where 1 = 1
+            and (:pageQuery is null or f.name like :pageQuery)
+            and (:isEnabled is null or f.isEnabled = :isEnabled)
+         ]]>
+    </query>
+    <query name="sys.hql.queryRoleTotle">
+        <![CDATA[select count(*) from SysRole as f where 1 = 1
+            and (:pageQuery is null or f.name like :pageQuery)
+            and (:isEnabled is null or f.isEnabled = :isEnabled)
+         ]]>
+    </query>
+    <query name="sys.hql.queryRoleInfoByName">
+        <![CDATA[from SysRole as f where 1 = 1
+            and (:roleName is null or f.name like :roleName)
+            and (:isEnabled is null or f.isEnabled = :isEnabled)
+         ]]>
+    </query>
+</hibernate-mapping>

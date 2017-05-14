@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+
+    <class name="SysUser" table="SYS_USER">
+        <id name="id" column="USER_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="dept" column="DEPT_ID" class="SysDept" lazy="proxy" not-found="ignore"/>
+        <property name="name" column="USER_NAME"/>
+        <property name="account" column="LOGIN_ACCOUNT"/>
+        <property name="sexCode" column="USER_SEX" />
+        <many-to-one name="sex" lazy="proxy" formula="(SELECT DICT.DICT_ID FROM SYS_DICT DICT WHERE DICT.DICT_NATURE = 'SEX' AND DICT.DICT_CODE = USER_SEX )"/>
+        <property name="birthday" column="USER_BIRTHDAY"/>
+        <property name="tel" column="USER_TEL"/>
+        <property name="fixedTel" column="USER_FIXED_TEL"/>
+        <property name="email" column="USER_EMAIL"/>
+        <property name="address" column="USER_MAILING_ADDRESS"/>
+        <property name="postalCode" column="USER_POSTALCODE"/>
+        <property name="title" column="USER_TITLE"/>
+        <property name="idTypeCode" column="USER_ID_TYPE"/>
+        <many-to-one name="idType" lazy="proxy" formula="(SELECT DICT.DICT_ID FROM SYS_DICT DICT WHERE DICT.DICT_NATURE = 'USER_ID_TYPE' AND DICT.DICT_CODE = USER_ID_TYPE )" />
+        <property name="idNum" column="USER_ID_NUMBER"/>
+        <property name="typeCode" column="USER_TYPE"/>
+        <many-to-one name="type" lazy="proxy" formula="(SELECT DICT.DICT_ID FROM SYS_DICT DICT WHERE DICT.DICT_NATURE = 'USER_TYPE' AND DICT.DICT_CODE = USER_TYPE )"/>
+        <property name="isEnabled" column="IS_ENABLED"/>
+ 
+        <property name="remark" column="USER_REMARK"/>
+        <property name="lastTime" column="LAST_TIME"/>
+        
+    </class>
+   
+    <query name="sys.hql.getUserIdByAccount">
+        <![CDATA[select id from SysUser where account = :account and isEnabled = true]]>
+	</query>
+	
+	 <query name="sys.hql.getCountByAccount">
+        <![CDATA[select count(*)  from SysUser where account = :account]]>
+	</query>
+	
+	 <query name="sys.hql.getUserByAccount">
+        <![CDATA[select u from SysUser as u where u.account = :account]]>
+	</query>
+	
+	<query name="sys.hql.getUserIdByEmail">
+        <![CDATA[select id from SysUser where email = :email and isEnabled = true]]>
+	</query>
+
+	<query name="sys.hql.queryGroupsByUserId">
+        <![CDATA[select g from SysGroup as g, RelSysUserGroup as rel where g.id = rel.groupId and g.isEnabled = true and rel.userId = :userId]]>
+	</query>
+
+	<query name="sys.hql.queryDirectRolesByUserId">
+        <![CDATA[select r from SysRole as r, RelSysUserRole as rel where r.id = rel.roleId and r.isEnabled = true and rel.userId = :userId]]>
+	</query>
+
+	<query name="sys.hql.querySysUsersByDeptAndAccountAndName">
+        <![CDATA[select u from SysUser as u left join fetch u.dept left join fetch u.sex left join fetch u.idType left join fetch u.type where
+	        (:isEnabled is null or u.isEnabled = :isEnabled)
+	        and (:deptId is null or u.dept.id = :deptId)
+	        and (:name is null or u.name like :name or :account is null or u.account like :account)
+        ]]>
+	</query>
+	
+	<query name="sys.hql.querySysUsersByDeptAndAccountAndNameCount">
+        <![CDATA[select count(*) from SysUser as u where
+	        (:isEnabled is null or u.isEnabled = :isEnabled)
+	        and (:deptId is null or u.dept.id = :deptId)
+	        and (:name is null or u.name like :name or :account is null or u.account like :account)
+        ]]>
+	</query>
+	
+	<query name="sys.hql.getUserById">
+        <![CDATA[select u from SysUser as u left join fetch u.dept left join fetch u.sex left join fetch u.idType left join fetch u.type where u.isEnabled = true and u.id = :id]]>
+    </query>
+    
+    <query name="sys.hql.getCountByEmail">
+        <![CDATA[select count(*) from SysUser where email = :email and isEnabled = true]]>
+	</query>
+	<!--通过deptId查找用户是否存在  -->
+	<query name="sys.hql.getUserByDeptId">
+        <![CDATA[select count(*) from SysUser where  dept.id = :deptId and isEnabled = true]]>
+	</query>
+	
+	<query name="sys.hql.getUserListByDeptId">
+        <![CDATA[from SysUser where  dept.id = :deptId and isEnabled = true]]>
+	</query>
+	
+	
+    
+</hibernate-mapping>

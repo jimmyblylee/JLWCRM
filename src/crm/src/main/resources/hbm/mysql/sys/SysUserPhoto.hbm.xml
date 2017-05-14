@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="SysUserPhoto" table="SYS_USER">
+        <id name="id" column="USER_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="photo" column="USER_PHOTO" type="blob"/>
+    </class>
+</hibernate-mapping>

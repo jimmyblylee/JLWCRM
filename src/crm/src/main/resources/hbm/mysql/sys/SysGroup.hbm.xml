@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+    <class name="SysGroup" table="SYS_GROUP">
+        <id name="id" column="GROUP_ID" type="int">
+            <generator class="identity" />
+        </id>
+        <property name="name" column="GROUP_NAME" />
+        <property name="desc" column="GROUP_DESC" />
+        <property name="isEnabled" column="IS_ENABLED" />
+    </class>
+
+    <query name="sys.hql.queryRolesByGroupId">
+        <![CDATA[select r from SysRole as r, RelSysGroupRole as rel where r.id = rel.roleId and r.isEnabled = true and rel.groupId = :groupId]]>
+    </query>
+
+    <query name="sys.hql.queryUsersByGroupId">
+        <![CDATA[select u from SysUser as u, RelSysUserGroup as rel where u.id = rel.userId and u.isEnabled = true and rel.groupId = :groupId]]>
+    </query>
+
+    <query name="sys.hql.queryFuncsByGroupId">
+        <![CDATA[select f from SysFunc as f, SysRole as r, RelSysGroupRole as rel_gr, RelSysRoleFunc as rel_rf
+         where f.id = rel_rf.funcId 
+            and f.isEnabled = true
+            and rel_rf.roleId = r.id
+            and r.isEnabled = true
+            and rel_gr.roleId = r.id
+            and rel_gr.groupId = :groupId]]>
+    </query>
+    <query name="sys.hql.queryAllSysGroup">
+        <![CDATA[from SysGroup where isEnabled = true]]>
+    </query>
+   <!--  <query name="sys.hql.querySysGroupByName">
+        <![CDATA[from SysGroup as s where isEnabled = true  
+            and (:name is null or (s.name like :name or s.desc like :desc ))
+        ]]>
+    </query> -->
+    <query name="sys.hql.querySysGroupByName">
+        <![CDATA[from SysGroup as s where 1=1 
+            and s.isEnabled = :isEnabled
+            and (:name is null or (s.name like :name or s.desc like :desc ))
+        ]]>
+    </query>
+    
+    <query name="sys.hql.queryCountAllSysGroup">
+        <![CDATA[select count(*) from SysGroup where isEnabled = true]]>
+    </query>
+    <query name="sys.hql.queryCountSysGroupByName">
+        <![CDATA[select count(*) from SysGroup as s  where s.name like :name]]>
+    </query>
+
+</hibernate-mapping>

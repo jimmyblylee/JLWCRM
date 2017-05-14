@@ -1,0 +1,39 @@
+
+{
+  "signIn":"Sign In",
+  "userNameRequired":"The username is required.",
+  "userNamewWrong":"The username is wrong.",
+  "passwordRequired":"The password is required.",
+  "passwordWrong":"The password is wrong.",
+  "enterWrong":"Username or password is wrong.",
+  "login":"Login",
+  "remember":"Remember",
+  "forgotPassword":"Forgot Password ?",
+  "quickLogin":"Or login with",
+  "createAccount":"Create an account",
+
+  "emailAddress":" Enter your e-mail address below to reset your password. ",
+  "emailRequired":"The email is required.",
+  "validEmailAddress":"Please enter a valid email address.",
+
+  "back":"Back",
+  "submit":"Submit",
+
+  "signUp":"Sign Up",
+  "personalDetails":" Enter your personal details below: ",
+  "nameRequired":"The full name is required.",
+  "IDCardRequired":"The ID Card Number is required.",
+  "validIDCard":"Please enter a valid ID Card Number.",
+  "addressRequired":"The address is required.",
+  "cityRequired":"The city/town is required.",
+  "countryRequired":"The country is required.",
+  "accountDetails":" Enter your account details below: ",
+
+  "samePassword":"Please enter the same value again.",
+  "agree":"I agree to the",
+  "termsService":"Terms of Service",
+  "privacyPolicy":"Privacy Policy",
+  "accept":"Please accept TNC first."
+
+
+}

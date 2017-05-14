@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.sys.entity">
+	<class name="SysDept" table="SYS_DEPT">
+		<id name="id" column="DEPT_ID" type="int">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="parent" column="DEPT_PARENT_ID" lazy="proxy"
+			not-found="ignore" />
+		<property name="name" column="DEPT_NAME" />
+		<property name="tel" column="DEPT_TEL" />
+		<property name="fax" column="DEPT_FAX" />
+		<property name="email" column="DEPT_EMAIL" />
+		<property name="url" column="DEPT_URL" />
+		<property name="address" column="DEPT_ADDRESS" />
+		<property name="postalCode" column="DEPT_POSTALCODE" />
+		<property name="isEnabled" column="IS_ENABLED" />
+		<property name="sort" column="DEPT_ORDER_BY" />
+		<set name="children" cascade="all-delete-orphan" inverse="true"
+			lazy="true" order-by="name">
+			<key column="DEPT_ID" />
+			<one-to-many class="SysDept" />
+		</set>
+		<property name="hasChildren"
+			formula="(SELECT CASE WHEN (COUNT(1) > 0) THEN 1 ELSE 0 END FROM SYS_DEPT DEPT WHERE DEPT.DEPT_PARENT_ID = DEPT_ID)" />
+	</class>
+
+	<!-- 查找所有的部门 激活或未激活 -->
+	<query name="sys.hql.queryAllSysDept">
+       <![CDATA[from SysDept as dept left join fetch dept.parent  where dept.isEnabled = :isEnabled order by dept.sort]]>
+	</query>
+
+	<!--所有部门总条数 激活或未激活 -->
+	<query name="sys.hql.queryDeptTotle">
+        <![CDATA[select count(*) from SysDept as dept where dept.isEnabled = :isEnabled]]>
+	</query>
+
+	<!--通过机构id 得到 部门内 用户 信息 -->
+	<query name="sys.hql.queryAllSysUserByDeptId">
+        <![CDATA[from SysUser as dept where dept.id = :deptId and dept.isEnabled = true]]>
+	</query>
+
+
+	<!--通过父级部门id 得到子部门 -->
+	<query name="sys.hql.queryChildrenDeptByDeptId">
+    	  <![CDATA[from SysDept as dept where dept.parent.id = :deptId and dept.isEnabled = true order by dept.sort asc,dept.id asc]]>
+	</query>
+	
+
+	<!--通过部门id 得到部门信息 -->
+	<query name="sys.hql.queryDeptByDeptId">
+    	  <![CDATA[from SysDept as dept left join fetch dept.parent where dept.id = :deptId and dept.isEnabled = true]]>
+	</query>
+	
+	<!--判断这个部门是否存在  --> 
+	<query name="sys.hql.queryDeptIsExistByDeptId">
+    	  <![CDATA[select count(*) from SysDept as dept where dept.id = :deptId and dept.isEnabled = true]]>
+	</query>
+
+     
+    <!--查询没有上级部门的部门除了总公司  --> 
+	<query name="sys.hql.queryParentDeptIsNull">
+    	  <![CDATA[from SysDept as dept where dept.parent is  null and
+    	              dept.isEnabled = true]]>
+	</query>
+
+
+    <!--多字段模糊查询 得到dept列表 -->
+	<query name="sys.hql.queryAllSysDeptByComplex">
+       <![CDATA[from SysDept as d left join fetch d.parent where 1=1   
+               and d.isEnabled = :isEnabled
+               and d.parent.id = :id
+               and (:name is null or (d.name like:name or d.email like:email or d.address like:address or d.tel like:tel))  order by d.sort
+       ]]>
+	</query>
+
+	<query name="sys.hql.queryAllSysDeptByComplexGetCount">
+       <![CDATA[select count(*) from SysDept as d  where 1=1 
+               and d.isEnabled = :isEnabled
+               and d.parent.id = :id
+               and (:name is null or (d.name like:name or d.email like:email or d.address like:address or d.tel like:tel))
+       ]]>
+	</query>
+	
+		<!--多字段模糊查询 得到dept列表 -->
+	<query name="sys.hql.queryAllDeptComplex">
+       <![CDATA[from SysDept as d left join fetch d.parent where 1=1   
+               and d.isEnabled = :isEnabled
+               and d.parent.id = :id
+               and (:name is null or (d.name like:name or d.email like:email or d.address like:address or d.tel like:tel))  order by d.sort
+       ]]>
+	</query>
+	<!--多字段模糊查询 得到dept列表总条数 -->
+	<query name="sys.hql.queryCountDeptComplex">
+       <![CDATA[select count(*) from SysDept as d  where 1=1 
+               and d.isEnabled = :isEnabled
+               and d.parent.id = :id
+               and (:name is null or (d.name like:name or d.email like:email or d.address like:address or d.tel like:tel))
+       ]]>
+	</query>
+	
+	<!--通过父级部门id 得到子部门 -->
+	<query name="sys.hql.queryChildrenRecoverDeptByDeptId">
+    	  <![CDATA[from SysDept as dept where dept.parent.id = :deptId and dept.isEnabled = false]]>
+	</query>
+	<!--通过机构id 得到 部门内 用户 信息 -->
+	<query name="sys.hql.queryDeptById">
+        <![CDATA[from SysDept as d left join fetch d.parent where 1=1   
+               and d.isEnabled = :isEnabled
+               and d.id = :id
+               and (:name is null or (d.name like:name or d.email like:email or d.address like:address or d.tel like:tel)) 
+       ]]>
+	</query>
+	
+	<!--所有部门总条数 激活或未激活 -->
+	<query name="sys.hql.queryDeptByDeptIdNoisEnabled">
+        <![CDATA[select dept from SysDept as dept where dept.id = :id]]>
+	</query>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asdc.jbp.attachment.entity">
+    <class name="SysAttachment" table="SYS_ATT_INFO">
+        <id name="id" column="ATT_ID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="nature" column="ATT_NATURE"/>
+        <property name="ref" column="ATT_REF_ID"/>
+        <property name="name" column="ATT_ORI_NAME"/>
+        <property name="uri" column="ATT_URI"/>
+        <property name="desc" column="ATT_DESC"/>
+        <property name="operatorId" column="ATT_OP_ID"/>
+        <property name="operatorName" column="ATT_OP_NAME"/>
+        <property name="operateTime" column="ATT_OP_TIME"/>
+    </class>
+    <query name="att.hql.findByNatureAndRefId">
+        <![CDATA[from SysAttachment where nature = :nature and ref = :ref]]>
+    </query>
+</hibernate-mapping>
