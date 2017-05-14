@@ -47,7 +47,7 @@ import com.asdc.jbp.sys.token.Func;
 import com.asdc.jbp.sys.token.FuncTree;
 import com.asdc.jbp.sys.token.Token;
 
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
 
 
 /**
@@ -67,31 +67,31 @@ public class LoginController extends ControllerHelper {
     private AuthorizationService authorizationService;
     @Resource
     private UserMgtService userService;
-    
+
     protected HttpServletRequest servletRequest;
     protected HttpServletResponse servletResponse;
-    
-    
+
+
     @SuppressWarnings("restriction")
-	static BASE64Encoder encoder = new sun.misc.BASE64Encoder();  
+    static Base64 encoder = new Base64();
 	/**
-	 * 
+	 *
 	 * Description：前台获取验证码
 	 * @throws ServiceException
 	 * @return void
 	 * @author name：yangxuan <br>email: xuan_yang@asdc.com.cn
-	 * @throws IOException 
+	 * @throws IOException
 	 *
 	 */
 	@SuppressWarnings("restriction")
 	public void getVerifyImg() throws ServiceException, IOException {
         String verifyCode = VerifyCodeUtils.generateVerifyCode(4).toLowerCase();
         byte [] b  = VerifyCodeUtils.outputImageByte(200, 80, null, verifyCode);
-        String str =  encoder.encode(b);
+        String str =  encoder.encodeToString(b);
         Map<String,String> map = new HashMap<String,String>();
         map.put("number", verifyCode);
         map.put("image", str);
-    	workDTO.put("result",map);		
+    	workDTO.put("result",map);
     }
 
 	public void checkVerifyImg(){
@@ -110,8 +110,8 @@ public class LoginController extends ControllerHelper {
 	 * Create Time : May 1, 2016 <br>
 	 * Create by : xiangyu_li@asdc.com.cn <br>
 	 *
-	 */	
-    public void checkAccountSys() throws ServiceException {  
+	 */
+    public void checkAccountSys() throws ServiceException {
     	String userName = workDTO.convertJsonToBeanByKey("account", String.class);
     	String password = workDTO.convertJsonToBeanByKey("password", String.class);
         Integer userId = authenticationService.checkAccountAndPwd(userName,password);
@@ -128,7 +128,7 @@ public class LoginController extends ControllerHelper {
         workDTO.clear();
         workDTO.put("success", true);
         SysUser sysUser = userService.getSysUserById(userId);
-  
+
         log.debug("==================上次登录时间：======="+sysUser.getLastTime());
         workDTO.put("logintime",sysUser.getLastTime());
         //存本次登录时间
@@ -137,7 +137,7 @@ public class LoginController extends ControllerHelper {
         userService.updateSysUserLastTime(sysUser);
         workDTO.put("token", token);
     }
-    
+
     private List<GrantedAuthority> getAuthorities(FuncTree funcTree) {
         List<GrantedAuthority> result = new LinkedList<>();
         for (Func func : funcTree.getAllCloneSubFuncs()){
@@ -152,14 +152,14 @@ public class LoginController extends ControllerHelper {
     public void checkAccountDev() throws ServiceException {
         if (!"dev".equals(System.getenv())) {
             throw new ServiceException("ERR_SYS_100", ErrLevel.WARN, Messages.getMsg("sys", "ERR_SYS_MSG_NOT_ENV_MODE"));
-        }        
+        }
         // 获得对应用户信息
         Integer userId = userService.getSysUserIdByUserAccount(workDTO.<String> get("account"));
         registerTokenIntoSession(userId);
     }
 
     public void registerOrGetCurrentToken() throws ServiceException{
-        if (!sessionDTO.containsKey("token")){        	
+        if (!sessionDTO.containsKey("token")){
             workDTO.put("token","token");
         }else{
             Token token = sessionDTO.get("token");
@@ -171,30 +171,30 @@ public class LoginController extends ControllerHelper {
         }
     }
 
-    public void logout() { 
+    public void logout() {
     	servletRequest.getSession().removeAttribute("sessionUser");
         sessionDTO.remove("token");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         new SecurityContextLogoutHandler().logout(ActionContext.getContext().getServletRequest(), ActionContext.getContext().getServletResponse(), auth);
     }
-    
-    public void queryUserIsExitByAccountAndPwd() throws ServiceException {  
+
+    public void queryUserIsExitByAccountAndPwd() throws ServiceException {
     	String userName = workDTO.convertJsonToBeanByKey("account", String.class);
     	String password = workDTO.convertJsonToBeanByKey("password", String.class);
     	log.debug("userName:"+userName+",password:"+password);
-        Integer userId = authenticationService.checkAccountAndPwd(userName,password); 
+        Integer userId = authenticationService.checkAccountAndPwd(userName,password);
         if(userId.equals(null)){
         	 workDTO.put("error", false);
         }else{
         	 workDTO.put("success", true);
         }
     }
-    
- 
+
+
     public void registerTokenCookie() throws ServiceException {
     	int userId = workDTO.convertJsonToBeanByKey("userId", Integer.class);
     	String dataTime = workDTO.convertJsonToBeanByKey("dateTime", String.class);
-    	
+
         Token token = authorizationService.getUserTokenByUserId(userId);
         Authentication auth = new PreAuthenticatedAuthenticationToken(token.getUser().getAccount(), token.getUser(), getAuthorities(token.getFunc()));
         auth.setAuthenticated(true);
@@ -203,7 +203,7 @@ public class LoginController extends ControllerHelper {
         servletRequest.getSession().setAttribute("sessionUser",token.getUser().getAccount());
         workDTO.clear();
         workDTO.put("success", true);
-        
+
         if(!"".equals(dataTime) && dataTime !=null){
         	 SysUser sysUser = userService.getSysUserById(userId);
              log.debug("==================上次登录时间：================"+sysUser.getLastTime());
@@ -215,9 +215,9 @@ public class LoginController extends ControllerHelper {
         }
         workDTO.put("token", token);
     }
-    
+
     /**
-     * 
+     *
      * Description：获取登录时间
      * @return
      * @return String
@@ -234,7 +234,7 @@ public class LoginController extends ControllerHelper {
       	String loginTime = nyr + " " + sq +"  " +sfm;
       	return loginTime;
     }
-    
+
     public void setAuthenticationService(AuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;
 	}
@@ -246,7 +246,7 @@ public class LoginController extends ControllerHelper {
 	public void setUserService(UserMgtService userService) {
 		this.userService = userService;
 	}
-    
+
     public HttpServletRequest getServletRequest() {
 		return servletRequest;
 	}
