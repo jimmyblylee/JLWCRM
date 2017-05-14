@@ -1,0 +1,6 @@
+{
+	"messageConfig":{
+		"getRealtimeTrackUrl":"mvc/dispatch?controller=RealtimeTrackController&method=queryRealtimeTrackCount"
+	}
+
+}

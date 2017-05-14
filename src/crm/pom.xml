@@ -53,7 +53,7 @@
         <itextpdf-asian.version>1.0.0</itextpdf-asian.version>
         <javax-mail.version>1.4.7</javax-mail.version>
         <org.freemarker.version>2.3.20</org.freemarker.version>
-        
+
         <encoding>UTF-8</encoding>
 
         <skip.dependency.check>false</skip.dependency.check>
@@ -142,24 +142,6 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${jcl-over-slf4j.version}</version>
         </dependency>
-
-        <!-- junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <!-- <scope>test</scope> -->
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>${hamcrest.version}</version>
-        </dependency>
         <!-- chinese pinyin spell helper -->
         <dependency>
             <groupId>com.belerweb</groupId>
@@ -211,16 +193,6 @@
             <artifactId>jasperreports</artifactId>
             <version>${jasperreports.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf-asian</artifactId>
-            <version>${itextpdf-asian.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-            <version>${pdf-itext.version}</version>
-        </dependency>
 
         <!-- mail -->
         <dependency>
@@ -228,7 +200,7 @@
             <artifactId>mail</artifactId>
             <version>${javax-mail.version}</version>
         </dependency>
-        
+
         <!-- freemarker  -->
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -240,7 +212,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The Resources Plugin handles the copying of project 
+            <!-- The Resources Plugin handles the copying of project
                 resources to the output directory. ref: http://maven.apache.org/plugins/maven-resources-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -250,7 +222,7 @@
                     <encoding>${encoding}</encoding>
                 </configuration>
             </plugin>
-            <!-- The Compiler Plugin is used to compile the sources of 
+            <!-- The Compiler Plugin is used to compile the sources of
                 your project. ref: http://maven.apache.org/plugins/maven-compiler-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -262,8 +234,8 @@
                     <encoding>${encoding}</encoding>
                 </configuration>
             </plugin>
-            <!-- The WAR Plugin is responsible for collecting all artifact 
-                dependencies, classes and resources of the web application and packaging 
+            <!-- The WAR Plugin is responsible for collecting all artifact
+                dependencies, classes and resources of the web application and packaging
                 them into a web application archive. ref: http://maven.apache.org/plugins/maven-war-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -275,13 +247,6 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
-                        <manifestEntries>
-                            <JBP-Release>${project.version}.${env.BUILD_NUMBER}</JBP-Release>
-                            <BUILD-TIME>${env.BUILD_ID}</BUILD-TIME>
-                            <GIT-Branch>${env.GIT_BRANCH}</GIT-Branch>
-                            <GIT-Revision>${env.GIT_COMMIT}</GIT-Revision>
-                            <GIT-URL>${env.GIT_URL}</GIT-URL>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
