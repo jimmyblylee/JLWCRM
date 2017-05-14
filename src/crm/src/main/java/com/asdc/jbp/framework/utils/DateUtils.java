@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : DateUtils.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import java.text.ParseException;
@@ -21,7 +20,6 @@ import java.util.Date;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue", "MagicConstant"})
 public abstract class DateUtils {
 
     /**
@@ -29,6 +27,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param date
      * @return age by int
      */
     public static int getAgeByBirthday(Date date) {
@@ -47,6 +46,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateLong
      * @return yyy-MM-dd formated date string
      */
     public static String formatDateToYMD(Long dateLong) {
@@ -60,6 +60,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateLong
      * @return yyyy年MM月dd日 formated string
      */
     public static String formatDateToYMD2(Long dateLong) {
@@ -73,6 +74,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return date
      */
     public static Date formatYMD2ToDate(String dateString) {
@@ -89,6 +91,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return date
      */
     public static Date formatYMDToDate(String dateString) {
@@ -105,6 +108,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return yyyyMMdd formated string
      */
     public static String formatYMDToString(String dateString) {
@@ -117,6 +121,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return yyyy-MM-dd HH:mm:ss formated string
      */
     public static String formatDateTime(String dateString) {
@@ -124,7 +129,18 @@ public abstract class DateUtils {
             return "";
         }
 
-        dateString = getString(dateString);
+        if (dateString.indexOf("年") > 0) {
+            if (dateString.indexOf("月") > 0) {
+                dateString = StringUtils.replace(dateString, "年", "-");
+                if (dateString.indexOf("日") > 0 || dateString.indexOf("号") > 0) {
+                    dateString = StringUtils.replace(dateString, "月", "-");
+                } else {
+                    dateString = StringUtils.replace(dateString, "月", "");
+                }
+            } else {
+                dateString = StringUtils.replace(dateString, "年", "");
+            }
+        }
 
         dateString = StringUtils.replace(dateString, "日", "");
         dateString = StringUtils.replace(dateString, "号", "");
@@ -148,6 +164,7 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return yyyy-MM-dd formated string
      */
     public static String formatDate(String dateString) {
@@ -156,7 +173,18 @@ public abstract class DateUtils {
             return "";
         }
 
-        dateString = getString(dateString);
+        if (dateString.indexOf("年") > 0) {
+            if (dateString.indexOf("月") > 0) {
+                dateString = StringUtils.replace(dateString, "年", "-");
+                if (dateString.indexOf("日") > 0 || dateString.indexOf("号") > 0) {
+                    dateString = StringUtils.replace(dateString, "月", "-");
+                } else {
+                    dateString = StringUtils.replace(dateString, "月", "");
+                }
+            } else {
+                dateString = StringUtils.replace(dateString, "年", "");
+            }
+        }
 
         dateString = StringUtils.replace(dateString, "日", "");
         dateString = StringUtils.replace(dateString, "号", "");
@@ -182,7 +210,7 @@ public abstract class DateUtils {
 
             String year = dateString.substring(0, 4);
             String month = dateString.substring(5, 7);
-            String day;
+            String day = "";
 
             if (month.indexOf("-") > 0) {
                 month = dateString.substring(5, 6);
@@ -232,27 +260,12 @@ public abstract class DateUtils {
         return null;
     }
 
-    private static String getString(String dateString) {
-        if (dateString.indexOf("年") > 0) {
-            if (dateString.indexOf("月") > 0) {
-                dateString = StringUtils.replace(dateString, "年", "-");
-                if (dateString.indexOf("日") > 0 || dateString.indexOf("号") > 0) {
-                    dateString = StringUtils.replace(dateString, "月", "-");
-                } else {
-                    dateString = StringUtils.replace(dateString, "月", "");
-                }
-            } else {
-                dateString = StringUtils.replace(dateString, "年", "");
-            }
-        }
-        return dateString;
-    }
-
     /**
      * Description : check the date and return date string with format yyyy-MM-dd<br>
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return yyyy-MM-dd formated string
      */
     private static String wrap(String dateString) {
@@ -268,10 +281,11 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param dateString
      * @return true for the string is yyyy-MM-dd formated
      */
     public static boolean checkValidEnDate(String dateString) {
-        boolean result;
+        boolean result = false;
         Calendar cal = Calendar.getInstance();
         if (dateString != null && dateString.length() == 10) {
 
@@ -279,7 +293,9 @@ public abstract class DateUtils {
             String month = dateString.substring(5, 7);
             String day = dateString.substring(8, 10);
 
-            int y, m, d;
+            int y = 0;
+            int m = 0;
+            int d = 0;
             try {
                 y = Integer.parseInt(year);
                 m = Integer.parseInt(month) - 1;
@@ -292,7 +308,11 @@ public abstract class DateUtils {
 
             String converted = format(cal.getTime(), "yyyy-MM-dd");
 
-            result = dateString.equals(converted);
+            if (dateString.equals(converted)) {
+                result = true;
+            } else {
+                result = false;
+            }
 
         } else {
             return false;
@@ -305,6 +325,8 @@ public abstract class DateUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param date
+     * @param pattern
      * @return target pattern formated string
      */
     public static String format(Date date, String pattern) {

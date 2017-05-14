@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee">
+
+
+	<context:component-scan base-package="com.asdc.jbp.dict.controller" />
+	<context:component-scan base-package="com.asdc.jbp.dict.service" />
+	<context:component-scan base-package="com.asdc.jbp.dict.dao" />
+
+
+	<bean id="dictEntityManager"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="dict_mgmt" />
+		<property name="dataSource">
+			<bean class="com.atomikos.jdbc.AtomikosDataSourceBean"
+				init-method="init" destroy-method="close">
+				<property name="uniqueResourceName" value="MysqlXADataSource" />
+				<property name="xaDataSource">
+					<jee:jndi-lookup jndi-name="jdbc/dict" />
+				</property>
+				<property name="poolSize" value="3" />
+				  <property name="maxLifetime" value="20000"></property>
+			</bean>
+		</property>
+	</bean>
+</beans>

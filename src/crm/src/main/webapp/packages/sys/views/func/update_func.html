@@ -4,7 +4,7 @@
 		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03" id="updateFuncInfoWin">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>	
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">							
 							<div class="caption" ng-show="editFuncSumbit">修改菜单</div>
 					        <div class="caption" ng-show="viewFuncShow">查看菜单</div>                
@@ -19,7 +19,7 @@
 								<div class="alert-danger well-sm" ng-show="funcTypeAndCode">当选择的类型为模块时,路由配置不能为空</div>
 								<div class="alert-danger well-sm" ng-show="funcIsExit">路由是唯一的</div>
 								<div class="alert-danger well-sm" ng-show="funcIsExitYes">已删除了此路由,可以恢复</div>
-								<table class="table table-bordered t-table-bottom0">
+								<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
 									<tbody>
 										<tr>
 											<td class="active wid100px" ><label
@@ -33,7 +33,7 @@
 														ng-model="updateFuncInfoParentName"  /> <span
 														class="input-group-btn">
 														<button type="button" class="btn green ">
-															<i class="fa fa-search"></i>
+															<i class="fa fa-caret-down"></i>
 														</button>
 													</span>
 												</div> <input type="hidden" ng-model="updateFuncInfoParentId" />
@@ -66,7 +66,7 @@
 														type="text" name="parentname" ng-model="icon" /> <span
 														class="input-group-btn">
 														<button type="button" class="btn green ">
-															<i class="fa fa-search"></i>
+															<i class="fa fa-caret-down"></i>
 														</button>
 													</span>
 												</div>
@@ -110,6 +110,80 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="form-horizontal hidden-md hidden-lg" role="form">
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label">上级菜单:</label>
+								    <div class="col-sm-9" ng-click="chooseParentFunc()">
+										<div class="input-group">
+											<input readonly="readonly" id="funcNameApp" style="cursor: pointer" class="form-control form-control-solid placeholder-no-fix" type="text" name="parentname" ng-model="updateFuncInfoParentName"  />
+											<span class="input-group-btn">
+												<button type="button" class="btn green ">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div> 
+										<input type="hidden" ng-model="updateFuncInfoParentId" />											
+								    </div>
+								  </div>						
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label"><font color="red">*</font>菜单名称：</label>
+								    <div class="col-sm-9">
+									   <input class="form-control form-control-solid placeholder-no-fix" type="text" placeholder="菜单名称" name="name" required maxlength="15" ng-model="updateFuncInfo.name"  />
+										<div class="error" ng-show="updaFuncsForm.submitted">
+											<div class="alert-danger well-sm" ng-show="updaFuncsForm.name.$error.required">菜单名称不能为空.</div>
+											<div class="alert-danger well-sm" ng-show="updaFuncsForm.name.$error.maxlength">菜单名称最大为15位</div>
+										</div>
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label">路由配置:</label>
+								    <div class="col-sm-9">
+										 <input class="form-control form-control-solid placeholder-no-fix" type="text" placeholder="路由配置" name="code" maxlength="30"  id="codeUpId" ng-model="updateFuncInfo.code" ng-focus = "hideErrorCode()"/>
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label">图标:</label>
+								    <div class="col-sm-9"  ng-click="chooseIcon()">									  		
+										<div class="input-group">
+											<input readonly="readonly" id="funcName" class="form-control form-control-solid placeholder-no-fix" type="text" name="parentname" ng-model="icon" /> 
+											<span class="input-group-btn">
+												<button type="button" class="btn green ">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>											
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label active">功能类型:</label>
+								    <div class="col-sm-9">
+									   <select ng-model="funcTypeCode" ng-change="hideErrorTypeInfo()" ng-options='funcTypeCodeJosns.code as funcTypeCodeJosns.value group by funcTypeCodeJosns.group for funcTypeCodeJosns in funcTypeCodeJosns' class="form-control valid"> </select>
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label active">是否可用:</label>
+								    <div class="col-sm-9">
+									 <select ng-model="funcIsVisible" ng-options='funcIsVisibleJosns.code as funcIsVisibleJosns.value group by funcIsVisibleJosns.group for funcIsVisibleJosns in funcIsVisibleJosns' class="form-control valid"></select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>排序:</label>
+								    <div class="col-sm-9">
+								      	<input class="form-control form-control-solid placeholder-no-fix" type="text" placeholder="排序" name="order" maxlength="6" ng-blur="checkSort()"  ng-change="changeSort()" required ng-model="updateFuncInfo.order" />
+										<div class="error" ng-show="updaFuncsForm.submitted">
+											<div class="alert-danger well-sm" ng-show="updaFuncsForm.order.$error.required">排序不能为空</div>
+										</div>
+									   <div class="alert-danger well-sm" ng-show="orderError">排序只能输入整数</div>	
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">链接:</label>
+								    <div class="col-sm-9">
+								      	<input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="updateFuncInfo.url" id="funcUpUrlId" placeholder="链接" ng-focus="urlFocus()" maxlength="150">
+										<div class="alert-danger well-sm" ng-show="urlError">链接格式有误!</div>
+								    </div>
+								  </div>
+								</div>
 								 <div class="portlet-foot t-modal-footer row">                
 									<button class="btn btn-primary" type="submit" ng-show="editFuncSumbit">确定</button>
 									<button class="btn btn-default" ng-focus="closefuncEidt();"	ng-show="editFuncSumbit" type="button">关闭</button>

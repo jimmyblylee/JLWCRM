@@ -4,7 +4,7 @@
 		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center02">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>		
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
 								分配角色		
@@ -12,7 +12,7 @@
 				            <div class="tools">
 				                <a href="" class="collapse"> </a>               
 				                <a href="" class="fullscreen"> </a>
-				                <a href="" class="close" ng-click="$hide()" id="groupDistributionRoleX"> </a>
+				                <a href="" class="close" ng-click="closeupdateRolePopup()" id="groupDistributionRoleX"> </a>
 				            </div>
 
 				        </div>
@@ -41,7 +41,7 @@
 								</div>
 								 <div class="portlet-foot t-modal-footer row">                
 						            <button class="btn btn-primary" id="groupPowerConfirm" ng-click="replaceRolesToGroup()">确定</button>
-									<button class="btn btn-default" id="groupPowerClose" ng-click="$hide()">关闭</button>
+									<button class="btn btn-default" id="groupPowerClose" ng-click="closeupdateRolePopup()">关闭</button>
 						        </div>
 				        </div>
 				       

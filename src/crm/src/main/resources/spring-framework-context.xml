@@ -7,9 +7,28 @@
     xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:tx="http://www.springframework.org/schema/tx">
-
+    
     <context:annotation-config />
     <context:component-scan base-package="com.asdc.jbp.framework.log" />
     <context:component-scan base-package="com.asdc.jbp.framework.message" />
-
+    <context:component-scan base-package="com.asdc.jbp.framework.validation" />
+    
+    <!-- jta transaction -->
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager">
+        <property name="forceShutdown" value="true"/>
+    </bean>
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="TransactionTimeout" value="15"/>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager" ref="atomikosTransactionManager"></property>
+        <property name="userTransaction" ref="atomikosUserTransaction"></property>
+        <property name="allowCustomIsolationLevels" value="true"></property>
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+   <!-- translate hibernate exception into spring exception, and make exception more kindfull, All @Repository annotated Dao will be proxied 
+   <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
+   
 </beans>

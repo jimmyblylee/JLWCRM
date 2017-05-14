@@ -1,0 +1,20 @@
+<div role="dialog" tabindex="-1" class="modal  global-del">
+	     <div class="modal-dialog " >
+                  <div class="modal-content">
+                      <div class="modal-header t-modal-header" >
+                          <button  ng-click="$hide()" class="close" type="button" id="dictPlayX">×</button>
+                          <div class="modal-title" >系统提示  </div>   
+                      </div>
+                      <div class="modal-body" ng-bind-html="content"> 
+                                           
+                       </div>
+                        <div class="modal-footer t-modal-footer" ng-show="title">                        
+                          <button class="btn btn-primary" id="dictPlayShowClose" ng-click="$hide()">关闭</button>
+                       </div>
+                       <div class="modal-footer t-modal-footer" ng-hide="title">
+                          <button class="btn btn-primary" id="dictPlayConfirm" ng-click="delDidtByid()">确定</button>
+                          <button class="btn btn-default" id="dictPlayHideClose" ng-click="$hide()">关闭</button>
+                      </div>                  
+              </div>             
+          </div>
+</div>

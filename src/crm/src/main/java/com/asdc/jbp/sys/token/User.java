@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : User.java <br>
  * Package Name : com.asdc.jbp.sys.token <br>

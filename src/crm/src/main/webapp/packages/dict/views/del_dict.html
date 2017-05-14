@@ -1,0 +1,15 @@
+<div role="dialog" tabindex="-1" class="modal  global-del">
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header  t-modal-header">
+				<button ng-click="$hide()" class="close" type="button">×</button>
+				<h4 class="modal-title">系统提示</h4>
+			</div>
+			<div class="modal-body">确认要删除该字典吗？</div>
+			<div class="modal-footer t-modal-footer">
+				<button class="btn btn-primary" id="dictDelConfirm" ng-click="delDidtByid()">确定</button>
+				<button class="btn btn-default" id="dictDelClose" ng-click="$hide()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

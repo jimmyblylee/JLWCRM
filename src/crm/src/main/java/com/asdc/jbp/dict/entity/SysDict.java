@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugin-dict-service <br>
  * File Name : SysDict.java <br>
  * Package Name : com.asdc.jbp.dict.entity <br>
@@ -10,82 +10,56 @@ package com.asdc.jbp.dict.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.Formula;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  * ClassName : SysDict <br>
  * Description : entity of SYS_DICT <br>
  * Create Time : Apr 14, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
+ *
  */
-@SuppressWarnings("unused")
-@Entity
-@Table(name = "SYS_DICT")
+@Audited
 public class SysDict implements Serializable {
 
     private static final long serialVersionUID = 4588179303782952600L;
 
-    @Id
-    @Column(name = "DICT_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DICT_PARENT_ID")
     private SysDict parent;
-
-    @Column(name = "IS_NATURE")
     private Boolean isNature;
-
-    @Column(name = "DICT_NATURE")
     private String nature;
-
-    @Column(name = "DICT_CODE")
     private String code;
-
-    @Column(name = "DICT_VALUE")
     private String value;
-
-    @Column(name = "DICT_LABEL")
+    @NotAudited
     private String label;
-
-    @Column(name = "DICT_PINYIN")
+    @NotAudited
     private String pinyin;
-
-    @Column(name = "DICT_PINYIN_SHORT")
+    @NotAudited
     private String pinyinShort;
-
-    @Column(name = "DICT_DESCRIPTION")
+    @NotAudited
     private String desc;
-
-    @Column(name = "DICT_ORDER")
+    @NotAudited
     private Integer order;
-
-    @Column(name = "REMARKS")
+    @NotAudited
     private String remarks;
-
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
-
-    @Formula("(SELECT CASE WHEN (COUNT(1) > 0) THEN 1 ELSE 0 END FROM SYS_DICT DICT WHERE DICT.DICT_PARENT_ID = DICT_ID)")
-    private Boolean hasChildren;
-
+    
     @Transient
     private String childs;
-
+    
     @Transient
     public String getChilds() {
-        return childs;
-    }
-
+		return childs;
+	}
     @Transient
-    public void setChilds(@SuppressWarnings("SameParameterValue") String childs) {
-        this.childs = childs;
-    }
+	public void setChilds(String childs) {
+		this.childs = childs;
+	}
 
-    /**
+	/**
      * @return the id
      */
     public Integer getId() {
@@ -93,7 +67,8 @@ public class SysDict implements Serializable {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public void setId(Integer id) {
         this.id = id;
@@ -108,7 +83,7 @@ public class SysDict implements Serializable {
 
     /**
      * @param parent 父级编号
-     *               the parent to set
+     *            the parent to set
      */
     public void setParent(SysDict parent) {
         this.parent = parent;
@@ -123,9 +98,9 @@ public class SysDict implements Serializable {
 
     /**
      * @param isNature 是否为字典类型
-     *                 the isNature to set
+     *            the isNature to set
      */
-    public void setIsNature(@SuppressWarnings("SameParameterValue") Boolean isNature) {
+    public void setIsNature(Boolean isNature) {
         this.isNature = isNature;
     }
 
@@ -138,7 +113,7 @@ public class SysDict implements Serializable {
 
     /**
      * @param nature 类型
-     *               the nature to set
+     *            the nature to set
      */
     public void setNature(String nature) {
         this.nature = nature;
@@ -153,7 +128,7 @@ public class SysDict implements Serializable {
 
     /**
      * @param code 编码
-     *             the code to set
+     *            the code to set
      */
     public void setCode(String code) {
         this.code = code;
@@ -168,7 +143,7 @@ public class SysDict implements Serializable {
 
     /**
      * @param value 数据值
-     *              the value to set
+     *            the value to set
      */
     public void setValue(String value) {
         this.value = value;
@@ -177,13 +152,14 @@ public class SysDict implements Serializable {
     /**
      * @return the label
      */
+    @NotAudited
     public String getLabel() {
         return label;
     }
 
     /**
      * @param label 标签名
-     *              the label to set
+     *            the label to set
      */
     public void setLabel(String label) {
         this.label = label;
@@ -192,13 +168,14 @@ public class SysDict implements Serializable {
     /**
      * @return the pinyin
      */
+    @NotAudited
     public String getPinyin() {
         return pinyin;
     }
 
     /**
      * @param pinyin 数据值拼音
-     *               the pinyin to set
+     *            the pinyin to set
      */
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
@@ -207,13 +184,14 @@ public class SysDict implements Serializable {
     /**
      * @return the pinyinShort
      */
+    @NotAudited
     public String getPinyinShort() {
         return pinyinShort;
     }
 
     /**
      * @param pinyinShort 数据值拼音缩写
-     *                    the pinyinShort to set
+     *            the pinyinShort to set
      */
     public void setPinyinShort(String pinyinShort) {
         this.pinyinShort = pinyinShort;
@@ -222,13 +200,14 @@ public class SysDict implements Serializable {
     /**
      * @return the desc
      */
+    @NotAudited
     public String getDesc() {
         return desc;
     }
 
     /**
      * @param desc 描述
-     *             the desc to set
+     *            the desc to set
      */
     public void setDesc(String desc) {
         this.desc = desc;
@@ -237,13 +216,14 @@ public class SysDict implements Serializable {
     /**
      * @return the order
      */
+    @NotAudited
     public Integer getOrder() {
         return order;
     }
 
     /**
      * @param order 排序
-     *              the order to set
+     *            the order to set
      */
     public void setOrder(Integer order) {
         this.order = order;
@@ -252,13 +232,14 @@ public class SysDict implements Serializable {
     /**
      * @return the remarks
      */
+    @NotAudited
     public String getRemarks() {
         return remarks;
     }
 
     /**
      * @param remarks 备注信息
-     *                the remarks to set
+     *            the remarks to set
      */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
@@ -273,27 +254,10 @@ public class SysDict implements Serializable {
 
     /**
      * @param isEnabled 是否有效标记
-     *                  the isEnabled to set
+     *            the isEnabled to set
      */
     public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
-    /**
-     * Get the value of hasChildren.
-     *
-     * @return value of hasChildren
-     */
-    public Boolean getHasChildren() {
-        return hasChildren;
-    }
-
-    /**
-     * Set the value of hasChildren.
-     *
-     * @param hasChildren the hasChildren
-     */
-    public void setHasChildren(Boolean hasChildren) {
-        this.hasChildren = hasChildren;
-    }
 }

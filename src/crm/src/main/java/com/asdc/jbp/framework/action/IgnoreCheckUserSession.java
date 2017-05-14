@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : IgnoreCheckUserSession.java <br>
  * Package Name : com.asdc.jbp.framework.action <br>
@@ -21,7 +21,6 @@ import java.lang.annotation.Target;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented

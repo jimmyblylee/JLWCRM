@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name jbp-framework
  * File Name BlobTool.java
  * Package Name com.asdc.jbp.framework.dao
@@ -19,13 +19,12 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 
-/**
+/** 
  * ClassName: BlobImpl.java <br>
  * Description: 将byte[]变量转换为Blob类型<br>
  * Create by: yuruixin/ruixin_yu@asdc.com.cn <br>
  * Create Time: 2016年5月26日<br>
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class BlobImpl implements Blob {
 
 
@@ -35,7 +34,8 @@ public class BlobImpl implements Blob {
 
     /**
      * 构造函数，以byte[]构建blob
-     *
+     * 
+     * @param bytes
      */
     public BlobImpl(byte[] bytes) {
         init(bytes);
@@ -43,7 +43,8 @@ public class BlobImpl implements Blob {
 
     /**
      * 构造函数，以blob重新构建blob
-     *
+     * 
+     * @param bytes
      */
     public BlobImpl(Blob blob) {
         init(blobToBytes(blob));
@@ -51,7 +52,8 @@ public class BlobImpl implements Blob {
 
     /**
      * 初始化byte[]
-     *
+     * 
+     * @param b
      */
     private void init(byte[] bytes) {
         _bytes = bytes;
@@ -60,7 +62,9 @@ public class BlobImpl implements Blob {
 
     /**
      * 将blob转为byte[]
-     *
+     * 
+     * @param blob
+     * @return
      */
     public static byte[] blobToBytes(Blob blob) {
         BufferedInputStream is = null;
@@ -68,7 +72,8 @@ public class BlobImpl implements Blob {
             is = new BufferedInputStream(blob.getBinaryStream());
             byte[] bytes = new byte[(int) blob.length()];
             int len = bytes.length;
-            int offset = 0, read;
+            int offset = 0;
+            int read = 0;
             while (offset < len
                     && (read = is.read(bytes, offset, len - offset)) >= 0) {
                 offset += read;
@@ -78,13 +83,10 @@ public class BlobImpl implements Blob {
             return null;
         } finally {
             try {
-                if (is != null) {
-                    is.close();
-                }
-                //noinspection UnusedAssignment
+                is.close();
                 is = null;
             } catch (IOException e) {
-                // ignore
+                return null;
             }
 
         }
@@ -92,6 +94,9 @@ public class BlobImpl implements Blob {
 
     /**
      * 获得blob中数据实际长度
+     * 
+     * @return
+     * @throws SQLException
      */
     public long length() throws SQLException {
         return _bytes.length;
@@ -99,6 +104,11 @@ public class BlobImpl implements Blob {
 
     /**
      * 返回指定长度的byte[]
+     * 
+     * @param pos
+     * @param len
+     * @return
+     * @throws SQLException
      */
     public byte[] getBytes(long pos, int len) throws SQLException {
         if (pos == 0 && len == length())
@@ -114,6 +124,9 @@ public class BlobImpl implements Blob {
 
     /**
      * 返回InputStream
+     * 
+     * @return
+     * @throws SQLException
      */
     public InputStream getBinaryStream() throws SQLException {
         return new ByteArrayInputStream(_bytes);
@@ -121,6 +134,11 @@ public class BlobImpl implements Blob {
 
     /**
      * 获取此byte[]中start的字节位置
+     * 
+     * @param pattern
+     * @param start
+     * @return
+     * @throws SQLException
      */
     public long position(byte[] pattern, long start) throws SQLException {
         start--;
@@ -136,11 +154,11 @@ public class BlobImpl implements Blob {
         if (pattern.length == 0 || _length == 0 || pattern.length > _length) {
             return -1;
         }
-        int limit = _length - pattern.length;
+        int limit = (int) _length - pattern.length;
         for (int i = (int) start; i <= limit; i++) {
             int p;
             for (p = 0; p < pattern.length && _bytes[i + p] == pattern[p]; p++) {
-                if (p == pattern.length - 1) {
+                if (p == pattern.length) {
                     return i + 1;
                 }
             }
@@ -150,6 +168,11 @@ public class BlobImpl implements Blob {
 
     /**
      * 获取指定的blob中start的字节位置
+     * 
+     * @param pattern
+     * @param start
+     * @return
+     * @throws SQLException
      */
     public long position(Blob pattern, long start) throws SQLException {
         return position(blobToBytes(pattern), start);
@@ -157,7 +180,7 @@ public class BlobImpl implements Blob {
 
     /**
      * 不支持操作异常抛出
-     *
+     * 
      */
     void nonsupport() {
         throw new UnsupportedOperationException("This method is not supported！");
@@ -165,6 +188,8 @@ public class BlobImpl implements Blob {
 
     /**
      * 释放Blob对象资源
+     * 
+     * @throws SQLException
      */
     public void free() throws SQLException {
         _bytes = new byte[0];
@@ -173,6 +198,11 @@ public class BlobImpl implements Blob {
 
     /**
      * 返回指定长度部分的InputStream，并返回InputStream
+     * 
+     * @param pos
+     * @param len
+     * @return
+     * @throws SQLException
      */
     public InputStream getBinaryStream(long pos, long len) throws SQLException {
         return new ByteArrayInputStream(getBytes(pos, (int) len));
@@ -180,6 +210,10 @@ public class BlobImpl implements Blob {
 
     /**
      * 以指定指定长度将二进制流写入OutputStream，并返回OutputStream
+     * 
+     * @param pos
+     * @return
+     * @throws SQLException
      */
     public OutputStream setBinaryStream(long pos) throws SQLException {
         // 暂不支持
@@ -194,7 +228,7 @@ public class BlobImpl implements Blob {
         // 将byte[]转为ByteArrayInputStream
         ByteArrayInputStream inputStream = new ByteArrayInputStream(_bytes);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        byte[] bytes;
+        byte[] bytes = new byte[(int) pos];
         try {
             bytes = new byte[inputStream.available()];
             int read;
@@ -207,13 +241,22 @@ public class BlobImpl implements Blob {
         }
 
         // 返回OutputStream
-        return os;
+        return (OutputStream) os;
     }
 
     /**
      * 设定byte[]
+     * 
+     * @param pos
+     * @param bytes
+     * @param offset
+     * @param size
+     * @param copy
+     * @return
+     * @throws SQLException
      */
-    private int setBytes(long pos, byte[] bytes, int offset, int size, @SuppressWarnings("SameParameterValue") boolean copy) throws SQLException {
+    private int setBytes(long pos, byte[] bytes, int offset, int size,
+            boolean copy) throws SQLException {
         // 暂不支持
         nonsupport();
         pos--;
@@ -245,6 +288,11 @@ public class BlobImpl implements Blob {
 
     /**
      * 设定指定开始位置byte[]
+     * 
+     * @param pos
+     * @param bytes
+     * @return
+     * @throws SQLException
      */
     public int setBytes(long pos, byte[] bytes) throws SQLException {
         // 暂不支持
@@ -254,6 +302,13 @@ public class BlobImpl implements Blob {
 
     /**
      * 设定byte[]
+     * 
+     * @param pos
+     * @param bytes
+     * @param offset
+     * @param len
+     * @return
+     * @throws SQLException
      */
     public int setBytes(long pos, byte[] bytes, int offset, int len)
             throws SQLException {
@@ -264,6 +319,9 @@ public class BlobImpl implements Blob {
 
     /**
      * 截取相应部分数据
+     * 
+     * @param len
+     * @throws SQLException
      */
     public void truncate(long len) throws SQLException {
         if (len < 0) {

@@ -1,48 +1,46 @@
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
+
+import org.hibernate.envers.Audited;
 
 /**
  * <p>
  * 文件名称: SysGlobalVariable.java
  * </p>
- * <p>
+ * 
  * <p>
  * 文件功能: SYS_GLOBAL_VARIABLE表对应的实体
  * </p>
- * <p>
+ *
  * <p>
  * 编程者: yuruixin
  * </p>
- * <p>
+ * 
  * <p>
  * 邮件: ruixin_yu@asdc.com.cn;
  * </p>
- * <p>
+ * 
  * <p>
  * 初作时间: 2016年5月17日 上午9:28:24
  * </p>
- * <p>
+ * 
  * <p>
  * 版本: version 1.0
  * </p>
- * <p>
+ *
  * <p>
  * 输入说明:
  * </p>
- * <p>
+ *
  * <p>
  * 输出说明:
  * </p>
- * <p>
+ *
  * <p>
  * 程序流程:
  * </p>
- * <p>
+ * 
  * <p>=
  * ===========================================
  * </p>
@@ -62,94 +60,99 @@ import java.io.Serializable;
  * ===========================================
  * </p>
  */
-@SuppressWarnings("unused")
-@Entity
-@Table(name = "SYS_GLOBAL_VARIABLE")
+// @Audited
 public class SysGlobalVariable implements Serializable {
 
-    private static final long serialVersionUID = 8369343045423948465L;
-    @Id
-    @Column(name = "VARIABLE_ID")
-    private Integer variableID;
-    @Column(name = "VARIABLE_VALUE")
-    private String variableDescribe;
-    @Column(name = "VARIABLE_NAME")
-    private String variableName;
-    @Column(name = "VARIABLE_DESCRIBE")
-    private String variableValue;
-    @Column(name = "IS_ENABLED")
-    private Boolean isEnabled;
+	private static final long serialVersionUID = 8369343045423948465L;
+	private Integer variableID;
+	private String variableDescribe;
+	private String variableName;
+	private String variableValue;
+	private Boolean isEnabled;
 
-    /**
-     * @return the variableID
-     */
-    public Integer getVariableID() {
-        return variableID;
-    }
+	
+	public SysGlobalVariable() {
+	}
+	
+	public SysGlobalVariable(String variableDescribe) {
+		this.variableDescribe = variableDescribe;
+	}
 
-    /**
-     * @param variableID the variableID to set
-     */
-    public void setVariableID(Integer variableID) {
-        this.variableID = variableID;
-    }
+	/**
+	 * @return the variableID
+	 */
+	public Integer getVariableID() {
+		return variableID;
+	}
 
-    /**
-     * @return the variableDescribe
-     */
-    public String getVariableDescribe() {
-        return variableDescribe;
-    }
+	/**
+	 * @param variableID
+	 *            the variableID to set
+	 */
+	public void setVariableID(Integer variableID) {
+		this.variableID = variableID;
+	}
 
-    /**
-     * @param variableDescribe the variableDescribe to set
-     */
-    public void setVariableDescribe(String variableDescribe) {
-        this.variableDescribe = variableDescribe;
-    }
+	/**
+	 * @return the variableDescribe
+	 */
+	public String getVariableDescribe() {
+		return variableDescribe;
+	}
 
-    /**
-     * @return the variableName
-     */
-    public String getVariableName() {
-        return variableName;
-    }
+	/**
+	 * @param variableDescribe
+	 *            the variableDescribe to set
+	 */
+	public void setVariableDescribe(String variableDescribe) {
+		this.variableDescribe = variableDescribe;
+	}
 
-    /**
-     * @param variableName the variableName to set
-     */
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
-    }
+	/**
+	 * @return the variableName
+	 */
+	public String getVariableName() {
+		return variableName;
+	}
 
-    /**
-     * @return the variableValue
-     */
-    public String getVariableValue() {
-        return variableValue;
-    }
+	/**
+	 * @param variableName
+	 *            the variableName to set
+	 */
+	public void setVariableName(String variableName) {
+		this.variableName = variableName;
+	}
 
-    /**
-     * @param variableValue the variableValue to set
-     */
-    public void setVariableValue(String variableValue) {
-        this.variableValue = variableValue;
-    }
+	/**
+	 * @return the variableValue
+	 */
+	public String getVariableValue() {
+		return variableValue;
+	}
 
-    /**
-     * @return the isEnabled
-     */
-    public Boolean getIsEnabled() {
-        return isEnabled;
-    }
+	/**
+	 * @param variableValue
+	 *            the variableValue to set
+	 */
+	public void setVariableValue(String variableValue) {
+		this.variableValue = variableValue;
+	}
 
-    /**
-     * @param isEnabled the isEnabled to set
-     */
+	/**
+	 * @return the isEnabled
+	 */
+	public Boolean getIsEnabled() {
+		return isEnabled;
+	}
 
-    public void setIsEnabled(Boolean isEnabled) {
-        this.isEnabled = isEnabled;
-    }
+	/**
+	 * @param isEnabled
+	 *            the isEnabled to set
+	 */
 
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+	
 
 }

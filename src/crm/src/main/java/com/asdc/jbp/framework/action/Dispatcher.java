@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : Dispatcher.java <br>
  * Package Name : com.asdc.jbp.framework.action <br>
@@ -110,6 +110,8 @@ public class Dispatcher implements ServletContextAware {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param workDTO
+     * @param response
      */
     private void buildJsonResultASendToClient(Map<String, Object> workDTO, HttpServletResponse response) {
         try {
@@ -135,7 +137,7 @@ public class Dispatcher implements ServletContextAware {
     }
 
     /**
-     * @see ServletContextAware#setServletContext(ServletContext)
+     * @see org.springframework.web.context.ServletContextAware#setServletContext(javax.servlet.ServletContext)
      */
     @Override
     public void setServletContext(ServletContext servletContext) {

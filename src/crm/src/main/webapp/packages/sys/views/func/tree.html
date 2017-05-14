@@ -3,7 +3,7 @@
         <div class="modal-dialog t-modal-parent modal-portlet-dialog t-moda-center02  t-moda-left-center02"  id="addDictModal">
             <div class="modal-content t-modal-drags-fixed" drag>
             <div class="t-modal-drag-handle" drag-handle></div> 
-                    <div class="portlet modal_portlet">
+                    <div class="portlet modal_portlet" modalsize>
                         <div class="portlet-title t-modal-header">
                             <div class="caption">           
                                 选择菜单        
@@ -11,7 +11,7 @@
                             <div class="tools">
                                 <a href="" class="collapse"> </a>               
                                 <a href="" class="fullscreen"> </a>
-                                <a href="" class="close" ng-click="$hide()" > </a>
+                                <a href="" class="close" ng-click="clearParentFunc();$hide()" > </a>
                             </div>
 
                         </div>
@@ -38,7 +38,7 @@
                             </div>
                                  <div class="portlet-foot t-modal-footer row">                
                                    <button class="btn btn-primary" ng-click="viewChooseParentFunc();$hide()">确定</button>
-                                   <button class="btn btn-default" ng-click="clearParentFunc;$hide()">关闭</button>
+                                   <button class="btn btn-default" ng-click="clearParentFunc();$hide()">关闭</button>
                                 </div>
                         </div>
                        

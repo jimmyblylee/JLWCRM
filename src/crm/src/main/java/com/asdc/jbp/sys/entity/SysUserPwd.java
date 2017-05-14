@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysUserPwd.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,7 +8,6 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -18,20 +17,13 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_USER")
 public class SysUserPwd implements Serializable {
 
     private static final long serialVersionUID = -789674441629642468L;
 
-    @Id
-    @Column(name = "USER_ID")
     private Integer id;
-    @Column(name = "LOGIN_ACCOUNT")
     private String account;
-    @Column(name = "LOGIN_PWD")
     private String password;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
     /**

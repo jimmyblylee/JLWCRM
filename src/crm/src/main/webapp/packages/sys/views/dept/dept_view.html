@@ -1,22 +1,165 @@
-<div class="modal" tabindex="-1" role="basic" aria-hidden="true">
-    <div class="modal-dialog" style="min-width: 900px; max-height: 500px;">
-        <div class="modal-content">
+ <div class="modal t-modal-portlet" tabindex="-1" role="dialog" 
+	<form role="form" novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet" modalsize>
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								查看机构	
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close"  ng-click="closeDeptView()"> </a>
+				            </div>
 
-            <div class="modal-header">
-                <button type="button" class="close" ng-click="$hide()" aria-hidden="true"></button>
-                <h4 class="modal-title">查看机构</h4>
-            </div>
+				        </div>
+				        <div class="portlet-body" id="parentDeptModalView">
+								<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
+									<tbody>
+										<tr>
+											<td class="active wid100px" ><label
+												class="pull-right">上级机构:</label></td>
+											<td id="editSelDeptId" disabled="disabled" class="wid220px">
+												<div class="input-group">
+													<input style="cursor: pointer" readonly="readonly"  disabled="disabled"
+														id="deptUpIdFont"
+														class="form-control form-control-solid placeholder-no-fix"
+														type="text" name="parentname" ng-model="parentname" />
+													<span class="input-group-btn">
+														<button type="button" class="btn green"  disabled="disabled">
+															<i class="fa fa-search"></i>
+														</button>
+													</span>
+												</div> <input name="parentid" ng-model="parentid" id="deptUpIdDev"
+												type="hidden" />
+											</td>
+											<td class="active wid100px"><label
+												class="pull-right ">归属区域：</label></td>
+											<td class="ali-middle wid220px"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value="" ng-model="deptData.address" readonly disabled="disabled"
+												autocomplete="off"></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right"><font
+													color="red">*</font>机构名称：</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" autocomplete="off" placeholder="机构名称" readonly disabled="disabled"
+												name="name" ng-model="deptData.name" /></td>
+											<td class="active ali-middle"><label class="pull-right">联系电话:</label></td>
+											<td class="ali-middle"><input  ng-model="deptData.tel"
+												class="form-control form-control-solid placeholder-no-fix" 
+												readonly type="text"  disabled="disabled"></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">邮政编码:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" ng-model="deptData.postalCode" readonly disabled="disabled"
+												maxlength="6" /></td>
+											<td class="active ali-middle"><label class="pull-right">电子邮件:</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" ng-model="deptData.email" readonly disabled="disabled"></td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">主页:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												readonly type="text" autocomplete="off" ng-model="deptData.url"
+												disabled="disabled" /></td>
 
-            <div class="modal-body" style="min-width: 810px; max-height: 600px;">
-                <div ng-include="'packages/sys/views/dept/dept_info_body.html'"></div>
-            </div>
+											<td class="active ali-middle"><label class="pull-right">传真:</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												maxlength="13" type="text" ng-model="deptData.fax" readonly disabled="disabled">
+											</td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>排序:</label></td>
+											<td class="ali-middle" colspan="3"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												name="sort" readonly disabled="disabled" type="text" ng-model="deptData.sort"
+												></td>
+										</tr>
+									</tbody>
+								</table>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="$hide()">关闭</button>
-            </div>
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+								<div class="form-horizontal hidden-md hidden-lg" role="form">
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">上级机构:</label>
+								    <div class="col-sm-9">
+								    	<div class="input-group">
+											<input style="cursor: pointer" readonly="readonly"  disabled="disabled" id="deptUpIdFont" class="form-control form-control-solid placeholder-no-fix" type="text" name="parentname" ng-model="parentname" />
+											<span class="input-group-btn">
+												<button type="button" class="btn green"  disabled="disabled">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+										<input name="parentid" ng-model="parentid" id="deptUpIdDev" type="hidden" />					  
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">归属区域:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control form-control-solid placeholder-no-fix" type="text" value="" ng-model="deptData.address" readonly disabled="disabled" autocomplete="off">						  
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">机构名称:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="机构名称" readonly disabled="disabled" name="name" ng-model="deptData.name" />						  
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">联系电话:</label>
+								    <div class="col-sm-9">
+								    	<input  ng-model="deptData.tel" class="form-control form-control-solid placeholder-no-fix" readonly type="text"  disabled="disabled">									  
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">邮政编码:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="deptData.postalCode" readonly disabled="disabled" maxlength="6" />								  
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">电子邮件:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="deptData.email" readonly disabled="disabled">									  
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">主页:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control form-control-solid placeholder-no-fix" readonly type="text" autocomplete="off" ng-model="deptData.url" disabled="disabled" />									  
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">传真</label>
+								    <div class="col-sm-9">
+								      <input class="form-control form-control-solid placeholder-no-fix" maxlength="13" type="text" ng-model="deptData.fax" readonly disabled="disabled">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label"><font color="red">*</font>排序:</label>
+								    <div class="col-sm-9">
+								      <input class="form-control form-control-solid placeholder-no-fix" name="sort" readonly disabled="disabled" type="text" ng-model="deptData.sort" >
+								    </div>
+								  </div>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" ng-click="closeDeptView()" id="closeEditDeptHideId">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
 </div>

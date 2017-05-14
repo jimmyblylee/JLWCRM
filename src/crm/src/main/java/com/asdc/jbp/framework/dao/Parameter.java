@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : Parameter.java <br>
  * Package Name : com.asdc.jbp.framework.dao <br>
@@ -22,7 +22,6 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class Parameter implements Serializable {
 
     private static final long serialVersionUID = -6332857545019135685L;
@@ -63,7 +62,7 @@ public class Parameter implements Serializable {
                 if (!(key instanceof String) && StringUtils.isEmpty(key)) {
                     throw new ServiceException("", "");
                 }
-                params.add(new Parameter(key.toString(), objs[i + 1]));
+                params.add(new Parameter((String) key, objs[i + 1]));
             }
             return params;
         }

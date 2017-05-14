@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : SessionDTOAware.java <br>
  * Package Name : com.asdc.jbp.framework.dto.bind <br>
@@ -25,6 +25,7 @@ public interface SessionDTOAware {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param sessionDTO
      */
-    void setSessionDTO(SessionDTO sessionDTO);
+    public void setSessionDTO(SessionDTO sessionDTO);
 }

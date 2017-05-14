@@ -16,6 +16,7 @@ MetronicApp.controller('RoleInfoCtrl',['$scope','$rootScope','$http','$q',
 							$scope.Pagenum = Pagenum;
 							$scope.itemsPerPage = itemsPerPage;// 当前页显示数据
 							$scope.isBaseRoleFont = "true";
+							var ispc=IsPC();
 
 							// 定义弹窗页面
 							var addRoleInfo = $modal({
@@ -145,7 +146,10 @@ MetronicApp.controller('RoleInfoCtrl',['$scope','$rootScope','$http','$q',
 								if ($scope.roleInfo.queryParams == undefined) {
 									$scope.roleInfo.queryParams = "";
 								}
-
+								if(!ispc){
+										$scope.itemsPerPage=30;
+										$scope.bigCurrentPage = 1;			
+									}
 								var roleInfoResult = pageService($http, $q,
 										'RoleController', 'queryRoleInfo',
 										$scope.bigCurrentPage,
@@ -162,12 +166,73 @@ MetronicApp.controller('RoleInfoCtrl',['$scope','$rootScope','$http','$q',
 													console.info(error);
 												});
 							}
-							
+							$scope.requestPageServiceApp = function(isEnabled) {
+								document.getElementById("roleCheckParent").checked = false;
+								var pageQuery, roleStatus, pageQueryParams = {};
+								if ($scope.roleInfo.roleStatus == undefined) {
+									$scope.roleInfo.roleStatus = "";
+								}
+								//按照id查询、添加、修改、删除过后，都应该是true。  ---id不变
+								if($scope.roleInfo.roleStatus =="true" && isEnabled=="false"){
+									$scope.roleInfo.roleStatus = "true";
+								}else if($scope.roleInfo.roleStatus != "true" && isEnabled=="false"){
+									$scope.roleInfo.roleStatus = "false";
+								}
+								if($scope.deleteRoleButton && isEnabled == "true"){
+									$scope.roleInfo.roleStatus = "true";
+								}else if($scope.recoverRoleButton && isEnabled == "true"){
+									$scope.roleInfo.roleStatus = "false";
+								}
+								
+								//分页的时候应该是，根据true和false来判断 了
+								if($scope.deleteRoleButton && isEnabled == 'true'){
+									$scope.roleInfo.roleStatus = "true";
+								}
+								if ($scope.roleInfo.roleStatus == "true") {
+									$scope.deleteRoleButton = true;
+									$scope.recoverRoleButton = false;
+								} else {
+									$scope.deleteRoleButton = false;
+									$scope.recoverRoleButton = true;
+								}
+								if ($scope.roleInfo.queryParams == undefined) {
+									$scope.roleInfo.queryParams = "";
+								}
+								$scope.itemsPerPage=5;
+								var totalItemsAPP=$scope.bigTotalItems;
+								var array=$scope.roleList;
+								$scope.totalItemsAPP=Math.ceil(totalItemsAPP/5);
+								$scope.bigCurrentPage=(array.length/5)+1;
+								if ($scope.bigCurrentPage <= $scope.totalItemsAPP) {
+									var roleInfoResult = pageService($http, $q,
+											'RoleController', 'queryRoleInfo',
+											$scope.bigCurrentPage,
+											$scope.itemsPerPage,
+											ObjParesJSON($scope.roleInfo));
+									roleInfoResult
+											.then(
+													function(success) {
+														var roleInfoResponse = StrParesJSON(success);																											
+														$scope.roleList =array.concat(roleInfoResponse.result);
+													}, function(error) {
+														console.info(error);
+													});
+								}
+								
+							}
 							$scope.bigCurrentPage = 1;
 							$scope.requestPageService("true");
 							
 							scrollwatch($scope, $timeout);
+							window.onscroll = function(){
+								if (!ispc) {
+							    	isscrollbottom=scrollbottom();
+							      　if(isscrollbottom){
+							      		$scope.requestPageServiceApp()
+							        }
+							    }
 
+							   };	
 							// 回车查询
 							$scope.keyup = function($event) {
 								if ($event.keyCode == 13) {
@@ -207,6 +272,15 @@ MetronicApp.controller('RoleInfoCtrl',['$scope','$rootScope','$http','$q',
 								addPerMiss.$promise.then(addPerMiss.show);
 								$scope.queryFuncByRoleId();
 							}
+
+							$scope.closeaddPerMissButton = function() {								
+								addPerMiss.$promise.then(addPerMiss.hide);
+								fullscreenRemove();
+							}	
+							$scope.closeviewUserRole = function() {								
+								viewUserRole.$promise.then(viewUserRole.hide);
+								fullscreenRemove();
+							}							
 							// 隐藏弹窗
 							$scope.hideWin = function() {
 								addRoleInfo.$promise.then(addRoleInfo.hide);
@@ -217,6 +291,11 @@ MetronicApp.controller('RoleInfoCtrl',['$scope','$rootScope','$http','$q',
 								addPerMiss.$promise.then(addPerMiss.hide);
 								recoverRoleInfo.$promise.then(recoverRoleInfo.hide);
 							}
+
+							$scope.closeviewRoleInfo = function() {		
+									viewRoleInfo.$promise.then(viewRoleInfo.hide);
+									fullscreenRemove();
+								};
 
 							// 批量删除角色
 							$scope.deleteRoleList = function(operationParam) {
@@ -557,7 +636,8 @@ MetronicApp.controller('AddRoleInfo',['$scope','$http','$q','$filter','$modal','
 			$scope.addhideModal=function(){
 				if($scope.roleForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 					$scope.$parent.$parent.hideWin();
-					$scope.roleForm=undefined
+					$scope.roleForm=undefined;
+					fullscreenRemove();
 				}else{//如果是false 代表有修改 显示提示框
 					$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 				}
@@ -567,7 +647,8 @@ MetronicApp.controller('AddRoleInfo',['$scope','$http','$q','$filter','$modal','
 					$scope.addRole(); // 执行提交方法
 				}else{
 					$scope.$parent.$parent.hideWin();
-					$scope.roleForm=undefined
+					$scope.roleForm=undefined;
+					fullscreenRemove();
 				};
 			})
 
@@ -633,7 +714,8 @@ MetronicApp.controller('ViewRoleController', [
 			$scope.edithideModal=function(){
 				if($scope.roleEditForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 					$scope.$parent.$parent.hideWin();
-					$scope.roleEditForm=undefined
+					$scope.roleEditForm=undefined;
+					fullscreenRemove();
 				}else{//如果是false 代表有修改 显示提示框
 					$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 				}
@@ -643,7 +725,8 @@ MetronicApp.controller('ViewRoleController', [
 					$scope.updateRole(); // 执行提交方法
 				}else{
 					$scope.$parent.$parent.hideWin();
-					$scope.roleEditForm=undefined
+					$scope.roleEditForm=undefined;
+					fullscreenRemove();
 				};
 			})
 

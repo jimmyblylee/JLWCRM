@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : VerifyCodeUtils.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import java.awt.Color;
@@ -34,7 +33,6 @@ import javax.imageio.ImageIO;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"WeakerAccess", "unused", "ResultOfMethodCallIgnored", "Duplicates"})
 public abstract class VerifyCodeUtils {
 
     // verify codes by UpperCase, exluding the "1", "0", "i", "o", in case of confusion
@@ -59,6 +57,7 @@ public abstract class VerifyCodeUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param verifySize
      * @param sources
      *            source chars, {@link #VERIFY_CODES} for eg.
      * @return the generated verify code
@@ -85,7 +84,10 @@ public abstract class VerifyCodeUtils {
      *            width of the image
      * @param height
      *            height of the image
+     * @param outputFile
+     * @param verifySize
      * @return the generated verify code
+     * @throws IOException
      */
     public static String outputVerifyImage(int width, int height, File outputFile, int verifySize) throws IOException {
         String verifyCode = generateVerifyCode(verifySize);
@@ -102,7 +104,10 @@ public abstract class VerifyCodeUtils {
      *            width of the image
      * @param height
      *            height of the image
+     * @param os
+     * @param verifySize
      * @return the generated verify code
+     * @throws IOException
      */
     public static String outputVerifyImage(int width, int height, OutputStream os, int verifySize) throws IOException {
         String verifyCode = generateVerifyCode(verifySize);
@@ -115,6 +120,11 @@ public abstract class VerifyCodeUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param width
+     * @param height
+     * @param outputFile
+     * @param code
+     * @throws IOException
      */
     public static void outputImage(int width, int height, File outputFile, String code) throws IOException {
         if (outputFile == null) {
@@ -124,16 +134,26 @@ public abstract class VerifyCodeUtils {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        outputFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(outputFile);
-        outputImage(width, height, fos, code);
-        fos.close();
+        try {
+            outputFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            outputImage(width, height, fos, code);
+            fos.close();
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     /**
      * Description : generate radom verify code image into outputstream <br>
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
+     *
+     * @param width
+     * @param height
+     * @param os
+     * @param code
+     * @throws IOException
      */
     public static void outputImage(int width, int height, OutputStream os, String code) throws IOException {
         int verifySize = code.length();
@@ -234,9 +254,11 @@ public abstract class VerifyCodeUtils {
         for (int i = 0; i < h1; i++) {
             double d = (double) (period >> 1) * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
             g.copyArea(0, i, w1, 1, (int) d, 0);
-            g.setColor(color);
-            g.drawLine((int) d, i, 0, i);
-            g.drawLine((int) d + w1, i, w1, i);
+            if (borderGap) {
+                g.setColor(color);
+                g.drawLine((int) d, i, 0, i);
+                g.drawLine((int) d + w1, i, w1, i);
+            }
         }
     }
 
@@ -248,12 +270,14 @@ public abstract class VerifyCodeUtils {
         for (int i = 0; i < w1; i++) {
             double d = (double) (period >> 1) * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
             g.copyArea(i, 0, 1, h1, 0, (int) d);
-            g.setColor(color);
-            g.drawLine(i, (int) d, i, 0);
-            g.drawLine(i, (int) d + h1, i, h1);
+            if (borderGap) {
+                g.setColor(color);
+                g.drawLine(i, (int) d, i, 0);
+                g.drawLine(i, (int) d + h1, i, h1);
+            }
         }
     }
-
+    
     public static byte [] outputImageByte(int width, int height, OutputStream os, String code) throws IOException {
         int verifySize = code.length();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -308,9 +332,10 @@ public abstract class VerifyCodeUtils {
             g2.drawChars(chars, i, 1, ((width - 10) / verifySize) * i + 5, height / 2 + fontSize / 2 - 10);
         }
         g2.dispose();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream(); 
         boolean flag = ImageIO.write(image, "jpg", out);
-        return out.toByteArray();
+        byte[] b = out.toByteArray();  
+        return b;
     }
-
+    
 }

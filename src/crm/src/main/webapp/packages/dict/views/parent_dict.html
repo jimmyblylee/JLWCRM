@@ -1,0 +1,54 @@
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+<form role="form" name="parentDictModelForm" ng-submit="submitParentDictForm()"
+			novalidate >
+		<div class="modal-dialog t-modal-parent modal-portlet-dialog t-moda-center02  t-moda-left-center02"  id="addDictModal">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet" modalsize>
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								选择上级类型		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="$hide()" id="dictParentSuperior" > </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+				        	<div class="t-modal-parent-auto">
+								<section id="file-style" ng-controller="DictFileStyleParent">							
+								<div save-content="file-style-html">
+									<div>
+										 <treecontrol class="tree-dark" tree-model="treedata" expanded-nodes="expandedNodes" on-selection="showSelected(node)">
+										  <a href="javascript:;" ng-click="saveChooseParentDict(node.id,node.label,$event)" class="treeLink">
+											 <span ng-switch on="node.type"> 
+												 <span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+												 <span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+											</span>
+										 {{node.label}}
+										</a>
+										</treecontrol>
+									</div>
+								</div>							
+								</section>
+							</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						           	 <button class="btn btn-primary" id="dictParentConfirm" ng-click="viewChooseParentDict()">确定</button>
+									 <button class="btn btn-default" id="dictParentClose" ng-click="$hide()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+

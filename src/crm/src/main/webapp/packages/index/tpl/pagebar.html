@@ -1,0 +1,12 @@
+<div class="page-bar t-page-bar">
+    <ul class="page-breadcrumb">
+        <li><i class="fa fa-home"></i></li>
+        <li ng-show="$parent.pageBarData.pageBarParneItme!=null"><a href="javascript:;">{{$parent.pageBarData.pageBarParneItme}}</a></li>
+        <li ng-show="$parent.pageBarData.pageBarParneItme!=null"><i class="fa fa-angle-right"></i></li>
+        <li ng-show="$parent.pageBarData.pageBarItme!=null"><a href="javascript:;">{{$parent.pageBarData.pageBarItme}}</a></li>
+        <li ng-show="$parent.pageBarData.pageBarItme!=null"><i class="fa fa-angle-right"></i></li>
+        <li ng-show="$parent.pageBarData.pageBarChildItme!=null"><a href="javascript:;">{{$parent.pageBarData.pageBarChildItme}}</a></li>
+        <li ng-show="$parent.pageBarData.pageBarChildItme!=null"><i class="fa fa-angle-right"></i></li>
+        <li><a href="javascript:;">{{$parent.pageBarData.pageBarChildItmeSub}}</a></li>
+    </ul>
+</div>

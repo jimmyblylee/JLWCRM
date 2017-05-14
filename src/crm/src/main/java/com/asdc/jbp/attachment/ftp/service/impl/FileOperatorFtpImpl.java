@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file-ftp-impl <br>
  * File Name : FileOperatorFtpImpl.java <br>
  * Package Name : com.asdc.jbp.attachment.entity <br>
@@ -27,6 +27,7 @@ import com.asdc.jbp.attachment.ftp.entity.SysAttachmentConfig;
 import com.asdc.jbp.attachment.ftp.service.FileOperator;
 import com.asdc.jbp.framework.exception.ServiceException;
 import com.asdc.jbp.framework.utils.StringUtils;
+import com.asdc.jbp.framework.validation.IgnoreFrameworkRuleCheck;
 
 /**
  * ClassName : FileOperatorFtpImpl <br>
@@ -35,16 +36,16 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@IgnoreFrameworkRuleCheck
 @Transactional(readOnly = true)
 public class FileOperatorFtpImpl implements FileOperator {
 
     @Resource
     private FtpDao dao;
 
-
+    
     private FTPClient getFtpClient() throws ServiceException {
         SysAttachmentConfig config = (SysAttachmentConfig) dao.getSingleResultByNamedQuery("ftp.hql.queryAllCfg");
         FTPClient client = new FTPClient();
@@ -56,21 +57,21 @@ public class FileOperatorFtpImpl implements FileOperator {
             throw new ServiceException("");
         }
     }
-
-
-
+    
+   
+    
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileOperator#upload(java.lang.String, java.io.InputStream)
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void upload(String uri, InputStream in) throws ServiceException {
         String[] fileUploadPath = uri.split("/");
         FTPClient client = getFtpClient();
-
+        
         try {
             int reply = client.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
@@ -84,20 +85,20 @@ public class FileOperatorFtpImpl implements FileOperator {
                 client.changeWorkingDirectory(fileUploadPath[i]);
             }
             client.storeFile(StringUtils.getFilename(uri), in);
-
+            
         } catch (IOException e) {
             throw new ServiceException("");
         } finally {
             try {
                 in.close();
             } catch (IOException e) {
-                // ignore
+                throw new ServiceException("");
             }
             if (client.isConnected()) {
                 try {
                     client.disconnect();
                 } catch (IOException e) {
-                    // ignore
+                    throw new ServiceException("");
                 }
             }
         }
@@ -105,7 +106,7 @@ public class FileOperatorFtpImpl implements FileOperator {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileOperator#download(java.lang.String, java.io.OutputStream)
      */
     @Override
@@ -122,7 +123,7 @@ public class FileOperatorFtpImpl implements FileOperator {
                 try {
                     client.disconnect();
                 } catch (IOException e) {
-                    // ignore
+                    throw new ServiceException("");
                 }
             }
         }
@@ -130,11 +131,11 @@ public class FileOperatorFtpImpl implements FileOperator {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileOperator#remove(java.lang.String)
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void remove(String uri) throws ServiceException {
         FTPClient client = getFtpClient();
         try {
@@ -147,7 +148,7 @@ public class FileOperatorFtpImpl implements FileOperator {
                 try {
                     client.disconnect();
                 } catch (IOException e) {
-                    // ignore
+                    throw new ServiceException("");
                 }
             }
         }

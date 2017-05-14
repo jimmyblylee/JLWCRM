@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ActionContext.java <br>
  * Package Name : com.asdc.jbp.framework.context <br>
@@ -27,7 +27,6 @@ import com.asdc.jbp.framework.dto.WorkDTO;
  * Create Time : Apr 12, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
  */
-@SuppressWarnings("unused")
 public final class ActionContext implements Serializable {
 
     private static final long serialVersionUID = 3042599934158341705L;
@@ -63,17 +62,18 @@ public final class ActionContext implements Serializable {
 
         public String toString() {
             return name().toLowerCase();
-        }
+        };
     }
 
     /** @Fields actionContext: action context in the current thread */
-    private static ThreadLocal<ActionContext> actionContext = new ThreadLocal<>();
+    private static ThreadLocal<ActionContext> actionContext = new ThreadLocal<ActionContext>();
 
     /**
      * Description : set action context into the current thread <br>
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param context
      */
     public static void setContext(ActionContext context) {
         actionContext.set(context);
@@ -87,7 +87,7 @@ public final class ActionContext implements Serializable {
      * @return this context in current thread
      */
     public static ActionContext getContext() {
-        return actionContext.get();
+        return (ActionContext) actionContext.get();
     }
 
     /** action context */
@@ -98,7 +98,7 @@ public final class ActionContext implements Serializable {
     }
 
     public ActionContext() {
-        this.context = new HashMap<>();
+        this.context = new HashMap<String, Object>();
     }
 
     /**
@@ -117,6 +117,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param applicationMap
      */
     public void setApplication(ApplicationMap applicationMap) {
         put(CNS.APPLICATION.toString(), applicationMap);
@@ -138,6 +139,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param parameterMap
      */
     public void setParameters(ParameterMap parameterMap) {
         put(CNS.PARAMETER.toString(), parameterMap);
@@ -159,6 +161,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param requestMap
      */
     public void setRequst(RequestMap requestMap) {
         put(CNS.REQUEST.toString(), requestMap);
@@ -180,6 +183,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param sessionMap
      */
     public void setSession(SessionMap sessionMap) {
         put(CNS.SESSION.toString(), sessionMap);
@@ -201,6 +205,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param applicationDTO
      */
     public void setApplicationDTO(ApplicationDTO applicationDTO) {
         put(CNS.APPLICATION_DTO.toString(), applicationDTO);
@@ -222,6 +227,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param sessionDTO
      */
     public void setSessionDTO(SessionDTO sessionDTO) {
         put(CNS.SESSION_DTO.toString(), sessionDTO);
@@ -243,6 +249,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param workDTO
      */
     public void setWorkDTO(WorkDTO workDTO) {
         put(CNS.WORK_DTO.toString(), workDTO);
@@ -264,6 +271,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param servletRequest
      */
     public void setServletRequest(HttpServletRequest servletRequest) {
         put(CNS.SERVLET_REQUEST.toString(), servletRequest);
@@ -285,11 +293,19 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param servletResponse
      */
     public void setServletResponse(HttpServletResponse servletResponse) {
         put(CNS.SERVLET_RESPONSE.toString(), servletResponse);
     }
 
+    /**
+     * description : get HttpServletResponse <br>
+     * create : Dec 28, 2013
+     * 
+     * 
+     * @return
+     */
     /**
      * Description : get HttpServletResponse <br>
      * Create Time: Apr 16, 2016 <br>
@@ -306,6 +322,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param locale
      */
     public void setLocale(Locale locale) {
         put(CNS.LOCALE.toString(), locale);
@@ -316,10 +333,10 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
-     * @return if the local is null, will return {@link Locale#getDefault()} as default
+     * @return if the local is null, will return {@link java.util.Locale#getDefault()} as default
      */
     public Locale getLocale() {
-        Locale locale = get(CNS.LOCALE.toString());
+        Locale locale = (Locale) get(CNS.LOCALE.toString());
         if (locale == null) {
             locale = Locale.getDefault();
             setLocale(locale);
@@ -332,6 +349,7 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
      * @return the value that was found using the key or <tt>null</tt> if the key was not found.
      */
     @SuppressWarnings("unchecked")
@@ -344,6 +362,8 @@ public final class ActionContext implements Serializable {
      * Create Time: Apr 16, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
+     * @param value
      */
     public void put(String key, Object value) {
         context.put(key, value);

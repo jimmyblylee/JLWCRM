@@ -1,123 +1,100 @@
 {
-    "home": {
-        "pageTitle": "首页",
-        "templateUrl": "packages/index/tpl/blank.html"
-    },
-    "files": {
-        "pageTitle": "文件管理",
-        "templateUrl": "packages/index/tpl/blank.html"
-    },
-    "self": {
-        "pageTitle": "个人资料",
-        "templateUrl": "packages/sys/views/profile/main.html",
-        "files": [
-            "packages/sys/css/profile-2.css",
-            "resources/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css",
-            "resources/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
-        ]
-    },
-    "todo": {
-        "pageTitle": "待办任务",
-        "templateUrl": "packages/ds/views/todo/main.html",
-        "files":[
-            "packages/ds/js/todo/ToDoMgntCtrl.js"
-        ]
-    },
-    "annc": {
-        "pageTitle": "系统公告",
-        "templateUrl": "packages/ds/views/annc/main.html",
-        "files":[
-            "packages/ds/js/annc/sysAnncCtrl.js",
-            "packages/ds/js/annc/sysAnncShowCtrl.js",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.css",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.js",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.zh-CN.js"
-        ]
-    },
-    "sys.settings": {
-        "pageTitle": "全局参数管理",
-        "templateUrl": "packages/index/tpl/blank.html"
-    },
-    "sys.menu": {
-        "pageTitle": "菜单管理",
-        "templateUrl":"packages/sys/views/func/func.html",
-        "files":[
-            "packages/sys/js/FuncController.js",
-
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
-        ]
-    },
-    "sys.role": {
-        "pageTitle": "角色管理",
-        "templateUrl":"packages/sys/views/role/sys_role.html",
-        "files":[
-            "packages/sys/js/RoleController.js",
-
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
-        ]
-    },
-    "sys.role.group": {
-        "pageTitle": "角色管理",
+	"sys.group":{
+        "name":"group",                     
+        "url":"sys_group.html",
         "templateUrl":"packages/sys/views/group/group.html",
+        "pageTitle":"用户组管理",
         "files":[
-            "packages/sys/js/GroupController.js"
+                "packages/sys/js/GroupController.js"
         ]
     },
-    "sys.user": {
-        "pageTitle": "用户管理",
-        "templateUrl":"packages/sys/views/enterpriseUser/sys_user.html",
-        "files":[
-            "packages/sys/js/enterpriseUser/UserController.js",
-
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
-        ]
-    },
-    "sys.user.self": {
-        "pageTitle": "用户管理",
-        "templateUrl":"packages/sys/views/user/sys_user.html",
-        "files":[
-            "packages/sys/js/UserController.js",
-
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
-        ]
-    },
-    "sys.dept.mgmt": {
-        "pageTitle": "单位管理",
+    "sys.dept":{
+        "name":"dept",                     
+        "url":"sys_dept.html",
         "templateUrl":"packages/sys/views/dept/sys_dept.html",
+        "pageTitle":"机构管理",
+        "files":[ 
+            "packages/index/js/tree/angular-tree-control.js",
+            "packages/sys/js/DeptController.js"
+         ]
+    },
+    "sys.role":{
+        "name":"role",                     
+        "url":"sys_role.html",
+        "templateUrl":"packages/sys/views/role/sys_role.html",
+        "pageTitle":"角色管理",
         "files":[
-            "packages/sys/css/dept.css",
-
-            "packages/sys/js/DeptController.js",
-            "packages/sys/js/dept/DeptApplyCtrl.js",
-            "packages/sys/js/dept/DeptStockCtrl.js",
-            "packages/sys/js/dept/SelfDeptCtrl.js",
-
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/tree-control-attribute.css",
-            "resources/global/plugins/angularjs/plugins/angular-tree/angular-tree-control.js"
+            "packages/index/js/tree/angular-tree-control.js",
+            "packages/sys/js/RoleController.js"
         ]
     },
-    "sys.annc.mgmt": {
-        "pageTitle": "公告管理",
-        "templateUrl": "packages/sys/views/annc/main.html",
-        "controller": "AnnouMgntCtrl",
-        "files": [
-            "packages/sys/js/annc/AnncCtrl.js",
-            "packages/sys/js/annc/AnncAddCtrl.js",
-            "packages/sys/js/annc/AnncModifyCtrl.js",
-            "packages/sys/js/annc/AnncShowCtrl.js",
-             "packages/sys/js/annc/ModifyUploadFileCtrl.js",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.css",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.min.js",
-            "packages/common/js/DatePlugIn/bootstrap-datetimepicker.zh-CN.js"
+    "sys.user":{
+        "name":"user",
+        "url":"sys_user.html",
+        "templateUrl":"packages/sys/views/user/sys_user.html",
+        "pageTitle":"用户管理",
+        "files":[
+             "packages/index/js/tree/angular-tree-control.js",
+            "packages/sys/js/UserController.js"
         ]
+    },
+    "sys.func":{
+        "name":"func",
+        "url":"sys_func.html",
+        "templateUrl":"packages/sys/views/func/func.html",
+        "pageTitle":"菜单管理",
+        "files":[
+                "packages/index/js/tree/angular-tree-control.js",
+                "packages/sys/js/FuncController.js"
+        ]
+    },
+    "account":{
+    	"name":"account",
+    	"url":"account.html",
+    	"templateUrl":"packages/sys/views/user/account.html",
+    	"pageTitle":"个人资料",
+    	"files":[
+    	        "packages/sys/js/AccountController.js"
+    	]
+    },
+    "sys.global":{
+        "name":"sys-global",
+        "url":"sys_global.html",
+        "templateUrl":"packages/sys/views/global/global.html",
+        "pageTitle":"全局列表",
+        "files":[  
+           "packages/sys/js/GlobalListController.js"
+        ]
+    },
+      "sys.form":{
+        "name":"sys-form",
+        "url":"sys_form.html",
+        "templateUrl":"packages/sys/views/form/form_config.html",
+        "pageTitle":"form",
+        "files":[  
+           "packages/sys/js/FormConfigController.js"
+        ]
+    },    
+    "sys.echart":{
+        "name":"sys-echart",
+        "url":"sys_echart.html",
+        "templateUrl":"packages/sys/views/chart/chart.html",
+        "pageTitle":"统计报表",
+        "files":[         
+           "resources/global/plugins/echart/echarts.min.js",
+           "resources/global/plugins/echart/theme/macarons.js", 
+           "packages/index/js/common/CommonService.js",                        
+           "packages/sys/js/SysChartController.js"       
+        ]
+    },
+    "icon":{
+    	"name":"editIcon",
+    	"url":"edit_icon.html",
+    	"templateUrl":"packages/sys/views/user/edit_icon.html",
+    	"pageTitle":"User Account",
+    	"files":[
+    	  "packages/sys/js/AccountController.js"
+    	]
     }
+    
 }

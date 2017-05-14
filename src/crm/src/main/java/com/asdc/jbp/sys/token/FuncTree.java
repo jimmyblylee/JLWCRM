@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-token <br>
  * File Name : FuncTree.java <br>
  * Package Name : com.asdc.jbp.sys.token <br>
@@ -18,7 +18,6 @@ import java.util.List;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public class FuncTree extends Func {
 
     private static final long serialVersionUID = 5506814251868859211L;
@@ -27,15 +26,15 @@ public class FuncTree extends Func {
     private List<FuncTree> children;
     private Boolean hasChildren;
     private Boolean isRoot;
-
+    
     /**
      * Description : make a clone of Func by FuncTree <br>
      * Create Time: Apr 30, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param node
      * @return the clone of one FuncTree
      */
-    @SuppressWarnings("WeakerAccess")
     public static Func cloneFunc(FuncTree node) {
         Func func = new Func();
         func.setId(node.getId());
@@ -48,7 +47,7 @@ public class FuncTree extends Func {
         func.setIsVisible(node.getIsVisible());
         return func;
     }
-
+    
     /**
      * Description : get all data in this and his sub func tree nodes <br>
      * Create Time: Apr 30, 2016 <br>
@@ -126,7 +125,7 @@ public class FuncTree extends Func {
     public void setIsRoot(Boolean isRoot) {
         this.isRoot = isRoot;
     }
-
+    
     @Override
     public String toString() {
         return getCode() != null ? getCode() : "";

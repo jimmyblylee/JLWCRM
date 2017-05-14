@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : DispatchExecuter.java <br>
  * Package Name : com.asdc.jbp.framework.action <br>
@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.ContextLoader;
 
@@ -55,15 +56,19 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("WeakerAccess")
 class DispatchExecuter {
 
-    private static ThreadLocal<DispatchExecuter> instance = new ThreadLocal<>();
+    private static ThreadLocal<DispatchExecuter> instance = new ThreadLocal<DispatchExecuter>();
 
     /**
      * Description : 获取Controller/Method 参数，转发到相应的控制器<br>
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
+     *
+     * @param request
+     * @param response
+     * @throws Exception
+     * @throws ServiceException
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response) throws Exception, ServiceException {
         WorkDTO dto = ActionContext.getContext().getWorkDTO();
@@ -75,8 +80,8 @@ class DispatchExecuter {
         dto.removeController();
         dto.removeMethod();
 
-        Object bean;
-        Method method;
+        Object bean = null;
+        Method method = null;
 
         try {
             if (StringUtils.isEmpty(controllerName)) {
@@ -102,7 +107,6 @@ class DispatchExecuter {
             if (StringUtils.isEmpty(methodName)) {
                 throw dto.setIssue(new ServiceException("ERR_FRAMEWORK_001", Messages.getMsg("ERR_FRAMEWORK_METHODID_NULL")));
             }
-            //noinspection RedundantArrayCreation
             method = bean.getClass().getMethod(methodName, new Class<?>[0]);
         } catch (SecurityException | NullPointerException | NoSuchMethodException e) {
             throw dto.setIssue(new ServiceException("ERR_FRAMEWORK_001", ErrLevel.WARN, Messages.getMsg("ERR_FRAMEWORK_METHOD_NULL"), e, methodName,
@@ -127,19 +131,20 @@ class DispatchExecuter {
         Logger log = LoggerFactory.getLogger(bean.getClass());
         log.debug(method.getName() + " start");
         try {
-            //noinspection RedundantArrayCreation
             method.invoke(bean, new Object[0]);
         } catch (InvocationTargetException e) {
             Throwable realCause = e.getCause();
             if (realCause instanceof ServiceException) {
                 ServiceException se = (ServiceException) realCause;
-                //noinspection ThrowableNotThrown
                 dto.setIssue(se);
                 if (ErrLevel.ERR.equals(se.getErrLevel())) {
                     throw se;
                 } else {
                     log.warn(se.getMessage());
                 }
+            } else if (realCause instanceof AccessDeniedException) {
+                dto.setWarn("ERR_SECURITY_001", Messages.getMsg("ERR_ACCESS_DENIED"));
+                log.warn(Messages.getMsg("ERR_ACCESS_DENIED"));
             } else {
                 throw dto.setIssue(new ServiceException("ERR_UNKNOWN_001", Messages.getMsg("ERR_CONTROLLER_BIZ_UNKNOWN_FAILURE"), realCause,
                         bean.getClass().getName(), method.getName()));
@@ -156,6 +161,9 @@ class DispatchExecuter {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param bean
+     * @param request
+     * @param response
      */
     private void bindData(Object bean, HttpServletRequest request, HttpServletResponse response) {
         if (bean instanceof ApplicationAware) {
@@ -209,6 +217,12 @@ class DispatchExecuter {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param request
+     * @param response
+     * @param context
+     * @param springRequestMap
+     * @return
+     * @throws ServiceException
      */
     public ActionContext createActionContext(HttpServletRequest request, HttpServletResponse response, ServletContext context,
             Map<String, Object> springRequestMap) throws ServiceException {
@@ -246,6 +260,7 @@ class DispatchExecuter {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @return
      */
     public static DispatchExecuter getInstance() {
         return instance.get();
@@ -256,6 +271,7 @@ class DispatchExecuter {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param instance
      */
     public static void setInstance(DispatchExecuter instance) {
         DispatchExecuter.instance.set(instance);

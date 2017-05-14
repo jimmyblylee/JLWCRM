@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : PinyinUtils.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -23,7 +22,6 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public abstract class PinyinUtils {
 
     /**
@@ -31,6 +29,7 @@ public abstract class PinyinUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param input
      * @return the pinyin by full spell
      */
     public static String inverse(String input) {
@@ -48,8 +47,8 @@ public abstract class PinyinUtils {
                 try {
                     String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(c, format);
                     pinyin = pinyinArray[0];
-                } catch (BadHanyuPinyinOutputFormatCombination | NullPointerException e) {
-                    // ignore
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                } catch (NullPointerException e) {
                 }
                 if (pinyin != null) {
                     sb.append(pinyin);
@@ -64,6 +63,7 @@ public abstract class PinyinUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param input
      * @return the pinyin by firlst spell contact
      */
     public static String inverseShort(String input) {
@@ -81,8 +81,8 @@ public abstract class PinyinUtils {
                 try {
                     String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(c, format);
                     pinyin = pinyinArray[0];
-                } catch (BadHanyuPinyinOutputFormatCombination | NullPointerException e) {
-                    // ignore
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                } catch (NullPointerException e) {
                 }
                 if (pinyin != null && pinyin.length() > 0) {
                     sb.append(pinyin.substring(0, 1));

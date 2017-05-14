@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : Dict.java <br>
  * Package Name : com.asdc.jbp.sys.token <br>

@@ -1,0 +1,15 @@
+<div role="dialog" tabindex="-1" class="modal global-del">
+	<div class="modal-dialog" id="parentDeptModalView">
+		<div class="modal-content">
+			<div class="modal-header t-modal-header" >
+				<button ng-click="$hide()" class="close" type="button" id="dictRecoverX">×</button>
+				<h4 class="modal-title" style="color:black">系统提示</h4>
+			</div>
+			<div class="modal-body">您确认要恢复吗？</div>
+			<div class="modal-footer t-modal-footer">
+				<button class="btn btn-primary" id="dictRecoverConfirm" ng-click="recoverDictByid()">确定</button>
+				<button class="btn btn-default" id="dictRecoverClose" ng-click="$hide()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

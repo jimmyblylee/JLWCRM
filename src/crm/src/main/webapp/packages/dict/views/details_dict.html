@@ -1,0 +1,160 @@
+ <div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+<form role="form" 
+		novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03"   id="detailsDixtModal">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet" modalsize>
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								字典详情		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="closeviewDictModal();"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+							<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
+									<tbody>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">上级字典:</label>
+											</td>
+											<td style="max-width: 200px" disabled="disabled">
+												<div class="input-group">
+													<input
+														class="form-control form-control-solid placeholder-no-fix" readonly 
+														type="text" name="dictUpdateParentValue" id="dictUpIdFont"
+														ng-model="dictUpdateParentValue" disabled="disabled" /> <span
+														class="input-group-btn">
+														<button type="button" id="dictDetailSuperior" disabled="disabled"
+															class="btn submit green">
+															<i class="fa fa-caret-down"></i>
+														</button>
+													</span>
+												</div> <input name="dictParentId" ng-model="dictUpdateParentId" id="dictUpIdDev"
+												type="hidden" />
+											</td>
+											<td class="active"><label class="pull-right"><font
+													color="red">*</font>实际值:</label></td>
+											<td><input id="code" name="code" class="form-control" readonly disabled="disabled"
+												type="text" ng-model="dictUpdateData.code"  />
+												</td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>类型:</label></td>
+											<td class="ali-middle"><input id="nature" name="nature" readonly disabled="disabled"
+												class="form-control" type="text" ng-model="dictUpdateData.nature"
+												 maxlength="30" />
+												</td>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>标签名:</label></td>
+											<td class="ali-middle"><input id="label" name="label" readonly disabled="disabled"
+												class="form-control" type="text" ng-model="dictUpdateData.label"
+												 maxlength="30" />
+											</td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>显示值:</label></td>
+											<td class="ali-middle"><input id="value" name="value" readonly  disabled="disabled"
+												class="form-control" type="text" ng-model="dictUpdateData.value"/>
+											</td>
+
+											<td class="active ali-middle"><label for="isNature" class="pull-right">字典类型:</label></td>
+											<td class="ali-middle"><select  ng-model="dictType" readonly   disabled="disabled"
+			                                     ng-options='dictTypeJson.code as dictTypeJson.value group by dictTypeJson.group for dictTypeJson in dictTypeJson'
+			                                     class="form-control valid"></select>
+											</td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>排序:</label></td>
+											<td class="ali-middle"><input id="order" name="order" readonly disabled="disabled"
+												class="form-control" type="text"  ng-model="dictUpdateData.order" maxlength="6" />
+												</td>
+											<td class="active ali-middle"><label class="pull-right">备注信息:</label></td>
+											<td class="ali-middle"><input id="remarks" name="remarks"  maxlength="150" readonly disabled="disabled"
+												class="form-control" type="text" ng-model="dictUpdateData.remarks"></td>
+										</tr>
+									</tbody>
+								</table>
+									<div class="form-horizontal hidden-md hidden-lg" role="form">	
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>上级字典:</label>
+									    <div class="col-sm-9">	
+												<div class="input-group">
+													<input class="form-control form-control-solid placeholder-no-fix"  style="cursor: pointer" type="text" name="dictUpdateParentValue" id="dictUpIdFont"
+														ng-model="dictUpdateParentValue" disabled="disabled" /> 
+														<span class="input-group-btn">
+															<button type="button" id="dictDetailSuperior" disabled="disabled" class="btn submit green">
+																<i class="fa fa-search"></i>
+															</button>
+														</span>
+												</div> 
+												<input name="dictParentId" ng-model="dictUpdateParentId" id="dictUpIdDev" type="hidden" />
+																	
+									    </div>
+									  </div>
+								    <div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>实际值:</label>
+									    <div class="col-sm-9">
+									     	<input id="code" name="code" class="form-control" readonly disabled="disabled" type="text" ng-model="dictUpdateData.code"  />
+									    </div>
+									  </div>
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>类型:</label>
+									    <div class="col-sm-9">
+									     	<input id="nature" name="nature" readonly disabled="disabled" class="form-control" type="text" ng-model="dictUpdateData.nature" maxlength="30" />
+									    </div>
+									  </div>
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>标签名:</label>
+									    <div class="col-sm-9">
+									     	<input id="label" name="label" readonly disabled="disabled" class="form-control" type="text" ng-model="dictUpdateData.label"  maxlength="30" />
+									    </div>
+									  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>显示值:</label>
+								    <div class="col-sm-9">
+								     	<input id="value" name="value" readonly  disabled="disabled" class="form-control" type="text" ng-model="dictUpdateData.value"/>
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">字典类型:</label>
+								    <div class="col-sm-9">
+								     	<select  ng-model="dictType" readonly   disabled="disabled"  ng-options='dictTypeJson.code as dictTypeJson.value group by dictTypeJson.group for dictTypeJson in dictTypeJson' class="form-control valid"></select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>排序:</label>
+								    <div class="col-sm-9">
+								     	<input id="order" name="order" readonly disabled="disabled" class="form-control" type="text"  ng-model="dictUpdateData.order" maxlength="6" />
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">备注信息：</label>
+								    <div class="col-sm-9">	
+								    	<input id="remarks" name="remarks"  maxlength="150" readonly disabled="disabled" class="form-control" type="text" ng-model="dictUpdateData.remarks">							     
+								    </div>
+								  </div>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						           		<button type="button" class="btn btn-default" id="dictDetailsClose" ng-click="closeviewDictModal()">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+

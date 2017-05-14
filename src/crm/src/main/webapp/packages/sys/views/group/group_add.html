@@ -4,7 +4,7 @@
 		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center02">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>		
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
 								添加用户组		
@@ -17,7 +17,7 @@
 
 				        </div>
 				        <div class="portlet-body" id="parentDeptModalView">
-									<table class="table table-bordered t-table-bottom0">
+									<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
 										<tbody>
 											<tr>
 												<td class="active test-center"><label class="pull-right"><font
@@ -48,6 +48,26 @@
 											</tr>
 										</tbody>
 									</table>
+									<div class="form-horizontal hidden-md hidden-lg" role="form">								
+									  <div class="form-group">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>用户组名称:</label>
+									    <div class="col-sm-9">
+									      	<input class="form-control form-control-solid placeholder-no-fix" type="text" value="" ng-model="formGroupData.name" required maxlength="32" placeholder="用户组名称" name="name">
+											<div class="error" ng-show="formGroupData.submitted">
+												<div class="alert-danger well-sm" ng-show="groupForm.name.$error.required">用户组名称不能为空.</div>
+											</div>
+									    </div>
+									  </div>
+									  <div class="form-group">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>用户组描述:</label>
+									    <div class="col-sm-9">
+										     <textarea rows="3" required maxlength="64" style="resize: none;" class="form-control form-control-solid placeholder-no-fix" type="text" value="" ng-model="formGroupData.desc" name="desc" placeholder="用户组描述"></textarea>
+											<div class="error" ng-show="formGroupData.submitted">
+											    <div class="alert-danger well-sm" ng-show="groupForm.desc.$error.required">用户组描述不能为空.</div>
+											</div>	
+									    </div>
+									  </div>
+									</div>
 								 <div class="portlet-foot t-modal-footer row">                
 						            <button class="btn btn-primary" id="groupAddConfirm" type="submit">确定</button>
 									<button class="btn btn-default" id="groupAddClose"	ng-click="hideModel()" class="button" type="button">关闭</button>

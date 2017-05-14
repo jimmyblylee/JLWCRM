@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysGroup.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,8 +8,10 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  * ClassName : SysGroup <br>
@@ -18,21 +20,14 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_GROUP")
+//@Audited
 public class SysGroup implements Serializable {
 
     private static final long serialVersionUID = -6426284023586236390L;
 
-    @Id
-    @Column(name = "GROUP_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "GROUP_NAME")
     private String name;
-    @Column(name = "GROUP_DESC")
     private String desc;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
     /**
@@ -68,6 +63,7 @@ public class SysGroup implements Serializable {
     /**
      * @return the desc
      */
+    @NotAudited
     public String getDesc() {
         return desc;
     }

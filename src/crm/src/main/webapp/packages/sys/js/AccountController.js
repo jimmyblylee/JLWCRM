@@ -6,6 +6,10 @@ var MetronicApp = angular.module("MetronicApp", [ "ui.router", "ui.bootstrap",
 MetronicApp.controller('accountCtrl',['$scope','$rootScope','$translate','$http','$q','$window','$modal',
 						function($scope, $rootScope, $translate, $http, $q,$window, $modal) {
 	
+	
+	        $rootScope.parentBarData = $scope.$parent.pageBarData.pageBarChildItme;
+	
+	
 	        var storage = window.localStorage;
 	        
 	        var userId  = getCookie("userId");
@@ -170,15 +174,31 @@ MetronicApp.controller('updatePsModalCtl', ['$scope','$rootScope','$translate','
 	 }
 }]);
                                 
-MetronicApp.controller('editIconCtrl', ['$scope','$rootScope','$translate','$http','$q','$window','$modal',
-		function($scope, $rootScope, $translate, $http, $q, $window, $modal) {
-			/**
+MetronicApp.controller('editIconCtrl', ['$scope','$rootScope','$translate','$http','$q','$window','$modal','$location',
+		function($scope, $rootScope, $translate, $http, $q, $window, $modal,$location) {
+	        /*
+			 * 点击关闭回到个人信息页面
+			 */
+			$scope.backUserInfo = function(){
+				if($rootScope.parentBarData == undefined){
+		        	 $scope.$parent.pageBar(null,null,"个人资料",null,null);
+		        }else{
+		        	 $scope.$parent.pageBar(null,null,$rootScope.parentBarData,null,null);
+		        }
+				$location.path("/accountedit.html");
+			}
+	        /**
 			 * Description：获取头像base64编码后字符串
 			 * 
 			 * @author name：yuruixin
 			 */
 			$scope.viewIcon = function() {
+				
+				document.getElementById("viewSuccessInFo").style.display="none";
+				
 				var photoFile = this.files[0];
+				
+				$scope.photo_size = photoFile;
 				/*
 				 * 目前仅仅支持jpg格式的图片文件！
 				 */
@@ -200,8 +220,28 @@ MetronicApp.controller('editIconCtrl', ['$scope','$rootScope','$translate','$htt
 					}
 				}
 			}
+			
+			 var userId  = getCookie("userId");
+			 var getPhotoResult = pageService($http, $q, 'UserController',
+                     'getUserPhoto', null, userId, null);
+             getPhotoResult.then(function(success) {
+                 $scope.userPhotoData = StrParesJSON(success).result == null ? null
+                         : StrParesJSON(success).result;
+                 if($scope.userPhotoData != "" && $scope.userPhotoData!=null){
+                	 
+                     $("#addUserPhoto").attr("src", $scope.userPhotoData);
+                     $("#userIcon").show();
+                 }else{                        
+                	 $("#userIcon").hide();
+                	 //angular.element('#userIcon').remove();             
+                 }
+              }); 
+			
+			
 			/**
 			 * Description：初始化头像上传相关
+			 * 
+			 * 这里给头像一个change事件
 			 * 
 			 * @author name：yuruixin
 			 */
@@ -215,6 +255,7 @@ MetronicApp.controller('editIconCtrl', ['$scope','$rootScope','$translate','$htt
 				$scope.userPhoto = {};
 			}
 			$scope.photoInit();
+			
 			// 提交上传的
 			$scope.uploadForm = function() {
 				// 验证表单
@@ -234,15 +275,32 @@ MetronicApp.controller('editIconCtrl', ['$scope','$rootScope','$translate','$htt
 						  var updateUserData = pageService($http, $q, 'UserController',
 									'updateUser', null, null, updateUserJson);
 						  updateUserData.then(function(success) {
-							  document.getElementById("viewSuccessInFo").style.display="";
+							  //document.getElementById("viewSuccessInFo").style.display="";
 							  console.log("成功了");
+						  
+							  $modal({
+									scope : $scope,
+									title : "提示",
+									templateUrl : 'packages/sys/views/user/tip2.html',
+									content : '头像上传成功!',
+									show : true,
+									backdrop : "static"
+							  });
+							  
+							  
+							  
+							 //$window.location.reload();
+							 //location.href = "./#/account.html";
 						  });
 					}), function(error) {
 						console.info(error);
 					};				
+				}else{
+					document.getElementById("viewSuccessInFo").style.display="";
+					//location.href = "./#/account.html";
 				}
 			}
 			$scope.imgReload = function() {		
-					$window.location.reload();
+				$window.location.reload();
 			}
 		} ]);

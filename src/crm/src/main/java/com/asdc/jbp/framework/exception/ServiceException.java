@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ServiceException.java <br>
  * Package Name : com.asdc.jbp.framework.exception <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.exception;
 
 import com.asdc.jbp.framework.utils.StringUtils;
@@ -19,7 +18,6 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public class ServiceException extends Throwable {
 
     private static final long serialVersionUID = -2008267826561330901L;
@@ -32,7 +30,7 @@ public class ServiceException extends Throwable {
     /**
      * Create a new instance of ServiceException. <br>
      * {@code errCode = "ERR-UNKNOWN-01" and errLevel = ErrLevel.ERR}
-     *
+     * 
      * @param formatedMessage
      *            formated error message
      * @param vars
@@ -46,7 +44,7 @@ public class ServiceException extends Throwable {
     /**
      * Create a new instance of ServiceException. <br>
      * {@code errCode = "ERR-UNKNOWN-01" and errLevel = ErrLevel.ERR}
-     *
+     * 
      * @param formatedMessage
      *            formated error message
      * @param cause
@@ -62,7 +60,7 @@ public class ServiceException extends Throwable {
     /**
      * Create a new instance of ServiceException. <br>
      * {@code errLevel = ErrLevel.ERR}
-     *
+     * 
      * @param code
      *            error code
      * @param formatedMessage
@@ -78,7 +76,7 @@ public class ServiceException extends Throwable {
 
     /**
      * Create a new instance of ServiceException.
-     *
+     * 
      * @param code
      *            error code
      * @param formatedMessage
@@ -96,7 +94,7 @@ public class ServiceException extends Throwable {
 
     /**
      * Create a new instance of ServiceException.
-     *
+     * 
      * @param code
      *            error code
      * @param level
@@ -166,7 +164,7 @@ public class ServiceException extends Throwable {
      * Description : return the formated message replaced with given vars by "{}" <br>
      * Create Time : Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
-     *
+     * 
      * @return formated string by replaced the {} with vars
      */
     @Override

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : WorkDTOAware.java <br>
  * Package Name : com.asdc.jbp.framework.dto.bind <br>
@@ -25,6 +25,7 @@ public interface WorkDTOAware {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param workDTO
      */
-    void setWorkDTO(WorkDTO workDTO);
+    public void setWorkDTO(WorkDTO workDTO);
 }

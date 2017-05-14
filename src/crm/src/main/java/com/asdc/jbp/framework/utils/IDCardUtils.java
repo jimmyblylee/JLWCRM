@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : IDCardUtils.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import java.text.ParseException;
@@ -23,7 +22,6 @@ import java.util.Map;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class IDCardUtils {
 
     /** @Fields CHINA_ID_MIN_LENGTH: id card min length */
@@ -35,12 +33,11 @@ public abstract class IDCardUtils {
     /** @Fields MIN: min year */
     private static final int MIN = 1930;
     /** @Fields cityCodes: city codes */
-    private static Map<String, String> cityCodes = new HashMap<>();
+    private static Map<String, String> cityCodes = new HashMap<String, String>();
     /** @Fields twFirstCode: Tai Wan id card first char code */
-    private static Map<String, Integer> twFirstCode = new HashMap<>();
+    private static Map<String, Integer> twFirstCode = new HashMap<String, Integer>();
     /** @Fields hkFirstCode: HangKang id card first char code */
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private static Map<String, Integer> hkFirstCode = new HashMap<>();
+    private static Map<String, Integer> hkFirstCode = new HashMap<String, Integer>();
     static {
         cityCodes.put("11", "北京");
         cityCodes.put("12", "天津");
@@ -120,10 +117,11 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return the id cared string with length of 18
      */
     public static String conver15CardTo18(String idCard) {
-        String idCard18;
+        String idCard18 = "";
         if (idCard.length() != CHINA_ID_MIN_LENGTH) {
             return null;
         }
@@ -144,14 +142,16 @@ public abstract class IDCardUtils {
             idCard18 = idCard.substring(0, 6) + sYear + idCard.substring(8);
             // transfer to char array
             char[] cArr = idCard18.toCharArray();
-            int[] iCard = converCharToInt(cArr);
-            int iSum17 = getPowerSum(iCard);
-            // get the last char
-            String sVal = getCheckCode18(iSum17);
-            if (sVal.length() > 0) {
-                idCard18 += sVal;
-            } else {
-                return null;
+            if (cArr != null) {
+                int[] iCard = converCharToInt(cArr);
+                int iSum17 = getPowerSum(iCard);
+                // get the last char
+                String sVal = getCheckCode18(iSum17);
+                if (sVal.length() > 0) {
+                    idCard18 += sVal;
+                } else {
+                    return null;
+                }
             }
         } else {
             return null;
@@ -164,6 +164,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return true for valid
      */
     public static boolean validateCard(String idCard) {
@@ -188,6 +189,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return true for valid
      */
     public static boolean validateIdCard18(String idCard) {
@@ -199,13 +201,15 @@ public abstract class IDCardUtils {
             String code18 = idCard.substring(17, CHINA_ID_MAX_LENGTH);
             if (isNum(code17)) {
                 char[] cArr = code17.toCharArray();
-                int[] iCard = converCharToInt(cArr);
-                int iSum17 = getPowerSum(iCard);
-                // get check code
-                String val = getCheckCode18(iSum17);
-                if (val.length() > 0) {
-                    if (val.equalsIgnoreCase(code18)) {
-                        bTrue = true;
+                if (cArr != null) {
+                    int[] iCard = converCharToInt(cArr);
+                    int iSum17 = getPowerSum(iCard);
+                    // get check code
+                    String val = getCheckCode18(iSum17);
+                    if (val.length() > 0) {
+                        if (val.equalsIgnoreCase(code18)) {
+                            bTrue = true;
+                        }
                     }
                 }
             }
@@ -218,6 +222,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return true for valid
      */
     public static boolean validateIdCard15(String idCard) {
@@ -253,6 +258,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return <b> id card info array </b>
      *         <dl>
      *         <dd>[0] - Taiwan, Macao, Hongkong</dd>
@@ -270,17 +276,14 @@ public abstract class IDCardUtils {
         if (idCard.matches("^[a-zA-Z][0-9]{9}$")) { // 台湾
             info[0] = "Taiwan";
             String char2 = idCard.substring(1, 2);
-            switch (char2) {
-                case "1":
-                    info[1] = "M";
-                    break;
-                case "2":
-                    info[1] = "F";
-                    break;
-                default:
-                    info[1] = "N";
-                    info[2] = "false";
-                    return info;
+            if (char2.equals("1")) {
+                info[1] = "M";
+            } else if (char2.equals("2")) {
+                info[1] = "F";
+            } else {
+                info[1] = "N";
+                info[2] = "false";
+                return info;
             }
 
             info[2] = validateTWCard(idCard) ? "true" : "false";
@@ -302,6 +305,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return true for valid
      */
     public static boolean validateTWCard(String idCard) {
@@ -316,7 +320,7 @@ public abstract class IDCardUtils {
             sum = sum + Integer.valueOf(c + "") * iflag;
             iflag--;
         }
-        return (sum % 10 == 0 ? 0 : (10 - sum % 10)) == Integer.valueOf(end);
+        return (sum % 10 == 0 ? 0 : (10 - sum % 10)) == Integer.valueOf(end) ? true : false;
     }
 
     /**
@@ -324,17 +328,18 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return true for valid
      */
     public static boolean validateHKCard(String idCard) {
         String card = idCard.replaceAll("[\\(|\\)]", "");
         Integer sum = 0;
         if (card.length() == 9) {
-            sum = ((int) card.substring(0, 1).toUpperCase().toCharArray()[0] - 55) * 9
-                    + ((int) card.substring(1, 2).toUpperCase().toCharArray()[0] - 55) * 8;
+            sum = (Integer.valueOf(card.substring(0, 1).toUpperCase().toCharArray()[0]) - 55) * 9
+                    + (Integer.valueOf(card.substring(1, 2).toUpperCase().toCharArray()[0]) - 55) * 8;
             card = card.substring(1, 9);
         } else {
-            sum = 522 + ((int) card.substring(0, 1).toUpperCase().toCharArray()[0] - 55) * 8;
+            sum = 522 + (Integer.valueOf(card.substring(0, 1).toUpperCase().toCharArray()[0]) - 55) * 8;
         }
         String mid = card.substring(1, 7);
         String end = card.substring(7, 8);
@@ -349,7 +354,7 @@ public abstract class IDCardUtils {
         } else {
             sum = sum + Integer.valueOf(end);
         }
-        return (sum % 11 == 0);
+        return (sum % 11 == 0) ? true : false;
     }
 
     /**
@@ -357,6 +362,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param ca
      * @return the int format for char
      */
     private static int[] converCharToInt(char[] ca) {
@@ -431,6 +437,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return age by int
      */
     public static int getAgeByIdCard(String idCard) {
@@ -438,7 +445,6 @@ public abstract class IDCardUtils {
         if (idCard.length() == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         String year = idCard.substring(6, 10);
         Calendar cal = Calendar.getInstance();
         int iCurrYear = cal.get(Calendar.YEAR);
@@ -451,6 +457,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return yyyymmdd formated birth day string
      */
     public static String getBirthByIdCard(String idCard) {
@@ -460,7 +467,6 @@ public abstract class IDCardUtils {
         } else if (len == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         return idCard.substring(6, 14);
     }
 
@@ -469,6 +475,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return year
      */
     public static Short getYearByIdCard(String idCard) {
@@ -478,7 +485,6 @@ public abstract class IDCardUtils {
         } else if (len == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         return Short.valueOf(idCard.substring(6, 10));
     }
 
@@ -487,6 +493,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return month
      */
     public static Short getMonthByIdCard(String idCard) {
@@ -496,7 +503,6 @@ public abstract class IDCardUtils {
         } else if (len == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         return Short.valueOf(idCard.substring(10, 12));
     }
 
@@ -505,6 +511,7 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return day
      */
     public static Short getDateByIdCard(String idCard) {
@@ -514,7 +521,6 @@ public abstract class IDCardUtils {
         } else if (len == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         return Short.valueOf(idCard.substring(12, 14));
     }
 
@@ -523,14 +529,14 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return "M" for Male, "F" for FeMale
      */
     public static String getGenderByIdCard(String idCard) {
-        String sGender;
+        String sGender = "N";
         if (idCard.length() == CHINA_ID_MIN_LENGTH) {
             idCard = conver15CardTo18(idCard);
         }
-        assert idCard != null;
         String sCardNum = idCard.substring(16, 17);
         if (Integer.parseInt(sCardNum) % 2 != 0) {
             sGender = "M";
@@ -545,11 +551,12 @@ public abstract class IDCardUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param idCard
      * @return province code with six char string
      */
     public static String getProvinceByIdCard(String idCard) {
         int len = idCard.length();
-        String sProvince;
+        String sProvince = null;
         String sProvinNum = "";
         if (len == CHINA_ID_MIN_LENGTH || len == CHINA_ID_MAX_LENGTH) {
             sProvinNum = idCard.substring(0, 2);
@@ -559,7 +566,7 @@ public abstract class IDCardUtils {
     }
 
     private static boolean isNum(String val) {
-        return !(val == null || "".equals(val)) && val.matches("^[0-9]*$");
+        return val == null || "".equals(val) ? false : val.matches("^[0-9]*$");
     }
 
     private static boolean valiDate(int iYear, int iMonth, int iDate) {

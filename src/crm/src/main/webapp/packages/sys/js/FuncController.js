@@ -160,6 +160,10 @@ function FunctableCtrl($scope, $filter, $modal, $http, $q, $compile, $timeout) {
 		$scope.detailsOrEidt = detailsOrEidt;
 		$scope.updateFuncId = updateFuncId;
 	};
+	$scope.closefindFuncModal = function() {		
+		findFuncModal.$promise.then(findFuncModal.hide);
+		fullscreenRemove();
+	};
 	/*
 	 * 通过部门id得到部门详情
 	 * 
@@ -478,7 +482,7 @@ function FunctableCtrl($scope, $filter, $modal, $http, $q, $compile, $timeout) {
 								console.info(error);
 			});
 		}
-
+		
 	};
 
 	var addParentInfoModal = $modal({
@@ -722,7 +726,8 @@ function updateFuncCtl($scope, $filter, $modal, $http, $q,$rootScope) {
 	$scope.closefuncEidt = function(){
 		if($scope.updaFuncsForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 			$scope.$parent.$parent.hideWin();
-			$scope.updaFuncsForm = undefined	
+			$scope.updaFuncsForm = undefined;
+			fullscreenRemove();
 		}else{//如果是false 代表有修改 显示提示框
 			$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 		}	
@@ -733,7 +738,8 @@ function updateFuncCtl($scope, $filter, $modal, $http, $q,$rootScope) {
 				$scope.updateFuncs(); // 执行提交方法
 			}else{
 				$scope.$parent.$parent.hideWin();
-				$scope.updaFuncsForm = undefined
+				$scope.updaFuncsForm = undefined;
+				fullscreenRemove();
 			};
 
 		};		
@@ -750,6 +756,16 @@ function updateFuncCtl($scope, $filter, $modal, $http, $q,$rootScope) {
  * @param $q
  */
 function addFuncInfo($scope, $filter, $modal, $http, $q,$rootScope) {
+	
+	if ($scope.$parent.addFuncInfoParentId != undefined) {
+		$scope.parentFuncFirst = false;
+		$scope.parentFuncSecond = true;
+	}else{
+		$scope.parentFuncFirst = false;
+		$scope.parentFuncSecond = true;
+	}
+	
+	
 	$scope.addFuncInfoParentName = "功能管理";
 	$scope.addFuncInfoParentId = 0;
 
@@ -935,7 +951,8 @@ function addFuncInfo($scope, $filter, $modal, $http, $q,$rootScope) {
 	$scope.closefuncAdd = function(){
 		if($scope.addFuncsForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 			$scope.$parent.$parent.hideWin();
-			$scope.addFuncsForm=undefined		
+			$scope.addFuncsForm=undefined;
+			fullscreenRemove();		
 		}else{//如果是false 代表有修改 显示提示框
 			$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 		}	
@@ -946,7 +963,8 @@ function addFuncInfo($scope, $filter, $modal, $http, $q,$rootScope) {
 				$scope.addFuncs(); // 执行提交方法
 			}else{
 				$scope.$parent.$parent.hideWin();
-				$scope.addFuncsForm=undefined
+				$scope.addFuncsForm=undefined;
+				fullscreenRemove();
 			};	
 		};		
 			
@@ -991,11 +1009,16 @@ function selectParentFunc($scope, $filter, $modal, $http, $q) {
 	$scope.viewChooseParentFunc = function() {
 		if ($scope.funcName != null) {
 			document.getElementById("funcName").value = $scope.funcName;
+			if (document.getElementById("funcNameApp") != null && document.getElementById("funcNameApp") !=undefined) {
+				document.getElementById("funcNameApp").value = $scope.funcName;
+			   }
 		}
+
 		$scope.$emit('funcSelectTo-parent', $scope.funcName, $scope.funcId);
 	}
 	$scope.clearParentFunc = function() {
 		$scope.$emit('funcSelectTo-parent', null, null);
+		fullscreenRemove();
 	}
 }
 function selectIcon($scope){

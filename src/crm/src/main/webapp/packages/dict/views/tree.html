@@ -1,0 +1,25 @@
+<div class="treeAppbackdrop"></div>
+<section id="file-style" ng-controller="DictFileStyle" class="treeApp am-slide-left">
+	<div class="show-grid ">
+		<div class="panel panel-default full-height-content  full-height-content-scrollable">
+			<div class="panel-body full-height-content-body t-tree">			
+				<div save-content="file-style-html" style="margin-left: -20px;">					
+						<treecontrol class="tree-dark" tree-model="treedata"
+							expanded-nodes="expandedNodes"
+							on-selection="showSelected(node)"> 
+							<a href="javascript:;" ng-click="clickTreeNode(node.id,$event)" class="treeLink">
+							<span
+							ng-switch on="node.type"> <span
+							ng-switch-when="folder"
+							class="glyphicon glyphicon-folder-open"
+							aria-hidden="true"></span>
+							<span ng-switch-when="doc"	class="glyphicon glyphicon-file" aria-hidden="true"></span>
+						</span>{{node.label}}
+						   </a> 
+						 </treecontrol>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<button type="button" class="btn btn-lg btn-treeApp-close" ng-click="$hide()"><span class="close">×</span></button>    
+</section>

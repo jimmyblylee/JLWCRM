@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysUserPhoto.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,7 +8,6 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
 
@@ -19,18 +18,12 @@ import java.sql.Blob;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_USER")
 public class SysUserPhoto implements Serializable {
 
     private static final long serialVersionUID = -5833570425573395847L;
 
-    @Id
-    @Column(name = "USER_ID")
     private Integer id;
-    @Column(name = "USER_PHOTO")
     private Blob photo;
-    @Transient
     private String photoStr;
 
     /**
@@ -73,9 +66,8 @@ public class SysUserPhoto implements Serializable {
 	/**
 	 * @param photoStr the photoStr to set
 	 */
-	@SuppressWarnings("unused")
-    public void setPhotoStr(String photoStr) {
+	public void setPhotoStr(String photoStr) {
 		this.photoStr = photoStr;
 	}
-
+    
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : AuthenticationService.java <br>
  * Package Name : com.asdc.jbp.sys.service <br>
@@ -24,12 +24,14 @@ public interface AuthenticationService {
      * Create Time: Apr 30, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param account
+     * @param password
      * @return user id
      * @throws ServiceException
      *             无法找到该用户,请检查账号或密码的有效性
      */
-    Integer checkAccountAndPwd(String account, String password) throws ServiceException;
-
+    public Integer checkAccountAndPwd(String account, String password) throws ServiceException;
+    
     Integer queryGroupTotle() throws ServiceException;
 
     Integer querySysGroupByManyfieldsCount(String queryCondition) throws ServiceException;

@@ -8,6 +8,7 @@ function GrouptableCtrl($scope, $filter, $http, $q, $modal, $log, $timeout,$root
 	$scope.Pagenum = Pagenum;
 	$scope.selected = '';
 	$scope.selectGroupIsEnabled = "true";
+	var ispc=IsPC();
 	/**
 	 * Description：获取有效性
 	 * 
@@ -94,6 +95,10 @@ function GrouptableCtrl($scope, $filter, $http, $q, $modal, $log, $timeout,$root
 		if (type == "1") {
 			$scope.currentPage = 1;
 		}
+		if(!ispc){
+			$scope.itemsPerPage=30;
+			$scope.currentPage = 1;			
+		}
 		var queryGroupResult = pageService($http, $q, 'GroupController',
 				'queryAllSysGroup', $scope.currentPage, $scope.itemsPerPage,
 				pageQueryParams);
@@ -108,9 +113,89 @@ function GrouptableCtrl($scope, $filter, $http, $q, $modal, $log, $timeout,$root
 			console.info(error);
 		};
 	}
+	$scope.queryGroupResultApp = function(isEnabled, type) {
+
+		if (isEnabled == "true") {
+
+			$scope.groupIsEnabled = "true";
+		}
+
+		if ($scope.groupIsEnabled == "true" && isEnabled == "false") {
+			$scope.setEnabled("true");
+		} else if ($scope.groupIsEnabled != "true" && isEnabled == "false") {
+			$scope.setEnabled("false");
+		}
+
+		if ($scope.updateGloupButton && isEnabled == "true") {
+
+			$scope.setEnabled("true");
+
+		} else if ($scope.recoverGloupButton && isEnabled == "true") {
+			$scope.setEnabled("false");
+		}
+
+		if ($scope.groupIsEnabled == "true") {
+			$scope.updateGloupButton = true;
+			$scope.recoverGloupButton = false;
+		} else {
+			$scope.updateGloupButton = false;
+			$scope.recoverGloupButton = true;
+		}
+
+		var pageQueryParams = {};
+
+		pageQueryParams["groupIsEnabled"] = $scope.groupIsEnabled;
+
+		if ($scope.selectGroupConditions != undefined) {
+
+			pageQueryParams["groupName"] = $scope.selectGroupConditions;
+
+		} else {
+			pageQueryParams["groupName"] = "";
+		}
+		if ($scope.currentPage == undefined) {
+			$scope.currentPage = 1;
+		}
+		pageQueryParams = ObjParesJSON(pageQueryParams);
+		if (type == "1") {
+			$scope.currentPage = 1;
+		}
+		$scope.itemsPerPage=5;
+		var totalItemsAPP=$scope.totalItems;
+		var array=$scope.GroupArrayLists;
+		$scope.totalItemsAPP=Math.ceil(totalItemsAPP/5);
+		$scope.currentPage=(array.length/5)+1;
+		if ($scope.currentPage <= $scope.totalItemsAPP) {
+			var queryGroupResult = pageService($http, $q, 'GroupController',
+						'queryAllSysGroup', $scope.currentPage, $scope.itemsPerPage,
+						pageQueryParams);
+				queryGroupResult.then(function(queryGroupValue) {
+					queryGroupValue = JSON.parse(queryGroupValue);	
+					$scope.GroupArrayLists =array.concat(queryGroupValue.result); 		
+					$scope.removeCheckBox();
+					scrollwatch($scope, $timeout);
+				}), function(error) {
+					console.info(error);
+				};
+
+		}
+	
+	}
+	window.onscroll = function(){
+		if (!ispc) {
+    	isscrollbottom=scrollbottom();
+      　if(isscrollbottom){
+      		$scope.queryGroupResultApp()
+        }
+    }
+
+   };
 	// 初始化
 	$scope.queryGroupResult("true");
-
+	$scope.closeupdateRolePopup = function() {		
+		updateRolePopup.$promise.then(updateRolePopup.hide);
+		fullscreenRemove();
+	};
 	// 修改权限弹窗
 	var updateRolePopup = $modal({
 		scope : $scope,
@@ -182,6 +267,10 @@ function GrouptableCtrl($scope, $filter, $http, $q, $modal, $log, $timeout,$root
 		show : false,
 		backdrop : "static"
 	});
+	$scope.closeGroupPopup = function() {		
+		selectGroupPopup.$promise.then(selectGroupPopup.hide);
+		fullscreenRemove();
+	};
 	$scope.selectGroup = [];
 	// 用户组赋权
 	$scope.selectInfo = function(userGroup) {
@@ -227,7 +316,8 @@ $scope.$on('tocolseUpdate', function(event,editGroupForm, updateGroup) {
 	 if ($scope.editGroupForm!=undefined) {
 		if($scope.editGroupForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭		
 			updateGroupWindow.$promise.then(updateGroupWindow.hide);
-			$scope.editGroupForm = undefined;	      
+			$scope.editGroupForm = undefined;
+			fullscreenRemove();	      
 		}else{//如果是false 代表有修改 显示提示框
 			$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 		}
@@ -244,7 +334,8 @@ $scope.$on('tocolseUpdate', function(event,editGroupForm, updateGroup) {
 					$scope.groupUpdate(); // 执行提交方法
 			}else{
 				updateGroupWindow.$promise.then(updateGroupWindow.hide);
-				$scope.editGroupForm = undefined;	           
+				$scope.editGroupForm = undefined;
+				fullscreenRemove();	           
 			};
 		};		
 		
@@ -305,7 +396,8 @@ $scope.$on('tocolseUpdate', function(event,editGroupForm, updateGroup) {
 	if ($scope.groupForm!=undefined) {
 	  if(groupForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭		
 			addGroupWindow.$promise.then(addGroupWindow.hide);
-			$scope.groupForm = undefined;	       
+			$scope.groupForm = undefined;
+			fullscreenRemove();	       
 		}else{//如果是false 代表有修改 显示提示框
 			$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 		}
@@ -320,6 +412,7 @@ $scope.$on('tocolseUpdate', function(event,editGroupForm, updateGroup) {
 				$scope.groupForm = undefined;
 				 $scope.formGroupData.name = undefined;
 	            $scope.formGroupData.desc = undefined;
+	            fullscreenRemove();
 			};
 		};
 	})

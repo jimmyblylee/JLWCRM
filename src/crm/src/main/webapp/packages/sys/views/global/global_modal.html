@@ -4,10 +4,10 @@
 		<div class="modal-dialog  modal-portlet-dialog t-moda-center02 t-moda-left-center03" >	
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>		
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption"  >			
-								添加全局参数		
+								添加全局参数	
 							</div>                
 				            <div class="tools">
 				                <a href="" class="collapse"> </a>               
@@ -19,7 +19,7 @@
 				        <div class="portlet-body">
 								<div class="alert-danger well-sm" ng-show="$parent.IsExit">编码已经存在了！</div>
 								<div class="alert-danger well-sm" ng-show="$parent.IsExitYes">编码已被删除，可以恢复后重试！</div>
-								<table class="table table-bordered t-table-bottom0">
+								<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
 									<tbody>
 										<tr>
 											<td class="active"><label class="pull-right"><font
@@ -60,6 +60,35 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="form-horizontal hidden-md hidden-lg" role="form">
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label active"><font color="red">*</font>参数编码:</label>
+								    <div class="col-sm-9">
+								      <input class="form-control form-control-solid placeholder-no-fix"	type="tel" autocomplete="off" placeholder="参数编码" name="variableName" required ng-focus="$parent.hideError()" ng-model="globaLData.variableName" maxlength="14"/>
+									  <div class="error" ng-show="globalModelForm.submitted || globalModelForm.variableName.$dirty">
+											<div class="alert-danger well-sm" ng-show="globalModelForm.variableName.$error.required">参数编码不能为空</div>
+									  </div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label active"><font color="red">*</font>参数名称:</label>
+								    <div class="col-sm-9">
+								      <input class="form-control form-control-solid placeholder-no-fix"	type="text" value="" maxlength="14" required ng-model="globaLData.variableValue" name="variableValue" autocomplete="off" placeholder="参数名称">
+									  <div class="error" ng-show="globalModelForm.submitted || globalModelForm.variableValue.$dirty">
+										 <div class="alert-danger well-sm" ng-show="globalModelForm.variableValue.$error.required">参数名称不能为空</div>
+									  </div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label active"><font color="red">*</font>参数值:</label>
+								    <div class="col-sm-9">
+								      <textarea	class="form-control" type="text" value="" maxlength="1000" required ng-model="globaLData.variableDescribe" style="resize: none" name="variableDescribe"	placeholder="参数值"></textarea>
+									  <div class="error" ng-show="globalModelForm.submitted || globalModelForm.variableDescribe.$dirty">
+										<div class="alert-danger well-sm" ng-show="globalModelForm.variableDescribe.$error.required">参数值不能为空</div>
+									  </div>
+								    </div>
+								  </div>
+								</div>
 								 <div class="portlet-foot t-modal-footer row">                
 						            <button class="btn btn-primary" id="globalModalConfirm" type="submit">确定</button>
 									<button class="btn btn-default" id="globalModalClose" type="button" ng-click="hideModel();">关闭</button>

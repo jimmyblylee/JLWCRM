@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd"
+    xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans">
+    
+     <http pattern="/packages/sys/json/**" security="none"></http>
+    
+    <http pattern="/packages/sys/**" auto-config='true' use-expressions="true">
+        <intercept-url pattern="/packages/sys/views/**" access="hasAnyAuthority('sys','icon','account')"/>
+        <intercept-url pattern="/packages/sys/js/**" access="permitAll" />
+        <intercept-url pattern="/packages/sys/sidebarfile.json" access="isAuthenticated()" />
+        <form-login login-page='/login.html'/>
+    </http>
+
+</beans:beans>

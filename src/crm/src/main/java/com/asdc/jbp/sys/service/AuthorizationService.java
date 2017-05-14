@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : AuthorizationService.java <br>
  * Package Name : com.asdc.jbp.sys.service <br>
@@ -30,10 +30,11 @@ public interface AuthorizationService {
      * Create Time: Apr 30, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param userId
      * @return user token
      * @throws ServiceException 用户不存在
      */
-    Token getUserTokenByUserId(Integer userId) throws ServiceException;
+    public Token getUserTokenByUserId(Integer userId) throws ServiceException;
 
     /**
      * Description : 根据 userID查询当前用户的功能列表 <br>
@@ -44,7 +45,7 @@ public interface AuthorizationService {
      * @return 该用户所拥有功能
      * @throws ServiceException 用户不存在
      */
-    List<SysFunc> queryFuncsByUserId(Integer userId) throws ServiceException;
+    public List<SysFunc> queryFuncsByUserId(Integer userId) throws ServiceException;
 
     /**
      * Description : 根据 userID 查询该用户角色 <br>
@@ -55,7 +56,7 @@ public interface AuthorizationService {
      * @return 该用户所拥有角色
      * @throws ServiceException 用户不存在
      */
-    List<SysRole> queryRolesByUserId(Integer userId) throws ServiceException;
+    public List<SysRole> queryRolesByUserId(Integer userId) throws ServiceException;
 
     /**
      * Description : 根据userID获取当前所属组<br>
@@ -66,6 +67,6 @@ public interface AuthorizationService {
      * @return 当前用户所属组
      * @throws ServiceException 用户不存在
      */
-    List<SysGroup> queryGroupsByUserId(Integer userId) throws ServiceException;
+    public List<SysGroup> queryGroupsByUserId(Integer userId) throws ServiceException;
 
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : RelSysUserGroup.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,8 +8,9 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import org.hibernate.envers.Audited;
 
 /**
  * ClassName : RelSysUserGroup <br>
@@ -18,24 +19,18 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_USER_GROUP")
+@Audited
 public class RelSysUserGroup implements Serializable {
 
     private static final long serialVersionUID = 7749437876618674804L;
 
-    @Id
-    @Column(name = "REL_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "USER_ID")
     private Integer userId;
-    @Column(name = "GROUP_ID")
     private Integer groupId;
-
+    
     public RelSysUserGroup() {
     }
-
+    
     public RelSysUserGroup(Integer userId, Integer groupId) {
         this.userId = userId;
         this.groupId = groupId;

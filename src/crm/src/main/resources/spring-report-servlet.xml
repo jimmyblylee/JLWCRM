@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+    xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context">
+
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.asdc.jbp.sys.controller.report" />
+    <!-- 注册XmlViewResolver，用于iReport & JasperReports报表生成 -->
+    <bean id="jasperReportResolver"
+        class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="order">
+            <value>0</value>
+        </property>
+        <property name="location">
+            <value>classpath:jasper-view.xml</value>
+<!--             <value>/WEB-INF/jasper-views.xml</value> -->
+        </property>
+    </bean>
+</beans>

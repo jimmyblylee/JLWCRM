@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : RelSysUserRole.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,8 +8,9 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import org.hibernate.envers.Audited;
 
 /**
  * ClassName : RelSysUserRole <br>
@@ -18,19 +19,13 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_USER_ROLE")
+@Audited
 public class RelSysUserRole implements Serializable {
 
     private static final long serialVersionUID = 4067156916701413130L;
 
-    @Id
-    @Column(name = "REL_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "USER_ID")
     private Integer userId;
-    @Column(name = "ROLE_ID")
     private Integer roleId;
 
     public RelSysUserRole() {

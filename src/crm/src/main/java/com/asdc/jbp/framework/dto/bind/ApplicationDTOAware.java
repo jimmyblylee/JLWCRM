@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ApplicationDTOAware.java <br>
  * Package Name : com.asdc.jbp.framework.dto.bind <br>
@@ -25,6 +25,7 @@ public interface ApplicationDTOAware {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param applicationDTO
      */
-    void setApplicationDTO(ApplicationDTO applicationDTO);
+    public void setApplicationDTO(ApplicationDTO applicationDTO);
 }

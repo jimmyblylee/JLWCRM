@@ -11,57 +11,55 @@
     <name>CRM</name>
 
     <properties>
-        <!--
-            springframework dependencies
-        -->
-        <org.springframework.version>4.3.2.RELEASE</org.springframework.version>
+        <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
         <aspectjweaver.version>1.8.9</aspectjweaver.version>
-
-        <!--
-            net work dependencies
-        -->
+        <spring-security.version>4.0.4.RELEASE</spring-security.version>
         <pjl-comp-filter.version>1.7</pjl-comp-filter.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <jackson-databind.version>2.7.3</jackson-databind.version>
-
-        <!--
-            console log dependencies
-        -->
         <logback-classic.version>1.1.7</logback-classic.version>
-        <jansi.version>1.13</jansi.version>
-        <slf4j-api.version>1.7.20</slf4j-api.version>
-
-        <!--
-            Data access dependencies
-        -->
-        <hibernate-core.version>5.2.2.Final</hibernate-core.version>
-        <c3p0.version>0.9.5.2</c3p0.version>
-        <mysql-connector-java.version>5.1.27</mysql-connector-java.version>
-        <ucanaccess.version>3.0.6</ucanaccess.version>
-        <atomikos.version>4.0.4</atomikos.version>
-
-        <!--
-            other dependencies
-        -->
+        <jcl-over-slf4j.version>1.7.20</jcl-over-slf4j.version>
+        <jansi.version>1.11</jansi.version>
+        <junit.version>4.12</junit.version>
         <pinyin4j.version>2.5.0</pinyin4j.version>
+        <hibernate-core.version>5.1.0.Final</hibernate-core.version>
+        <mysql-connector-java.version>5.1.27</mysql-connector-java.version>
+        <!-- atomikos should only be 3.9.3, latest "Stable" version has bugs -->
+        <atomikos.version>3.9.3</atomikos.version>
+        <commons-net.version>3.5</commons-net.version>
 
         <!-- plugins versions and settings -->
-        <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
-        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
+        <maven-help-plugin.version>2.2</maven-help-plugin.version>
+        <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+        <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+        <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+        <maven-source-plugin.version>2.4</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
         <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
+        <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.skip>true</maven-surefire-plugin.skip>
+        <maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
+        <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
-
+        <mockito.version>1.8.4</mockito.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <jasperreports.version>6.2.2</jasperreports.version>
+        <pdf-itext.version>2.1.7</pdf-itext.version>
+        <itextpdf-asian.version>1.0.0</itextpdf-asian.version>
+        <javax-mail.version>1.4.7</javax-mail.version>
+        <org.freemarker.version>2.3.20</org.freemarker.version>
+        
         <encoding>UTF-8</encoding>
 
-        <maven.test.skip>true</maven.test.skip>
+        <skip.dependency.check>false</skip.dependency.check>
     </properties>
 
     <dependencies>
-        <!--
-            springframework dependencies
-        -->
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -78,22 +76,40 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
         <!-- aspectjweaver, spring aop needs -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
         </dependency>
-
-        <!--
-            net work dependencies
-        -->
+        <!-- spring security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <!-- compile filter -->
+        <dependency>
+            <groupId>net.sourceforge.pjl-comp-filter</groupId>
+            <artifactId>pjl-comp-filter</artifactId>
+            <version>${pjl-comp-filter.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.servlet-api.version}</version>
-            <scope>provided</scope>
         </dependency>
         <!-- commons fileupload -->
         <dependency>
@@ -107,17 +123,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-databind.version}</version>
         </dependency>
-
-        <!--
-            console log dependencies,
-            you should depend one and only one between log4j2 and logback
-        -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
-        </dependency>
-        <!-- logback -->
+        <!-- log -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -128,11 +134,38 @@
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
             <version>${jansi.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- slf4j jcl to replace commons-logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${jcl-over-slf4j.version}</version>
         </dependency>
 
-        <!--
-            Data access dependencies
-        -->
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <!-- <scope>test</scope> -->
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest.version}</version>
+        </dependency>
+        <!-- chinese pinyin spell helper -->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>${pinyin4j.version}</version>
+        </dependency>
         <!-- hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -144,55 +177,70 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate-core.version}</version>
         </dependency>
-        <!-- c3p0 datasource -->
         <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>${c3p0.version}</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>${hibernate-core.version}</version>
         </dependency>
         <!-- data base connection driver -->
-        <!-- driver for mysql -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
-            <scope>runtime</scope>
         </dependency>
-
-        <!-- chinese pinyin spell helper -->
+        <!-- distributed tx support -->
         <dependency>
-            <groupId>com.belerweb</groupId>
-            <artifactId>pinyin4j</artifactId>
-            <version>${pinyin4j.version}</version>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jdbc</artifactId>
+            <version>${atomikos.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jta</artifactId>
+            <version>${atomikos.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+        <!-- jasperreports -->
+        <!-- http://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf-asian</artifactId>
+            <version>${itextpdf-asian.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${pdf-itext.version}</version>
         </dependency>
 
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${javax-mail.version}</version>
+        </dependency>
+        
         <!-- freemarker  -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
+            <version>${org.freemarker.version}</version>
         </dependency>
-
-        <!-- net work -->
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-            <version>3.6</version>
-        </dependency>
-
-        <!-- for base 64 encoder -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
-        </dependency>
-
     </dependencies>
+
     <build>
-        <finalName>crm</finalName>
-        <!-- plugins -->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The Resources Plugin handles the copying of project
+            <!-- The Resources Plugin handles the copying of project 
                 resources to the output directory. ref: http://maven.apache.org/plugins/maven-resources-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -202,7 +250,7 @@
                     <encoding>${encoding}</encoding>
                 </configuration>
             </plugin>
-            <!-- The Compiler Plugin is used to compile the sources of
+            <!-- The Compiler Plugin is used to compile the sources of 
                 your project. ref: http://maven.apache.org/plugins/maven-compiler-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -214,8 +262,8 @@
                     <encoding>${encoding}</encoding>
                 </configuration>
             </plugin>
-            <!-- The WAR Plugin is responsible for collecting all artifact
-                dependencies, classes and resources of the web application and packaging
+            <!-- The WAR Plugin is responsible for collecting all artifact 
+                dependencies, classes and resources of the web application and packaging 
                 them into a web application archive. ref: http://maven.apache.org/plugins/maven-war-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -227,6 +275,13 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <JBP-Release>${project.version}.${env.BUILD_NUMBER}</JBP-Release>
+                            <BUILD-TIME>${env.BUILD_ID}</BUILD-TIME>
+                            <GIT-Branch>${env.GIT_BRANCH}</GIT-Branch>
+                            <GIT-Revision>${env.GIT_COMMIT}</GIT-Revision>
+                            <GIT-URL>${env.GIT_URL}</GIT-URL>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>

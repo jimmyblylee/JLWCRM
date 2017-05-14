@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : FileOperator.java <br>
  * Package Name : com.asdc.jbp.attachment.service <br>
@@ -22,9 +22,9 @@ import com.asdc.jbp.framework.exception.ServiceException;
  */
 public interface FileOperator {
 
-    void upload(String uri, InputStream in) throws ServiceException;
-
-    void download(String uri, OutputStream out) throws ServiceException;
-
-    void remove(String uri) throws ServiceException;
+    public void upload(String uri, InputStream in) throws ServiceException;
+    
+    public void download(String uri, OutputStream out) throws ServiceException;
+    
+    public void remove(String uri) throws ServiceException;
 }

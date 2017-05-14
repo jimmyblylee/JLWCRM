@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : RelSysRoleFunc.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -10,33 +10,27 @@ package com.asdc.jbp.sys.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import org.hibernate.envers.Audited;
 
 /**
  * ClassName : RelSysRoleFunc <br>
  * Description : entity of relation between role and function, which will never be used unless you want to do auditing with it <br>
  * Create Time : Apr 29, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
+ *
  */
-@SuppressWarnings("unused")
-@Entity
-@Table(name = "SYS_ROLE_FUNC")
+@Audited
 public class RelSysRoleFunc implements Serializable {
 
     private static final long serialVersionUID = -4333771094237821672L;
 
-    @Id
-    @Column(name = "REL_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "ROLE_ID")
     private Integer roleId;
-    @Column(name = "FUNC_ID")
     private Integer funcId;
-
+    
     public RelSysRoleFunc() {
     }
-
+    
     public RelSysRoleFunc(Integer roleId, Integer funcId) {
         this.roleId = roleId;
         this.funcId = funcId;
@@ -50,7 +44,8 @@ public class RelSysRoleFunc implements Serializable {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public void setId(Integer id) {
         this.id = id;
@@ -64,7 +59,8 @@ public class RelSysRoleFunc implements Serializable {
     }
 
     /**
-     * @param roleId the roleId to set
+     * @param roleId
+     *            the roleId to set
      */
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
@@ -78,7 +74,8 @@ public class RelSysRoleFunc implements Serializable {
     }
 
     /**
-     * @param funcId the funcId to set
+     * @param funcId
+     *            the funcId to set
      */
     public void setFuncId(Integer funcId) {
         this.funcId = funcId;

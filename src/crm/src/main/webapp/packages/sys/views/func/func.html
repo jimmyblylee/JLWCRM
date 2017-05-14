@@ -1,7 +1,7 @@
 
 
-<ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
 <div class="ibox" ng-controller="FunctableCtrl" id="funcInfoPage">
+	<div data-ng-include="'packages/index/tpl/pagebar.html'"> </div>
 	<div class="row mt10">
 		<div class="portlet light bordered full-height-content">
 			<div class="portlet-body" id="modalView">
@@ -30,7 +30,7 @@
 					</div>
 					<div
 						class="form-inline text-right col-md-12 col-lg-9 t-form-inline">
-						<div class="form-group setEnabled" id="funcState">
+						<div class="form-group setEnabled setEnabled-left" id="funcState" >
 							<label>状态:&nbsp;</label>
 							<div class="btn-group">
 								<select ng-model="funcInfo.funcStatus" id="funcStatusSelect"
@@ -59,10 +59,10 @@
 												<th class="width-50px"><input type="checkbox"
 													id="funcCheckParent" ng-click="checkAll()" /></th>
 												<th class="text-center wid180px">名称</th>
-												<th class="text-center wid140px">路由配置</th>
-												<th class="text-center wid140px">类型</th>
-												<th class="text-center wid90px">是否可用</th>
-												<th class="text-center wid140px">上级菜单</th>
+												<th class="text-center wid140px hidden-xs hidden-sm">路由配置</th>
+												<th class="text-center wid140px hidden-xs hidden-sm">类型</th>											
+												<th class="text-center wid90px hidden-xs hidden-sm">是否可用</th>
+												<th class="text-center wid140px hidden-xs hidden-sm">上级菜单</th>
 												<th class="text-center wid330px">操作</th>
 											</tr>
 										</thead>
@@ -77,23 +77,23 @@
 										class="table table-striped table-bordered table-hover table-checkable order-column">
 										<tbody>
 											<tr class="odd gradeX" ng-repeat="item in funcList">
-
+																						
 												<td class="width-50px"><input type="checkbox"
 													name="funcCheckChild" value="{{item.id}}" ng-if="item.children == null"></td>
-
+													
 												<td id="funcId{{item.id}}" class="wid180px">
 												<!--展开节点  --> <span class="fa fa-angle-right" style="padding:0 10px;"
 													ng-click="getChildrenFunc(item.id)" ng-if="item.children != null"></span>
-
-													<span style="padding:0 10px;" ng-if="item.children == null"></span> <!--收缩节点  -->
+													
+													<span style="padding:0 10px;" ng-if="item.children == null"></span> <!--收缩节点  --> 
 													<span
 													class="fa fa-angle-down" style="display: none;padding:0 10px;"
 													ng-click="hideChildrenFunc(item.id)"></span> {{item.name}}
 													</td>
-												<td class="text-center  wid140px">{{item.code}}</td>
-												<td class="text-center  wid140px">{{item.typeCode}}</td>
-												<td class="text-center wid90px">{{item.visible}}</td>
-												<td class="text-center wid140px">{{item.parent.name}}</td>
+												<td class="text-center  wid140px hidden-xs hidden-sm">{{item.code}}</td>
+												<td class="text-center  wid140px hidden-xs hidden-sm">{{item.typeCode}}</td>	
+												<td class="text-center wid90px hidden-xs hidden-sm">{{item.visible}}</td>
+												<td class="text-center wid140px hidden-xs hidden-sm">{{item.parent.name}}</td>
 												<td class=" text-center wid330px">
 													<button type="button" class="btn green btn-xs "
 														id="viewFuncInfoButton" ng-click="findFuncInfo(item.id,'details')">
@@ -125,8 +125,8 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				</div>
+				</div>	
+				</div>	
 			</div>
 		</div>
 		<div aria-hidden="true" aria-labelledby="deleteFuncListModel"

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ProxyStripper.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC DAI. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import java.beans.BeanInfo;
@@ -31,7 +30,6 @@ import org.hibernate.proxy.pojo.javassist.SerializableProxy;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public abstract class ProxyStripper {
 
     /**
@@ -39,11 +37,13 @@ public abstract class ProxyStripper {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param value
      * @return the object without proxy
+     * @throws IntrospectionException
      */
     public static <T> T cleanFromProxies(T value) throws IntrospectionException {
         T result = unproxyObject(value);
-        cleanFromProxies(result, new ArrayList<>());
+        cleanFromProxies(result, new ArrayList<Object>());
         return result;
     }
 
@@ -59,7 +59,7 @@ public abstract class ProxyStripper {
                     cleanFromProxies(item, handledObjects);
                 }
             }
-            BeanInfo beanInfo;
+            BeanInfo beanInfo = null;
             beanInfo = Introspector.getBeanInfo(value.getClass());
             if (beanInfo != null) {
                 for (PropertyDescriptor property : beanInfo.getPropertyDescriptors()) {
@@ -83,7 +83,13 @@ public abstract class ProxyStripper {
     }
 
     private static boolean isProxy(Object value) {
-        return value != null && ((value instanceof HibernateProxy) || (value instanceof PersistentCollection));
+        if (value == null) {
+            return false;
+        }
+        if ((value instanceof HibernateProxy) || (value instanceof PersistentCollection)) {
+            return true;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -118,7 +124,7 @@ public abstract class ProxyStripper {
     }
 
     private static <T> Set<T> unproxyPersistentSet(Map<T, ?> persistenceSet) {
-        return new LinkedHashSet<>(persistenceSet.keySet());
+        return new LinkedHashSet<T>(persistenceSet.keySet());
     }
 
     private static boolean containsTotallyEqual(Collection<?> collection, Object value) {

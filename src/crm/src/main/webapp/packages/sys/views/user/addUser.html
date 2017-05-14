@@ -3,7 +3,7 @@
 		<div class="modal-dialog t-user-modal  modal-portlet-dialog t-moda-center03  t-moda-left-center03">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>	
-					<div class="portlet modal_portlet ">
+					<div class="portlet modal_portlet " modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
 								用户添加		
@@ -36,7 +36,7 @@
 											</div>
 								<div class="alert-danger well-sm" ng-show="addUserForm.tel">手机号格式有误!</div>
 								<div class="alert-danger well-sm" ng-show="addUserForm.fixedTel">电话号码格式有误!</div>
-								<table class="table table-bordered  t-table-bottom0  t-user-table">
+								<table class="table table-bordered  t-table-bottom0  t-user-table hidden-xs hidden-sm">
 									<tbody>
 										<tr>
 											<td class="active ali-middle wid90px" ><label
@@ -74,7 +74,7 @@
 												ng-model="addUserInfo.name" ng-focus="hideErrorinfo()"></td>
 											<td class="active ali-middle"><label class="pull-right"><font
 													color="red">*</font>账号:</label></td>
-											<td  >
+											<td >
 												<div class="input-group">
 													<input name="account" class="form-control " type="text" ng-focus="hideErrorinfo()"
 														maxlength="20" ng-model="addUserInfo.account" required>
@@ -105,14 +105,12 @@
 										</tr>
 										
 										<tr>
-
-											<td class="active ali-middle"><label class="pull-right"><font
-													color="red">*</font>邮箱:</label></td>
-											<td><input class="form-control  ng-touched" maxlength="32" required name="youjian"
-												ng-blur="checkEmail()" ng-change="emailChange()" type="text"  ng-focus="emailFocus()"
-												ng-model="addUserInfo.email"></td>
+											<td class="active ali-middle"><label class="pull-right">性别:</label></td>
+											<td><select class="form-control" ng-model="addUserInfo.sex"
+												ng-options="sexDict.value for sexDict in sexDicts"
+												></select></td>
 											 <td class="active ali-middle"><label class="pull-right"><font
-													color="red">*</font>报表组:</label></td>
+													color="red">*</font>机构:</label></td>
 											<td ><div class="input-group" ng-click="deptSelect()">
 													<input id="dept" name="dept" readonly="readonly"
 														style="background: #fff" class="form-control pull-left"
@@ -128,13 +126,52 @@
 										</tr>
 
 										<tr>
-											<td class="active ali-middle"><label class="pull-right">职位:</label></td>
-											<td><input class="form-control digits" type="text"
-												maxlength="11" ng-model="addUserInfo.title"></td>
-											<td class="active ali-middle"><label class="pull-right">统计证号:</label></td>
+											<td class="active ali-middle"><label class="pull-right">生日:</label></td>
+											<td >
+												<div class=" input-group"  style="width: 100%;">
+													<input type="text" class="form-control" 
+														style="background: #fff" datepicker-popup="{{format}}"
+														ng-model="addUserInfo.birthday" is-open="opened"
+														max-date="sysTime " readonly="readonly"
+														datepicker-options="dateOptions" 
+														 date-disabled="disabled(date, mode)"
+														 ng-click="open($event)" />
+													<div class="input-group-addon btn green greenbtn t-user-btn-default" ng-click="open($event)" >
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</td>
+
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>邮箱:</label></td>
+											<td><input class="form-control  ng-touched" maxlength="32" required name="youjian"
+												ng-blur="checkEmail()" ng-change="emailChange()" type="text"  ng-focus="emailFocus()"
+												ng-model="addUserInfo.email"></td>
+										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">证件类型:</label></td>
+											<td><select class="form-control"
+												ng-model="addUserInfo.idType"
+												ng-options="idTypeDict.value for idTypeDict in idTypeDicts"
+												></select></td>
+											<td class="active ali-middle"><label class="pull-right">证件号:</label></td>
 											<td><input class="form-control  ng-touched" maxlength="30"
 												type="text" ng-model="addUserInfo.idNum"></td>
 										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">地址:</label></td>
+											<td><input class="form-control  digits" type="text"
+												maxlength="128" ng-model="addUserInfo.address"></td>
+											<td class="active ali-middle"><label class="pull-right">邮编:</label></td>
+											<td><input class="form-control  ng-touched" maxlength="6" 
+												type="text" ng-model="addUserInfo.postalCode"  ng-focus ="checkFocus()"
+												ng-blur="checkPostalCode()" ng-change="changePostalCode()"></td>
+
+										</tr>
+
+
 										<tr>
 
 											<td class="active ali-middle"><label class="pull-right">电话:</label></td>
@@ -147,8 +184,159 @@
 												ng-blur="checkPhone()" ng-change="changePhone()"
 												ng-focus="hideErrorPhone()"></td>
 										</tr>
+
+										<tr>
+											<td class="active ali-middle"><label class="pull-right">用户类型:</label></td>
+											<td>									
+											 <select
+												ng-model="addUserInfoType" id="deptStatusSelect"
+												style="width: 100%;"
+												ng-options='userTypeDicts.code as userTypeDicts.value group by userTypeDicts.group for userTypeDicts in userTypeDicts'
+												class="form-control valid">
+											</select>
+											</td>
+											<td class="active ali-middle"><label class="pull-right">头衔:</label></td>
+											<td><input class="form-control digits" type="text"
+												maxlength="11" ng-model="addUserInfo.title"></td>
+										</tr>
 									</tbody>
 								</table>
+								<div class="form-horizontal hidden-md hidden-lg" role="form">
+								<div class="form-group ">
+								    <label class="col-sm-3 control-label ">头像:</label>
+								     <div class="col-sm-9">
+								    	<div class="userPhoto"><img id="addUserPhotoApp" src="" alt="" width="50px;" height="50px;"  /></div>
+										<div class="t-relative">
+											<input type="file" class="t-file-up-alpha" style="width: 80px;height:50px;" id="inputFileApp" ng-model="userPhoto" accept="image/jpeg">
+											<div class="uneditable-input" style="border: 0;">
+												<a href="javascript:" class="btn btn-primary green greenbtn" id="selectAddUserIcon">选择</a> &nbsp;
+												<a href="javascript:" ng-click="clearPhoto();" class="btn btn-default" id="cleanAddUserIcon">清除</a>
+											</div>
+										</div>
+								    </div>
+								 </div>
+								<div class="form-group">
+								    <label  class="col-sm-3 control-label"><font color="red">*</font>用户组:</label>
+								     <div class="col-sm-9">
+						    			<div  class="t-user-modal-group col-bordered" >
+											<div ng-repeat="group in groupList">
+												<input type="checkbox" name="child_group_add" value="{{group.id}}" ng-model="group.checked" ng-disabled="group.id==0"/>{{group.name}}
+								           </div>
+										</div>	
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>姓名:</label>
+								    <div class="col-sm-9">
+								    	<input id="description" name="name" class="form-control " type="text" maxlength="20" required ng-model="addUserInfo.name" ng-focus="hideErrorinfo()">
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>账号:</label>
+								     <div class="col-sm-9">								    
+										<input name="account" class="form-control " type="text" ng-focus="hideErrorinfo()" maxlength="20" ng-model="addUserInfo.account" required>
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>密码:</label>
+								     <div class="col-sm-9">
+								    	<input type="password" ng-change="checkPassword()"  ng-focus="hideErrorPsw()" required class="form-control" ng-model="sysUserPwd.password" name="password" id="password" autocomplete="off" maxlength="20" placeholder="预设密码">
+								    </div>
+								  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>确认密码:</label>
+								     <div class="col-sm-9">
+								    	<input type="password" ng-change="checkPassword()" ng-focus="hideErrorPsw()" required autocomplete="off" ng-model="rpassword" name="rePassword" class="form-control" maxlength="20" placeholder="确认密码">
+								    </div>
+								  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">性别:</label>
+								     <div class="col-sm-9">
+								    	<select class="form-control" ng-model="addUserInfo.sex" ng-options="sexDict.value for sexDict in sexDicts" ></select>
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>机构:</label>
+								     <div class="col-sm-9">
+								    	<div class="input-group" ng-click="deptSelect()">
+											<input id="dept" name="dept" readonly="readonly" style="background: #fff" class="form-control pull-left" required type="text" maxlength="20" ng-model="deptNameAdd">
+											<span class="input-group-btn">
+												<button type="button" id="companyButton" class="btn btn-primary green greenbtn">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">生日:</label>
+								     <div class="col-sm-9">
+								    	<div class=" input-group"  style="width: 100%;">
+											<input type="text" class="form-control"  style="background: #fff" datepicker-popup="{{format}}" ng-model="addUserInfo.birthday" is-open="opened" max-date="minDate" readonly="readonly"
+												datepicker-options="dateOptions" current-text="今天" clear-text="清除" date-disabled="disabled(date, mode)" close-text="关闭" ng-click="open($event)"/>
+											<div class="input-group-addon btn green greenbtn t-user-btn-default" ng-click="open($event)">
+												<i class="fa fa-calendar"></i>
+											</div>
+										</div>
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>邮箱:</label>
+								     <div class="col-sm-9">
+								    	<input class="form-control  ng-touched" maxlength="32" required name="youjian" ng-blur="checkEmail()" ng-change="emailChange()" type="text"  ng-focus="emailFocus()" ng-model="addUserInfo.email">
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">证件类型:</label>
+								    <div class="col-sm-9">
+								    	<select class="form-control" ng-model="addUserInfo.idType" ng-options="idTypeDict.value for idTypeDict in idTypeDicts" ></select>				     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								  <label  class="col-sm-3 control-label ">证件号:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control  ng-touched" maxlength="30" type="text" ng-model="addUserInfo.idNum">					     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">地址:</label>
+								    <div class="col-sm-9">
+								    		<input class="form-control  digits" type="text" maxlength="128" ng-model="addUserInfo.address">				     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">邮编:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control  ng-touched" maxlength="6"  type="text" ng-model="addUserInfo.postalCode"  ng-focus ="checkFocus()" ng-blur="checkPostalCode()" ng-change="changePostalCode()">		     
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">电话:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control " type="text" ng-focus="hideErrorFexTel()" ng-blur="checkFexTel()" ng-change="changeFexTel()" maxlength="13" ng-model="addUserInfo.fixedTel">					     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">手机号:</label>
+								    <div class="col-sm-9">
+								    	<input class="form-control abc" type="text" maxlength="11" ng-model="addUserInfo.tel" ng-blur="checkPhone()" ng-change="changePhone()" ng-focus="hideErrorPhone()">								     
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">用户类型:</label>
+								    <div class="col-sm-9">
+								   		 <select ng-model="addUserInfoType" id="deptStatusSelect" style="width: 100%;" ng-options='userTypeDicts.code as userTypeDicts.value group by userTypeDicts.group for userTypeDicts in userTypeDicts'
+												class="form-control valid">
+											</select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">头衔:</label>
+								    <div class="col-sm-9">
+								   		<input class="form-control digits" type="text" maxlength="11" ng-model="addUserInfo.title">
+								    </div>
+								  </div>
+								</div>
 							   <input type="hidden" ng-model="roleId">
 							   </div>
 								<div class="portlet-foot t-modal-footer row">                

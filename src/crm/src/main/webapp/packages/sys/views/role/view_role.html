@@ -3,7 +3,7 @@
 		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>	
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
 								查看角色		
@@ -11,13 +11,13 @@
 				            <div class="tools">
 				                <a href="" class="collapse"> </a>               
 				                <a href="" class="fullscreen"> </a>
-				                <a href="" class="close" ng-click="$hide()"> </a>
+				                <a href="" class="close" ng-click="closeviewRoleInfo()"> </a>
 				            </div>
 
 				        </div>
 				        <div class="portlet-body">
 								<table
-									class="table table-bordered  table-condensed dataTables-example dataTable no-footer">
+									class="table table-bordered  t-table-bottom0 hidden-xs hidden-sm">
 									<tbody>
 										<tr>
 											<td class=" active wid140px "><label class="pull-right"><font
@@ -45,9 +45,30 @@
 										</tr>
 									</tbody>
 								</table>
+									<div class="form-horizontal hidden-md hidden-lg" role="form">
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>角色名称:</label>
+								    <div class="col-sm-9">								    
+									 	<input ng-model="updateRoleName" name="name" class="form-control" type="text" value="" maxlength="32" aria-required="true" readonly disabled="disabled" aria-invalid="true">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">是否系统数据</label>
+								    <div class="col-sm-9">
+								   		<select ng-model="roleTypeCode"  readonly disabled="disabled" ng-options='roleIsVisibleJosns.code as roleIsVisibleJosns.value group by roleIsVisibleJosns.group for roleIsVisibleJosns in roleIsVisibleJosns' class="form-control valid"></select>
+										<span class="help-inline">“是”代表此数据只有超级用户能进行修改，“否”则表示拥有角色修改人员的权限都能进行修改，默认情况下为“否”</span>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">备注:</label>
+								    <div class="col-sm-9">
+								    	<textarea ng-model="viewRoleDesc" maxlength="64" name="desc" readonly disabled="disabled" class="form-control" rows="3"></textarea>
+								    </div>
+								  </div>
+								</div>
 									<input type="hidden" ng-model="roleId">								
 								 <div class="portlet-foot t-modal-footer row">                
-						            	<button type="button" class="btn btn-primary" id="viewRoleInfoWindowClose" ng-click="$hide()">关闭</button>
+						            	<button type="button" class="btn btn-primary" id="viewRoleInfoWindowClose" ng-click="closeviewRoleInfo()">关闭</button>
 						          </div>
 				        </div>
 				       

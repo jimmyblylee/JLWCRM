@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : Messages.java <br>
  * Package Name : com.asdc.jbp.framework.message <br>
@@ -27,7 +27,6 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create Time : Apr 15, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
  */
-@SuppressWarnings("UnnecessaryContinue")
 public enum Messages {
     msg;
     private Map<String, Map<String, ResourceBundle>> resources = new HashMap<>();
@@ -64,7 +63,7 @@ public enum Messages {
                 throw new ServiceException("ERR_FRAMEWORK_002", "Can not find {}-messages.properties", feature);
             }
             if (!resources.containsKey(feature)) {
-                resources.put(feature, new HashMap<>());
+                resources.put(feature, new HashMap<String, ResourceBundle>());
             }
             if (!resources.get(feature).containsKey(locale.toString())) {
                 resources.get(feature).put(locale.toString(), bundle);
@@ -80,6 +79,7 @@ public enum Messages {
      * Create Time: Apr 15, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param code
      * @return the first found value order by constant <b>"messageFeatures"</b> defined in spring xml configuration file. Or in framework by default
      * @throws ServiceException
      *             the parameter is null or can not find it in any properties
@@ -93,6 +93,7 @@ public enum Messages {
                 continue;
             }
         }
+        ;
         // if not found, will trace the configuration of features
         try {
             for (String feature : System.getProperty("system.message.features").split(",")) {
@@ -117,6 +118,7 @@ public enum Messages {
      *
      * @param feature
      *            feature name in short, this will be the prefix of message properties
+     * @param code
      * @return message
      * @throws ServiceException
      *             paramter is null or can not find it
@@ -132,6 +134,8 @@ public enum Messages {
      *
      * @param feature
      *            feature name in short, this will be the prefix of message properties
+     * @param code
+     * @param locale
      * @return message
      * @throws ServiceException
      *             paramter is null or can not find it

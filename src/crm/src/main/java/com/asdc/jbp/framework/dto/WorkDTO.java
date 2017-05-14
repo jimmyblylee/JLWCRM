@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : WorkDTO.java <br>
  * Package Name : com.asdc.jbp.framework.dto <br>
@@ -33,7 +33,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class WorkDTO extends AbstractMap<String, Object> implements AppConstant, Serializable {
 
     private static final long serialVersionUID = -6067768530318967219L;
@@ -42,30 +41,33 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
 
     /**
      * Create a new instance of WorkDTO.
+     * 
+     * @param dto
+     * @throws ServiceException
      */
     public WorkDTO(Map<String, Object> dto) throws ServiceException {
         this.map = dto;
     }
 
     /**
-     * @see AbstractMap#entrySet()
+     * @see java.util.AbstractMap#entrySet()
      */
     @Override
-    public Set<Entry<String, Object>> entrySet() {
+    public Set<java.util.Map.Entry<String, Object>> entrySet() {
         return map.entrySet();
     }
 
     /**
      * Returns the value to which the specified key is mapped, or {@code null} if this map contains no mapping for the key.
-     *
+     * 
      * <p>
      * More formally, if this map contains a mapping from a key {@code k} to a value {@code v} such that {@code (key==null ? k==null : key.equals(k))} , then
      * this method returns {@code v}; otherwise it returns {@code null}. (There can be at most one such mapping.)
-     *
+     * 
      * <p>
      * A return value of {@code null} does not <i>necessarily</i> indicate that the map contains no mapping for the key; it's also possible that the map
      * explicitly maps the key to {@code null}. The {@link #containsKey containsKey} operation may be used to distinguish these two cases.
-     *
+     * 
      * @see #put(Object, Object)
      */
     @SuppressWarnings("unchecked")
@@ -75,7 +77,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
 
     /**
      * Associates the specified value with the specified key in this map. If the map previously contained a mapping for the key, the old value is replaced.
-     *
+     * 
      * @param key
      *            key with which the specified value is to be associated
      * @param value
@@ -98,7 +100,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
     public String getController() {
         return get(CNS_SERVER.CONTROLLER.toString());
     }
-
+    
     /**
      * Description : remove the controller name parameter from dto <br>
      * Create Time: Apr 25, 2016 <br>
@@ -119,7 +121,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
     public String getMethod() {
         return get(CNS_SERVER.METHOD.toString());
     }
-
+    
     /**
      * Description : remove the method name parameter from dto <br>
      * Create Time: Apr 25, 2016 <br>
@@ -136,9 +138,12 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param fileId
+     * @param fileName
+     * @param url
      */
     public void setFileResultSuccess(String fileId, String fileName, String url) {
-        HashMap<String, String> fileInfo = new HashMap<>();
+        HashMap<String, String> fileInfo = new HashMap<String, String>();
         fileInfo.put("fileId", fileId);
         fileInfo.put("fileName", fileName);
         fileInfo.put("url", url);
@@ -163,6 +168,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param result
      */
     public void setResult(Object result) {
         put(CNS_LIST_REQUEST.RESULT.toString(), result);
@@ -173,6 +179,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param totle
      */
     public void setTotle(int totle) {
         put(CNS_LIST_REQUEST.TOTAL.toString(), totle);
@@ -205,6 +212,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
      * @return map result
      */
     @SuppressWarnings("unchecked")
@@ -226,6 +234,8 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
+     * @param type
      * @return converted object
      */
     public <T> T convertJsonToBeanByKey(String key, Class<T> type) {
@@ -245,6 +255,8 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
+     * @param type
      * @return converted list of object
      */
     public <T> List<T> converJsonToBeanListByKey(String key, Class<T> type) {
@@ -275,6 +287,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param key
      * @return integer, null for is not a integer or bad number formated string
      */
     public Integer getInteger(String key) {
@@ -284,7 +297,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
                 return (Integer) obj;
             } else {
                 try {
-                    return Integer.parseInt(this.get(key).toString());
+                    return Integer.parseInt(this.<Object> get(key).toString());
                 } catch (NumberFormatException e) {
                     return null;
                 }
@@ -298,7 +311,8 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * getLong: get Long by key, this will translate the string to Long <br>
      * Create Time: Oct 5, 2015 <br>
      * Create by: xiangyu_li@asdc.com.cn
-     *
+     * 
+     * @param key
      * @return Long, null for is not a integer or bad number formated string
      */
     public Long getLong(String key) {
@@ -308,7 +322,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
                 return (Long) obj;
             } else {
                 try {
-                    return Long.valueOf(this.get(key).toString());
+                    return Long.valueOf(this.<Object> get(key).toString());
                 } catch (NumberFormatException e) {
                     return null;
                 }
@@ -323,6 +337,8 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param code
+     * @param msg
      */
     public void setError(String code, String msg) {
         this.put(CNS_REQUEST.SUCCESS.toString(), false);
@@ -336,6 +352,7 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 15, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param exception
      * @return the given excpeiton
      */
     public ServiceException setIssue(ServiceException exception) {
@@ -352,6 +369,8 @@ public class WorkDTO extends AbstractMap<String, Object> implements AppConstant,
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param code
+     * @param msg
      */
     public void setWarn(String code, String msg) {
         this.put(CNS_REQUEST.SUCCESS.toString(), false);

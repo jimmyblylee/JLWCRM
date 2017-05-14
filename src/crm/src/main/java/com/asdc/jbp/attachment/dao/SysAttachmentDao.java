@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : SysAttachmentDao.java <br>
  * Package Name : com.asdc.jbp.attachment.dao <br>
@@ -25,7 +25,7 @@ import com.asdc.jbp.framework.dao.AbstractDao;
 @Repository
 public class SysAttachmentDao extends AbstractDao {
 
-    @PersistenceContext(unitName = "crm_mgmt")
+    @PersistenceContext(unitName = "file_mgmt")
     private EntityManager em;
 
     @Override

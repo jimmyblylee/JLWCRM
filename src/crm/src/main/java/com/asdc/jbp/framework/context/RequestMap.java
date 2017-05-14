@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : RequestMap.java <br>
  * Package Name : com.asdc.jbp.framework.context <br>
@@ -33,6 +33,8 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Create a new instance of RequestMap.
+     * 
+     * @param request
      */
     public RequestMap(HttpServletRequest request) {
         this.request = request;
@@ -40,8 +42,8 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * clear: Removes all attributes from the request as well as clears entries in this map.
-     *
-     * @see AbstractMap#clear()
+     * 
+     * @see java.util.AbstractMap#clear()
      */
     @Override
     public void clear() {
@@ -54,13 +56,12 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
     }
 
     /**
-     * @see AbstractMap#entrySet()
+     * @see java.util.AbstractMap#entrySet()
      */
-    @SuppressWarnings("Duplicates")
     @Override
-    public Set<Entry<String, Object>> entrySet() {
+    public Set<java.util.Map.Entry<String, Object>> entrySet() {
         if (entries == null) {
-            entries = new HashSet<>();
+            entries = new HashSet<Entry<String, Object>>();
             Enumeration<?> enumeration = request.getAttributeNames();
             while (enumeration.hasMoreElements()) {
                 final String key = enumeration.nextElement().toString();
@@ -68,13 +69,9 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
                 entries.add(new Entry<String, Object>() {
                     @SuppressWarnings("unchecked")
                     public boolean equals(Object obj) {
-                        if (obj instanceof  Entry) {
-                            Entry<Object, Object> entry = (Entry<Object, Object>) obj;
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
+                        Entry<Object, Object> entry = (Entry<Object, Object>) obj;
+                        return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
                                 && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        } else {
-                            return false;
-                        }
                     }
 
                     public int hashCode() {
@@ -102,7 +99,7 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Returns the request attribute associated with the given key or <tt>null</tt> if it doesn't exist.
-     *
+     * 
      * @param key
      *            the name of the request attribute.
      * @return the request attribute or <tt>null</tt> if it doesn't exist.
@@ -114,7 +111,7 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Saves an attribute in the request.
-     *
+     * 
      * @param key
      *            the name of the request attribute.
      * @param value
@@ -124,13 +121,13 @@ public final class RequestMap extends AbstractMap<String, Object> implements Ser
     @Override
     public Object put(String key, Object value) {
         entries = null;
-        request.setAttribute(key, value);
+        request.setAttribute(key.toString(), value);
         return get(key);
     }
 
     /**
      * Removes the specified request attribute.
-     *
+     * 
      * @param key
      *            the name of the attribute to remove.
      * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).

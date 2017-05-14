@@ -1,27 +1,216 @@
-<div class="modal" tabindex="-1" role="basic" aria-hidden="true" id="editDeptDiv">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog" id="editDivId">
+	<form role="form" name="editDeptForm" ng-submit="submitDeptForm()"
+		novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet" modalsize>
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								修改机构	
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="closeDepteidt();"> </a>
+				            </div>
 
-            <div class="modal-header">
-                <button type="button" class="close" ng-click="closeDepteidt();" aria-hidden="true"></button>
-                <h4 class="modal-title">修改机构</h4>
-            </div>
+				        </div>
+				        <div class="portlet-body" id="parentDeptModalView">
+								<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
+									<tbody>
+										<tr>
+											<td class="active wid100px" ><label
+												class="pull-right">上级机构:</label></td>
+											<td ng-click="chooseParentDept()"
+												id="editSelDeptId" class="wid220px">
+												<div class="input-group">
+													<input style="cursor: pointer" readonly="readonly"
+														id="deptUpIdFont"
+														class="form-control form-control-solid placeholder-no-fix"
+														type="text" name="parentname" ng-model="parentname"
+														readonly="readonly"  /> <span
+														class="input-group-btn">
+														<button type="button" class="btn green">
+															<i class="fa fa-search"></i>
+														</button>
+													</span>
+												</div> <input name="parentid" ng-model="parentid" id="deptUpIdDev"
+												type="hidden" />
+											</td>
+											<td class="active wid100px" ><label
+												class="pull-right" class="wid220px">归属区域：</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" value="" ng-model="deptData.address"
+												maxlength="20" name="adress" autocomplete="off"
+												placeholder="归属区域">
 
-            <div class="modal-body form">
-                <form class="form-horizontal" role="form" name="editDeptForm" ng-submit="submitDeptForm()">
-                    <div class="form-body" style="height: 450px; overflow: auto;">
-                        <div ng-include="'packages/sys/views/dept/dept_form_body.html'"></div>
-                    </div>
-                </form>
-            </div>
+												</td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right"><font
+													color="red">*</font>机构名称：</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" autocomplete="off" placeholder="机构名称" name="name"
+												required ng-model="deptData.name" maxlength="20" />
+												<div class="error" ng-show="editDeptForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="editDeptForm.name.$error.required">机构名称不能为空</div>
+												</div></td>
+											<td class="active ali-middle"><label class="pull-right">联系电话:</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" ng-model="deptData.tel" ng-blur="checkFaxTel()"
+												ng-change="changeFaxTel()" placeholder="联系电话" maxlength="14">
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-focus="submitDeptForm();">确定</button>
-                <button class="btn btn-default" type="button" ng-focus="closeDepteidt();">关闭</button>
-            </div>
+												<div class="alert-danger well-sm" ng-show="telError">电话号码格式有误</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">邮政编码:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" placeholder="邮政编码" ng-blur="checkPostalCode()"
+												ng-change="changePostalCode()" ng-model="deptData.postalCode"
+												maxlength="6" />
+												<div class="alert-danger well-sm" ng-show="postalCodeError">邮政编码只能是数字</div>
+											</td>
+											<td class="active ali-middle"><label class="pull-right">电子邮件:</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" ng-model="deptData.email" ng-blur="checkEmail()"
+												ng-change="emailChange()" placeholder="电子邮件" maxlength="30">
 
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+												<div class="alert-danger well-sm" ng-show="eamilError">邮箱格式有误！</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="active"><label class="pull-right">主页:</label></td>
+											<td><input
+												class="form-control form-control-solid placeholder-no-fix"
+												type="text" autocomplete="off" placeholder="主页"  maxlength="50"
+												ng-model="deptData.url" ng-blur="checkUrl()"
+														ng-change ="urlChange()"/>
+
+												<div class="alert-danger well-sm"
+																ng-show="urlError">主页格式有误！</div>
+												
+										   </td>
+
+											<td class="active ali-middle"><label class="pull-right">传真:</label></td>
+											<td class="ali-middle"><input
+												class="form-control form-control-solid placeholder-no-fix"
+												maxlength="13" type="text" ng-model="deptData.fax"
+												ng-blur="checkFax()" ng-change="changeFax()" placeholder="传真">
+												<div class="alert-danger well-sm" ng-show="faxError">请输入正确的传真格式!</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="active ali-middle"><label class="pull-right"><font
+													color="red">*</font>排序:</label></td>
+											<td class="ali-middle" colspan="3"><input
+												class="form-control form-control-solid placeholder-no-fix" name="sort"
+												type="text" ng-model="deptData.sort" ng-blur="checkSort()" required
+												ng-change="changeSort()" placeholder="排序" maxlength="5">
+
+			                                  	<div class="error" ng-show="editDeptForm.submitted">
+													<div class="alert-danger well-sm"
+														ng-show="editDeptForm.sort.$error.required">排序不能为空</div>
+												</div>
+
+												<div class="alert-danger well-sm" ng-show="sortError">排序只能输入整数</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="form-horizontal hidden-md hidden-lg" role="form">
+								<div class="form-group">
+								    <label  class="col-sm-3 control-label">上级机构:</label>
+								    <div class="col-sm-9" ng-click="chooseParentDept()">
+								     	<div class="input-group">
+								     	<input style="cursor: pointer" readonly="readonly"	id="deptUpIdFont" class="form-control form-control-solid placeholder-no-fix" type="text" name="parentname" ng-model="parentname" readonly="readonly"  /> 
+								     	<span class="input-group-btn">
+											<button type="button" class="btn green">
+												<i class="fa fa-search"></i>
+											</button>
+										</span>
+										</div> 
+										<input name="parentid" ng-model="parentid" id="deptUpIdDev" type="hidden" />
+								    </div>
+								  </div>
+								<div class="form-group">
+								    <label  class="col-sm-3 control-label">归属区域:</label>
+								    <div class="col-sm-9">
+								     	<input class="form-control form-control-solid placeholder-no-fix" type="text" value="" ng-model="deptData.address" maxlength="20" name="adress" autocomplete="off"	placeholder="归属区域">
+
+								    </div>
+								  </div>
+								<div class="form-group">
+								    <label  class="col-sm-3 control-label">机构名称:</label>
+								    <div class="col-sm-9">
+								     	<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="机构名称" name="name" required ng-model="deptData.name" maxlength="20" />
+										<div class="error" ng-show="editDeptForm.submitted">
+											<div class="alert-danger well-sm" ng-show="editDeptForm.name.$error.required">机构名称不能为空</div>
+								    </div>
+								  </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label">联系电话:</label>
+								    <div class="col-sm-9">
+								     	<input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="deptData.tel" ng-blur="checkFaxTel()" ng-change="changeFaxTel()" placeholder="联系电话" maxlength="14">
+								     	<div class="alert-danger well-sm" ng-show="telError">电话号码格式有误</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label">邮政编码:</label>
+								    <div class="col-sm-9">								     
+											<input class="form-control form-control-solid placeholder-no-fix" type="text" placeholder="邮政编码" ng-blur="checkPostalCode()" ng-change="changePostalCode()" ng-model="deptData.postalCode"
+												maxlength="6" />
+											<div class="alert-danger well-sm" ng-show="postalCodeError">邮政编码只能是数字</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label">电子邮件:</label>
+								    <div class="col-sm-9">
+								     	<input class="form-control form-control-solid placeholder-no-fix" type="text" ng-model="deptData.email" ng-blur="checkEmail()" ng-change="emailChange()" placeholder="电子邮件" maxlength="30">
+								     	<div class="alert-danger well-sm" ng-show="eamilError">邮箱格式有误！</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label">主页:</label>
+								    <div class="col-sm-9">
+								     	<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="主页"  maxlength="50" ng-model="deptData.url" ng-blur="checkUrl()" ng-change ="urlChange()"/> 
+								     	<div class="alert-danger well-sm" ng-show="urlError">主页格式有误！</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label">传真:</label>
+								    <div class="col-sm-9">								     	
+										 <input class="form-control form-control-solid placeholder-no-fix" maxlength="13" type="text" ng-model="deptData.fax"  ng-blur="checkFax()" ng-change="changeFax()" placeholder="传真">
+										 <div class="alert-danger well-sm" ng-show="faxError">请输入正确的传真格式!</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label"><label class="pull-right"><font color="red">*</font>排序:</label></label>
+								    <div class="col-sm-9">								     
+										<input class="form-control form-control-solid placeholder-no-fix" name="sort" type="text" ng-model="deptData.sort" ng-blur="checkSort()" required ng-change="changeSort()" placeholder="排序" maxlength="5">
+		                                <div class="error" ng-show="editDeptForm.submitted">
+											<div class="alert-danger well-sm" ng-show="editDeptForm.sort.$error.required">排序不能为空</div>
+										</div>
+										<div class="alert-danger well-sm" ng-show="sortError">排序只能输入整数</div>											
+								    </div>
+								  </div>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						            <button class="btn btn-primary" type="submit" id="editComDeptId">确定</button>
+									<button class="btn btn-default" type="button" id="colseEditDeptShowId" ng-focus="closeDepteidt();">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
 </div>

@@ -1,0 +1,28 @@
+<div class="treeAppbackdrop"></div>
+<section id="file-style" ng-controller="FileUserStyle" class="treeApp am-slide-left">
+	<div class="panel panel-default full-height-content full-height-content-scrollable">
+		<div class="panel-body full-height-content-body t-tree"
+			>
+			<div class="example-caption" style="text-align: right">
+			<a href="javascript:;" ng-click="getTreeUserRefresh()"> <span
+				class="glyphicon glyphicon-refresh"></span>
+			</a>								
+			</div>
+			<div save-content="file-style-html">
+				<div>
+				<treecontrol class="tree-dark" tree-model="treedata"
+						expanded-nodes="expandedNodes"
+						on-selection="showSelected(node)"> 
+						<a href="javascript:;" ng-click="queryUserByDept(node.id,$event)" class="treeLink">
+						<span ng-switch on="node.type"> <span
+						ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+						<span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+					     </span>{{node.label}}
+					   </a> 
+					 </treecontrol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button type="button" class="btn btn-lg btn-treeApp-close" ng-click="$hide()"><span class="close">×</span></button>    
+</section>

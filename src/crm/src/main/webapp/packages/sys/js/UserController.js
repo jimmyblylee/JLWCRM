@@ -1,11 +1,11 @@
 var deptCtrlFlag = "";
-function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
+function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout,$aside) {
 	$scope.items = []; // 当前返回总数据
 	$scope.itemsPerPage = itemsPerPage;// 当前页显示数据
 	$scope.Pagenum = Pagenum;
 	$scope.user = {};
 	$scope.user.isEnabled = "true";
-	
+	var ispc=IsPC();
 	/**
 	 * Description：获取有效性
 	 * 
@@ -97,7 +97,10 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 		if($scope.likeQuery != undefined){
 			$scope.user.name = $scope.likeQuery;
 		}
-		
+		if(!ispc){
+			$scope.itemsPerPage=30;
+			$scope.currentPage = 1;			
+		}
 		var userQuery = ObjParesJSON($scope.user);
 		var sysUserResult = pageService($http, $q, 'UserController',
 				'querySysUserByDeptAndAccountAndName',$scope.currentPage,
@@ -110,6 +113,51 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 		}, function(error) {
 			console.info(error);
 		});
+	}
+		$scope.queryUserApp = function(isEnabled) {
+		document.getElementById("parent").checked = false;
+	    if($scope.user.isEnabled =="true" && isEnabled=="false"){
+	    	$scope.user.isEnabled = "true";
+		}else if($scope.user.isEnabled != "true" && isEnabled=="false"){
+			$scope.user.isEnabled = "false";
+		}
+		if($scope.isEnabledTrueShow && isEnabled == "true"){
+			$scope.user.isEnabled = "true";
+		}else if($scope.isEnabledFalseShow && isEnabled == "true"){
+			$scope.user.isEnabled = "false";
+		}
+		if ($scope.user.isEnabled == "true") {
+			$scope.isEnabledTrueShow = true;
+			$scope.isEnabledFalseShow = false;
+		} else {
+			$scope.isEnabledTrueShow = false;
+			$scope.isEnabledFalseShow = true;
+		}
+		if($scope.deptId != undefined){
+			$scope.user.deptId = $scope.deptId;
+		}
+		if($scope.likeQuery != undefined){
+			$scope.user.name = $scope.likeQuery;
+		}
+		$scope.itemsPerPage=5;
+		var totalItemsAPP=$scope.bigTotalItems;
+		var array=$scope.items;
+		$scope.totalItemsAPP=Math.ceil(totalItemsAPP/5);
+		$scope.currentPage=(array.length/5)+1;
+		if ($scope.currentPage <= $scope.totalItemsAPP) {
+			var userQuery = ObjParesJSON($scope.user);
+			var sysUserResult = pageService($http, $q, 'UserController',
+					'querySysUserByDeptAndAccountAndName',$scope.currentPage,
+					$scope.itemsPerPage, userQuery);
+			sysUserResult.then(function(success) {
+				var userQueryResponse = StrParesJSON(success);				
+				$scope.items =array.concat(userQueryResponse.result); 			
+
+			}, function(error) {
+				console.info(error);
+			});
+		}
+		
 	}
 	$scope.currentPage =1;
 	 var userId  = getCookie("userId");
@@ -127,7 +175,16 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
             console.info(error);
           };       
       }
-	scrollwatch($scope, $timeout);	
+	scrollwatch($scope, $timeout);
+	window.onscroll = function(){
+		if (!ispc) {
+    	isscrollbottom=scrollbottom();
+      　if(isscrollbottom){
+      		$scope.queryUserApp()
+        }
+    }
+
+   };	
 	$scope.queryUserList = function(isEnabled) {
 		$scope.isEnabledTrueShow = undefined;
 		$scope.isEnabledFalseShow = undefined;
@@ -159,6 +216,21 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 		}
 
 	}
+	$scope.treeAPPListName=JSON.parse(storage.getItem("restoken"));
+	$scope.treeAPPListName=$scope.treeAPPListName.token.user.dept.name
+		//树Aside的显示与隐藏
+		var treeAside = $aside({
+			scope: $scope, 
+			template: 'packages/sys/views/user/userTree.html',
+			container:"#modalView",
+			show:false  
+		}); 
+		$scope.treeAsideShow = function(){
+			 treeAside.$promise.then(function() {
+			    treeAside.show();
+			})
+		}
+
 	$scope.queryUserByDept = function(deptId_tree,eventTarget) {
 		if ($scope.deptId == deptId_tree) {
                angular.element(eventTarget.currentTarget).addClass('tree-selected')
@@ -167,6 +239,10 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 		};
 		$scope.deptId = deptId_tree;
 		$scope.queryUser("true");
+		$scope.treeAPPListName=eventTarget.currentTarget.innerText
+		treeAside.$promise.then(function() {
+		     treeAside.hide();
+		  })
 	}
 	/**
 	 * Description：排序
@@ -346,6 +422,7 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 	 */
 	$scope.clearFlag = function() {
 		deptCtrlFlag = "";
+		fullscreenRemove();	
 	}
 
 	/**
@@ -424,10 +501,20 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 	 */
 	$scope.photoInit = function() {
 		var input = document.getElementById("inputFile");
+		var inputApp = "";
+		if (document.getElementById("inputFileApp") != undefined && document.getElementById("inputFileApp")!=null) {
+				var inputApp = document.getElementById("inputFileApp");
+			};					
 		if (typeof (FileReader) === 'undefined') {
 			input.setAttribute('disabled', 'disabled');
+			if (inputApp != undefined && inputApp!=null) {
+				inputApp.setAttribute('disabled', 'disabled');
+			};
 		} else {
 			input.addEventListener('change', $scope.readPhoto, false);
+			if (inputApp != undefined && inputApp!=null) {
+				inputApp.addEventListener('change', $scope.readPhoto, false);
+		   }
 		}
 		$scope.userPhoto = {};
 	}
@@ -441,9 +528,15 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 		var photoFile = this.files[0];
 		if (!/image\/\w+/.test(photoFile.type)) {
 			document.getElementById('inputFile').value = '';
+			if (document.getElementById("inputFileApp") != undefined && document.getElementById("inputFileApp")!=null) {
+				document.getElementById('inputFileApp').value = '';
+			};
 			return false;
 		} else if (photoFile.size > 51200) {
 			document.getElementById('inputFile').value = '';
+			if (document.getElementById("inputFileApp") != undefined && document.getElementById("inputFileApp")!=null) {
+				document.getElementById('inputFileApp').value = '';
+			};
 			// 把这个消息传递过去
 			$scope.$broadcast('userPhoto.error', "选择的图片最大为50KB");
 
@@ -460,6 +553,9 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 
 	$scope.clearPhoto = function() {
 		document.getElementById('inputFile').value = '';
+		if (document.getElementById("inputFileApp") != undefined && document.getElementById("inputFileApp")!=null) {
+				document.getElementById('inputFileApp').value = '';
+			};
 		$scope.$broadcast('userPhoto.photoStr', null);
 	}
 	/**
@@ -549,7 +645,7 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 	 * 
 	 * @author name：yuruixin
 	 */
-	$scope.$on('deptSelectTo-parent', function(event, deptName, deptId, orgLevelType) {
+	$scope.$on('deptSelectTo-parent', function(event, deptName, deptId) {
 		if (deptCtrlFlag == "updateUser") {
 			$scope.deptNameUpdate = deptName;
 			$scope.deptIdUpdate = deptId;
@@ -560,7 +656,6 @@ function UsertableCtrl($scope, $http, $q, $filter, $modal, $timeout) {
 			$scope.deptName = deptName;
 			$scope.deptId = deptId;
 		}
-        $scope.orgLevelType = orgLevelType;
 	});
 
 	/**
@@ -643,6 +738,9 @@ function userInfoPageCtrl($scope, $http, $q, $filter, $modal,$rootScope) {
 					: StrParesJSON(success).result;
 
 			$("#updateUserPhoto").attr("src", $scope.userPhotoShow);
+			if ($("#updateUserPhotoApp")!=undefined && $("#updateUserPhotoApp")!=null) {
+				$("#updateUserPhotoApp").attr("src", $scope.userPhotoShow);
+			};
 		});
 
 		var groupsResult = pageService($http, $q, 'UserController',
@@ -713,7 +811,7 @@ function userInfoPageCtrl($scope, $http, $q, $filter, $modal,$rootScope) {
 		if($scope.updateForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 			$scope.$emit('to-parent');
 			$scope.updateForm = undefined
-			$scope.clearFlag();
+			$scope.clearFlag();		
 			}else{//如果是false 代表有修改 显示提示框
 				$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 			}
@@ -735,7 +833,7 @@ function userInfoPageCtrl($scope, $http, $q, $filter, $modal,$rootScope) {
 				}else{
 					$scope.$emit('to-parent');
 					$scope.updateForm = undefined
-					$scope.clearFlag();
+					$scope.clearFlag();					
 				};
 			};
 		})
@@ -954,6 +1052,9 @@ function userInfoPageCtrl($scope, $http, $q, $filter, $modal,$rootScope) {
 	$scope.$on('userPhoto.photoStr', function(event, photoStr) {
 		$scope.userPhotoShow = photoStr == null ? null : photoStr;
 		$("#updateUserPhoto").attr("src", $scope.userPhotoShow);
+		if ($("#updateUserPhotoApp")!=undefined && $("#updateUserPhotoApp")!=null) {
+			$("#updateUserPhotoApp").attr("src", $scope.userPhotoShow);
+		};
 		$scope.userPhoto.photoStr = photoStr;
 
 		$scope.iconUpError = false;
@@ -974,7 +1075,7 @@ function userInfoPageCtrl($scope, $http, $q, $filter, $modal,$rootScope) {
  * @author name：yuruixin
  */
 function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
-	$scope.$emit('deptSelectTo-parent', null, null, null);
+	$scope.$emit('deptSelectTo-parent', null, null);
 	deptCtrlFlag = "addUser";
 	var queryAllGroupResult = pageService($http, $q, 'UserController',
 			'queryAllGroup', null, null, null);
@@ -1041,8 +1142,6 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 							$scope.addUserInfo.groupId = groupIdJson;
 							$scope.addUserInfo.dept = {};
 							$scope.addUserInfo.dept.id = $scope.deptIdAdd;
-                            console.log("deptId: " + $scope.deptIdAdd);
-                            $scope.addUserInfo.dept.orgLevelType = $scope.orgLevelType;
 							$scope.addUserInfo.sysUserPwd = $scope.sysUserPwd;
 							$scope.addUserInfo.sysUserPhoto = $scope.userPhoto;
 							console.log($scope.addUserInfo.sysUserPhoto);
@@ -1109,7 +1208,7 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 		if($scope.addUserForm.$pristine){//判断是否有修改 如果为true代表没有修改执行关闭
 			$scope.$emit('to-parent');
 			$scope.addUserForm = undefined			
-			$scope.clearFlag();
+			$scope.clearFlag();					
 			}else{//如果是false 代表有修改 显示提示框
 				$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
 			}
@@ -1131,7 +1230,7 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 				}else{
 					$scope.$emit('to-parent');
 					$scope.addUserForm = undefined					
-					$scope.clearFlag();
+					$scope.clearFlag();					
 				};
 		};
 	})
@@ -1235,7 +1334,7 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 		$scope.minDate = new Date();
 	};
 	$scope.toggleMin();
-	$scope.open = function($event) {
+	$scope.open = function($event) {		
 		$event.preventDefault();
 		$event.stopPropagation();
 		$scope.opened = true;
@@ -1255,6 +1354,9 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 	$scope.$on('userPhoto.photoStr', function(event, photoStr) {
 		$scope.userPhotoShow = photoStr == null ? null : photoStr;
 		$("#addUserPhoto").attr("src", $scope.userPhotoShow);
+		if ($("#addUserPhotoApp")!=undefined && $("#addUserPhotoApp")!=null) {
+			$("#addUserPhotoApp").attr("src", $scope.userPhotoShow);
+		};
 		$scope.photoAddShow = true;
 		$scope.userPhoto.photoStr = photoStr;
 
@@ -1278,7 +1380,7 @@ function addUserCtrl($http, $scope, $modal, $q, $rootScope) {
 function deptSelectCtrl($scope, $modal) {
 	$scope.deptName = null;
 	$scope.deptId = null;
-	$scope.clickDept = function(deptName, deptId, orgLevelType,eventTarget){
+	$scope.clickDept = function(deptName, deptId,eventTarget){
 		if ($scope.deptName==deptName) {
                angular.element(eventTarget.currentTarget).addClass('tree-selected')
 		}else{
@@ -1287,20 +1389,17 @@ function deptSelectCtrl($scope, $modal) {
 		};
 		$scope.deptName = deptName;
 		$scope.deptId = deptId;
-        $scope.orgLevelType = orgLevelType;
-        console.log("org _____ deptId : " + deptId);
-        console.log("org level type : " + orgLevelType);
 	}
 	$scope.clickDeptConfirm = function() {
 		if ((deptCtrlFlag == "updateUser" || deptCtrlFlag == "addUser")
 				&& $scope.deptName != null) {
 			document.getElementById("dept").value = $scope.deptName;
 		}
-		$scope.$emit('deptSelectTo-parent', $scope.deptName, $scope.deptId, $scope.orgLevelType);
+		$scope.$emit('deptSelectTo-parent', $scope.deptName, $scope.deptId);
 	}
 	$scope.clearDept = function() {
 		if (deptCtrlFlag != "updateUser" && deptCtrlFlag != "addUser") {
-			$scope.$emit('deptSelectTo-parent', null, null, null);
+			$scope.$emit('deptSelectTo-parent', null, null);
 		}
 	}
 }
@@ -1339,77 +1438,3 @@ function removeClass(obj, cls) {
 		obj.className = obj.className.replace(reg, ' ');
 	}
 }
-angular.module("ngLocale", [],[
-		"$provide",
-		function($provide) {
-			var PLURAL_CATEGORY = {
-				ZERO : "zero",
-				ONE : "one",
-				TWO : "two",
-				FEW : "few",
-				MANY : "many",
-				OTHER : "other"
-			};
-			$provide.value("$locale", {
-				"Today" : "\u4eca\u5929",
-				"CLEAR" : "\u6e05\u7a7a",
-				"CLOSE" : "\u5173\u95ed",
-				"DATETIME_FORMATS" : {
-					"AMPMS" : [ "\u4e0a\u5348", "\u4e0b\u5348" ],
-					"DAY" : [ "\u661f\u671f\u65e5", "\u661f\u671f\u4e00",
-							"\u661f\u671f\u4e8c", "\u661f\u671f\u4e09",
-							"\u661f\u671f\u56db", "\u661f\u671f\u4e94",
-							"\u661f\u671f\u516d" ],
-					"MONTH" : [ "1\u6708", "2\u6708", "3\u6708", "4\u6708",
-							"5\u6708", "6\u6708", "7\u6708", "8\u6708",
-							"9\u6708", "10\u6708", "11\u6708", "12\u6708" ],
-					"SHORTDAY" : [ "\u5468\u65e5", "\u5468\u4e00",
-							"\u5468\u4e8c", "\u5468\u4e09", "\u5468\u56db",
-							"\u5468\u4e94", "\u5468\u516d" ],
-					"SHORTMONTH" : [ "1\u6708", "2\u6708", "3\u6708",
-							"4\u6708", "5\u6708", "6\u6708", "7\u6708",
-							"8\u6708", "9\u6708", "10\u6708", "11\u6708",
-							"12\u6708" ],
-					"fullDate" : "y\u5e74M\u6708d\u65e5EEEE",
-					"longDate" : "y\u5e74M\u6708d\u65e5",
-					"medium" : "yyyy-M-d ah:mm:ss",
-					"mediumDate" : "yyyy-M-d",
-					"mediumTime" : "ah:mm:ss",
-					"short" : "yy-M-d ah:mm",
-					"shortDate" : "yy-M-d",
-					"shortTime" : "ah:mm"
-				},
-				"NUMBER_FORMATS" : {
-					"CURRENCY_SYM" : "\u00a5",
-					"DECIMAL_SEP" : ".",
-					"GROUP_SEP" : ",",
-					"PATTERNS" : [ {
-						"gSize" : 3,
-						"lgSize" : 3,
-						"macFrac" : 0,
-						"maxFrac" : 3,
-						"minFrac" : 0,
-						"minInt" : 1,
-						"negPre" : "-",
-						"negSuf" : "",
-						"posPre" : "",
-						"posSuf" : ""
-					}, {
-						"gSize" : 3,
-						"lgSize" : 3,
-						"macFrac" : 0,
-						"maxFrac" : 2,
-						"minFrac" : 2,
-						"minInt" : 1,
-						"negPre" : "(\u00a4",
-						"negSuf" : ")",
-						"posPre" : "\u00a4",
-						"posSuf" : ""
-					} ]
-				},
-				"id" : "zh-cn",
-				"pluralCat" : function(n) {
-					return PLURAL_CATEGORY.OTHER;
-				}
-			});
-		} ]);

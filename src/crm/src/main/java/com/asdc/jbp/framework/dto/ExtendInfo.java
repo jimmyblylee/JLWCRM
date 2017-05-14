@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ExtendInfo.java <br>
  * Package Name : com.asdc.jbp.framework.dto <br>

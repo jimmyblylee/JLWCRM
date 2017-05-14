@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : Info.java <br>
  * Package Name : com.asdc.jbp.framework.dto <br>

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ControllerHelper.java <br>
  * Package Name : com.asdc.jbp.framework.action.helper <br>
@@ -28,7 +28,6 @@ import com.asdc.jbp.framework.log.Log;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class ControllerHelper implements WorkDTOAware, SessionDTOAware, ServletRequestAware, ServletResponseAware {
 
     protected SessionDTO sessionDTO;

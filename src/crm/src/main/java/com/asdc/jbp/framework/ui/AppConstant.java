@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : AppConstant.java <br>
  * Package Name : com.asdc.jbp.framework.ui <br>
@@ -15,7 +15,6 @@ package com.asdc.jbp.framework.ui;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public interface AppConstant {
 
     /**
@@ -25,8 +24,9 @@ public interface AppConstant {
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
      */
-    enum CNS_SERVER {
-        /** For @Fields ACTION: action controller name */
+    public enum CNS_SERVER {
+        /** @Fields ACTION: action */
+        /** controller name */
         CONTROLLER,
         /** method name */
         METHOD;
@@ -34,8 +34,8 @@ public interface AppConstant {
         @Override
         public String toString() {
             return this.name().toLowerCase();
-        }
-    }
+        };
+    };
 
     /**
      * ClassName : CNS_WORKDTO <br>
@@ -44,7 +44,7 @@ public interface AppConstant {
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
      */
-    enum CNS_WORKDTO {
+    public enum CNS_WORKDTO {
         /** input stream flag of request */
         INPUTSTREAM,
         /** output stream flag of response */
@@ -53,7 +53,7 @@ public interface AppConstant {
         @Override
         public String toString() {
             return this.name().toLowerCase();
-        }
+        };
     }
 
     /**
@@ -63,7 +63,7 @@ public interface AppConstant {
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
      */
-    enum CNS_REQUEST {
+    public enum CNS_REQUEST {
         LET_ME_CTRL_THE_STREAM,
         /** SUCCESS flag */
         SUCCESS,
@@ -91,7 +91,7 @@ public interface AppConstant {
                 return "selfControledStream";
             }
             return this.name().toLowerCase();
-        }
+        };
     }
     /**
      * ClassName : CNS_FILE <br>
@@ -100,7 +100,7 @@ public interface AppConstant {
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
      */
-    enum CNS_FILE {
+    public enum CNS_FILE {
         /** file request key */
         CNS_FILE_KEY,
         /** file result success flag key */
@@ -111,8 +111,8 @@ public interface AppConstant {
         @Override
         public String toString() {
             return this.name().toLowerCase();
-        }
-    }
+        };
+    };
 
     /**
      * ClassName : CNS_LIST_REQUEST <br>
@@ -121,7 +121,7 @@ public interface AppConstant {
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
      */
-    enum CNS_LIST_REQUEST {
+    public enum CNS_LIST_REQUEST {
         /** key of result in response */
         RESULT,
         /** key of total in response */
@@ -134,6 +134,6 @@ public interface AppConstant {
         @Override
         public String toString() {
             return this.name().toLowerCase();
-        }
+        };
     }
 }

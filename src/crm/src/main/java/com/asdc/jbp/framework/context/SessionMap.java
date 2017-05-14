@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : SessionMap.java <br>
  * Package Name : com.asdc.jbp.framework.context <br>
@@ -26,18 +26,18 @@ import javax.servlet.http.HttpSession;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings({"unused", "SynchronizeOnNonFinalField"})
 public final class SessionMap extends AbstractMap<String, Object> implements Serializable {
 
     private static final long serialVersionUID = -8144941686991641534L;
 
-    private Set<Entry<String, Object>> entries;
+    private Set<Map.Entry<String, Object>> entries;
     private HttpSession session;
     private HttpServletRequest request;
 
     /**
      * Create a new instance of SessionMap.
-     *
+     * 
+     * @param request
      */
     public SessionMap(HttpServletRequest request) {
         this.request = request;
@@ -48,8 +48,8 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
      * invalidate: Invalidates this session then unbinds any objects bound to it <br>
      * Create Time: Oct 5, 2015 <br>
      * Create by: xiangyu_li@asdc.com.cn
-     *
-     * @see HttpSession#invalidate()
+     * 
+     * @see javax.servlet.http.HttpSession#invalidate()
      */
     public void invalidate() {
         if (session == null) {
@@ -64,8 +64,8 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * clear: Removes all attributes from the session as well as clears entries in this map.
-     *
-     * @see AbstractMap#clear()
+     * 
+     * @see java.util.AbstractMap#clear()
      */
     @Override
     public void clear() {
@@ -84,32 +84,27 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Returns a Set of attributes from the http session.
-     *
+     * 
      * @return a Set of attributes from the http session.
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Set<Entry<String, Object>> entrySet() {
+    public Set<java.util.Map.Entry<String, Object>> entrySet() {
         if (session == null) {
             return Collections.emptySet();
         }
         synchronized (session) {
-            //noinspection Duplicates
             if (entries == null) {
-                entries = new HashSet<>();
-                Enumeration<?> enumeration = session.getAttributeNames();
+                entries = new HashSet<Map.Entry<String, Object>>();
+                Enumeration<? extends Object> enumeration = session.getAttributeNames();
                 while (enumeration.hasMoreElements()) {
                     final String key = enumeration.nextElement().toString();
                     final Object value = session.getAttribute(key);
-                    entries.add(new Entry<String, Object>() {
+                    entries.add(new Map.Entry<String, Object>() {
                         public boolean equals(Object obj) {
-                            if (obj instanceof  Entry) {
-                                Entry<String, Object> entry = (Entry<String, Object>) obj;
-                                return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
+                            Map.Entry<String, Object> entry = (Map.Entry<String, Object>) obj;
+                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
                                     && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                            } else {
-                                return false;
-                            }
                         }
 
                         public int hashCode() {
@@ -137,7 +132,7 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Returns the session attribute associated with the given key or <tt>null</tt> if it doesn't exist.
-     *
+     * 
      * @param key
      *            the name of the session attribute.
      * @return the session attribute or <tt>null</tt> if it doesn't exist.
@@ -154,7 +149,7 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Saves an attribute in the session.
-     *
+     * 
      * @param key
      *            the name of the session attribute.
      * @param value
@@ -170,7 +165,7 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
         }
         synchronized (session) {
             entries = null;
-            session.setAttribute(key, value);
+            session.setAttribute(key.toString(), value);
 
             return get(key);
         }
@@ -178,7 +173,7 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Removes the specified session attribute.
-     *
+     * 
      * @param key
      *            the name of the attribute to remove.
      * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).
@@ -198,7 +193,7 @@ public final class SessionMap extends AbstractMap<String, Object> implements Ser
 
     /**
      * Checks if the specified session attribute with the given key exists.
-     *
+     * 
      * @param key
      *            the name of the session attribute.
      * @return <tt>true</tt> if the session attribute exits or <tt>false</tt> if it doesn't exist.

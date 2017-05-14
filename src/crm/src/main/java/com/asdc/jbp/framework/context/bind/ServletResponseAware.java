@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ServletResponseAware.java <br>
  * Package Name : com.asdc.jbp.framework.context.bind <br>
@@ -25,6 +25,7 @@ public interface ServletResponseAware {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param response
      */
-    void setServletResponse(HttpServletResponse response);
+    public void setServletResponse(HttpServletResponse response);
 }

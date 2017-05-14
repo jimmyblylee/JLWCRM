@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : AppConstants.java <br>
  * Package Name : com.asdc.jbp.framework.cns <br>
@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 @Component
 public class AppConstants implements InitializingBean {
 

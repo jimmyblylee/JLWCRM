@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : FileUtils.java <br>
  * Package Name : com.asdc.jbp.attachment.utils <br>
@@ -24,7 +24,8 @@ public abstract class FileUtils {
     private static MimetypesFileTypeMap mapper = new MimetypesFileTypeMap(FileUtils.class.getResourceAsStream("/META-INF/mime.types"));
 
     public static String getMimeType(String filename) throws FileNotFoundException {
-        return mapper.getContentType(filename);
+        String type = mapper.getContentType(filename);
+        return type;
     }
-
+    
 }

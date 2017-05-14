@@ -1,0 +1,203 @@
+
+<div class="modal t-modal-portlet" tabindex="-1" role="dialog">
+<form role="form" name="dictModelForm" ng-submit="submitDictForm()"
+		novalidate>
+		<div class="modal-dialog  modal-portlet-dialog t-moda-center02  t-moda-left-center03"  id="addDictModal">
+			<div class="modal-content t-modal-drags-fixed" drag>
+			<div class="t-modal-drag-handle" drag-handle></div>	
+					<div class="portlet modal_portlet" modalsize>
+				        <div class="portlet-title t-modal-header">
+							<div class="caption">			
+								添加字典		
+							</div>                
+				            <div class="tools">
+				                <a href="" class="collapse"> </a>               
+				                <a href="" class="fullscreen"> </a>
+				                <a href="" class="close" ng-click="addHidemodal();"> </a>
+				            </div>
+
+				        </div>
+				        <div class="portlet-body">
+									<div class="error" ng-show="dictModelForm.dictCheckCodeAndNature">
+										<div class="alert-danger well-sm" ng-show="DictErrMsg">{{errorDictMsg}}</div>
+									</div>
+									<table class="table table-bordered t-table-bottom0 hidden-xs hidden-sm">
+										<tbody>
+											<tr>
+												<td class="active"><label class="pull-right">上级字典:</label>
+												</td>
+												<td style="max-width: 200px" ng-click="chooseParentDict('add')">
+													<div class="input-group">
+														<input name="dictParentValue" class="form-control" id="dictUpIdFontApp"
+															style="cursor: pointer" type="text" placeholder="上级类型"
+															ng-model="dictAddParentValue" readonly="readonly" > <span
+															class="input-group-btn">
+															<button type="button" class="btn submit green"
+																id="dictAddSuperior">
+																<i class="fa fa-caret-down"></i>
+															</button>
+														</span>
+													</div> <input  name="dictAddParentId" id="dictUpIdDevApp" class="form-control" type="hidden" ng-model="dictParentId">
+												</td>
+												<td class="active"><label class="pull-right"><font
+														color="red">*</font>实际值 :</label></td>
+												<td><input name="code" class="form-control" type="text"
+													ng-model="dictAddData.code" required maxlength="30"
+													ng-blur="checkcodeAndNature()" />
+													<div class="error" ng-show="dictModelForm.submitted">
+														<div class="alert-danger well-sm"
+															ng-show="dictModelForm.code.$error.required ">实际值不能为空</div>
+													</div></td>
+											</tr>
+											<tr>
+												<td class="active ali-middle"><label class="pull-right"><font
+														color="red">*</font>类型:</label></td>
+												<td class="ali-middle"><input name="nature"
+													class="form-control" type="text" ng-model="dictAddData.nature"
+													required maxlength="30" ng-blur="checkcodeAndNature()" />
+													<div class="error" ng-show="dictModelForm.submitted">
+														<div class="alert-danger well-sm"
+															ng-show="dictModelForm.nature.$error.required ">类型不能为空</div>
+													</div></td>
+												<td class="active ali-middle"><label class="pull-right"><font
+														color="red">*</font>标签名:</label></td>
+												<td class="ali-middle"><input name="label"
+													class="form-control" type="text" ng-model="dictAddData.label"
+													required maxlength="30" />
+													<div class="error" ng-show="dictModelForm.submitted">
+														<div class="alert-danger well-sm"
+															ng-show="dictModelForm.label.$error.required ">标签名不能为空</div>
+													</div></td>
+											</tr>
+											<tr>
+
+												<td class="active ali-middle"><label class="pull-right"><font
+														color="red">*</font>显示值:</label></td>
+												<td class="ali-middle"><input name="value"
+													class="form-control required" type="text" required
+													ng-model="dictAddData.value" required maxlength="10" />
+													<div class="error" ng-show="dictModelForm.submitted">
+														<div class="alert-danger well-sm"
+															ng-show="dictModelForm.value.$error.required ">显示值不能为空</div>
+													</div></td>
+												<td class="active ali-middle"><label class="pull-right">字典类型:</label></td>
+
+												<td class="ali-middle">
+													<select  ng-model="dictType"
+				                                                  ng-options='dictTypeJson.code as dictTypeJson.value group by dictTypeJson.group for dictTypeJson in dictTypeJson'
+				                                     class="form-control valid"></select>
+													
+													
+													</td>
+											</tr>
+											<tr>
+												<td class="active ali-middle"><label class="pull-right"><font
+														color="red">*</font>排序:</label></td>
+												<td class="ali-middle"><input id="orderId"
+													class="form-control" type="text" name="order"
+													ng-model="dictAddData.order" maxlength="6" required  ng-blur="checkOrder()" ng-change="changeOrder()"/>
+													
+													<div class="alert-danger well-sm"
+															ng-show="orderIsNumber">排序只能输入整数</div>
+													
+															
+													<div class="error" ng-show="dictModelForm.submitted">
+														<div class="alert-danger well-sm" 
+															ng-show="dictModelForm.order.$error.required ">排序不能为空</div>
+													</div></td>
+												<td class="active ali-middle"><label class="pull-right">备注信息:</label></td>
+												<td class="ali-middle"><input name="remarks" maxlength="150"
+													class="form-control" type="text" ng-model="dictAddData.remarks"></td>
+											</tr>
+										</tbody>
+									</table>
+								<div class="form-horizontal hidden-md hidden-lg" >	
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label ">上级字典:</label>
+									    <div class="col-sm-9" ng-click="chooseParentDict('add')">									    
+											<div class="input-group">
+												<input name="dictParentValue" class="form-control" id="dictUpIdFont" style="cursor: pointer" type="text" placeholder="上级类型" ng-model="dictAddParentValue" readonly="readonly" > 
+												<span class="input-group-btn">
+													<button type="button" class="btn submit green" id="dictAddSuperior">
+														<i class="icon-magnifier"></i>
+													</button>
+												</span>
+											</div> 
+											<input  name="dictAddParentId" id="dictUpIdDev" class="form-control" type="hidden" ng-model="dictParentId">
+									    </div>
+									  </div>
+								    <div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>实际值:</label>
+									    <div class="col-sm-9">
+									     	<input name="code" class="form-control" type="text" ng-model="dictAddData.code" required maxlength="30" ng-blur="checkcodeAndNature()" />
+											<div class="error" ng-show="dictModelForm.submitted">
+												<div class="alert-danger well-sm" ng-show="dictModelForm.code.$error.required ">实际值不能为空</div>
+											</div>
+									    </div>
+									  </div>
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>类型:</label>
+									    <div class="col-sm-9">
+									     	<input name="nature" class="form-control" type="text" ng-model="dictAddData.nature" required maxlength="30" ng-blur="checkcodeAndNature()" />
+											<div class="error" ng-show="dictModelForm.submitted">
+												<div class="alert-danger well-sm" ng-show="dictModelForm.nature.$error.required ">类型不能为空</div>
+											</div>
+									    </div>
+									  </div>
+									<div class="form-group ">
+									    <label  class="col-sm-3 control-label "><font color="red">*</font>标签名:</label>
+									    <div class="col-sm-9">
+									     	<input name="label" class="form-control" type="text" ng-model="dictAddData.label" required maxlength="30" />
+											<div class="error" ng-show="dictModelForm.submitted">
+												<div class="alert-danger well-sm" ng-show="dictModelForm.label.$error.required ">标签名不能为空</div>
+											</div>
+									    </div>
+									  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>显示值:</label>
+								    <div class="col-sm-9">
+								     	<input name="value" class="form-control" type="text" required ng-model="dictAddData.value" required maxlength="10" />
+										 <div class="error" ng-show="dictModelForm.submitted">
+												<div class="alert-danger well-sm" ng-show="dictModelForm.value.$error.required ">显示值不能为空</div>
+										</div>
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">字典类型:</label>
+								    <div class="col-sm-9">
+								     	<select  ng-model="dictType" ng-options='dictTypeJson.code as dictTypeJson.value group by dictTypeJson.group for dictTypeJson in dictTypeJson' class="form-control valid"></select>							 
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>排序:</label>
+								    <div class="col-sm-9">
+								     	<input id="orderId" class="form-control" type="text" name="order" ng-model="dictAddData.order" maxlength="6" required  ng-blur="checkOrder()" ng-change="changeOrder()"/>
+										<div class="alert-danger well-sm" ng-show="orderIsNumber">排序只能输入整数</div>
+										<div class="error" ng-show="dictModelForm.submitted">
+											<div class="alert-danger well-sm" ng-show="dictModelForm.order.$error.required ">排序不能为空</div>
+										</div>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">备注信息：</label>
+								    <div class="col-sm-9">	
+								    	<input name="remarks" maxlength="150" class="form-control" type="text" ng-model="dictAddData.remarks">							     
+								    </div>
+								  </div>
+								</div>
+								 <div class="portlet-foot t-modal-footer row">                
+						           	<button class="btn btn-primary" id="dictAddConfirm" type="submit">确定</button>
+									<button class="btn btn-default" id="dictAddClose" ng-focus="addHidemodal();" type="button">关闭</button>
+						        </div>
+				        </div>
+				       
+				 </div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name jbp-features-sys
  * File Name GroupController.java
  * Package Name com.asdc.jbp.sys.controller
@@ -12,7 +12,6 @@ package com.asdc.jbp.sys.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.annotation.Resource;
 
@@ -36,7 +35,6 @@ import com.asdc.jbp.sys.service.GroupMgtService;
  * Create by : haotian_yang@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 @Controller("GroupController")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class GroupController extends ControllerHelper {
@@ -64,6 +62,7 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void createSysGroup() throws ServiceException {
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("addGroup", SysGroup.class);
@@ -76,6 +75,7 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void updateSysGroup() throws ServiceException {
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("update", SysGroup.class);
@@ -87,17 +87,19 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void removeSysGroup() throws ServiceException {
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("deleteGroup", SysGroup.class);
         authService.removeGroupById(sysGroup.getId());
     }
-
+    
     /**
      * Description : 根据groupId恢复用户组 <br>
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void recoveSysGroup() throws ServiceException {
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("recoveGroup", SysGroup.class);
@@ -110,33 +112,34 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     @SuppressWarnings("unchecked")
-    public void queryAllSysGroup() throws ServiceException {
+	public void queryAllSysGroup() throws ServiceException {
         int start = workDTO.getStart();
         int limit = workDTO.getLimit();
         Map<String, Object> pageQueryParams = workDTO.convertJsonToMapByKey("pageQuery");
         String groupName = (String) pageQueryParams.get("groupName");
         String groupStatus = (String) pageQueryParams.get("groupIsEnabled");
-
+        
         Boolean groupStatusType = false;
-
+        
         if(groupStatus.equals("true")){
             groupStatusType = true;
         }
         String name = "";
         if(groupName.length()!=0 && "".equals(name)){
-            name = groupName;
+        	name = groupName;
         }
-        List<SysGroup> queryAllSysGroup = (List<SysGroup>) authService
-            .queryInfoByPage("sys.hql.querySysGroupByName", start, limit, Parameter.toList("isEnabled",groupStatusType,"name",
-                "%" + name + "%","desc","%" + name + "%"));
-
-        List<SysGroup> queryAllSysGrouptotal = (List<SysGroup>) authService
-            .queryInfoByPage("sys.hql.querySysGroupByName",0,-1, Parameter.toList("isEnabled",groupStatusType,"name",
-                "%" + name + "%","desc","%" + name + "%"));
-
-        int total = queryAllSysGrouptotal.size();
+		List<SysGroup> queryAllSysGroup = (List<SysGroup>) authService
+                .queryInfoByPage("sys.hql.querySysGroupByName", start, limit, Parameter.toList("isEnabled",groupStatusType,"name",
+                        "%" + name + "%","desc","%" + name + "%"));
+		
+		List<SysGroup> queryAllSysGrouptotal = (List<SysGroup>) authService
+                .queryInfoByPage("sys.hql.querySysGroupByName",0,-1, Parameter.toList("isEnabled",groupStatusType,"name",
+                        "%" + name + "%","desc","%" + name + "%"));
+       
+        int total = queryAllSysGrouptotal.size(); 
         workDTO.setResult(queryAllSysGroup);
         workDTO.setTotle(total);
     }
@@ -146,6 +149,7 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void queryRolesByGroupId() throws ServiceException {
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("queryRolesByGroupId", SysGroup.class);
@@ -158,27 +162,29 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     @SuppressWarnings("unchecked")
     public void queryRoles() throws ServiceException {
         List<SysRole> queryAllRole = (List<SysRole>) authService.queryInfoByPage("sys.hql.queryAllRole", 0, -1, Parameter.toList("pageQuery",
-            "%%","isEnabled",true));
+                "%%","isEnabled",true));
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("queryRolesByGroupId", SysGroup.class);
         List<SysRole> roleList = authService.queryRolesByGroupId(sysGroup.getId());
         if (roleList.size() > 0) {
-            for (SysRole aQueryAllRole : queryAllRole) {
-                for (SysRole aRoleList : roleList) {
-                    if (!Objects.equals(aQueryAllRole.getId(), aRoleList.getId())) {
-                        aQueryAllRole.setIsEnabled(false);
+            for (int i = 0; i < queryAllRole.size(); i++) {
+                for (int j = 0; j < roleList.size(); j++) {
+                    if (queryAllRole.get(i).getId() != roleList.get(j).getId()) {
+                        queryAllRole.get(i).setIsEnabled(false);
+                        queryAllRole.get(i).getIsEnabled();
                     } else {
-                        aQueryAllRole.setIsEnabled(true);
+                        queryAllRole.get(i).setIsEnabled(true);
                         break;
                     }
                 }
             }
         } else {
-            for (SysRole aQueryAllRole : queryAllRole) {
-                aQueryAllRole.setIsEnabled(false);
+            for (int i = 0; i < queryAllRole.size(); i++) {
+                queryAllRole.get(i).setIsEnabled(false);
             }
         }
         workDTO.setResult(queryAllRole);
@@ -189,10 +195,11 @@ public class GroupController extends ControllerHelper {
      * Create Time: 2016年6月5日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void replaceRolesToGroup() throws ServiceException {
-        int queryRolesByGroupId;
-        List<Integer> GroupList = new ArrayList<>();
+        int queryRolesByGroupId = 0;
+        List<Integer> GroupList = new ArrayList();
         String roleStr = workDTO.convertJsonToBeanByKey("replaceRolesToGroup", String.class);
         SysGroup sysGroup = workDTO.convertJsonToBeanByKey("queryRolesByGroupId", SysGroup.class);
         if (roleStr.length() > 0) {
@@ -206,16 +213,17 @@ public class GroupController extends ControllerHelper {
             authService.replaceRolesToGroup(sysGroup.getId(), GroupList);
         }
     }
-
+    
     /**
      * Description : 批量删除用户组 <br>
      * Create Time: 2016年6月13日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void deleteGroupList() throws ServiceException {
-        int deleteGroupId;
-        List<Integer> GroupDeleteList = new ArrayList<>();
+        int deleteGroupId = 0;
+        List<Integer> GroupDeleteList = new ArrayList();
         String GroupDeleteStr = workDTO.convertJsonToBeanByKey("deleteGroupCheckList", String.class);
         if (GroupDeleteStr.length() > 0) {
             String allRoleStr[] = GroupDeleteStr.split("_");
@@ -228,25 +236,28 @@ public class GroupController extends ControllerHelper {
             authService.removeGroupByIds(GroupDeleteList);
         }
     }
-
+    
     /**
      * Description : 批量恢复用户组 <br>
      * Create Time: 2016年6月13日 <br>
      * Create by : haotian_yang@asdc.com.cn <br>
      *
+     * @throws ServiceException
      */
     public void recoveGroupList() throws ServiceException {
-        int recoveGroupId;
-        List<Integer> GroupRecoveList = new ArrayList<>();
+        int recoveGroupId = 0;
+        List<Integer> GroupRecoveList = new ArrayList();
         String GroupRecoveStr = workDTO.convertJsonToBeanByKey("recoveGroupCheckList", String.class);
         if (GroupRecoveStr.length() > 0) {
             String allRoleStr[] = GroupRecoveStr.split("_");
-            for (String anAllRoleStr : allRoleStr) {
-                recoveGroupId = Integer.parseInt(anAllRoleStr);
+            for (int i = 0; i < allRoleStr.length; i++) {
+                recoveGroupId = Integer.parseInt(allRoleStr[i]);
                 SysGroup sysGroup = authService.getGroupById(recoveGroupId);
                 sysGroup.setIsEnabled(true);
                 authService.updateGroup(sysGroup);
-            }
+            }     
+        } else {
+            
         }
     }
 }

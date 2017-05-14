@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : FileServiceImpl.java <br>
  * Package Name : com.asdc.jbp.attachment.service.impl <br>
@@ -38,7 +38,7 @@ import com.asdc.jbp.framework.exception.ServiceException;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Transactional(readOnly = true)
 public class FileServiceImpl implements FileService {
-
+	
 	@Resource
     private FtpDao ftpDao;
     @Resource
@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#getAttByNatureAndRefId(java.lang.String, java.lang.Integer)
      */
     @Override
@@ -59,18 +59,18 @@ public class FileServiceImpl implements FileService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#uploadAtt(com.asdc.jbp.attachment.entity.SysAttachment, java.io.InputStream)
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void uploadAtt(SysAttachment att, InputStream in) throws ServiceException {
         dao.persist(att);
         fileOperator.upload(att.getUri(), in);
     }
-
+    
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public String uploadFileByBasePath(SysAttachment att, InputStream in) throws ServiceException {
     	SysAttachmentConfig config = (SysAttachmentConfig) ftpDao.getSingleResultByNamedQuery("ftp.hql.queryAllCfg");
         StringBuilder sbUri = new StringBuilder();
@@ -84,7 +84,7 @@ public class FileServiceImpl implements FileService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#downloadAtt(java.lang.Integer, java.io.OutputStream)
      */
     @Override
@@ -94,7 +94,7 @@ public class FileServiceImpl implements FileService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#getAttById(java.lang.Integer)
      */
     @Override
@@ -104,25 +104,25 @@ public class FileServiceImpl implements FileService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#removeAttById(java.lang.Integer)
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void removeAttById(Integer id) throws ServiceException {
         SysAttachment att = getAttById(id);
         dao.remove(att);
         fileOperator.remove(att.getUri());
-
+        
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.asdc.jbp.attachment.service.FileService#updateAtt(com.asdc.jbp.attachment.entity.SysAttachment)
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void updateAtt(SysAttachment att) throws ServiceException {
         SysAttachment attInDB = getAttById(att.getId());
         attInDB.setDesc(att.getDesc());

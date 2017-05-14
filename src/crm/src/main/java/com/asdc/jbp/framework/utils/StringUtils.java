@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : StringUtils.java <br>
  * Package Name : com.asdc.jbp.framework.utils <br>
@@ -6,7 +6,6 @@
  * Create by : xiangyu_li@asdc.com.cn <br>
  * Copyright © 2006, 2016, ASDC.COM JBP. All rights reserved.
  */
-
 package com.asdc.jbp.framework.utils;
 
 import java.io.PrintWriter;
@@ -24,7 +23,6 @@ import java.util.Random;
  * Create Time : Apr 12, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class StringUtils extends org.springframework.util.StringUtils {
 
     /**
@@ -32,6 +30,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param caught
      * @return the exception stact as a string
      */
     public static String getStackString(Throwable caught) {
@@ -59,6 +58,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param source
+     * @param length
+     * @param pad
      * @return the padded string
      */
     public static String leftPad(String source, int length, char pad) {
@@ -77,6 +79,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param source
      * @return the md5 string
      */
     public static String encryptByMD5(String source) {
@@ -86,9 +89,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
             byte b[] = md.digest();
 
             int i;
-            StringBuilder buf = new StringBuilder("");
-            for (byte aB : b) {
-                i = aB;
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
                 if (i < 0)
                     i += 256;
                 if (i < 16)
@@ -107,6 +110,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: May 1, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param length
      * @return the generated password by given length
      */
     public static String generatePwd(Integer length) {
@@ -138,6 +142,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param source
      * @return the filled string
      */
     public static String fillNull(String source) {
@@ -149,6 +154,7 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param sourceList
      * @return the formated string
      */
     public static <T> String reverseList2CommaString(List<T> sourceList) {
@@ -166,6 +172,9 @@ public abstract class StringUtils extends org.springframework.util.StringUtils {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param sub
+     * @param source
+     * @param fromIndex
      * @return the count
      */
     public static int countSubStringNum(String sub, String source, int fromIndex) {

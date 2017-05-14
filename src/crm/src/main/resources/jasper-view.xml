@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+  
+    <bean id="iReportView" class="com.asdc.jbp.sys.jasper.ApplicationIReportView">
+        <!-- <property name="url" value="/WEB-INF/jasper/report2.jasper"/> -->  
+        <property name="reportDataKey" value="jrMainDataSource"/>
+    </bean>
+    <bean id="pdfReport"
+       class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+        p:url="/packages/report/fishreport.jrxml"
+        p:reportDataKey="datasource" 
+        p:subReportUrls-ref="customSubReportUrls"
+        p:subReportDataKeys-ref="fishSubReportDatasource"/>
+
+    <util:map id="customSubReportUrls">
+        <entry key="JasperfishSubReportLocation" value="/packages/report/fishcategoryreport.jrxml"/>
+    </util:map>
+    
+    <util:list id="fishSubReportDatasource">
+        <value>JasperfishSubReportDatasource</value>
+    </util:list>
+
+    <bean id="xlsReport"
+       class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
+        p:url="/packages/report/fishreport.jrxml"
+        p:reportDataKey="datasource" 
+        p:subReportUrls-ref="customSubReportUrls"
+        p:subReportDataKeys-ref="fishSubReportDatasource"/>
+    
+    <bean id="htmlReport"
+       class="org.springframework.web.servlet.view.jasperreports.JasperReportsHtmlView"
+        p:url="/packages/report/fishreport.jrxml" 
+        p:reportDataKey="datasource" 
+        p:subReportUrls-ref="customSubReportUrls"
+        p:subReportDataKeys-ref="fishSubReportDatasource"/>
+    
+    <bean id="csvReport"
+       class="org.springframework.web.servlet.view.jasperreports.JasperReportsCsvView"
+        p:url="/packages/report/fishreport.jrxml"
+        p:reportDataKey="datasource" 
+        p:subReportUrls-ref="customSubReportUrls"
+        p:subReportDataKeys-ref="fishSubReportDatasource"/>
+</beans>  

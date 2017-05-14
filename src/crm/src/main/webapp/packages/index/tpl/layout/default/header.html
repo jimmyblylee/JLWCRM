@@ -1,0 +1,86 @@
+<!-- BEGIN HEADER INNER -->
+<div class="page-header-inner" ng-controller="SidebarController" ng-class="{'container': settings.pageboxed =='boxed'}">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+        <a href="#/home.html">
+            <img src="{{settings.layoutPath}}/img/logo.png" alt="logo" class="logo-default" /> </a>
+        <div class="menu-toggler sidebar-toggler">
+            <span></span>
+        </div>
+    </div>
+    <!-- END LOGO -->    
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        <span></span>
+    </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="top-menu">
+        <ul class="nav navbar-nav pull-right ">
+            <li class="dropdown dropdown-language hide" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}">
+                <a href="#" class="dropdown-toggle" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                    <img alt="" src="resources/global/img/flags/us.png">
+                    <span class="langname"> EN </span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default">
+                    <li class="active">
+                        <a href="#">
+                            <img alt="" src="{{settings.globalPath}}/img/flags/us.png"> English </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img alt="" src="{{settings.globalPath}}/img/flags/de.png"> German </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img alt="" src="{{settings.globalPath}}/img/flags/ru.png"> Russian </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img alt="" src="{{settings.globalPath}}/img/flags/fr.png"> French </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown dropdown-extended dropdown-inbox hidden-xs hidden-sm" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}"
+				id="header_inbox_bar"><a href="#/{{clickUrl}}" class="dropdown-toggle" 
+				dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+					<i class="icon-bell" ng-show="messagePngShow"></i> 
+					<img src="{{settings.globalPath}}/img/message.gif" ng-show="messageGifShow"/>
+					<span class="badge badge-default" ng-show="messageCountShow"> {{messageCount}} </span>
+			</a></li>
+            <li class="dropdown dropdown-user" ng-class="{'dropdown-dark': dropdownDark =='dark'}">
+                <a href="#" class="dropdown-toggle" id="myCenterId" dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
+                    <img alt="" class="img-circle header-user-img" id="userIcon" src=""/>
+                     <span class="username username-hide-on-mobile">{{userName}}</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default" ng-controller="exitCtrl">
+                    <li ng-show="accountIshideOrShow" ng-click="$parent.pageBar(null,null,accountName,null,null)">
+                        <a href="#/account.html" id="myInformationId">
+                            <i class="{{accountNameIcon}}"></i>{{accountName}}</a>
+                    </li>
+                    <li ng-show="iconIshideOrShow"  ng-click="$parent.pageBar(null,null,iconName,null,null)">
+                        <a href="#/edit_icon.html" id="updateId">
+                            <i class="{{iconIcon}}"></i>{{iconName}}</a>
+                    </li>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="javascript:;" id="exitSysId" ng-click="exitSysModal()">
+                            <i class="icon-key"></i> 退出 </a>
+                    </li>
+                </ul>
+            </li>
+             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+            <li class="dropdown hidden-xs hidden-sm" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}" ng-show="setThemeUserType=='ADMIN'">
+                <a href="javascript:;" class="dropdown-toggle t-setTheme">
+                    <i class="icon-settings"></i>
+                </a>
+            </li>
+            <!-- END QUICK SIDEBAR TOGGLER -->
+        </ul>
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+</div>
+<!-- END HEADER INNER -->

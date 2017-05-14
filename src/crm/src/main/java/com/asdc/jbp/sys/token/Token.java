@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-token <br>
  * File Name : Token.java <br>
  * Package Name : com.asdc.jbp.sys.token <br>
@@ -20,7 +20,7 @@ import java.io.Serializable;
 public class Token implements Serializable {
 
     private static final long serialVersionUID = -2115771740731204716L;
-
+    
     private User user;
     private Dept dept;
     private FuncTree func;

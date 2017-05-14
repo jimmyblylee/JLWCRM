@@ -3,7 +3,7 @@
 		<div class="modal-dialog t-user-modal modal-portlet-dialog t-moda-center03  t-moda-left-center03">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>	
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
 								用户信息查看		
@@ -17,7 +17,7 @@
 				        </div>
 				        <div class="portlet-body">
 				        	<div class="t-user-modal-auto">
-								<table class="table table-bordered  t-table-bottom0 t-user-table ">
+								<table class="table table-bordered  t-table-bottom0 t-user-table hidden-xs hidden-sm">
 									<tbody>
 										<tr>
 											<td class="active ali-middle" style="width:13%;"><label
@@ -79,7 +79,7 @@
 												ng-options="sexDict.value for sexDict in sexDicts"
 												style="width: 100%;"></select></td>
 										    
-										    <td class="active ali-middle"><label class="pull-right "><font color="red">*</font>报表组:</label></td>
+										    <td class="active ali-middle"><label class="pull-right "><font color="red">*</font>机构:</label></td>
 											<td><div class="input-group" >
 													<input disabled="disabled" id="dept" name="dept"				
 														class="form-control  pull-left disabled " required type="text"
@@ -101,9 +101,9 @@
 														 datepicker-popup="{{format}}"
 														ng-model="userInfo.birthday" is-open="opened"
 														max-date="minDate" readonly="readonly"
-														datepicker-options="dateOptions" current-text="今天"
-														clear-text="清除" date-disabled="disabled(date, mode)"
-														close-text="关闭" />
+														datepicker-options="dateOptions" 
+														 date-disabled="disabled(date, mode)"
+														 />
 														
 														<div class="input-group-addon btn green greenbtn t-user-btn-default"><i class="fa fa-calendar" ></i></div>
 												</div>
@@ -157,6 +157,139 @@
 
 									</tbody>
 								</table>
+										<div class="form-horizontal hidden-md hidden-lg" role="form">
+								<div class="form-group ">
+								    <label class="col-sm-3 control-label ">头像:</label>
+								     <div class="col-sm-9">
+								    	<img src="" alt="" id="updateUserPhotoApp" width="80px" height="80px" style="margin-left: 80px;" />
+										<input disabled="disabled" type="file" style="display:none;" id="inputFileApp" ng-model="userphoto" accept="image/jpeg/png">
+								    </div>
+								 </div>
+								<div class="form-group">
+								    <label  class="col-sm-3 control-label"><font color="red">*</font>用户组:</label>
+								     <div class="col-sm-9">
+						    			<div class="t-user-modal-group col-bordered">
+											<div ng-repeat="group in groupList">
+												<input disabled="disabled" type="checkbox" name="child_group" value="{{group.id}}" />{{group.name}}
+											</div>
+										</div>
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>姓名:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" id="description" name="name" class="form-control " type="text" maxlength="50" ng-model="userInfo.name">
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>账号:</label>
+								     <div class="col-sm-9">									    					    
+										<div class="input-group">
+											<input disabled="disabled" name="account" class="form-control disabled " type="text" maxlength="50" ng-model="userInfo.account" required>
+											<span class="input-group-btn">
+												<button type="button" id="officeButton" class="btn green greenbtn btn-primary  ">
+													<i class="fa fa-user"></i>
+												</button>
+											</span>
+										</div>
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>密码:</label>
+								     <div class="col-sm-9">
+									    <input disabled="disabled" type="password" ng-change="checkPassword()" class="form-control" ng-model="sysUserPwd.password" name="password" id="password" autocomplete="off" maxlength="9" placeholder="若不修改，密码留空">
+								    </div>
+								  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>确认密码:</label>
+								     <div class="col-sm-9">
+								     	<input disabled="disabled" type="password" ng-change="checkPassword()" autocomplete="off" ng-model="rpassword" name="rePassword" class="form-control" maxlength="9" placeholder="">								    	
+								    </div>
+								  </div>
+									<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">性别:</label>
+								     <div class="col-sm-9">
+								     	<select disabled="disabled" class="form-control" ng-model="userInfo.sex" ng-options="sexDict.value for sexDict in sexDicts" style="width: 100%;"></select>					    	
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>机构:</label>
+								     <div class="col-sm-9">
+							     		<div class="input-group" >
+											<input disabled="disabled" id="dept" name="dept" class="form-control  pull-left disabled " required type="text"
+												maxlength="50" ng-model="deptNameUpdate">
+											<span class="input-group-btn">
+												<button type="button" id="companyButton" class="btn btn-primary green greenbtn">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>							   
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">生日:</label>
+								     <div class="col-sm-9">
+								    	<div class="input-group " style="width: 100%;" >
+											<input disabled="disabled" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="userInfo.birthday" is-open="opened" max-date="minDate" readonly="readonly" datepicker-options="dateOptions"  date-disabled="disabled(date, mode)" />
+											<div class="input-group-addon btn green greenbtn t-user-btn-default"><i class="fa fa-calendar" ></i></div>
+										</div>
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label "><font color="red">*</font>邮箱:</label>
+								     <div class="col-sm-9">
+								    	<input disabled="disabled" class="form-control  ng-touched" maxlength="32" type="email" ng-model="userInfo.email">
+								    </div>
+								  </div>
+								<div class="form-group ">
+								    <label  class="col-sm-3 control-label ">证件类型:</label>
+								    <div class="col-sm-9">
+								    	<select disabled="disabled" class="form-control" ng-model="userInfo.idType" ng-options="idTypeDict.value for idTypeDict in idTypeDicts" ></select>	     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								  <label  class="col-sm-3 control-label ">证件号:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" class="form-control  ng-touched" maxlength="32" type="text" ng-model="userInfo.idNum">					     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">地址:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" class="form-control  digits" type="text" maxlength="11" ng-model="userInfo.address">	     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">邮编:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" class="form-control  ng-touched"  maxlength="6" onkeyup='this.value=this.value.replace(/\D/gi,"")' type="text" ng-model="userInfo.postalCode">	     
+								    </div>
+								  </div>
+								 <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">电话:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" onkeyup='this.value=this.value.replace(/\D/gi,"")' class="form-control  abc" type="text" maxlength="11" ng-model="userInfo.fixedTel">					     
+								    </div>
+								  </div>
+								  <div class="form-group ">
+								    <label  class="col-sm-3 control-label ">手机号:</label>
+								    <div class="col-sm-9">
+								    	<input disabled="disabled" name="tel" class="form-control " type="text" onkeyup='this.value=this.value.replace(/\D/gi,"")' maxlength="11" ng-model="userInfo.tel">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">用户类型:</label>
+								    <div class="col-sm-9">
+								   		<select disabled="disabled" class="form-control" ng-model="userInfo.type" ng-options="dict.value for dict in userTypeDicts"></select>
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label  class="col-sm-3 control-label ">头衔:</label>
+								    <div class="col-sm-9">
+								   		<input disabled="disabled" class="form-control digits" type="text" maxlength="11" ng-model="userInfo.title">
+								    </div>
+								  </div>
+								</div>
 								 </div>
 								<div class="portlet-foot t-modal-footer row">                
 					            	<button class="btn btn-primary"	ng-click="clearFlag();$hide()" id="viewUserClose"> 关闭	</button>

@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : PrepareOperations.java <br>
  * Package Name : com.asdc.jbp.framework.action <br>
@@ -25,7 +25,6 @@ import com.asdc.jbp.framework.exception.ServiceException;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("WeakerAccess")
 class PrepareOperations {
 
     private DispatchExecuter dispatchExecuter;
@@ -33,7 +32,9 @@ class PrepareOperations {
 
     /**
      * 为PrepareOperations创建一个新的实例
-     *
+     * 
+     * @param dispatchExecuter
+     * @param servletContext
      */
     public PrepareOperations(DispatchExecuter dispatchExecuter, ServletContext servletContext) {
         this.dispatchExecuter = dispatchExecuter;
@@ -45,13 +46,18 @@ class PrepareOperations {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param request
+     * @param response
+     * @param workDTO
+     * @return
+     * @throws ServiceException
      */
     public ActionContext createActionContext(HttpServletRequest request, HttpServletResponse response, Map<String, Object> workDTO) throws ServiceException {
         ActionContext ctx;
         ActionContext oldContext = ActionContext.getContext();
         if (oldContext != null) {
             /* thread will not shut down sometimes if the target is singleton, this is prepare for this */
-            ctx = new ActionContext(new HashMap<>(oldContext.getContextMap()));
+            ctx = new ActionContext(new HashMap<String, Object>(oldContext.getContextMap()));
         } else {
             ctx = dispatchExecuter.createActionContext(request, response, servletContext, workDTO);
         }
@@ -74,6 +80,8 @@ class PrepareOperations {
      * Create Time: Apr 12, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param request
+     * @param response
      */
     public void setEncodingAndLocale(HttpServletRequest request, HttpServletResponse response) {
         try {

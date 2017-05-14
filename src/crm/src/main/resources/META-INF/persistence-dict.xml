@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="dict_mgmt" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>hbm/mysql/dict/SysDict.hbm.xml</mapping-file>
+        <mapping-file>hbm/mysql/log/RevisionEntity.hbm.xml</mapping-file>
+        <mapping-file>hbm/mysql/log/ModifiedEntityTypeEntity.hbm.xml</mapping-file>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.validator.autoregister_listeners" value="false" />
+            <property name="hibernate.jdbc.batch_size" value="50" />
+            <property name="hibernate.jdbc.fetch_size" value="100" />
+            <property name="hibernate.transaction.jta.platform" value="com.asdc.jbp.framework.jta.JtaPlatform" />
+            
+            <!-- auditing about -->
+            <property name="org.hibernate.envers.revision_field_name" value="REV_ID"/>
+            <property name="org.hibernate.envers.revision_type_field_name" value="REV_TYPE"/>
+            <property name="org.hibernate.envers.track_entities_changed_in_revision" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

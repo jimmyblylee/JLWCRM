@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysFunc.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,92 +8,67 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import com.asdc.jbp.dict.entity.SysDict;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.JoinColumnOrFormula;
-import org.hibernate.annotations.JoinColumnsOrFormulas;
-import org.hibernate.annotations.JoinFormula;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
+
+import javax.persistence.Transient;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
+import com.asdc.jbp.dict.entity.SysDict;
 
 /**
  * ClassName : SysFunc <br>
  * Description : entity of SYS_FUNC <br>
  * Create Time : Apr 28, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
+ *
  */
-@Entity
-@Table(name = "SYS_FUNC")
-@SuppressWarnings({"unused", "SameParameterValue"})
+@Audited
 public class SysFunc implements Serializable {
 
     private static final long serialVersionUID = -8794636321970124215L;
 
-    @Id
-    @Column(name = "FUNC_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FUNC_PARENT_ID")
     private SysFunc parent;
-    @Column(name = "FUNC_CODE")
     private String code;
-    @Column(name = "FUNC_NAME")
     private String name;
-    @Column(name = "FUNC_ORDER")
     private Integer order;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnsOrFormulas({
-        @JoinColumnOrFormula(column = @JoinColumn(name = "FUNC_TYPE", referencedColumnName = "DICT_CODE")),
-        @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'FUNC_TYPE'"))})
+    private String typeCode;
     private SysDict type;
-    @Column(name = "FUNC_URL")
     private String url;
-    @Column(name = "FUNC_DESC")
     private String desc;
-    @Column(name = "FUNC_ICON")
     private String icon;
-    @Column(name = "IS_VISIBLE")
     private Boolean isVisible;
-    @Column(name = "IS_BASE_FUNC")
     private Boolean isBaseFunc;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
-    @OneToMany(mappedBy = "parent")
     private Set<SysFunc> children;
-    @Formula("(SELECT CASE WHEN (COUNT(1) > 0) THEN 1 ELSE 0 END FROM SYS_FUNC F WHERE F.FUNC_PARENT_ID = FUNC_ID )")
     private Boolean hasChildren;
-    @Formula("(FUNC_PARENT_ID = -1000000)")
     private Boolean isRoot;
-
-    /** 虚拟参数 */
-    @Transient
+    
+    /** 虚拟参数*/
     private String flagType;
-
+    
     public String getFlagType() {
-        return flagType;
-    }
+		return flagType;
+	}
+	public void setFlagType(String flagType) {
+		this.flagType = flagType;
+	}
 
-    public void setFlagType(String flagType) {
-        this.flagType = flagType;
-    }
-
-    @Transient
+	@Transient
     private String visible;
-
     @Transient
-    public String getVisible() {
-        return visible;
-    }
-
+    public String getVisible(){
+		return visible;
+	}
     @Transient
-    public void setVisible(String visible) {
-        this.visible = visible;
-    }
+	public void setVisible(String visible) {
+		this.visible = visible;
+	}
 
-    /**
+	/**
      * @return the id
      */
     public Integer getId() {
@@ -101,7 +76,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param id the id to set
+     * @param id
+     *            the id to set
      */
     public void setId(Integer id) {
         this.id = id;
@@ -115,7 +91,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param parent the parent to set
+     * @param parent
+     *            the parent to set
      */
     public void setParent(SysFunc parent) {
         this.parent = parent;
@@ -129,7 +106,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param code the code to set
+     * @param code
+     *            the code to set
      */
     public void setCode(String code) {
         this.code = code;
@@ -143,7 +121,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;
@@ -157,21 +136,39 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param order the order to set
+     * @param order
+     *            the order to set
      */
     public void setOrder(Integer order) {
         this.order = order;
     }
 
     /**
+     * @return the typeCode
+     */
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    /**
+     * @param typeCode
+     *            the typeCode to set
+     */
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
+    /**
      * @return the type
      */
+    @NotAudited
     public SysDict getType() {
         return type;
     }
 
     /**
-     * @param type the type to set
+     * @param type
+     *            the type to set
      */
     public void setType(SysDict type) {
         this.type = type;
@@ -185,7 +182,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param url the url to set
+     * @param url
+     *            the url to set
      */
     public void setUrl(String url) {
         this.url = url;
@@ -194,12 +192,14 @@ public class SysFunc implements Serializable {
     /**
      * @return the desc
      */
+    @NotAudited
     public String getDesc() {
         return desc;
     }
 
     /**
-     * @param desc the desc to set
+     * @param desc
+     *            the desc to set
      */
     public void setDesc(String desc) {
         this.desc = desc;
@@ -208,12 +208,14 @@ public class SysFunc implements Serializable {
     /**
      * @return the icon
      */
+    @NotAudited
     public String getIcon() {
         return icon;
     }
 
     /**
-     * @param icon the icon to set
+     * @param icon
+     *            the icon to set
      */
     public void setIcon(String icon) {
         this.icon = icon;
@@ -227,7 +229,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param isVisible the isVisible to set
+     * @param isVisible
+     *            the isVisible to set
      */
     public void setIsVisible(Boolean isVisible) {
         this.isVisible = isVisible;
@@ -241,7 +244,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param isBaseFunc the isBaseFunc to set
+     * @param isBaseFunc
+     *            the isBaseFunc to set
      */
     public void setIsBaseFunc(Boolean isBaseFunc) {
         this.isBaseFunc = isBaseFunc;
@@ -255,7 +259,8 @@ public class SysFunc implements Serializable {
     }
 
     /**
-     * @param isEnabled the isEnabled to set
+     * @param isEnabled
+     *            the isEnabled to set
      */
     public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
@@ -264,12 +269,14 @@ public class SysFunc implements Serializable {
     /**
      * @return the children
      */
+    @NotAudited
     public Set<SysFunc> getChildren() {
         return children;
     }
 
     /**
-     * @param children the children to set
+     * @param children
+     *            the children to set
      */
     public void setChildren(Set<SysFunc> children) {
         this.children = children;
@@ -278,12 +285,14 @@ public class SysFunc implements Serializable {
     /**
      * @return the hasChildren
      */
+    @NotAudited
     public Boolean getHasChildren() {
         return hasChildren;
     }
 
     /**
-     * @param hasChildren the hasChildren to set
+     * @param hasChildren
+     *            the hasChildren to set
      */
     public void setHasChildren(Boolean hasChildren) {
         this.hasChildren = hasChildren;
@@ -292,12 +301,14 @@ public class SysFunc implements Serializable {
     /**
      * @return the isRoot
      */
+    @NotAudited
     public Boolean getIsRoot() {
         return isRoot;
     }
 
     /**
-     * @param isRoot the isRoot to set
+     * @param isRoot
+     *            the isRoot to set
      */
     public void setIsRoot(Boolean isRoot) {
         this.isRoot = isRoot;

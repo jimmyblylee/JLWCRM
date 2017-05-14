@@ -1,5 +1,5 @@
 <!-- BEGIN PAGE HEADER-->
-<ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
+<div data-ng-include="'packages/index/tpl/pagebar.html'"> </div>
 <div class="row mt10" ng-controller="GrouptableCtrl"
 	id="GrouptableCtrId">
 	<div class="portlet light bordered full-height-content">
@@ -11,18 +11,30 @@
 						<i class="fa fa-plus"></i> 添加
 					</button>
 					<button type="button" class="btn btn-default btn-sm" id="deleteAll"
-						ng-click='deleteGroupAll()' ng-show="updateGloupButton">
+						ng-click='deleteGroupAll()' ng-show="updateGloupButton"> 
 						<i class="fa fa-trash"></i> 批量删除
 					</button>
 					<button type="button" class="btn btn-default btn-sm" id="recoveAll"
 						ng-click='recoveGroupAll()' ng-show="recoverGloupButton">
 						<i class="fa fa-plus"></i> 批量恢复
 					</button>
+					<div class="form-group setEnabled hidden-sm hidden-md hidden-lg" id="groupState">
+						<label>状态:&nbsp;</label>
+						<div class="btn-group">					
+
+							<div class="btn-group">
+								<select ng-model="groupIsEnabled" id="deptStatusSelect"
+									ng-options='i.code as i.value group by i.group for i in IsEnabledJson'
+									class="form-control valid">
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="form-inline text-right col-md-9">
-					<div class="form-group setEnabled" id="groupState">
+					<div class="form-group setEnabled hidden-xs " id="groupState">
 						<label>状态:&nbsp;</label>
-						<div class="btn-group">
+						<div class="btn-group">					
 
 							<div class="btn-group">
 								<select ng-model="groupIsEnabled" id="deptStatusSelect"
@@ -46,8 +58,7 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-				<table class="table-both-scroll full-height-content"
-					style="min-width: 900px;">
+				<table class="table-both-scroll full-height-content group-table-app">
 					<thead>
 						<tr>
 							<th>
@@ -60,7 +71,7 @@
 												ng-click="checkAll()" id="groupCheckAll" /></th>
 											<th class="text-center wid220px"><span>组名</span> <a
 												ng-click="sort_by('GroupName')"></a></th>
-											<th class="text-center wid180px"><span>描述</span> <a
+											<th class="text-center wid180px hidden-xs hidden-sm"><span>描述</span> <a
 												ng-click="sort_by('GroupDesc')"></a></th>
 											<th class="text-center wid330px"><span>操作</span> <a
 												ng-click="sort_by('Status')"></a></th>
@@ -83,7 +94,7 @@
 												name="groupDeleteList" type="checkbox"
 												value={{GroupArrayList.id}} /></td>
 											<td class="wid220px text-center">{{GroupArrayList.name}}</td>
-											<td class="wid180px">{{GroupArrayList.desc}}</td>
+											<td class="wid180px hidden-xs hidden-sm">{{GroupArrayList.desc}}</td>
 											<td class="text-center wid330px"><button type="button" id="groupCheck"
 													class="btn btn-success btn-xs"
 													data-target="#selectInfo"
@@ -115,7 +126,7 @@
 													ng-show="recoverGloupButton" style="margin-left: 10px;">
 													<i class="fa fa-undo"></i> 恢复
 												</button></td>
-										</tr>
+										</tr>									
 									</tbody>
 								</table>
 							</td>
@@ -126,7 +137,7 @@
 
 			</div>
 			<!-- 分页  -->
-			<div class="row">
+			<div class="row hidden-xs hidden-sm">
 				<div class="pull-left mt20 col-md-5">
 					<label>总共 {{totalItems}} 条记录，每页显示</label> <select
 						ng-change="changPageValue()" ng-model='itemsPerPage'

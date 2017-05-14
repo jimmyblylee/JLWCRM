@@ -3,10 +3,10 @@
 		<div class="modal-dialog t-modal-parent modal-portlet-dialog t-moda-center02  t-moda-left-center02"  id="addDictModal">
 			<div class="modal-content t-modal-drags-fixed" drag>
 			<div class="t-modal-drag-handle" drag-handle></div>	
-					<div class="portlet modal_portlet">
+					<div class="portlet modal_portlet" modalsize>
 				        <div class="portlet-title t-modal-header">
 							<div class="caption">			
-								选择机构
+								选择机构		
 							</div>                
 				            <div class="tools">
 				                <a href="" class="collapse"> </a>               
@@ -21,7 +21,7 @@
 										<div save-content="file-style-html">
 											<div>
 												<treecontrol class="tree-dark" tree-model="treedata"expanded-nodes="expandedNodes" on-selection="showSelected(node)"> 
-													<a href="javascript:;" id="treeParentUserNameNodeId" ng-click="clickDept(node.label,node.id, node.orgLevelType,$event)" class="treeLink">
+													<a href="javascript:;" id="treeParentUserNameNodeId" ng-click="clickDept(node.label,node.id,$event)" class="treeLink">
 														<span ng-switch on="node.type">
 														<span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
 														<span ng-switch-when="doc" id="treeParentUserIconNodeId"  class="glyphicon glyphicon-file" aria-hidden="true"></span>

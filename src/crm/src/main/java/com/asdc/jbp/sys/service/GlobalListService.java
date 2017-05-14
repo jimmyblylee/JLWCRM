@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name jbp-features-sys
  * File Name  GlobalListService.java
  * Package Name com.asdc.jbp.sys.controller
@@ -22,68 +22,68 @@ import com.asdc.jbp.sys.entity.SysGlobalVariable;
  */
 public interface GlobalListService {
 
-    /**
-     * Description : 查询所有列表 <br>
-     * Create Time: 2016.5.19 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     */
+	/**
+	 * Description : 查询所有列表 <br>
+	 * Create Time: 2016.5.19 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 */
 
-    List<SysGlobalVariable> globalQueryItems(int start, int limit, String queryData, Boolean globalIsEnabled) throws ServiceException;
+	public List<SysGlobalVariable> globalQueryItems(int start, int limit, String queryData, Boolean globalIsEnabled) throws ServiceException;
 
-    /**
-     * Description : 查询总数 <br>
-     * Create Time: 2016.5.19 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     */
+	/**
+	 * Description : 查询总数 <br>
+	 * Create Time: 2016.5.19 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 */
 
-    Integer globalQueryTotle(String queryData, Boolean globalIsEnabled) throws ServiceException;
+	public Integer globalQueryTotle(String queryData, Boolean globalIsEnabled) throws ServiceException;
 
-    /**
-     * Description : 根据Ids删除<br>
-     * Create Time: 2016.05.24 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     *
-     */
+	/**
+	 * Description : 根据Ids删除<br>
+	 * Create Time: 2016.05.24 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 * @return
+	 * 
+	 */
 
-    void globalDelSingleItems(Integer globalId) throws ServiceException;
+	public void globalDelSingleItems(Integer globalId) throws ServiceException;
 
-    /**
-     * Description : 添加列表内容<br>
-     * Create Time: 2016.05.24 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     */
+	/**
+	 * Description : 添加列表内容<br>
+	 * Create Time: 2016.05.24 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 */
 
-    SysGlobalVariable globalAddItems(SysGlobalVariable globalItme) throws ServiceException;
+	public SysGlobalVariable globalAddItems(SysGlobalVariable globalItme) throws ServiceException;
 
-    /**
-     * Description : 更新列表内容<br>
-     * Create Time: 2016.05.24 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     */
+	/**
+	 * Description : 更新列表内容<br>
+	 * Create Time: 2016.05.24 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 */
 
-    SysGlobalVariable globalUpdateItems(SysGlobalVariable globalItme) throws ServiceException;
+	public SysGlobalVariable globalUpdateItems(SysGlobalVariable globalItme) throws ServiceException;
 
-    /**
-     * Description : 查询登陆系统名称参数 <br>
-     * Create Time: 2016.7.13 <br>
-     * Create by : yuanyuan_liu@asdc.com.cn <br>
-     *
-     */
+	/**
+	 * Description : 查询登陆系统名称参数 <br>
+	 * Create Time: 2016.7.13 <br>
+	 * Create by : yuanyuan_liu@asdc.com.cn <br>
+	 * 
+	 */
 
-    List<SysGlobalVariable> globalLoginItems(String queryData) throws ServiceException;
+	public List<SysGlobalVariable> globalLoginItems(String queryData) throws ServiceException;
 
-    SysGlobalVariable getGlobalByvariableValue(String variableName)throws ServiceException;
-    @SuppressWarnings("unused")
-    boolean getGlobalIsExit(String variableName) throws ServiceException;
-    /**
-     * Description : 根据id查找全局参数 <br>
-     * Create Time: 2016.8.22 <br>
-     * Create by : xuan_yang@asdc.com.cn <br>
-     */
-    SysGlobalVariable getGlobalById(String variableName)throws ServiceException;
+	public SysGlobalVariable getGlobalByvariableValue(String variableName)throws ServiceException;
+	public boolean getGlobalIsExit(String variableName) throws ServiceException;
+	/**
+	 * Description : 根据id查找全局参数 <br>
+	 * Create Time: 2016.8.22 <br>
+	 * Create by : xuan_yang@asdc.com.cn <br>
+	 */
+	public SysGlobalVariable getGlobalById(String variableName)throws ServiceException;
 }

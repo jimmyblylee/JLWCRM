@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : SysAttachment.java <br>
  * Package Name : com.asdc.jbp.attachment.entity <br>
@@ -11,7 +11,7 @@ package com.asdc.jbp.attachment.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Transient;
 
 import com.asdc.jbp.framework.utils.StringUtils;
 
@@ -22,42 +22,19 @@ import com.asdc.jbp.framework.utils.StringUtils;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
-@Entity
-@Table(name = "SYS_ATT_INFO")
 public class SysAttachment implements Serializable {
 
     private static final long serialVersionUID = -7512088510969776268L;
 
-    @Id
-    @Column(name = "ATT_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "ATT_NATURE")
     private String nature;
-
-    @Column(name = "ATT_REF_ID")
     private Integer ref;
-
-    @Column(name = "ATT_ORI_NAME")
     private String name;
-
-    @Column(name = "ATT_URI")
     private String uri;
-
-    @Column(name = "ATT_DESC")
     private String desc;
-
-    @Column(name = "ATT_OP_ID")
     private Integer operatorId;
-
-    @Column(name = "ATT_OP_NAME")
     private String operatorName;
-
-    @Column(name = "ATT_OP_TIME")
     private Date operateTime;
-    @SuppressWarnings("FieldCanBeLocal")
     @Transient
     private String suffix;
 
@@ -102,7 +79,7 @@ public class SysAttachment implements Serializable {
      * @param ref
      *            the ref to set
      */
-    public void setRef(@SuppressWarnings("SameParameterValue") Integer ref) {
+    public void setRef(Integer ref) {
         this.ref = ref;
     }
 

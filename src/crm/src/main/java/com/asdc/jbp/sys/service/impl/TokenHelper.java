@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : TokenHelper.java <br>
  * Package Name : com.asdc.jbp.sys.service.impl <br>
@@ -11,7 +11,6 @@ package com.asdc.jbp.sys.service.impl;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import com.asdc.jbp.dict.entity.SysDict;
 import com.asdc.jbp.framework.utils.BeanUtils;
@@ -31,7 +30,6 @@ import com.asdc.jbp.sys.token.User;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("WeakerAccess")
 public abstract class TokenHelper {
 
     /**
@@ -39,6 +37,7 @@ public abstract class TokenHelper {
      * Create Time: May 1, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param entity
      * @return vo of {@link Dict} or null if the entity is null
      */
     public static Dict convert(SysDict entity) {
@@ -58,6 +57,7 @@ public abstract class TokenHelper {
      * Create Time: May 1, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param entity
      * @return vo of {@link Dept} or null if the entity is null
      */
     public static Dept convert(SysDept entity) {
@@ -75,6 +75,7 @@ public abstract class TokenHelper {
      * Create Time: May 1, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      *
+     * @param entity
      * @return vo of {@link User} or null if the entity is null
      */
     public static User convert(SysUser entity) {
@@ -92,7 +93,7 @@ public abstract class TokenHelper {
     }
 
     public static FuncTree convert(List<SysFunc> sources) {
-        List<FuncTree> roots = new ArrayList<>();
+        List<FuncTree> roots = new ArrayList<FuncTree>();
         for (SysFunc entity : sources) {
             if (entity.getIsRoot()) {
                 FuncTree func = new FuncTree();
@@ -113,9 +114,9 @@ public abstract class TokenHelper {
     }
 
     private static void fetchChildren(FuncTree func, List<SysFunc> sources) {
-        func.setChildren(new LinkedList<>());
+        func.setChildren(new LinkedList<FuncTree>());
         for (SysFunc entity : sources) {
-            if (entity.getParent() != null && Objects.equals(entity.getParent().getId(), func.getId())) {
+            if (entity.getParent() != null && entity.getParent().getId() == func.getId()) {
                 FuncTree child = new FuncTree();
                 copyFuncInfo(entity, child);
                 func.getChildren().add(child);

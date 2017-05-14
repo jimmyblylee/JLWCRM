@@ -1,0 +1,81 @@
+<div class="page-sidebar navbar-collapse collapse" > 
+    <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.pageSidebarClosed=='true'}">       
+       <li class="nav-item sidebar-menu-Atest" ng-repeat="item in token.func.children | orderBy:'order' ">
+                <a href="javascript:;" class="nav-link nav-toggle" ng-if="item.type.code=='MENU' && item.isVisible">
+                    <i class="{{item.icon}}"></i>
+                    <span class="title">{{item.name}}</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu" ng-if="item.type.code=='MENU' && item.isVisible && item.hasChildren">
+                 <!-- 二级菜单开始 -->          
+                    <li class="nav-item" ng-repeat="subitem in item.children | orderBy:'order'">
+                        <a href="javascript:;" class="nav-link nav-toggle" class="nav-link nav-toggle" ng-if="subitem.type.code=='MENU' && subitem.isVisible">
+                            <i class="{{subitem.icon}}"></i>
+                            <span class="title">{{subitem.name}}</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu" ng-if="subitem.type.code=='MENU' && subitem.isVisible && subitem.hasChildren">
+                         <!-- 三级菜单开始 -->    
+                            <li class="nav-item" ng-repeat="subitem_child in subitem.children | orderBy:'order'">
+                                <a href="javascript:;"  class="nav-link nav-toggle" ng-if="subitem_child.type.code=='MENU' && subitem_child.isVisible && subitem_child.isVisible">
+                                    <i class="{{subitem_child.icon}}"></i> {{subitem_child.name}}
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu" ng-if="subitem_child.type.code=='MENU' && subitem_child.isVisible && subitem_child.isVisible">
+                                 <!-- 四级菜单开始 -->    
+                                    <li class="nav-item" ng-repeat="subitem_child_2 in subitem_child.children | orderBy:'order'">
+                                        <a href="#/{{sidebarConfig[subitem_child_2.code].url}}" class="nav-link" ng-if="subitem_child_2.type.code=='FEATURE' && subitem_child_2.isVisible && subitem_child_2.code!=='home.home' && sidebarConfig[subitem_child_2.code].url!=null && sidebarConfig[subitem_child_2.code].url!='' && sidebarConfig[subitem_child_2.code].url!=undefined ">
+                                          <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[subitem_child_2.code].url,subitem_child_2.name,subitem_child.name,subitem.name,item.name)">
+                                            <i class="{{subitem_child_2.icon}}"></i><span class="title">{{subitem_child_2.name}}</span>
+                                            </div>
+                                        </a>                                        
+                                        <a href="javascript:;" ng-if="subitem_child_2.type.code=='LINK' && subitem_child.isVisible" target="_blank" ng-click="skip(subitem_child_2.url)">
+                                            <i class="{{subitem_child_2.icon}}"></i>
+                                            <span class="title">{{subitem_child_2.name}}</span>
+                                        </a>
+                                    </li>  
+                                 <!-- 四级菜单结束 -->                                 
+                                </ul>
+                                <a href="#/{{sidebarConfig[subitem_child.code].url}}" ng-if="sidebarConfig[subitem_child.code].url!=null && sidebarConfig[subitem_child.code].url!='' &&sidebarConfig[subitem_child.code].url!=undefined && subitem_child.type.code=='FEATURE' && subitem_child.isVisible && subitem_child.code!=='home.home'">
+                                  <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[subitem_child.code].url,subitem_child.name,subitem.name,item.name,null)">
+                                    <i class="{{subitem_child.icon}}"></i>
+                                    <span class="title"> {{subitem_child.name}}</span>
+                                   </div>
+                                </a>    
+                                <a href="javascript:;" ng-if="subitem_child.type.code=='LINK' && subitem_child.isVisible" target="_blank" ng-click="skip(subitem_child.url)">
+                                    <i class="{{subitem_child.icon}}"></i>
+                                    <span class="title">{{subitem_child.name}}</span>
+                                </a> 
+
+                            </li>
+                          <!-- 三级菜单结束 -->                            
+                        </ul>
+                         <a href="#/{{sidebarConfig[subitem.code].url}}" ng-if="subitem.type.code=='FEATURE' && subitem.isVisible && subitem.code!=='home.home' && sidebarConfig[subitem.code].url!=null && sidebarConfig[subitem.code].url!='' && sidebarConfig[subitem.code].url!=undefined " >
+                             <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[subitem.code].url,subitem.name,item.name,null,null);">
+                                <i class="{{subitem.icon}}"></i> 
+                                <span class="title"> {{subitem.name}} </span>
+                             </div>
+                         </a>
+                         <a href="javascript:;" ng-if="subitem.type.code=='LINK' && subitem.isVisible" target="_blank" ng-click="skip(subitem.url)">
+                                <i class="{{subitem.icon}}"></i>
+                                <span class="title">{{subitem.name}}</span>
+                         </a>  
+                    </li>
+                    
+                 <!-- 二级菜单结束 -->                    
+               </ul>
+                <a href="#/{{sidebarConfig[item.code].url}}" ng-if="item.type.code=='FEATURE' && item.isVisible && item.code!=='home.home' && sidebarConfig[item.code].url!=null && sidebarConfig[item.code].url!='' && sidebarConfig[item.code].url!=undefined " >
+                 <div class="nav-itme-click" ng-click="$parent.pageBar(sidebarConfig[item.code].url,item.name,null,null,null)">
+                    <i class="{{item.icon}}"></i>
+                    <span class="title">{{item.name}}</span>
+                 </div>
+                </a>
+                <a href="javascript:;" ng-if="item.type.code=='LINK' && item.isVisible" target="_blank" ng-click="skip(item.url)">                 
+                    <i class="{{item.icon}}"></i>
+                    <span class="title">{{item.name}}</span>                
+                </a>   
+         </li>
+  
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>

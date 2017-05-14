@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysDept.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,12 +8,16 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import org.hibernate.annotations.Formula;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import javax.persistence.Transient;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * ClassName : SysDept <br>
@@ -22,55 +26,37 @@ import java.util.Set;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_DEPT")
-@SuppressWarnings("unused")
+@Audited
 public class SysDept implements Serializable {
 
-    private static final long serialVersionUID = 8923542512586932351L;
+	private static final long serialVersionUID = 8923542512586932351L;
 
-    @Id
-    @Column(name = "DEPT_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEPT_PARENT_ID")
     private SysDept parent;
-    @Column(name = "DEPT_NAME")
     private String name;
-    @Column(name = "DEPT_TEL")
     private String tel;
-    @Column(name = "DEPT_FAX")
     private String fax;
-    @Column(name = "DEPT_EMAIL")
     private String email;
-    @Column(name = "DEPT_URL")
     private String url;
-    @Column(name = "DEPT_ADDRESS")
     private String address;
-    @Column(name = "DEPT_POSTALCODE")
     private String postalCode;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private Set<SysDept> children = new LinkedHashSet<>();
-    @Formula("(SELECT CASE WHEN (COUNT(1) > 0) THEN 1 ELSE 0 END FROM SYS_DEPT DEPT WHERE DEPT.DEPT_PARENT_ID = DEPT_ID)")
     private Boolean hasChildren;
-    @Column(name = "DEPT_ORDER_BY")
     private Integer sort;
-
+    
     @Transient
     private String childs;
     @Transient
     public String getChilds() {
-        return childs;
-    }
+		return childs;
+	}
     @Transient
-    public void setChilds(@SuppressWarnings("SameParameterValue") String childs) {
-        this.childs = childs;
-    }
+	public void setChilds(String childs) {
+		this.childs = childs;
+	}
 
-    /**
+	/**
      * @return the id
      */
     public Integer getId() {
@@ -237,6 +223,7 @@ public class SysDept implements Serializable {
     /**
      * @return the children
      */
+    @NotAudited
     public Set<SysDept> getChildren() {
         return children;
     }
@@ -251,6 +238,7 @@ public class SysDept implements Serializable {
     /**
      * @return the hasChildren
      */
+    @NotAudited
     public Boolean getHasChildren() {
         return hasChildren;
     }
@@ -263,20 +251,20 @@ public class SysDept implements Serializable {
     }
 
 
-    public Integer getSort() {
-        return sort;
-    }
+	public Integer getSort() {
+		return sort;
+	}
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 
-    @Override
-    public String toString() {
-        return "SysDept [id=" + id + ", name=" + name + ", tel=" + tel + ", fax=" + fax + ", email=" + email + ", url=" + url + ", address=" + address
-            + ", postalCode=" + postalCode + ", isEnabled=" + isEnabled + ", sort=" + sort + "]";
-    }
+	@Override
+	public String toString() {
+		return "SysDept [id=" + id + ", name=" + name + ", tel=" + tel + ", fax=" + fax + ", email=" + email + ", url=" + url + ", address=" + address
+		        + ", postalCode=" + postalCode + ", isEnabled=" + isEnabled + ", sort=" + sort + "]";
+	}
 
-
+    
 
 }

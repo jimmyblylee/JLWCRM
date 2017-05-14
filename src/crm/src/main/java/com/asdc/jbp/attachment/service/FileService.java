@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-plugins-file <br>
  * File Name : FileService.java <br>
  * Package Name : com.asdc.jbp.attachment.service <br>
@@ -19,21 +19,22 @@ import com.asdc.jbp.framework.exception.ServiceException;
  * Description : service of file operation <br>
  * Create Time : May 10, 2016 <br>
  * Create by : xiangyu_li@asdc.com.cn <br>
+ *
  */
-@SuppressWarnings("unused")
 public interface FileService {
 
-    SysAttachment getAttByNatureAndRefId(String nature, Integer refId) throws ServiceException;
+    public SysAttachment getAttByNatureAndRefId(String nature, Integer refId) throws ServiceException;
+    
+    public void uploadAtt(SysAttachment att, InputStream in) throws ServiceException;
+    
+    public void downloadAtt(Integer id, OutputStream out) throws ServiceException;
+    
+    public SysAttachment getAttById(Integer id) throws ServiceException;
+    
+    public void removeAttById(Integer id) throws ServiceException;
+    
+    public void updateAtt(SysAttachment att) throws ServiceException;
 
-    void uploadAtt(SysAttachment att, InputStream in) throws ServiceException;
-
-    void downloadAtt(@SuppressWarnings("SameParameterValue") Integer id, OutputStream out) throws ServiceException;
-
-    SysAttachment getAttById(Integer id) throws ServiceException;
-
-    void removeAttById(Integer id) throws ServiceException;
-
-    void updateAtt(SysAttachment att) throws ServiceException;
-
-    String uploadFileByBasePath(SysAttachment att, InputStream inputStream) throws ServiceException;
+	public String uploadFileByBasePath(SysAttachment att,
+			InputStream inputStream) throws ServiceException;
 }

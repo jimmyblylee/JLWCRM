@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysUser.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,15 +8,14 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import com.asdc.jbp.dict.entity.SysDict;
-import org.hibernate.annotations.JoinColumnOrFormula;
-import org.hibernate.annotations.JoinColumnsOrFormulas;
-import org.hibernate.annotations.JoinFormula;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
+import com.asdc.jbp.dict.entity.SysDict;
 
 /**
  * ClassName : SysUser <br>
@@ -25,89 +24,55 @@ import java.util.List;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@Entity
-@Table(name = "SYS_USER")
-@SuppressWarnings("unused")
+@Audited
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 870831310921606782L;
 
-    @Id
-    @Column(name = "USER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEPT_ID")
     private SysDept dept;
-    @Column(name = "USER_NAME")
     private String name;
-    @Column(name = "LOGIN_ACCOUNT")
     private String account;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnsOrFormulas({
-        @JoinColumnOrFormula(column = @JoinColumn(name = "USER_SEX", referencedColumnName = "DICT_CODE")),
-        @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'SEX'"))})
+    private String sexCode;
     private SysDict sex;
-    @Column(name = "USER_BIRTHDAY")
     private Date birthday;
-    @Column(name = "USER_TEL")
     private String tel;
-    @Column(name = "USER_FIXED_TEL")
     private String fixedTel;
-    @Column(name = "USER_EMAIL")
     private String email;
-    @Column(name = "USER_MAILING_ADDRESS")
     private String address;
-    @Column(name = "USER_POSTALCODE")
     private String postalCode;
-    @Column(name = "USER_TITLE")
     private String title;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnsOrFormulas({
-        @JoinColumnOrFormula(column = @JoinColumn(name = "USER_ID_TYPE", referencedColumnName = "DICT_CODE")),
-        @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'USER_ID_TYPE'"))})
+    private String idTypeCode;
     private SysDict idType;
-    @Column(name = "USER_ID_NUMBER")
     private String idNum;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumnsOrFormulas({
-        @JoinColumnOrFormula(column = @JoinColumn(name = "USER_TYPE", referencedColumnName = "DICT_CODE")),
-        @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'USER_TYPE'"))})
+    private String typeCode;
     private SysDict type;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
-    @Transient
-    private SysUserPhoto sysUserPhoto;
-    @Transient
-    private List<Integer> groupId;
-    @Transient
-    private SysUserPwd sysUserPwd;
-    @Column(name = "USER_REMARK")
-    private String remark;
-    @Column(name = "LAST_TIME")
-    private Date lastTime;
-    @Transient
     private Integer deptId;
+    private SysUserPhoto sysUserPhoto;
+    private List<Integer> groupId;
+    private SysUserPwd sysUserPwd;
+    private String remark;
+    private Date lastTime;
 
-    /**
-     * Get the value of deptId.
-     *
-     * @return value of deptId
-     */
-    public Integer getDeptId() {
-        return deptId;
-    }
+	@Override
+	public String toString() {
+		return "SysUser [id=" + id + ", dept=" + dept + ", name=" + name + ", account=" + account + ", sexCode=" + sexCode + ", sex=" + sex + ", birthday="
+		        + birthday + ", tel=" + tel + ", fixedTel=" + fixedTel + ", email=" + email + ", address=" + address + ", postalCode=" + postalCode + ", title="
+		        + title + ", idTypeCode=" + idTypeCode + ", idType=" + idType + ", idNum=" + idNum + ", typeCode=" + typeCode + ", type=" + type
+		        + ", isEnabled=" + isEnabled + ", deptId=" + deptId + ", sysUserPhoto=" + sysUserPhoto + ", groupId=" + groupId + ", sysUserPwd=" + sysUserPwd
+		        + ", remark=" + remark + ", ------------- lastTime=" + lastTime + ", typeId=" + typeId + "]";
+	}
+	/**
+	 * 增加无参构造方法
+	 */
+	public SysUser(){
+	}
+	public SysUser(Integer id) {
+		this.id = id;
+	}
 
-    /**
-     * Set the value of deptId.
-     *
-     * @param deptId the deptId
-     */
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
-    public Date getLastTime() {
+	public Date getLastTime() {
         return lastTime;
     }
 
@@ -116,19 +81,35 @@ public class SysUser implements Serializable {
     }
 
     public String getRemark() {
-        return remark;
-    }
+		return remark;
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
-    /**
-     * @return the serialversionuid
-     */
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
+	/**
+	 * @return the typeId
+	 */
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	/**
+	 * @param typeId the typeId to set
+	 */
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	private Integer typeId;
 
     /**
      * @return the id
@@ -190,10 +171,25 @@ public class SysUser implements Serializable {
         this.account = account;
     }
 
+    /**
+     * @return the sexCode
+     */
+    public String getSexCode() {
+        return sexCode;
+    }
+
+    /**
+     * @param sexCode
+     *            the sexCode to set
+     */
+    public void setSexCode(String sexCode) {
+        this.sexCode = sexCode;
+    }
 
     /**
      * @return the sex
      */
+    @NotAudited
     public SysDict getSex() {
         return sex;
     }
@@ -312,8 +308,24 @@ public class SysUser implements Serializable {
     }
 
     /**
+     * @return the idTypeCode
+     */
+    public String getIdTypeCode() {
+        return idTypeCode;
+    }
+
+    /**
+     * @param idTypeCode
+     *            the idTypeCode to set
+     */
+    public void setIdTypeCode(String idTypeCode) {
+        this.idTypeCode = idTypeCode;
+    }
+
+    /**
      * @return the idType
      */
+    @NotAudited
     public SysDict getIdType() {
         return idType;
     }
@@ -342,8 +354,24 @@ public class SysUser implements Serializable {
     }
 
     /**
+     * @return the typeCode
+     */
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    /**
+     * @param typeCode
+     *            the typeCode to set
+     */
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
+    /**
      * @return the type
      */
+    @NotAudited
     public SysDict getType() {
         return type;
     }
@@ -371,46 +399,60 @@ public class SysUser implements Serializable {
         this.isEnabled = isEnabled;
     }
 
-    /**
-     * @return the sysUserPhoto
-     */
-    public SysUserPhoto getSysUserPhoto() {
-        return sysUserPhoto;
-    }
+	/**
+	 * @return the deptId
+	 */
+	public Integer getDeptId() {
+		return deptId;
+	}
 
-    /**
-     * @param sysUserPhoto the sysUserPhoto to set
-     */
-    public void setSysUserPhoto(SysUserPhoto sysUserPhoto) {
-        this.sysUserPhoto = sysUserPhoto;
-    }
+	/**
+	 * @param deptId the deptId to set
+	 */
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
 
-    /**
-     * @return the groupId
-     */
-    public List<Integer> getGroupId() {
-        return groupId;
-    }
+	/**
+	 * @return the sysUserPhoto
+	 */
+	public SysUserPhoto getSysUserPhoto() {
+		return sysUserPhoto;
+	}
 
-    /**
-     * @param groupId the groupId to set
-     */
-    public void setGroupId(List<Integer> groupId) {
-        this.groupId = groupId;
-    }
+	/**
+	 * @param sysUserPhoto the sysUserPhoto to set
+	 */
+	public void setSysUserPhoto(SysUserPhoto sysUserPhoto) {
+		this.sysUserPhoto = sysUserPhoto;
+	}
 
-    /**
-     * @return the sysUserPwd
-     */
-    public SysUserPwd getSysUserPwd() {
-        return sysUserPwd;
-    }
+	/**
+	 * @return the groupId
+	 */
+	public List<Integer> getGroupId() {
+		return groupId;
+	}
 
-    /**
-     * @param sysUserPwd the sysUserPwd to set
-     */
-    public void setSysUserPwd(SysUserPwd sysUserPwd) {
-        this.sysUserPwd = sysUserPwd;
-    }
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(List<Integer> groupId) {
+		this.groupId = groupId;
+	}
 
+	/**
+	 * @return the sysUserPwd
+	 */
+	public SysUserPwd getSysUserPwd() {
+		return sysUserPwd;
+	}
+
+	/**
+	 * @param sysUserPwd the sysUserPwd to set
+	 */
+	public void setSysUserPwd(SysUserPwd sysUserPwd) {
+		this.sysUserPwd = sysUserPwd;
+	}
+	
 }

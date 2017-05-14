@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : JpaOrmOperator.java <br>
  * Package Name : com.asdc.jbp.framework.dao <br>
@@ -21,7 +21,6 @@ import javax.persistence.TransactionRequiredException;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
 public interface JpaOrmOperator extends NamedQueryOperator {
 
     /**
@@ -39,7 +38,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * @throws TransactionRequiredException
      *             if invoked on a container-managed entity manager of type <code>PersistenceContextType.TRANSACTION</code> and there is no transaction
      */
-    void persist(Object entity);
+    public void persist(Object entity);
 
     /**
      * Description : Merge the state of the given entity into the current persistence context. <br>
@@ -54,7 +53,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * @throws TransactionRequiredException
      *             if invoked on a container-managed entity manager of type <code>PersistenceContextType.TRANSACTION</code> and there is no transaction
      */
-    <T> T merge(T entity);
+    public <T> T merge(T entity);
 
     /**
      * Description : Remove the entity instance. <br>
@@ -68,7 +67,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * @throws TransactionRequiredException
      *             if invoked on a container-managed entity manager of type <code>PersistenceContextType.TRANSACTION</code> and there is no transaction
      */
-    void remove(Object entity);
+    public void remove(Object entity);
 
     /**
      * Description : Find by primary key. Search for an entity of the specified class and primary key. If the entity instance is contained in the persistence
@@ -82,7 +81,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      *            primary key
      * @return the found entity instance or null if the entity does not exist
      */
-    <T> T find(Class<T> entityClass, Object primaryKey);
+    public <T> T find(Class<T> entityClass, Object primaryKey);
 
     /**
      * Description : Check if the instance is a managed entity instance belonging to the current persistence context. <br>
@@ -95,7 +94,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * @throws IllegalArgumentException
      *             if not an entity
      */
-    boolean contains(Object entity);
+    public boolean contains(Object entity);
 
     /**
      * Description : Remove the given entity from the persistence context, causing a managed entity to become detached. Unflushed changes made to the entity if
@@ -110,7 +109,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      *             if the instance is not an entity
      * @since Java Persistence 2.0
      */
-    void detach(Object entity);
+    public void detach(Object entity);
 
     /**
      * Description : Synchronize the persistence context to the underlying database. <br>
@@ -122,7 +121,7 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * @throws PersistenceException
      *             if the flush fails
      */
-    void flush();
+    public void flush();
 
     /**
      * Description : Clear the persistence context, causing all managed entities to become detached. Changes made to entities that have not been flushed to the
@@ -130,11 +129,11 @@ public interface JpaOrmOperator extends NamedQueryOperator {
      * Create Time: Apr 30, 2016 <br>
      * Create by : xiangyu_li@asdc.com.cn <br>
      */
-    void clear();
+    public void clear();
 
-    List<?> queryListByNativeQuery(String string);
+	public List<?> queryListByNativeQuery(String string);
 
-    Integer getCountByNativeQuery(String string);
+	public Integer getCountByNativeQuery(String string);
 
-    List<?> queryListByNativeQuery(String string, int start, int limit);
+	public List<?> queryListByNativeQuery(String string, int start,int limit);
 }

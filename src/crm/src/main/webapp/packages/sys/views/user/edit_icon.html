@@ -1,5 +1,5 @@
 <!-- BEGIN PAGE HEADER 2016-->
-<ng-include src="'packages/index/tpl/page-header.html'"></ng-include>
+<div data-ng-include="'packages/index/tpl/pagebar.html'"> </div>
 
 <div class="row mt20" ng-controller="editIconCtrl" id="account-model"
 	name="accountForm">
@@ -11,32 +11,32 @@
 			<div class="portlet light bordered">
 				<div class="portlet-title">
 					<div class="caption font-dark">
-						<span class="caption-subject bold uppercase"> 修改头像</span>
+						<span class="caption-subject bold uppercase">修改头像</span>
 					</div>
 				</div>
 				<div class="modal-body">
-				<div class="file-drop-zone margin-bottom-20">
-				   <div class="imgbg">
-					<img  src="" alt=""  id="addUserPhoto" />
-					</div>
+					<div class="file-drop-zone margin-bottom-20">
+						<div class="imgbg">
+							<img src="" alt="" id="addUserPhoto" />
+						</div>
 						<div class="t-relative">
-						<!--   -->
-							<input type="file" class="t-file-up-alpha edit_icon_file-up"  id="inputFile" ng-model="userphoto" accept="image/jpeg">
-							<div class="uneditable-input border0" >
+							<!--   -->
+							<input type="file" class="t-file-up-alpha edit_icon_file-up"
+								id="inputFile" ng-model="userphoto" accept="image/jpeg">
+							<div class="uneditable-input border0" style="border: 0px;">
 								<a href="javascript:" class="btn btn-primary green greenbtn"
 									id="selectAddUserIcon">点击选择图片</a>
 							</div>
 						</div>
-
-
-				 </div>
-
-	</div>
-	<div class="modal-footer">
-	    <div class="text-danger" id="viewSuccessInFo" style="display:none;text-align: left">上传头像成功，请刷新页面！</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+	    <div class="text-danger" id="viewSuccessInFo" style="display:none;text-align: left">请选择要上传的图片！</div>
 	    <div class="text-danger" id="viewErrorInFo" style="display:none;text-align: left">选择的图片必须小于50KB!</div>
-		<button class="btn btn-primary t-btn-primary" id="iconId" type="submit">确定</button>
-		<button class="btn btn-default"  type="button" ng-click="imgReload()">刷新</button>
+		<button class="btn btn-primary" id="iconId" type="submit">确定</button>
+		<!--  <a class="btn btn-default" ng-click="$parent.pageBar(null,null,parentBarData,null,null);"   href="#/accountedit.html" >关闭</a>  -->
+	 <button class="btn btn-default" ng-click="backUserInfo()" >关闭</button>
+		 <!-- <button class="btn btn-default" ng-click="backUserInfo()"  type="button" ng-click="imgReload()">刷新</button>   -->
 	</div>
 </div>
 </form>

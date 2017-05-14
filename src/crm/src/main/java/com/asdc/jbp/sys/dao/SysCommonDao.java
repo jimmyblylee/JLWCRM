@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysCommonDao.java <br>
  * Package Name : com.asdc.jbp.sys.dao <br>
@@ -25,9 +25,9 @@ import com.asdc.jbp.framework.dao.AbstractDao;
 @Repository("SysCommonDao")
 public class SysCommonDao extends AbstractDao {
 
-    @PersistenceContext(unitName = "crm_mgmt")
+    @PersistenceContext(unitName = "sys_mgmt")
     private EntityManager em;
-
+    
     /* (non-Javadoc)
      * @see com.asdc.jbp.framework.dao.AbstractDao#getEntityManager()
      */

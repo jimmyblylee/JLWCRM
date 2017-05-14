@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : SysRole.java <br>
  * Package Name : com.asdc.jbp.sys.entity <br>
@@ -8,8 +8,10 @@
  */
 package com.asdc.jbp.sys.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  * ClassName : SysRole <br>
@@ -18,24 +20,15 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("unused")
-@Entity
-@Table(name = "SYS_ROLE")
+@Audited
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 5159782070389307355L;
 
-    @Id
-    @Column(name = "ROLE_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "ROLE_NAME")
     private String name;
-    @Column(name = "ROLE_DESC")
     private String desc;
-    @Column(name = "IS_BASE_ROLE")
     private Boolean isBaseRole;
-    @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
     /**
@@ -71,6 +64,7 @@ public class SysRole implements Serializable {
     /**
      * @return the desc
      */
+    @NotAudited
     public String getDesc() {
         return desc;
     }
@@ -86,6 +80,7 @@ public class SysRole implements Serializable {
     /**
      * @return the isBaseRole
      */
+    @NotAudited
     public Boolean getIsBaseRole() {
         return isBaseRole;
     }

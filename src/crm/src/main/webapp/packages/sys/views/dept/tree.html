@@ -1,27 +1,24 @@
-<section id="file-style" ng-controller="FileStyle">
-	<div class="panel panel-default full-height-content">
-		<div class="panel-body full-height-content-body"
-			style="background-color: #E7EAEC;">
-
-			<div class="example-caption" style="text-align: right">
-				<a href="javascript:;" ng-click="getDeptTreeParent(true)"
-					id="refresh"><i class="fa fa-refresh"></i></a>
-			</div>
-			<div save-content="file-style-html">
+<div class="treeAppbackdrop"></div>
+<section id="file-style" ng-controller="FileStyle" class="treeApp am-slide-left">
+	<div class="panel panel-default full-height-content full-height-content-scrollable">
+		<div class="panel-body full-height-content-body t-tree">		
+			<div save-content="file-style-html" style="margin-left: -20px;">
 				<div>
 					<treecontrol class="tree-dark" tree-model="treedata"
-						expanded-nodes="expandedNodes" on-selection="showSelected(node)">
-
-                        <span ng-switch on="node.type">
-                            <span ng-switch-when="zongbu" class="fa fa-university font-red-thunderbird" aria-hidden="true" ></span>
-                            <span ng-switch-when="gongsi" class="fa fa-building font-purple-seance" aria-hidden="true" ></span>
-                            <span ng-switch-when="dianchang" class="fa fa-flash font-yellow-crusta" aria-hidden="true" ></span>
-                            <span ng-switch-when="group" class="fa fa-users font-blue-steel" aria-hidden="true" ></span>
-                        </span>
-                        <a href="javascript:;" id="treeNameNodeId" ng-click="queryAllDeptListById(node.id)">1{{node.type}}{{node.label}}</a>
-                    </treecontrol>
+						expanded-nodes="expandedNodes"
+						on-selection="showSelected(node,$parentNode)">
+							<a href="javascript:;" ng-click="queryByTreeId(node.id,$event)" class="treeLink">
+							<span
+							ng-switch on="node.type"> <span
+							ng-switch-when="folder"
+							class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+							<span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+						    </span>{{node.label}}
+						   </a> 
+					</treecontrol>
 				</div>
 			</div>
 		</div>
 	</div>
+	<button type="button" class="btn btn-lg btn-treeApp-close" ng-click="$hide()"><span class="close">×</span></button>    
 </section>

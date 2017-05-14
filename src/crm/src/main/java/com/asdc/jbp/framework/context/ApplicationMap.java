@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-framework <br>
  * File Name : ApplicationMap.java <br>
  * Package Name : com.asdc.jbp.framework.context <br>
@@ -33,6 +33,8 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
 
     /**
      * Create a new instance of ApplicationMap.
+     * 
+     * @param context
      */
     public ApplicationMap(ServletContext context) {
         this.context = context;
@@ -51,13 +53,12 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
 
     /**
      * Creates a Set of all servlet context attributes as well as context init parameters.
-     *
+     * 
      * @return a Set of all servlet context attributes as well as context init parameters.
      */
-    @SuppressWarnings("Duplicates")
     public Set<Entry<String, Object>> entrySet() {
         if (entries == null) {
-            entries = new HashSet<>();
+            entries = new HashSet<Entry<String, Object>>();
 
             // Add servlet context attributes
             Enumeration<?> enumeration = context.getAttributeNames();
@@ -65,17 +66,13 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
             while (enumeration.hasMoreElements()) {
                 final String key = enumeration.nextElement().toString();
                 final Object value = context.getAttribute(key);
-                entries.add(new Entry<String, Object>() {
+                entries.add(new Map.Entry<String, Object>() {
                     @SuppressWarnings("unchecked")
                     public boolean equals(Object obj) {
-                        if (obj instanceof  Entry) {
-                            Entry<String, Object> entry = (Entry<String, Object>) obj;
+                        Map.Entry<String, Object> entry = (Map.Entry<String, Object>) obj;
 
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
+                        return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
                                 && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        } else {
-                            return false;
-                        }
                     }
 
                     public int hashCode() {
@@ -103,16 +100,12 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
             while (enumeration.hasMoreElements()) {
                 final String key = enumeration.nextElement().toString();
                 final Object value = context.getInitParameter(key);
-                entries.add(new Entry<String, Object>() {
+                entries.add(new Map.Entry<String, Object>() {
                     @SuppressWarnings("unchecked")
                     public boolean equals(Object obj) {
-                        if (obj instanceof Entry) {
-                            Entry<String, Object> entry = (Entry<String, Object>) obj;
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
+                        Map.Entry<String, Object> entry = (Map.Entry<String, Object>) obj;
+                        return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey()))
                                 && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        } else {
-                            return false;
-                        }
                     }
 
                     public int hashCode() {
@@ -140,7 +133,7 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
 
     /**
      * Returns the servlet context attribute or init parameter based on the given key. If the entry is not found, <tt>null</tt> is returned.
-     *
+     * 
      * @param key
      *            the entry key.
      * @return the servlet context attribute or init parameter or <tt>null</tt> if the entry is not found.
@@ -155,7 +148,7 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
 
     /**
      * Sets a servlet context attribute given a attribute name and value.
-     *
+     * 
      * @param key
      *            the name of the attribute.
      * @param value
@@ -164,13 +157,13 @@ public final class ApplicationMap extends AbstractMap<String, Object> implements
      */
     public Object put(String key, Object value) {
         entries = null;
-        context.setAttribute(key, value);
+        context.setAttribute(key.toString(), value);
         return get(key);
     }
 
     /**
      * Removes the specified servlet context attribute.
-     *
+     * 
      * @param key
      *            the attribute to remove.
      * @return the entry that was just removed.

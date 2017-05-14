@@ -10,6 +10,7 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 	$scope.globalEditId = '';
 	$scope.indexNum;
 	$scope.globalQueryData = null;
+	var ispc=IsPC();
 	$scope.globals = {
 		"isEnabled" : "true"
 	};	
@@ -17,9 +18,8 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 	$scope.changGlobalPageValue = function(){
 		$scope.currentPage = 1; 
 		$scope.globalItemsdata("true")
-	}
+	}	
 
-	
 	$scope.globalItemsdata = function(isEnabled) {
 		if($scope.globals.isEnabled =="true" && isEnabled=="false"){
 			$scope.globals.isEnabled = "true";
@@ -38,9 +38,11 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 		} else {
 			$scope.delEnabledGlobal = false;
 			$scope.isEnabledGlobal = true;
+		}		  
+		if(!ispc){
+			$scope.globalItemsPerPage=30;
+			$scope.currentPage = 1;			
 		}
-		
-		
 		$scope.globalDateParams = JSON.stringify($scope.globals);
 		var globalInfoResult = pageService($http, $q, 'GlobalListController',
 				'queryAllGlobalList', $scope.currentPage, $scope.globalItemsPerPage,
@@ -54,7 +56,54 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 			console.info(error);
 		});
 	};
+	$scope.globalItemsdataApp = function(isEnabled) {
+		if($scope.globals.isEnabled =="true" && isEnabled=="false"){
+			$scope.globals.isEnabled = "true";
+		}else if($scope.globals.isEnabled != "true" && isEnabled=="false"){
+			$scope.globals.isEnabled = "false";
+		}
+		
+		if($scope.delEnabledGlobal && isEnabled == "true"){	
+			$scope.globals.isEnabled = "true";
+		}else if($scope.isEnabledGlobal && isEnabled == "true"){
+			$scope.globals.isEnabled = "false";
+		}		
+		if ($scope.globals.isEnabled == "true") {
+			$scope.delEnabledGlobal = true;
+			$scope.isEnabledGlobal = false;
+		} else {
+			$scope.delEnabledGlobal = false;
+			$scope.isEnabledGlobal = true;
+		}		  
+		$scope.globalItemsPerPage=5;
+		var globaltotleAPP=$scope.totalItems;
+		var array=$scope.globalItems;
+		$scope.globaltotleAPP=Math.ceil(globaltotleAPP/5);
+		$scope.currentPage=(array.length/5)+1;
+		if ($scope.currentPage <= $scope.globaltotleAPP) {
+			$scope.globalDateParams = JSON.stringify($scope.globals);
+			var globalInfoResult = pageService($http, $q, 'GlobalListController',
+					'queryAllGlobalList', $scope.currentPage, $scope.globalItemsPerPage,
+					$scope.globalDateParams);
+			globalInfoResult.then(function(success) {			
+				var globalResponse = StrParesJSON(success);			
+				$scope.globalItems = array.concat(globalResponse.result);
+			}, function(error) {
+				console.info(error);
+			});
+		};
+		
+	};
 	$scope.globalItemsdata(1);
+    window.onscroll = function(){
+    	if (!ispc) {
+	    	isscrollbottom=scrollbottom();
+	      　if(isscrollbottom){
+	      		$scope.globalItemsdataApp()
+	        }
+	    }
+
+   };	
 	$scope.getIsEnabled = function() {
 		if ($scope.IsEnabledJson == null) {
 			var responseDictResult = getSelectValueByDictList($http, $q,
@@ -235,7 +284,8 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 					eidtModal.$promise.then(eidtModal.hide);
 			}else{
 					addModal.$promise.then(addModal.hide);
-			}	
+			}
+			fullscreenRemove();	
 			$scope.globalModelForm=undefined
 		}else{//如果是false 代表有修改 显示提示框
 			$rootScope.closeModel.$promise.then($rootScope.closeModel.show);	
@@ -254,7 +304,8 @@ function globallistCtrl($scope, $filter, $modal, $log, $http, $q, $timeout,$root
 				}else{
 					addModal.$promise.then(addModal.hide);
 				}
-				$scope.globalModelForm=undefined
+				$scope.globalModelForm=undefined;
+				fullscreenRemove();
 			};
 		};
 	})

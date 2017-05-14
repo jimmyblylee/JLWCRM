@@ -1,4 +1,4 @@
-/*
+/**
  * Project Name : jbp-features-sys <br>
  * File Name : Func.java <br>
  * Package Name : com.asdc.jbp.sys.token <br>
@@ -17,7 +17,6 @@ import java.io.Serializable;
  * Create by : xiangyu_li@asdc.com.cn <br>
  *
  */
-@SuppressWarnings("WeakerAccess")
 public class Func implements Serializable {
 
     private static final long serialVersionUID = 7844571318393852478L;
