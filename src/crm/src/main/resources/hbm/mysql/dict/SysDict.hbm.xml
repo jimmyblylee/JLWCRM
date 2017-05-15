@@ -5,7 +5,7 @@
         <id name="id" column="DICT_ID" type="int">
             <generator class="identity"/>
         </id>
-        <many-to-one name="parent" column="DICT_PARENT_ID" lazy="proxy"/>
+        <many-to-one name="parent" column="DICT_PARENT_ID" lazy="proxy" class="com.asdc.jbp.dict.entity.SysDict"/>
         <property name="isNature" column="IS_NATURE"/>
         <property name="nature" column="DICT_NATURE"/>
         <property name="code" column="DICT_CODE"/>
@@ -22,7 +22,7 @@
         <![CDATA[from SysDict as s left join fetch s.parent where s.isEnabled = true order by s.nature, s.order]]>
     </query>
     <query name="dict.hql.getAllSysDictCount">
-        <![CDATA[select count(1) from SysDict where isEnabled = true]]>
+        <![CDATA[select count(*) from SysDict where isEnabled = true]]>
     </query>
     <query name="dict.hql.querySysDictByNatureAndCode">
         <![CDATA[from SysDict as s left join fetch s.parent where s.nature = :nature and s.code = :code and s.isEnabled = true]]>
@@ -31,76 +31,76 @@
         <![CDATA[from SysDict where nature = :nature and isEnabled = true order by order]]>
     </query>
     <query name="dict.hql.getSysDictCountByNature">
-        <![CDATA[select count (1) from SysDict where nature = :nature and isEnabled = true]]>
+        <![CDATA[select count (dict) from SysDict dict where dict.nature = :nature and dict.isEnabled = true]]>
     </query>
     <query name="dict.hql.setDisableByNature">
         <![CDATA[update SysDict set isEnabled = false where nature = :nature]]>
     </query>
     <query name="dict.hql.updateDisableByNature">
         <![CDATA[update SysDict set code = :code where id = :id]]>
-    </query>  
+    </query>
    	<query name="sys.hql.removeDictById">
     	<![CDATA[update SysDict set isEnabled = false where id = :id]]>
-    </query>  
+    </query>
     <query name="sys.hql.recoverDictById">
     	<![CDATA[update SysDict set isEnabled = true where id = :id]]>
-    </query>  
+    </query>
     <query name="sys.hql.getParentById">
     	<![CDATA[from SysDict as s left join fetch s.parent where s.parent.id = :id and s.isEnabled = true order by s.order]]>
-    </query>  
+    </query>
     <query name="sys.hql.queryChildrenByParentCode">
     	<![CDATA[from SysDict as s left join fetch s.parent where s.parent.code = :code and s.isEnabled = true order by s.order]]>
-    </query>  
+    </query>
     <query name="sys.hql.queryCodeByValue">
     	<![CDATA[from SysDict as s where s.parent.id = (select id from SysDict where code = :code) and s.value = :value and s.isEnabled = true]]>
-    </query>  
+    </query>
     <query name="sys.hql.queryValueByCode">
     	<![CDATA[from SysDict as s where s.code = :code and s.isEnabled = true]]>
-    </query>  
-    
+    </query>
+
     <query name="sys.hql.getCountSysDeptByParentIdManyfields">
-    	<![CDATA[select count(*) from SysDict as dict where 1=1         
+    	<![CDATA[select count(dict) from SysDict as dict where 1=1
     	and dict.isEnabled = :isEnabled
-    	and dict.parent.id = :id 
+    	and dict.parent.id = :id
     	and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value))]]>
     </query>
- 
+
 
 
     <query name="dict.hql.querySysDeptByParentIdManyfields">
-    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1         
+    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
     	and dict.isEnabled = :isEnabled
-    	and dict.parent.id = :id 
+    	and dict.parent.id = :id
     	and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value)) order by dict.order]]>
     </query>
-    
-    <!--查询没有上级字典属性为null的，也就是只有查询出一个：“字典管理”  --> 
+
+    <!--查询没有上级字典属性为null的，也就是只有查询出一个：“字典管理”  -->
 	<query name="sys.hql.queryParentDictIsNull">
     	  <![CDATA[from SysDict as sd  where sd.parent.id is null and sd.isEnabled = true]]>
 	</query>
-	
-	<!--查询--> 
+
+	<!--查询-->
 	<query name="dict.hql.queryDictById">
-    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1         
+    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
     	and dict.isEnabled = :isEnabled
-    	and dict.id = :id 
+    	and dict.id = :id
     	and (:code is null or dict.nature like:nature or dict.code like:code or dict.value like:value))]]>
 	</query>
-	
+
 	<!--根据code和nature来判断是否唯一  -->
     <query name="dict.hql.querySysDictByNatureAndCodeIsExist">
         <![CDATA[select count(*) from SysDict as s  where s.nature = :nature and s.code = :code and s.isEnabled = true]]>
     </query>
-	    
+
 	<query name="dict.hql.querySysDeptByOrder">
-    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1         
+    	<![CDATA[from SysDict as dict left join fetch dict.parent where 1=1
     	and dict.isEnabled = :isEnabled
-    	and dict.parent.id = :id 
+    	and dict.parent.id = :id
     	and (:code is null or (dict.nature like:nature or dict.code like:code or dict.value like:value)) order by :order]]>
-    </query>    
+    </query>
 
 
-	
+
      <query name="dict.hql.getAllDictByNature">
        <![CDATA[select sd.pinyinShort from SysDict sd where sd.nature = :nature and sd.desc = :desc and sd.isNature = false]]>
 	</query>

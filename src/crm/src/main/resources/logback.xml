@@ -10,7 +10,7 @@
     <!-- Spring's logs -->
     <logger name="org.springframework" level="WARN" />
     <logger name="org.springframework.beans.factory.xml.XmlBeanDefinitionReader" level="INFO" />
-     <!-- hibernate's logs -->
+    <!-- hibernate's logs -->
     <logger name="com.atomikos" level="ERROR" />
     <logger name="org.hibernate" level="INFO" />
     <logger name="org.hibernate.dialect.Dialect" level="WARN" />

@@ -33,7 +33,7 @@ import com.asdc.jbp.log.entity.RevisionEntity;
 @Repository
 public class RevisionEntityDao {
 
-    @PersistenceContext(unitName = "log_mgmt")
+    @PersistenceContext(unitName = "crm_mgmt")
     private EntityManager em;
 
     @SuppressWarnings("unchecked")

@@ -25,7 +25,7 @@ import com.asdc.jbp.framework.dao.AbstractDao;
 @Repository
 public class SysAttachmentDao extends AbstractDao {
 
-    @PersistenceContext(unitName = "file_mgmt")
+    @PersistenceContext(unitName = "crm_mgmt")
     private EntityManager em;
 
     @Override

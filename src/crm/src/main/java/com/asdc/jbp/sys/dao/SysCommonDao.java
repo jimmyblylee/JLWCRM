@@ -25,9 +25,9 @@ import com.asdc.jbp.framework.dao.AbstractDao;
 @Repository("SysCommonDao")
 public class SysCommonDao extends AbstractDao {
 
-    @PersistenceContext(unitName = "sys_mgmt")
+    @PersistenceContext(unitName = "crm_mgmt")
     private EntityManager em;
-    
+
     /* (non-Javadoc)
      * @see com.asdc.jbp.framework.dao.AbstractDao#getEntityManager()
      */

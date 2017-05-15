@@ -21,7 +21,6 @@ import javax.persistence.Query;
 import javax.persistence.QueryTimeoutException;
 import javax.persistence.TransactionRequiredException;
 
-import org.jfree.util.Log;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +37,7 @@ import com.asdc.jbp.dict.entity.SysDict;
 @Repository
 public  class SysDictDao {
 
-    @PersistenceContext(unitName = "dict_mgmt")
+    @PersistenceContext(unitName = "crm_mgmt")
     private EntityManager em;
 
     @SuppressWarnings("unchecked")
@@ -52,7 +51,7 @@ public  class SysDictDao {
     @Transactional(readOnly = false)
     public void persist(Object dict) {
         em.persist(dict);
-        
+
     }
 
     /**
@@ -92,7 +91,7 @@ public  class SysDictDao {
 		return dict;
 
 	}
-    
+
     public SysDict getSysDictById(Integer id) {
         return em.find(SysDict.class, id);
     }
@@ -109,9 +108,9 @@ public  class SysDictDao {
     public int removeDictByNature(String nature) {
         return em.createNamedQuery("dict.hql.setDisableByNature").setParameter("nature", nature).executeUpdate();
     }
-      
+
     /**
-     * 
+     *
      * Description：通过字典id删除
      * @param id 字典id
      * @return void
@@ -119,10 +118,10 @@ public  class SysDictDao {
      *
      */
     public void deleteDictById(int id) {
-          em.createNamedQuery("sys.hql.removeDictById").setParameter("id", id).executeUpdate(); 
+          em.createNamedQuery("sys.hql.removeDictById").setParameter("id", id).executeUpdate();
      }
     /**
-     * 
+     *
      * Description：通过id恢复数据
      * @param id 字典id
      * @return void
@@ -130,11 +129,11 @@ public  class SysDictDao {
      *
      */
     public void reciveDictById(int id) {
-        em.createNamedQuery("sys.hql.recoverDictById").setParameter("id", id).executeUpdate(); 
+        em.createNamedQuery("sys.hql.recoverDictById").setParameter("id", id).executeUpdate();
    }
-    
+
     /**
-     * 
+     *
      * Description：通过父级id查询出所含子级
      * @param id 父级id
      * @return List<SysDict>
@@ -145,9 +144,9 @@ public  class SysDictDao {
     public List<SysDict> getParentById(Integer id) {
         return em.createNamedQuery("sys.hql.getParentById").setParameter("id", id).getResultList();
     }
-    
+
     /**
-     * 
+     *
      * Description：通过父级id查询出所含子级
      * @param start 第几条开始
      * @param limit 取多少条
@@ -162,7 +161,7 @@ public  class SysDictDao {
     }
 
 	/**
-	 * 
+	 *
 	 * Description：字典模糊查询
 	 * @param start 第几条开始
 	 * @param limit 取多少条
@@ -174,18 +173,18 @@ public  class SysDictDao {
 	@SuppressWarnings("unchecked")
 	public List<SysDict> querySysDeptByManyfields(int start, int limit,SysDict dict) {
 		// TODO Auto-generated method stub
-		
+
 		//return em.createNamedQuery("dict.hql.querySysDeptByManyfields").setParameter("id", dict.getId()).setParameter("nature", dict.getCode()).setParameter("code", dict.getCode()).setParameter("value", dict.getCode()).setParameter("isEnabled", dict.getIsEnabled()).setFirstResult(start).setMaxResults(limit).getResultList();
 		Query query  =em.createNamedQuery("dict.hql.querySysDeptByParentIdManyfields").setParameter("id", dict.getId()).setParameter("nature", dict.getCode()).setParameter("code", dict.getCode()).setParameter("value", dict.getCode()).setParameter("isEnabled", dict.getIsEnabled());
-		
+
 		return query.setFirstResult(start).setMaxResults(limit).getResultList();
 	}
 
 	/**
-	 * 
+	 *
 	 * Description：字典模糊查询总个数
 	 * @param dict 模糊查询条件
-	 * @return int 
+	 * @return int
 	 * @author name：wangyishuai
 	 *
 	 */
@@ -194,7 +193,7 @@ public  class SysDictDao {
 		return Integer.parseInt(em.createNamedQuery("sys.hql.getCountSysDeptByParentIdManyfields").setParameter("id", dict.getId()).setParameter("nature", dict.getCode()).setParameter("code", dict.getCode()).setParameter("value", dict.getCode()).setParameter("isEnabled", dict.getIsEnabled()).getSingleResult().toString());
 	}
 	/**
-	 * 
+	 *
 	 * Description：查询上级字典为null的字典对象。这里单就是字典管理
 	 * @return
 	 * @return SysDict
@@ -203,11 +202,11 @@ public  class SysDictDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SysDict> queryParentDictIsNull(){
-		
+
 		 return (List<SysDict>) em.createNamedQuery("sys.hql.queryParentDictIsNull").getResultList();
 	}
     /**
-     * 
+     *
      * Description：判断是否存在指定的字典编码和字典类型
      * @param nature
      * @param code
@@ -221,7 +220,7 @@ public  class SysDictDao {
 		return Integer.parseInt(em.createNamedQuery("dict.hql.querySysDictByNatureAndCodeIsExist")
 				.setParameter("nature",nature).setParameter("code",code).getSingleResult().toString());
 	}
-	
+
 	public SysDict queryDictById(SysDict dict) {
 		@SuppressWarnings("unchecked")
 		List<SysDict> dictList  = em.createNamedQuery("dict.hql.queryDictById").setParameter("id",dict.getId()).setParameter("isEnabled",dict.getIsEnabled()).setParameter("nature", dict.getCode()).setParameter("code", dict.getCode()).setParameter("value", dict.getCode()).getResultList();
@@ -230,7 +229,7 @@ public  class SysDictDao {
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<SysDict> querySysDeptByOrderBy(int start, int limit,SysDict dict) {
 		// TODO Auto-generated method stub
@@ -254,5 +253,5 @@ public  class SysDictDao {
 		SysDict dict = (SysDict) em.createNamedQuery("sys.hql.queryValueByCode").setParameter("code", code).getSingleResult();
 		return dict.getValue();
     }
-    
+
 }

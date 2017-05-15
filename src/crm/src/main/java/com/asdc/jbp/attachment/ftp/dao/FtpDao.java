@@ -25,7 +25,7 @@ import com.asdc.jbp.framework.dao.AbstractDao;
 @Repository
 public class FtpDao extends AbstractDao {
 
-    @PersistenceContext(unitName = "ftp_mgmt")
+    @PersistenceContext(unitName = "crm_mgmt")
     private EntityManager em;
 
     @Override
