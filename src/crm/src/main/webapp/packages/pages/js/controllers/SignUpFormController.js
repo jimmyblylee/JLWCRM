@@ -7,7 +7,7 @@ var storageLocal = window.localStorage;
 MetronicApp.config([ '$translateProvider', function($translateProvider) {
 	$translateProvider.preferredLanguage('cn/loginCN');
 	$translateProvider.useStaticFilesLoader({
-		prefix : '/jbp/packages/pages/i18n/',
+		prefix : '/crm/packages/pages/i18n/',
 		suffix : '.json'
 	});
 } ]);
@@ -27,7 +27,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 							var values =responseResult.result.image;
 					        var str = "<span><img  height = \"43px\" title=\"点击图片刷新\" alt=\"点击图片刷新\" src=\"data:image/gif;base64," + values + "\"/></span><br />" ;
 							document.getElementById("iconVerify").innerHTML = str;
-							
+
 						}, function(error) {
 							console.info(error);
 						});
@@ -43,7 +43,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 								loginGlobalParams);
 						var loginGlobalName = sendPost($http, loginname, $q);
 						loginGlobalName.then(function(success) {
-							
+
 								var loginGlobalNameResponse = StrParesJSON(success);
 								$scope.loginGlobalItem = loginGlobalNameResponse.result[0].variableDescribe;
 								/*
@@ -56,14 +56,14 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 
 					}
 					$scope.loginGlobalList();
-					
+
 					/**
 					 * 是否需要验证码
 					 */
 					$scope.noFollowVerifyCode = function() {
 						var loginGbalId = mergeJson('variableName', 10126);
 						var loginIsVerifyCode = mergeReauestData('GlobalListController', 'getGlobalById',loginGbalId);
-						
+
 						var loginGlobalName = sendPost($http, loginIsVerifyCode, $q);
 						loginGlobalName.then(function(success) {
 							var loginGlobalNameResponse = StrParesJSON(success);
@@ -73,7 +73,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 						});
 
 					}
-					
+
 					// 点击更换验证码
 					$scope.changeCode = function() {
 						var imgCode = document.getElementById("imgCode");
@@ -82,7 +82,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 					}
 					// "记住我"-->标识
 					var rememberCheckbox = document.getElementById("remember-me");
-					
+
 					// 获取账号和密码
 					var rememberMe = getCookie('rememberMe');
 					if ((rememberMe != null) && (rememberMe != "")) {
@@ -159,7 +159,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 					// 验证验证码是否正确
 					$scope.checkVerVerify = function(){
 						var checkcode = document.getElementById("checkcodeId").value;
-						
+
 						// 请求后台验证验证码
 						if (checkcode.length >= 4) {
 							if (checkcode.toLowerCase() == $scope.verifyNumber){
@@ -238,7 +238,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 										},function(error) {
 											$scope.getVerifyCode();
 											// 更换验证码信息
-											errorMsg = JSON.parse(error);	
+											errorMsg = JSON.parse(error);
 											if(errorMsg.success != undefined && errorMsg.success !=null && errorMsg.success == false){
 												$scope.checkcodeIsCorrect = false;
 												$scope.loginerror = true;
@@ -246,7 +246,7 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 											};
 										});
 					}
-					
+
 					// 键盘登录
 					$scope.loginKeyUp = function($event) {
 						if ($event.keyCode == 13) {
@@ -271,9 +271,9 @@ MetronicApp.controller('forgetCtrl', function($scope, $http, $q, $modal) {
 	}
 	$scope.submitted = false;
 	$scope.submitForm = function() {
-		
+
 		if ($scope.forgetForm.$valid && $scope.forget == false){
-			
+
 			var emailJson = mergeJson('email',$scope.forgeter.email);
 			var emailData = mergeReauestData('RegisterController','verifyEmail', emailJson);
 			var emailResult = sendPost($http, emailData, $q);
@@ -292,7 +292,7 @@ MetronicApp.controller('forgetCtrl', function($scope, $http, $q, $modal) {
 							var pwdPrompt = $modal({
 								scope : $scope,
 								title : "提示",
-								templateUrl : '/jbp/loginPrompt.html',
+								templateUrl : '/crm/loginPrompt.html',
 								content : '密码发送成功',
 								show : true
 							});
@@ -300,7 +300,7 @@ MetronicApp.controller('forgetCtrl', function($scope, $http, $q, $modal) {
 							var pwdPrompt = $modal({
 								scope : $scope,
 								title : "提示",
-								templateUrl : '/jbp/loginPrompt.html',
+								templateUrl : '/crm/loginPrompt.html',
 								content : '密码发送失败',
 								show : true
 							});
@@ -340,7 +340,7 @@ MetronicApp.controller('forgetCtrl', function($scope, $http, $q, $modal) {
 			$scope.forgetForm.submitted = true;
 		}
 	}
-	
+
 	$scope.emaiChang = function() {
 		$scope.forget = false;
 	}
@@ -447,7 +447,7 @@ MetronicApp.controller('registerCtrl',['$scope','$http','$q','$window','$modal',
 									}
 								})
 							}
-							
+
 							// 邮件改变事件
 							$scope.emailChangeEvent = function() {
 								var emailValue = document
@@ -638,9 +638,9 @@ MetronicApp.controller('registerCtrl',['$scope','$http','$q','$window','$modal',
 						} ]);
 // 服务条框和隐私协议弹框
 MetronicApp.controller('serviceAgreementCtl',function($scope, $http, $window, $q, $sce) {
-	
+
 					$scope.privacyAndService = function() {
-						
+
 						if ($scope.$parent.serviceOrPrivacy == "serviceAgreement") {
 							var privacyAndServiceParams = mergeJson(
 									'loginItem', 10124);

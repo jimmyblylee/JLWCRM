@@ -8,35 +8,35 @@ var storage = window.sessionStorage;
 MetronicApp.config(['$translateProvider',function($translateProvider){
     $translateProvider.preferredLanguage('cn/loginCN');
     $translateProvider.useStaticFilesLoader({
-        prefix:'/jbp/packages/pages/i18n/',
+        prefix:'/crm/packages/pages/i18n/',
         suffix:'.json'
     });
 }]);
 
 // 登录
 
-MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$interval){	
+MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$interval){
     $scope.submitted = false;
     $scope.codeValidate=false;
   $scope.loginGlobalItem='';
-  $scope.loginGlobalList = function() { 
-      var loginGlobalParams = mergeJson('loginItem', 10123);     
+  $scope.loginGlobalList = function() {
+      var loginGlobalParams = mergeJson('loginItem', 10123);
       var loginname = mergeReauestData('GlobalListController',
-            'queryLoginList', loginGlobalParams); 
+            'queryLoginList', loginGlobalParams);
       var loginGlobalName = sendPost($http, loginname, $q);
-      loginGlobalName.then(function(success) {       
+      loginGlobalName.then(function(success) {
          var loginGlobalNameResponse = StrParesJSON(success);
-         $scope.loginGlobalItem= loginGlobalNameResponse.result[0].variableDescribe;      
+         $scope.loginGlobalItem= loginGlobalNameResponse.result[0].variableDescribe;
       }, function(error) {
         console.info(error);
-      });    
+      });
 
   }
     $scope.loginGlobalList();
     // "记住我"-->标识
     var rememberCheckbox=document.getElementById("remember-me");
     // 获取账号和密码
-    var rememberMe=getCookie('rememberMe');    
+    var rememberMe=getCookie('rememberMe');
     if((rememberMe!=null)&&(rememberMe!="")){
         var account=rememberMe.split(",")[0];
         var pwd=rememberMe.split(",")[1];
@@ -49,7 +49,7 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
         var rand=Math.floor(Math.random()*10);
         imgCode.src='mvc/dispatch?controller=LoginController&method=getVerifyImg&'+rand;
     }
-    
+
     //验证码输入框获取焦点隐藏错误信息
     $scope.hideErrorInfo = function (){
     	  $scope.checkcodeIsCorrect=false;
@@ -68,7 +68,7 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
     $scope.verifyAccountRequired = function(){
     	var accountValue = document.getElementById("accountId").value;
     	var pswValue = document.getElementById("pswId").value;
-    	
+
     	if(accountValue.length == 0){
     		$scope.loginerror = true;
     		$scope.singOnAccount =true;
@@ -80,7 +80,7 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
     		$scope.loginerror = false;
     	}
     }
-    //验证密码是必填项 
+    //验证密码是必填项
     $scope.verifyPswRequired = function(){
     	var pswValue = document.getElementById("pswId").value;
     	if(pswValue.length == 0){
@@ -110,12 +110,12 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
              var codeResult = sendPost($http,codeData,$q);
              codeResult.then(function(success){
              var result=JSON.parse(success).valid;
-                 //验证成功 
+                 //验证成功
                  if(result){
                       $scope.isVerifyImg = true;
                       $scope.checkcodeIsCorrect=false;
                  }else{
-                    //验证码验证失败   
+                    //验证码验证失败
                     $scope.checkcodeIsCorrect=true;
                     $scope.isVerifyImg = false;
                  }
@@ -123,13 +123,13 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
                  $scope.checkcodeIsCorrect=true;
              });
         }
-        
+
     }
     $scope.isVerifyImg = false;
-    //验证验证码是否正确    
+    //验证验证码是否正确
      $scope.checkVerVerify = function() {
-         //前端验证验证码、密码、账户的是否是必填项   
-        if($scope.checkcodeIsNull == false && $scope.singOnAccount == false && $scope.singOnPsw == false){  
+         //前端验证验证码、密码、账户的是否是必填项
+        if($scope.checkcodeIsNull == false && $scope.singOnAccount == false && $scope.singOnPsw == false){
              //后台验证验证码是否输入正确
              var checkCode=$scope.checkCode.toLowerCase();
              var codeParam = mergeJson('rand',checkCode);
@@ -137,12 +137,12 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
              var codeResult = sendPost($http,codeData,$q);
              codeResult.then(function(success){
              var result=JSON.parse(success).valid;
-                 //验证成功 
+                 //验证成功
                  if(result){
                       $scope.isVerifyImg = true;
                       $scope.checkcodeIsCorrect=false;
                  }else{
-                    //验证码验证失败   
+                    //验证码验证失败
                     $scope.checkcodeIsCorrect=true;
                     $scope.isVerifyImg = false;
                  }
@@ -161,11 +161,11 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
 
     //登录提交
     $scope.submitForm = function() {
-    	
+
     	//是否填写用户名和密码
         $scope.verifyAccountRequired();
-        $scope.verifyPswRequired();  
-        
+        $scope.verifyPswRequired();
+
         //验证用户名
         var accountParams = mergeJson('account',$scope.user.account);
         var passwordParams = mergeJson('password',$scope.user.password);
@@ -173,7 +173,7 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
         $.extend(loginParams,accountParams,passwordParams);
         var loginData = mergeReauestData('LoginController','checkAccountSys',loginParams);
         var loginResult = sendPost($http,loginData,$q);
-        loginResult.then(function(success){             
+        loginResult.then(function(success){
             var userid = JSON.parse(success).token.user.id;
             var loginTime =  JSON.parse(success).logintime;
             if(loginTime == null){
@@ -191,22 +191,22 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
                 setCookie('rememberMe',"");
             }
             var userName = $scope.user.account;
-            // getTime();          
+            // getTime();
             $window.location.href = "./#/home.html";
-           
-        },function(error){               
+
+        },function(error){
             //更换验证码信息
            errorMsg = JSON.parse(error);
            if (errorMsg.success==false) {
             $scope.checkcodeIsCorrect=false;
-            $scope.changeCode();               
+            $scope.changeCode();
             $scope.loginerror = true;
             $scope.singOnForm = true;
             };
         });
 	}
     //键盘登录
-	$scope.keyup = function ($event) {   
+	$scope.keyup = function ($event) {
 	     if($event.keyCode==13){
 	        $scope.submitForm();
 	      }
@@ -222,7 +222,7 @@ MetronicApp.controller('signInFormCtrl', function($scope,$http,$window,$q,$inter
     });
    $interval(function() {
         $scope.changeCode();
-   },1200000);  
+   },1200000);
 });
 
 // 忘记密码
@@ -240,7 +240,7 @@ MetronicApp.controller('forgetCtrl',function($scope,$http,$q, $modal){
                     var pwdPrompt = $modal({
                         scope : $scope,
                         title:"提示",
-                        templateUrl : '/jbp/loginPrompt.html',
+                        templateUrl : '/crm/loginPrompt.html',
                         content : '密码发送成功',
                         show : true
                     });
@@ -248,7 +248,7 @@ MetronicApp.controller('forgetCtrl',function($scope,$http,$q, $modal){
                     var pwdPrompt = $modal({
                         scope : $scope,
                         title:"提示",
-                        templateUrl : '/jbp/loginPrompt.html',
+                        templateUrl : '/crm/loginPrompt.html',
                         content : '密码发送失败',
                         show : true
                     });
@@ -261,7 +261,7 @@ MetronicApp.controller('forgetCtrl',function($scope,$http,$q, $modal){
         }
     }
     $scope.hideError = function(){
-    	 $scope.forget = false;      
+    	 $scope.forget = false;
     }
     $scope.emaiBure = function(){
          if ($scope.forgetForm.$valid) {
@@ -269,7 +269,7 @@ MetronicApp.controller('forgetCtrl',function($scope,$http,$q, $modal){
             var emailJson = mergeJson('emailForgetPwd',$scope.forgeter.email);
             var emailData = mergeReauestData('ForgetPasswordController','sendEmail',emailJson);
             var emailResult = sendPost($http,emailData,$q);
-            emailResult.then(function(success){                   
+            emailResult.then(function(success){
             },function(error){
                  $scope.forget = true;
             });
@@ -278,7 +278,7 @@ MetronicApp.controller('forgetCtrl',function($scope,$http,$q, $modal){
         } else {
             $scope.forgetForm.submitted = true;
         }
-     
+
     }
      $scope.emaiChang = function(){
 
@@ -309,12 +309,12 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
         if($scope.emailFormat == false && $scope.emailRequired == false  &&  emailNoLength == false){
         	//2.后台验证邮件是否已经被注册了
     		var emailJson = mergeJson('emailRegister',emailValue);
-            var emailData = mergeReauestData('RegisterController','sendCode',emailJson);            
+            var emailData = mergeReauestData('RegisterController','sendCode',emailJson);
             var emailResult = sendPost($http,emailData,$q);
-            emailResult.then(function(success){            	
+            emailResult.then(function(success){
             	if(JSON.parse(success).result == true){
             		//2.1  验证邮件没有被注册
-            		$scope.emailErrMsg = false;            	
+            		$scope.emailErrMsg = false;
                          if(result){
                              var codePrompt = $modal({
                                  scope : $scope,
@@ -332,8 +332,8 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
                                  show : true
                              });
                          }
-                
-            		
+
+
             	}else{
             		//2.2  验证邮件被注册
             		$scope.emailErrMsg = true;
@@ -341,7 +341,7 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
             })
         }else{
         	if($scope.emailRequired == false){
-        		$scope.emailFormat = checkEmail(emailValue); 
+        		$scope.emailFormat = checkEmail(emailValue);
         	}
         }
     }
@@ -353,7 +353,7 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
 			$scope.emailFormat = false;
 		}else{
 			$scope.emailRequired = false;
-			$scope.emailFormat = changeEmail(emailValue);  
+			$scope.emailFormat = changeEmail(emailValue);
 		}
 	}
      //邮件失去焦点事件
@@ -364,16 +364,16 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
             $scope.emailFormat = false;
         }else{
             $scope.emailRequired = false;
-            $scope.emailFormat = checkEmail(emailValue);  
+            $scope.emailFormat = checkEmail(emailValue);
         }
     }
       //邮件获得焦点事件
-    $scope.hideRegisterEmailtip = function(){       
+    $scope.hideRegisterEmailtip = function(){
             $scope.emailRequired = false;
-            $scope.emailFormat = false;       
+            $scope.emailFormat = false;
             $scope.emailRequired = false;
-       
-    }    
+
+    }
 	//获取焦点隐藏错误信息
 	$scope.hidRregisterVerifycodeErrorInfo =function (){
 		 $scope.registerVerifycodeRequired=false;
@@ -405,7 +405,7 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
     	if ($scope.creater.password != undefined && $scope.creater.password != null &&
     			$scope.creater.rpassword != undefined && $scope.creater.rpassword != null) {
 			if ($scope.creater.rpassword == $scope.creater.password) {
-				
+
 				$scope.pswUnify = false;
 			} else {
 				$scope.pswUnify = true;
@@ -421,33 +421,33 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
     }
     // 提交注册内容
     $scope.submitForm = function() {
-    	
+
     	//1.验证码不可以是空的、必须同意协议
-    	
+
     	var registerCode = document.getElementById("reisterCodeId").value;
-    	
+
     	if(registerCode.length == 0){
     		$scope.registerVerifycodeRequired = true;
     	}else{
     		$scope.registerVerifycodeRequired = false;
     	}
-    	
+
         $scope.registerForm.isSub=true;
         if(!$scope.isChecked){
             $scope.registerForm.tncShow=false;
-            
+
         }
-      
-        if ($scope.registerForm.$valid && $scope.registerForm.tncShow && 
+
+        if ($scope.registerForm.$valid && $scope.registerForm.tncShow &&
         		$scope.registerFormVerifycodeError ==false && $scope.registerVerifycodeRequired == false && $scope.regMsg == false) {
-        	
+
             var createrJson = mergeJson('creatUser',$scope.creater);
             var createrData = mergeReauestData('RegisterController','register',createrJson);
             var createrResult = sendPost($http,createrData,$q);
             createrResult.then(function(value){
                 // $window.location.href = "./index.html";
-            	
-             $scope.registerReset();	
+
+             $scope.registerReset();
            	 var loginPrompt = $modal({
                  scope : $scope,
                  title:"系统提示信息",
@@ -476,10 +476,10 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
         $scope.regMsg=false;
         $scope.regMsg=false;
         $scope.emailFormat=false;
-        $scope.pswUnify=false; 
-        $scope.emailRequired=false;      
+        $scope.pswUnify=false;
+        $scope.emailRequired=false;
     };
-    
+
     $scope.tncChange=function(){
         $scope.isChecked=!$scope.isChecked;
         if( $scope.registerForm.isSub){
@@ -492,52 +492,52 @@ MetronicApp.controller('registerCtrl', ['$scope','$http','$q','$window','$modal'
     $scope.$on('to-child-reset', function(event,data) {
         $scope.registerReset();
     });
-    
+
     //隐私条框和服务协议弹框
 	var serviceOrRivacy = $modal({scope : $scope,templateUrl : './goToLogin.html',
 		show : false,controller : 'serviceAgreementCtl',backdrop:"static",placement : "center"});
 
 	$scope.serviceOrRivacy = function(serviceOrPrivacy){
-	
+
 		serviceOrRivacy.$promise.then(serviceOrRivacy.show);
-		
+
 		$scope.serviceOrPrivacy = serviceOrPrivacy;
 	};
-	
+
 }]);
 //服务条框和隐私协议弹框
 MetronicApp.controller('serviceAgreementCtl', function($scope,$http,$window,$q) {
-    
-    $scope.privacyAndService = function() { 
-    	
+
+    $scope.privacyAndService = function() {
+
     	if($scope.$parent.serviceOrPrivacy == "serviceAgreement"){
-    		
+
     		var privacyAndServiceParams = mergeJson('loginItem', 10124);
-    		
+
     	}else if($scope.$parent.serviceOrPrivacy == "privacy"){
-    		
+
     		var privacyAndServiceParams = mergeJson('loginItem', 10125);
     	}
-        
+
         var privacyAndServiceData = mergeReauestData('GlobalListController',
-              'queryLoginList', privacyAndServiceParams); 
-        
+              'queryLoginList', privacyAndServiceParams);
+
         var privacyAndServiceRequest = sendPost($http, privacyAndServiceData, $q);
-        
-        privacyAndServiceRequest.then(function(success) {       
+
+        privacyAndServiceRequest.then(function(success) {
            var privacyAndServiceResponse = StrParesJSON(success);
-           
+
            console.log(privacyAndServiceResponse);
-           
-           $scope.privacyAndServiceGlobalItem= privacyAndServiceResponse.result[0].variableDescribe;   
-           
+
+           $scope.privacyAndServiceGlobalItem= privacyAndServiceResponse.result[0].variableDescribe;
+
         }, function(error) {
           console.info(error);
-        });    
+        });
 
     }
       $scope.privacyAndService();
-	
+
 })
 // 登陆和注册的切换
 MetronicApp.controller('signInAndUpCtrl', function($scope,$translate) {
@@ -573,7 +573,7 @@ MetronicApp.controller('signInAndUpCtrl', function($scope,$translate) {
         $scope.signInIsShow=true;
         $scope.registerIsShow=false;
     }
-    
+
 });
 
 

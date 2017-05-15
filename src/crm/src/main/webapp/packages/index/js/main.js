@@ -25,7 +25,14 @@ return null;
 langCookie=getCookielang("languageChoice")
 if (langCookie == "" || langCookie == null || langCookie == undefined) {
   langCookie="zh-cn"
-};
+}
+
+//切换日历的语言
+function datepicker_i18n(localei18n){
+    localei18n='angular-locale_'+localei18n+'.js';
+    angular.element('#datepicker-i18').remove();
+    angular.element('body').append("<script src='resources/global/plugins/angularjs/plugins/datepicker/i18n/"+localei18n+"' type='text/javascript' id='datepicker-i18'></script> ")
+}
 datepicker_i18n(langCookie);
 MetronicApp.config(['$ocLazyLoadProvider', function($ocLazyLoadProvider) {
     $ocLazyLoadProvider.config({
@@ -49,7 +56,7 @@ MetronicApp.config(['$translateProvider',function($translateProvider){
     $translateProvider.preferredLanguage('cn/dashboardCN');
     //本地资源文件路径
     $translateProvider.useStaticFilesLoader({
-        prefix:'/jbp/packages/pages/i18n/',
+        prefix:'/crm/packages/pages/i18n/',
         suffix:'.json'
     });
 }]);
@@ -65,7 +72,7 @@ MetronicApp.factory('httpInterceptor', [ '$q', '$injector','$rootScope','$window
                 rootScope.stateBeforLogin = state;
                 rootScope.$state.go("home");
                 return $q.reject(response);
-            }else if(response.status == 417){            	
+            }else if(response.status == 417){
             	return $q.reject(response);
             }else if (response.status == 401){
             	 $window.location = "./#/403.html";
@@ -91,52 +98,52 @@ MetronicApp.factory('httpInterceptor', [ '$q', '$injector','$rootScope','$window
     return httpInterceptor;
 }]);
 
-MetronicApp.factory('settings', ['$rootScope','$http','$q', function($rootScope,$http,$q) {  
+MetronicApp.factory('settings', ['$rootScope','$http','$q', function($rootScope,$http,$q) {
     /**
      * 获取全局参数
      */
-    $rootScope.getGlobalset = function(globalCode,globalVal) { 
-      var loginGlobalParams = mergeJson('loginItem', globalCode);     
+    $rootScope.getGlobalset = function(globalCode,globalVal) {
+      var loginGlobalParams = mergeJson('loginItem', globalCode);
       var loginname = mergeReauestData('GlobalListController',
-            'queryLoginList', loginGlobalParams); 
+            'queryLoginList', loginGlobalParams);
       var loginGlobalName = sendPost($http, loginname, $q);
-      loginGlobalName.then(function(success){       
+      loginGlobalName.then(function(success){
          var loginGlobalNameResponse = StrParesJSON(success);
-         settings[globalVal] =loginGlobalNameResponse.result[0].variableDescribe;        
+         settings[globalVal] =loginGlobalNameResponse.result[0].variableDescribe;
          if(globalVal=="globalColor"){
-              settings[loginGlobalNameResponse.result[0].variableDescribe+'Selected'] = true;  
+              settings[loginGlobalNameResponse.result[0].variableDescribe+'Selected'] = true;
               angular.element('#laoutmin').after('<link href="resources/layouts/layout/css/themes/'+ settings[globalVal]+'.min.css" rel="stylesheet" type="text/css" id="style_color" />')
          };
-          if(globalVal=="themeStyle"){             
+          if(globalVal=="themeStyle"){
               angular.element('#ng_load_plugins_before').after('<link href="resources/global/css/'+ settings.themeStyle+'.min.css" id="style_components" rel="stylesheet" type="text/css" />')
-         };       
-         if (globalVal=="setSidebarPostion") {    
+         };
+         if (globalVal=="setSidebarPostion") {
               if (settings[globalVal]=='top') {
-                $rootScope.getGlobalset(10003,'tplPath');                 
+                $rootScope.getGlobalset(10003,'tplPath');
                 $rootScope.settings.layout.pageFullWidth = true;
                }else if ( settings[globalVal]=='left') {
-                    $rootScope.getGlobalset(10002,'tplPath');                    
+                    $rootScope.getGlobalset(10002,'tplPath');
                     $rootScope.settings.layout.pageFullWidth = false;
                }else if ( settings[globalVal]=='right') {
-                    $rootScope.getGlobalset(10004,'tplPath');                    
+                    $rootScope.getGlobalset(10004,'tplPath');
                     $rootScope.settings.layout.pageFullWidth = false;
                }
          };
-         if (globalVal=="tplPath") {             
+         if (globalVal=="tplPath") {
               $rootScope.$broadcast('headerImg_task')
          };
 
       }, function(error) {
         console.info(error);
       });
-    }    
+    }
    var settings = {
-        layout: {           
+        layout: {
             pageContentWhite: true,
             pageBodySolid: false,
             pageAutoScrollOnLoad: 1000,
             defaultSelected:false,
-            pageFullWidth:false,           
+            pageFullWidth:false,
         },
         assetsPath: 'resources',
         globalPath: 'resources/global',
@@ -155,10 +162,10 @@ MetronicApp.factory('settings', ['$rootScope','$http','$q', function($rootScope,
     $rootScope.getGlobalset(10001,'setSidebarPostion');
     $rootScope.getGlobalset(10011,'pageboxed');
     $rootScope.getGlobalset(10012,'pageHeaderFixed');
-    $rootScope.getGlobalset(10013,'dropdownDark'); 
+    $rootScope.getGlobalset(10013,'dropdownDark');
     $rootScope.getGlobalset(10014,'pageSidebarFixed');
     $rootScope.getGlobalset(10015,'pageSidebarClosed');
-     
+
     $rootScope.settings = settings;
     return settings;
 }]);
@@ -168,14 +175,14 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
        $rootScope.sysTime = new Date();
      $rootScope.getSysTimedataFun=function(){
        getSysTimedata = mergeReauestData('GlobalListController',
-            'getGlobalSysTime', ""); 
+            'getGlobalSysTime', "");
        getSysTime = sendPost($http, getSysTimedata, $q);
-       getSysTime.then(function(success){             
+       getSysTime.then(function(success){
          sysTime = StrParesJSON(success);
-         $rootScope.sysTime =new Date(sysTime.result);                 
+         $rootScope.sysTime =new Date(sysTime.result);
       }, function(error) {
         console.info(error);
-      });  
+      });
     }
     $rootScope.getSysTimedataFun();
 	//多语言支持
@@ -187,14 +194,14 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
     if(lang!=null){
         setLanguage($translate,lang,"dashboard");
     }
- 
-    $scope.$on('$viewContentLoaded', function() { 
-       $interval(function(){            
+
+    $scope.$on('$viewContentLoaded', function() {
+       $interval(function(){
             Layout.initContent();
         },100,[10])
     });
     $rootScope.isHide = false;
-    $window.onhashchange = function() {   
+    $window.onhashchange = function() {
         var timeOut = angular.element('.modal').attr("id");
         if(!$rootScope.isHide){
         	angular.element('.modal').css({'display': 'none' })
@@ -204,21 +211,21 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
     $scope.pageBar = function(pageBarUrl,pageBarChildItmeSub,pageBarChildItme,pageBarItme,pageBarParneItme){
          $scope.pageBarData={'pageBarParneItme':pageBarParneItme,'pageBarItme':pageBarItme,'pageBarChildItme':pageBarChildItme,'pageBarChildItmeSub':pageBarChildItmeSub,'pageBarUrl':pageBarUrl};
          storage.setItem("pageBarData",JSON.stringify($scope.pageBarData));
-        
+
     }
    $scope.pageBarData = JSON.parse(storage.getItem("pageBarData"));
     $scope.tokenExtlogin = function(){
-        timeoutTip.$promise.then(timeoutTip.hide);        
+        timeoutTip.$promise.then(timeoutTip.hide);
         $window.location.href = "./login.html";
     }
 
     //当路由改变时发生
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
-    	/*     
+    	/*
          * 判断浏览器中是否存在cookie。
          *     1如果cookie不存在，证明你还没登陆过，直接去登录,
          *     2如果cookie存在，判读session是否过期，如果session过期，提示登录超时
-         *     
+         *
          *     3.当路由发生改变了,从cookie中哪出这个东西，然后进行比较，看有没有这个权限
          */
         var userId  = getCookie("userId");
@@ -235,8 +242,8 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
                                 templateUrl : 'packages/index/tpl/tip.html',
                                 content : '会话超时，请重新登录',
                                 show : true,
-                                backdrop : "static"                                         
-                            }); 
+                                backdrop : "static"
+                            });
                             angular.element('.page-spinner-bar').addClass('hide');
                             angular.element('body').addClass('page-on-load'); // remove page loading indicator
                             event.preventDefault();
@@ -265,7 +272,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
                                     templateUrl : 'packages/index/tpl/tip.html',
                                     content : '权限不够,将为你跳转到登录页面',
                                     show : true,
-                                    backdrop : "static"                                           
+                                    backdrop : "static"
                                 });
                                 event.preventDefault();
                                 $state.go("home");
@@ -281,7 +288,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
                             	   //不需要更新用户信息
                             	   registerTokenCookie(userId,"",$window);
                                }
-                               
+
                                 if(restoken!=undefined && restoken!=null && restoken!=""){
                                   var compareCode = restoken.token.func.allCloneSubFuncs;
                                   for(var i=0;i<compareCode.length;i++){
@@ -293,14 +300,14 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
 	                                      $rootScope.accountName = compareCode[i].name;
 	                                      $rootScope.accountNameIcon = compareCode[i].icon;
 	                                   }
-                                  }  
+                                  }
                                 }
                         	   var sysUserJson = mergeJson('userId',userId);
                                var sysUserData = mergeReauestData('UserController', 'getPersonInfo',sysUserJson);
                                var sysUserResult = sendPost($http,sysUserData, $q);
                                sysUserResult.then(function(success){
                                  success = JSON.parse(success);
-                                 var sysUserPersonInfo = success.result;  
+                                 var sysUserPersonInfo = success.result;
                                  //用户信息
                                  $rootScope.sysUser = sysUserPersonInfo[0];
                                  $scope.userName = $rootScope.sysUser.name;
@@ -317,13 +324,13 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
                                            : StrParesJSON(success).result;
                                    if($scope.userPhotoData != "" && $scope.userPhotoData!=null){
                                        $("#userIcon").attr("src", $scope.userPhotoData);
-                                   }else{                        
-                                       angular.element('#userIcon').remove();             
+                                   }else{
+                                       angular.element('#userIcon').remove();
                                    }
-                                });    
+                                });
                            }
-                        }                       
-                  }); 
+                        }
+                  });
         }else{
         	angular.element('.page-spinner-bar').addClass('hide');
 	      	  timeoutTip=$modal({
@@ -332,11 +339,11 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
 		          templateUrl : 'packages/index/tpl/tip.html',
 		          content : '会话超时，请重新登录',
 		          show : true,
-		          backdrop : "static"                                         
+		          backdrop : "static"
 		      });
         	  event.preventDefault();
         }
-       
+
         $rootScope.setThemeUserType = $rootScope.token.user.type.code;
         //判断是否是点击logo
          if(location.hash=="#/home.html"){
@@ -346,20 +353,20 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
            sidebarmenu.find('.sub-menu').slideUp();
            sidebarmenu.find('li.active').removeClass('active');
            sidebarmenu.find('li > a > .selected').remove();
-        }  
+        }
         //判断是否是个人资料和头像
         if(location.hash=="#/account.html" || location.hash=="#/edit_icon.html"){
            sidebarmenu = angular.element('.page-sidebar-menu');
            var j=0
            sidebarmenu.find('a').each(function(i) {
               userUrl=sidebarmenu.find('a').eq(i).attr("href")
-               if (userUrl==location.hash) { 
+               if (userUrl==location.hash) {
                     if ( sidebarmenu.find('a').eq(i).parents('.sub-menu').css("display")=="none"){
                             sidebarmenu.find('a').eq(i).parents('.sub-menu').css({"display":""})
                     }
                     j=i
                };
-            }); 
+            });
             if(j==0){
                sidebarmenu = angular.element('.page-sidebar-menu');
                sidebarmenu.find('.nav-item.open').removeClass('open');
@@ -368,19 +375,19 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope','$translate','$w
                sidebarmenu.find('li.active').removeClass('active');
                sidebarmenu.find('li > a > .selected').remove();
 
-            }    
-        }    
+            }
+        }
     });
       $rootScope.closeModel=$modal({
-                scope : $scope,              
-                templateUrl : 'packages/index/tpl/closePrompt.html',               
+                scope : $scope,
+                templateUrl : 'packages/index/tpl/closePrompt.html',
                 show : false,
                 backdrop : "static"
             });
-  
+
         $scope.determine_close = function(flge){//点击确定放弃执行隐藏弹框
           $rootScope.closeModel.$promise.then($rootScope.closeModel.hide);
-          $rootScope.$broadcast('hideModel',flge);        
+          $rootScope.$broadcast('hideModel',flge);
          }
 
 }]);
@@ -406,11 +413,11 @@ MetronicApp.controller('HeaderController', ['$scope','$http','$timeout', "$rootS
  //            		$scope.messageGifShow = true;
  //            	}
  //        	});
- //    	}    	
+ //    	}
  //    	$timeout(function(){
  //    		$scope.getMessage(getMessageUrl);
  //    	},60000)
-    	
+
  //    }
     $scope.getMessageConfig = function(){
     	var getMessageUrl,clickUrl;
@@ -433,9 +440,9 @@ MetronicApp.controller('HeaderController', ['$scope','$http','$timeout', "$rootS
         	$scope.getMessage(getMessageUrl);
        }
     }
-  
 
-    $scope.$on('headerImg_task', function() {        
+
+    $scope.$on('headerImg_task', function() {
          var userId  = getCookie("userId");
          var getPhotoResult = pageService($http, $q, 'UserController',
                  'getUserPhoto', null, userId, null);
@@ -444,41 +451,41 @@ MetronicApp.controller('HeaderController', ['$scope','$http','$timeout', "$rootS
                      : StrParesJSON(success).result;
              if($scope.userPhotoData != "" && $scope.userPhotoData!=null){
                  $("#userIcon").attr("src", $scope.userPhotoData);
-             }else{                        
-                 angular.element('#userIcon').remove();             
+             }else{
+                 angular.element('#userIcon').remove();
              }
-          });   
-      }) 
+          });
+      })
 }]);
 
 MetronicApp.controller('SidebarController', ['$scope','$http','$rootScope','$location','$q','$window','$modal','$interval',function($scope , $http,$rootScope,$location,$q,$window,$modal,$interval) {
-    
+
     $scope.tokenExtlogin = function(){
-             timeoutTip.$promise.then(timeoutTip.hide);        
+             timeoutTip.$promise.then(timeoutTip.hide);
              $window.location.href = "./login.html";
     }
      var restoken = JSON.parse(storage.getItem("restoken"));
      if (restoken==undefined || restoken== null || restoken==""){
-          $scope.$on('$includeContentLoaded', function() {            
+          $scope.$on('$includeContentLoaded', function() {
             setTimeout(function(){
-                Layout.initSidebar();   
-            }, 500)   
-          });  
+                Layout.initSidebar();
+            }, 500)
+          });
          var token = mergeReauestData('LoginController','registerOrGetCurrentToken');
          var tokenResult = sendPost($http,token,$q);
          tokenResult.then(function(res){
-         var res = JSON.parse(res)  
-         $rootScope.token=res.token;  
-      }); 
-     }else{ 
-    	 
-            var res = restoken;              
-            $rootScope.token=res.token;  
-            $scope.$on('$includeContentLoaded', function() { 
+         var res = JSON.parse(res)
+         $rootScope.token=res.token;
+      });
+     }else{
+
+            var res = restoken;
+            $rootScope.token=res.token;
+            $scope.$on('$includeContentLoaded', function() {
               setTimeout(function(){
-                Layout.initSidebar(); 
-                  }, 100)    
-          });   
+                Layout.initSidebar();
+                  }, 100)
+          });
      }
 
     $.ajaxSettings.async = false;
@@ -510,7 +517,7 @@ MetronicApp.controller('SidebarController', ['$scope','$http','$rootScope','$loc
              }else{
             	   $window.open(url,"_self");
             }
-     } 
+     }
 }]);
 
 
@@ -527,7 +534,7 @@ MetronicApp.controller('ThemePanelController', ['$scope','$http','$q','$rootScop
     $scope.$on('$includeContentLoaded', function() {
         Demo.init();
     });
-   
+
     $scope.themeData=[];
     $scope.globalData=[];
     $scope.globalData['setColorNewData']={};
@@ -535,24 +542,24 @@ MetronicApp.controller('ThemePanelController', ['$scope','$http','$q','$rootScop
     $scope.globalData['SidebarPostionTop']={};
     $scope.globalData['SidebarPostionLeft']={};
     $scope.globalData['SidebarPostionRight']={};
-    $scope.globalData['setThemeStyle']={};        
-    $scope.getGlobalset = function(globalCode,globalVal) { 
-      var getGlobalParams = mergeJson('loginItem', globalCode);     
+    $scope.globalData['setThemeStyle']={};
+    $scope.getGlobalset = function(globalCode,globalVal) {
+      var getGlobalParams = mergeJson('loginItem', globalCode);
       var getGlobalData = mergeReauestData('GlobalListController',
-            'queryLoginList', getGlobalParams); 
+            'queryLoginList', getGlobalParams);
       var getGlobalResult = sendPost($http, getGlobalData, $q);
-      getGlobalResult.then(function(success) {       
+      getGlobalResult.then(function(success) {
          var getGlobalResponse = StrParesJSON(success);
-         $scope.globalData[globalVal] = getGlobalResponse.result[0]; 
+         $scope.globalData[globalVal] = getGlobalResponse.result[0];
          if (globalVal!="setColorNewData") {
             themeDatastr=globalVal.substring(3);
             $scope.themeData[themeDatastr] = $scope.globalData[globalVal].variableDescribe
          };
-          
+
       }, function(error) {
         console.info(error);
       });
-    }    
+    }
    $scope.getGlobalset(10000,'setColorNewData');
    $scope.getGlobalset(10001,'setSidebarPostion');
    $scope.getGlobalset(10003,'SidebarPostionTop');
@@ -561,10 +568,10 @@ MetronicApp.controller('ThemePanelController', ['$scope','$http','$q','$rootScop
    $scope.getGlobalset(10010,'setThemeStyle');
    $scope.getGlobalset(10011,'setThemeLayout');
    $scope.getGlobalset(10012,'setThemeHeader');
-   $scope.getGlobalset(10013,'setTopMenuDropDown'); 
-   $scope.getGlobalset(10014,'setSidebarMode'); 
-   $scope.getGlobalset(10015,'setPageSidebarClosed');   
-    $scope.setGlobalTheme = function(globaldata) { 
+   $scope.getGlobalset(10013,'setTopMenuDropDown');
+   $scope.getGlobalset(10014,'setSidebarMode');
+   $scope.getGlobalset(10015,'setPageSidebarClosed');
+    $scope.setGlobalTheme = function(globaldata) {
       var setGlobalThemeParams = mergeJson('globalItme',globaldata);
           var setGlobalThemeData = mergeReauestData('GlobalListController',
                 'updateGlobalList', setGlobalThemeParams);
@@ -573,7 +580,7 @@ MetronicApp.controller('ThemePanelController', ['$scope','$http','$q','$rootScop
           }, function(error) {
             console.info(error);
           });
-    } 
+    }
     $scope.setTheme= function(newTheme,themeName) {
          if (newTheme == 'top') {
                 postionDir =  $scope.globalData.SidebarPostionTop.variableDescribe
@@ -589,21 +596,21 @@ MetronicApp.controller('ThemePanelController', ['$scope','$http','$q','$rootScop
                 $rootScope.settings.layout.pageFullWidth = false;
            }
            if(themeName=="setSidebarMode" && newTheme == "fixed" &&  $rootScope.settings.pageHeaderFixed=='default'){
-                    $scope.globalData["setThemeHeader"].variableDescribe = "fixed";                    
+                    $scope.globalData["setThemeHeader"].variableDescribe = "fixed";
                     $scope.setGlobalTheme($scope.globalData["setThemeHeader"])
            }
             if(themeName=="setThemeHeader" && newTheme == "default" &&  $rootScope.settings.pageSidebarFixed=='fixed'){
-                    $scope.globalData["setThemeHeader"].variableDescribe = "fixed";                    
+                    $scope.globalData["setThemeHeader"].variableDescribe = "fixed";
                     $scope.setGlobalTheme($scope.globalData["setThemeHeader"])
-           } 
+           }
           $scope.globalData[themeName].variableDescribe = newTheme;
           $scope.setGlobalTheme($scope.globalData[themeName])
           if (themeName=="setSidebarPostion") {
                   $rootScope.$broadcast('headerImg_task')
 
           };
-          
-    }  
+
+    }
     $scope.setThemeColor= function(newColor) {
           $scope.globalData.setColorNewData.variableDescribe= newColor;
           $scope.setGlobalTheme($scope.globalData.setColorNewData)
@@ -619,7 +626,7 @@ MetronicApp.controller('FooterController', ['$scope', function($scope) {
 
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 	 var userId  = getCookie("userId");
-	 
+
 	 if(userId!=undefined && userId !=null){
 	    //获取路由的配置文件2016
 	        $stateProvider
@@ -629,15 +636,15 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 	                data: {pageTitle: "首页",name:"home"}
 	    })
 	    $.ajaxSettings.async = false;
-	        
+
 	    var restoken = JSON.parse(storage.getItem("restoken"));
 	    /**
 	     * 1.如果cookie中存在值，但是session回话中没有存在缓存的值。
 	     *    这种场景是当用通过tab页面直接访问页面信息的时候，需要进行login时间的更换
 	     * 2.如果session中存在token的值，但是用户的cookie值发生了改变，需要用第二个登录用户的token值代替第一个用户token值
-	     *    这种场景用来针对一个浏览器多个用于登录   
-	     */ 
-	    
+	     *    这种场景用来针对一个浏览器多个用于登录
+	     */
+
 	    function configState(func){
 	        $.getJSON('packages/sidebarfile.json', function(data){
 	            $.each(data, function(i, val){
@@ -680,8 +687,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 	                    }
 	                }
 	            })
-	         }) 
-	         
+	         })
+
 	         $urlRouterProvider.otherwise("/home.html");
 	    }
 	    }else{
@@ -703,7 +710,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                configState(data.token.func.allCloneSubFuncs);
            })
         }else{
-           var res = restoken;              
+           var res = restoken;
            configState(res.token.func.allCloneSubFuncs);
         }
 
@@ -711,10 +718,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state;
-    $rootScope.$settings = settings;  
-   
+    $rootScope.$settings = settings;
+
 }]);
-MetronicApp.controller('exitCtrl',['$scope','$http','$q','$window','$modal','$state','$location', function($scope,$http,$q,$window,$modal,$state,$location) {	
+MetronicApp.controller('exitCtrl',['$scope','$http','$q','$window','$modal','$state','$location', function($scope,$http,$q,$window,$modal,$state,$location) {
 	// 点击删除按钮触发事件
 	$scope.exitSysModal = function() {
 		promptRxit.$promise.then(promptRxit.show);
@@ -723,25 +730,25 @@ MetronicApp.controller('exitCtrl',['$scope','$http','$q','$window','$modal','$st
 		scope : $scope,
 		templateUrl : 'packages/index/tpl/exit_modal.html',
 		show : false,
-		backdrop:"static"  
+		backdrop:"static"
 	});
-	
+
 	$scope.confirmExitSys = function(){
 		//清楚相关用户信息
 		var requestLogoutController= mergeReauestData('LoginController',
 				'logout', "");
 		var responseLogoutResult = sendPost($http, requestLogoutController,
 				$q);
-		responseLogoutResult.then(function(success) {             
+		responseLogoutResult.then(function(success) {
 			promptRxit.$promise.then(promptRxit.hide);
 			$window.location.href = "./login.html";
 		})
 	}
-	
+
 }]);
 
 //监听窗口变化的方法，用于解决当拖动过弹框后，再缩小窗口，恢复坐标
-function tellAngular() {   
+function tellAngular() {
     var domElt = document.getElementsByClassName('t-modal-portlet')
     scope = angular.element(domElt).scope();
     attrStyle = angular.element(".t-modal-portlet .modal-content").attr("style")
@@ -749,7 +756,7 @@ function tellAngular() {
       scope.$apply(function() {
              angular.element(".t-modal-portlet .t-modal-drags-fixed").removeAttr("style")
        });
-    };    
+    };
 }
 
 //dom加载的时候调用 tellAngular

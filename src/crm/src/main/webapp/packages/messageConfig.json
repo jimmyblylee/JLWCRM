@@ -1,7 +1,0 @@
-{
-	"messageConfig":{
-		"getMessageUrl":"mvc/dispatch?controller=MessagesController&method=getAllUnreadMessagesCount",
-		"clickUrl":"res_myremind.html"
-	}
-
-}

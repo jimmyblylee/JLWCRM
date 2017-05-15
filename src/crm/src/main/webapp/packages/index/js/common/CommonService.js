@@ -43,7 +43,7 @@ function sendPost(request, data, $q) {
                 str.push(encodeURIComponent(p) + "="
                         + encodeURIComponent(obj[p]));
             }
-            
+
             return str.join("&");
         }
     }).success(function(req,status, headers, cfg) {
@@ -214,12 +214,12 @@ function StrParesJSON(jsonStr){
  */
 function sort_global($scope,order,reverse,newSortingOrder){
 	if(newSortingOrder == null){
-		
+
 		$('th a').each(function(){
 	        // icon reset
 	        $(this).removeClass().addClass('fa fa-sort');
 	    });
-		
+
 	}else{
 	    if (order == newSortingOrder){
 	       $scope.reverse = !reverse;
@@ -234,10 +234,10 @@ function sort_global($scope,order,reverse,newSortingOrder){
             if(newSortingOrder=="dept.name"){
                 $('th.dept a').removeClass().addClass('fa fa-sort-down');
             }else{
-               $('th.'+newSortingOrder+' a').removeClass().addClass('fa fa-sort-down'); 
+               $('th.'+newSortingOrder+' a').removeClass().addClass('fa fa-sort-down');
             }
-	       
-	    }else{  
+
+	    }else{
              if(newSortingOrder=="dept.name"){
                     $('th.dept a').removeClass().addClass('fa fa-sort-up');
                 }else{
@@ -261,16 +261,16 @@ function getDictList($http,$q,nature) {
  * @author name：yuruixin
  */
 function getSelectValueByDictList($http,$q,nature,code){
-	
+
 	var finalMarge = {
 			"nature" : nature,
 			"code":code
 	};
 	var requestDictData = mergeReauestDataByJsonParams('DictController', 'getSelectDictInfo',
 			finalMarge);
-	
+
 	var responseDictResult = sendPost($http, requestDictData, $q);
-	
+
 	return responseDictResult;
 };
 
@@ -278,7 +278,7 @@ function getSelectValueByDictList($http,$q,nature,code){
 /**
  * Description：设置图表数据 *
  */
- function charts(chartsName,echartData){         
+ function charts(chartsName,echartData){
          chartsName.setOption(echartData);
  }
 
@@ -302,19 +302,19 @@ function dataConversion(arr) {
  * Description：横向柱状图方法 *
  * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_categories：纵坐标显示的值key //如果横坐标值 为 统计对象 不用传递这个参数
  * IShide:是否显示图例  bool值   默认值为false 显示
  */
-function echarts_bar_transverse(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){ 
+function echarts_bar_transverse(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){
             var statistical_objects_arr=[];  //定义图例数据
             var statistical_data_arr=[];   //统计数据
             var Statistical_categories_arr=[]; //定义x轴数据
-            var series_arr=[]; 
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]); 
-                
+            var series_arr=[];
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
+
                 if (statistical_categories==undefined || statistical_categories==null) {
                        statistical_data_arr.push(echartData[i][statistical_data]);
                        Statistical_categories_arr= statistical_objects_arr;
@@ -323,33 +323,33 @@ function echarts_bar_transverse(chartsName,echartData,statistical_objects, stati
                 }
             }
             statistical_objects_arr=dataConversion(statistical_objects_arr);
-            Statistical_categories_arr=dataConversion(Statistical_categories_arr); 
+            Statistical_categories_arr=dataConversion(Statistical_categories_arr);
 
             if (statistical_categories==undefined || statistical_categories==null) {
-                     var objJson = {};                           
+                     var objJson = {};
                             objJson.type = "bar";
-                            objJson.data=statistical_data_arr;  
+                            objJson.data=statistical_data_arr;
                             series_arr.push(objJson); //存放的是对象
                 }else{
 
-                    for(var i=0;i<statistical_objects_arr.length;i++){              
+                    for(var i=0;i<statistical_objects_arr.length;i++){
                                     var objJson = {};
                                         objJson.name = statistical_objects_arr[i];
                                         objJson.type = "bar";
-                                        objJson.data=[];                  
+                                        objJson.data=[];
                                     for(var j=0;j<Statistical_categories_arr.length;j++){
-                                        for(var z=0;z<echartData.length;z++){                        
+                                        for(var z=0;z<echartData.length;z++){
                                             if (echartData[z][statistical_objects]==statistical_objects_arr[i] && echartData[z][statistical_categories]==Statistical_categories_arr[j]) {
-                                                    objJson.data.push(echartData[z][statistical_data]); 
+                                                    objJson.data.push(echartData[z][statistical_data]);
                                             };
                                         }
                                     }
                                    series_arr.push(objJson); //存放的是对象
-                                   
+
                                 }
 
-                }            
-       option = {                         
+                }
+       option = {
               tooltip : {
                   trigger: 'axis',
                   axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -357,15 +357,15 @@ function echarts_bar_transverse(chartsName,echartData,statistical_objects, stati
                   }
               },
               legend: {
-                  x: "right", 
-                  data:statistical_objects_arr,                
-              },             
+                  x: "right",
+                  data:statistical_objects_arr,
+              },
               yAxis: [
                   {
                       axisLabel:{
                            interval:0,
                          rotate:45,
-                         margin:2                         
+                         margin:2
                      },
                       type : 'category',
                       data : Statistical_categories_arr
@@ -382,29 +382,29 @@ function echarts_bar_transverse(chartsName,echartData,statistical_objects, stati
                   }
               ],
               series : series_arr
-          };     
+          };
              if(IShide){
                 option.legend.data = [];
-            }                     
+            }
          chartsName.setOption(option);
  }
 /**
  * Description：柱状图方法 *
  * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_categories：横坐标显示的值key //如果横坐标值 为 统计对象 不用传递这个参数
  * IShide:是否显示图例  bool值   默认值为false 显示
  */
-function echarts_bar(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){ 
+function echarts_bar(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){
             var statistical_objects_arr=[];  //定义图例数据
             var statistical_data_arr=[];   //统计数据
             var Statistical_categories_arr=[]; //定义x轴数据
-            var series_arr=[]; 
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]); 
-                
+            var series_arr=[];
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
+
                 if (statistical_categories==undefined || statistical_categories==null) {
                        statistical_data_arr.push(echartData[i][statistical_data]);
                        Statistical_categories_arr= statistical_objects_arr;
@@ -413,33 +413,33 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                 }
             }
             statistical_objects_arr=dataConversion(statistical_objects_arr);
-            Statistical_categories_arr=dataConversion(Statistical_categories_arr); 
+            Statistical_categories_arr=dataConversion(Statistical_categories_arr);
 
             if (statistical_categories==undefined || statistical_categories==null) {
-                     var objJson = {};                           
+                     var objJson = {};
                             objJson.type = "bar";
-                            objJson.data=statistical_data_arr;  
+                            objJson.data=statistical_data_arr;
                             series_arr.push(objJson); //存放的是对象
                 }else{
 
-                    for(var i=0;i<statistical_objects_arr.length;i++){              
+                    for(var i=0;i<statistical_objects_arr.length;i++){
                                     var objJson = {};
                                         objJson.name = statistical_objects_arr[i];
                                         objJson.type = "bar";
-                                        objJson.data=[];                  
+                                        objJson.data=[];
                                     for(var j=0;j<Statistical_categories_arr.length;j++){
-                                        for(var z=0;z<echartData.length;z++){                        
+                                        for(var z=0;z<echartData.length;z++){
                                             if (echartData[z][statistical_objects]==statistical_objects_arr[i] && echartData[z][statistical_categories]==Statistical_categories_arr[j]) {
-                                                    objJson.data.push(echartData[z][statistical_data]); 
+                                                    objJson.data.push(echartData[z][statistical_data]);
                                             };
                                         }
                                     }
                                    series_arr.push(objJson); //存放的是对象
-                                   
+
                                 }
 
-                }            
-       option = {                         
+                }
+       option = {
               tooltip : {
                   trigger: 'axis',
                   axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -447,15 +447,15 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                   }
               },
               legend: {
-                  x: "right", 
-                  data:statistical_objects_arr,                
-              },             
+                  x: "right",
+                  data:statistical_objects_arr,
+              },
               xAxis : [
                   {
                       axisLabel:{
                            interval:0,
                          rotate:45,
-                         margin:2                         
+                         margin:2
                      },
                       type : 'category',
                       data : Statistical_categories_arr
@@ -472,32 +472,32 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                   }
               ],
               series : series_arr
-          };    
+          };
              if(IShide){
                 option.legend.data = [];
-            }                      
+            }
          chartsName.setOption(option);
  }
  /**
  * Description：地图方法 *
  * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_region：地区名称key，
  * max：最大显示值，
  * min：最小显示值， *
  * IShide:是否显示分布对象  bool值   默认值为false 显示
  */
- function charts_map(chartsName,echartData,statistical_objects, statistical_data,statistical_region,max,min,IShide){ 
-            var statistical_objects_arr=[];            
+ function charts_map(chartsName,echartData,statistical_objects, statistical_data,statistical_region,max,min,IShide){
+            var statistical_objects_arr=[];
             var series_arr=[];
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]);               
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
             }
             statistical_objects_arr=dataConversion(statistical_objects_arr);
-               
-            for(var i=0;i<statistical_objects_arr.length;i++){              
+
+            for(var i=0;i<statistical_objects_arr.length;i++){
                 var objJson = {};
                     objJson.name = statistical_objects_arr[i];
                     objJson.type = "map";
@@ -511,20 +511,20 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                                     show: true
                                 }
                             };
-                    objJson.data=[]; 
-                    for(var z=0;z<echartData.length;z++){                        
+                    objJson.data=[];
+                    for(var z=0;z<echartData.length;z++){
                         if (echartData[z][statistical_objects]==statistical_objects_arr[i]) {
                                 var subdata={}
                                 subdata.name=echartData[z][statistical_region];
                                 subdata.value=echartData[z][statistical_data];
-                                objJson.data.push(subdata); 
+                                objJson.data.push(subdata);
                         };
                     }
-               
+
                series_arr.push(objJson); //存放的是对象
-               
-            }                   
-            option = {                  
+
+            }
+            option = {
                     tooltip: {
                         trigger: 'item'
                     },
@@ -540,7 +540,7 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                         top: 'bottom',
                         text: ['高','低'],           // 文本，默认为数值文本
                         calculable: true
-                    },                   
+                    },
                     series: series_arr
                 };
             if(series_arr.length == 0){
@@ -557,48 +557,48 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                                 show: true
                             }
                         };
-                objJson.data=[]; 
+                objJson.data=[];
                 series_arr.push(objJson);
             }
 
             if(IShide){
                 option.legend.data = [];
-            }         
+            }
          chartsName.setOption(option);
  }
   /**
  * Description：饼图方法 *
  * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_region：地区名称key
  * IShide:是否显示图例  bool值   默认值为false 显示
  */
- function echarts_pie(chartsName,echartData,statistical_objects, statistical_data ,IShide){ 
-            var statistical_objects_arr=[];            
+ function echarts_pie(chartsName,echartData,statistical_objects, statistical_data ,IShide){
+            var statistical_objects_arr=[];
             var series_arr=[];
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]); 
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
                 var objJson = {};
                     objJson.name = echartData[i][statistical_objects];
-                    objJson.value = echartData[i][ statistical_data];                    
-                    series_arr.push(objJson); 
+                    objJson.value = echartData[i][ statistical_data];
+                    series_arr.push(objJson);
             }
-           option = {               
+           option = {
                 tooltip : {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
-                legend: {                  
+                legend: {
                     orient: 'vertical',
                      left: 'left',
                     data:  statistical_objects_arr
                 },
                 series : [
-                    {   
-                        name:"详细信息:",                  
-                        type: 'pie',                                       
+                    {
+                        name:"详细信息:",
+                        type: 'pie',
                         data:series_arr,
                         itemStyle: {
                             emphasis: {
@@ -612,7 +612,7 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
             };
                if(IShide){
                 option.legend.data = [];
-            }     
+            }
 
          chartsName.setOption(option);
  }
@@ -620,37 +620,37 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
  * Description：空心饼图方法 *
  * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_region：地区名称key
  * IShide:是否显示图例  bool值   默认值为false 显示
  */
-  function echarts_pie2(chartsName,echartData,statistical_objects, statistical_data ,IShide){ 
-            var statistical_objects_arr=[];            
+  function echarts_pie2(chartsName,echartData,statistical_objects, statistical_data ,IShide){
+            var statistical_objects_arr=[];
             var series_arr=[];
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]); 
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
                 var objJson = {};
                     objJson.name = echartData[i][statistical_objects];
-                    objJson.value = echartData[i][statistical_data];                    
-                    series_arr.push(objJson); 
+                    objJson.value = echartData[i][statistical_data];
+                    series_arr.push(objJson);
             }
-           option = {               
+           option = {
                 tooltip : {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
-                legend: {                  
+                legend: {
                     orient: 'vertical',
                     left: 'left',
                     data:  statistical_objects_arr
                 },
                 series : [
-                    {   
-                        name:"详细信息:",                  
-                        type: 'pie',                                       
-                        data:series_arr,  
-                        radius: ['50%', '70%'],                     
+                    {
+                        name:"详细信息:",
+                        type: 'pie',
+                        data:series_arr,
+                        radius: ['50%', '70%'],
                         avoidLabelOverlap: false,
                         label: {
                             normal: {
@@ -682,25 +682,25 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
             };
         if(IShide){
                 option.legend.data = [];
-            }     
+            }
          chartsName.setOption(option);
  }
    /**
  * Description：折线图方法 *
   * chartsName ：显示图表的位置的id名称
  * echartData：请求来的json数据  例如[{key:value,{key:value}},{key:value}] *
- * statistical_objects：统计对象key  
+ * statistical_objects：统计对象key
  * statistical_data：统计数据key
  * statistical_categories：横坐标显示的值key //如果横坐标值 为 统计对象 不用传递这个参数
  * IShide:是否显示图例  bool值   默认值为false 显示
  */
- function echarts_line(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){ 
+ function echarts_line(chartsName,echartData,statistical_objects, statistical_data ,statistical_categories,IShide){
             var statistical_objects_arr=[];
-            var statistical_data_arr=[];   
+            var statistical_data_arr=[];
             var Statistical_categories_arr=[];
             var series_arr=[];
-            for(var i=0;i<echartData.length;i++){ 
-                statistical_objects_arr.push(echartData[i][statistical_objects]); 
+            for(var i=0;i<echartData.length;i++){
+                statistical_objects_arr.push(echartData[i][statistical_objects]);
                  if (statistical_categories==undefined || statistical_categories==null) {
                        statistical_data_arr.push(echartData[i][statistical_data]);
                        Statistical_categories_arr = statistical_objects_arr;
@@ -709,32 +709,32 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                 }
             }
             statistical_objects_arr=dataConversion(statistical_objects_arr);
-            Statistical_categories_arr=dataConversion(Statistical_categories_arr); 
+            Statistical_categories_arr=dataConversion(Statistical_categories_arr);
              if (statistical_categories==undefined || statistical_categories==null) {
-                     var objJson = {};                           
+                     var objJson = {};
                             objJson.type = "line";
-                            objJson.data=statistical_data_arr;  
+                            objJson.data=statistical_data_arr;
                             series_arr.push(objJson); //存放的是对象
                 }else{
-                    for(var i=0;i<statistical_objects_arr.length;i++){              
+                    for(var i=0;i<statistical_objects_arr.length;i++){
                             var objJson = {};
                                 objJson.name = statistical_objects_arr[i];
                                 objJson.type = "line";
-                                objJson.data=[];                  
+                                objJson.data=[];
                             for(var j=0;j<Statistical_categories_arr.length;j++){
-                                for(var z=0;z<echartData.length;z++){                        
+                                for(var z=0;z<echartData.length;z++){
                                     if (echartData[z][statistical_objects]==statistical_objects_arr[i] && echartData[z][statistical_categories]==Statistical_categories_arr[j]) {
-                                            objJson.data.push(echartData[z][statistical_data]); 
+                                            objJson.data.push(echartData[z][statistical_data]);
                                     };
                                 }
                             }
                            series_arr.push(objJson); //存放的是对象
-                           
+
                         }
 
-                }                 
-           
-       option = {                        
+                }
+
+       option = {
               tooltip : {
                   trigger: 'axis',
                   axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -742,15 +742,15 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                   }
               },
               legend: {
-                  x: "right", 
-                  data:statistical_objects_arr,                
-              },             
+                  x: "right",
+                  data:statistical_objects_arr,
+              },
               xAxis : [
                   {
                       axisLabel:{
                            interval:0,
                          rotate:45,
-                         margin:2                         
+                         margin:2
                      },
                       type : 'category',
                       data : Statistical_categories_arr
@@ -767,10 +767,10 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
                   }
               ],
               series : series_arr
-          };      
+          };
              if(IShide){
                 option.legend.data = [];
-            }                    
+            }
          chartsName.setOption(option);
  }
 
@@ -781,23 +781,23 @@ function echarts_bar(chartsName,echartData,statistical_objects, statistical_data
  */
 function scrollwatch($scope,$timeout){
 
-  $scope.$watch(function(){       
-        scrollTbodyHeight=angular.element(".table-both-scroll > tbody > tr").height();        
+  $scope.$watch(function(){
+        scrollTbodyHeight=angular.element(".table-both-scroll > tbody > tr").height();
         return scrollTbodyHeight
-     },function(scrollTbodyHeight){ 
+     },function(scrollTbodyHeight){
        timeout = $timeout(function() {
-          scrollTbodyMaxHeight=angular.element('.table-both-scroll>tbody').css('max-height'); 
+          scrollTbodyMaxHeight=angular.element('.table-both-scroll>tbody').css('max-height');
           scrollTbodyMaxHeight=parseInt(scrollTbodyMaxHeight)
-          if (scrollTbodyHeight > scrollTbodyMaxHeight) {           
+          if (scrollTbodyHeight > scrollTbodyMaxHeight) {
                angular.element(".table-both-scroll>thead>tr>th").css({
                           'padding-right': '17px'
                        });
-          }else{            
+          }else{
               angular.element(".table-both-scroll>thead>tr>th").css({
                           'padding-right': '0'
                        });
           };
-   },0)    
+   },0)
   },false)
 }
 
@@ -806,7 +806,7 @@ function checkEmail(email){
 	if(email != null && email != ""){
 		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		if(!filter.test(email)) {
-			return true; 
+			return true;
 		}else{
 			return false;
 		}
@@ -824,16 +824,16 @@ function changeEmail(email){
 //验证电话号码
 function checkPhone(phone){
 	if(phone != null && phone != ""){
-		var filter = /^0?1[3|4|5|7|8][0-9]\d{8}$/; 
+		var filter = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
 		if(!filter.test(phone)) {
-			return true; 
+			return true;
 		}else{
 			return false;
 		}
 	}else{
 		return false;
 	}
-} 
+}
 
 function changePhone(phone){
 	if(phone.length>11){
@@ -847,7 +847,7 @@ function checkNumber(number){
 	if(number != null && number != ""){
 		var  filter =new RegExp("^\\d+$");
 		if(!filter.test(number)) {
-			return true; 
+			return true;
 		}else{
 			return false;
 		}
@@ -860,7 +860,7 @@ function checkFax(fax){
 	if(fax != null && fax != ""){
 		var filter = /^(\d{3,4}-)?\d{7,8}$/;
 		if(!filter.test(fax)) {
-			return true; 
+			return true;
 		}else{
 			return false;
 		}
@@ -880,7 +880,7 @@ function checkFaxTel(faxTel){
 	if(faxTel != null && faxTel != ""){
 		var filter = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 		if(!filter.test(faxTel)) {
-			return true; 
+			return true;
 		}else{
 			return false;
 		}
@@ -900,7 +900,7 @@ function checkUrl(url){
 	if(url != null && url != ""){
 		var  re =new RegExp("[a-zA-z]+://[^\s]*");
 		if(re.test(url)) {
-			return false; 
+			return false;
 		}else{
 			return true;
 		}
@@ -1000,7 +1000,7 @@ function commonDatePlug($scope){
 			$scope.leftmaxDate = $scope.endtime;
 		}
 		$scope.leftopened = true;
-	};	
+	};
 	/**
 	 * 点击的时间：
 	 *   如果已经选择了左边的时间，右边最小的时间等于righttime
@@ -1008,18 +1008,18 @@ function commonDatePlug($scope){
 	$scope.openRight = function($event){
 		$event.preventDefault();
 		$event.stopPropagation();
-		
+
 		if($scope.starttime !=null && $scope.starttime !=undefined){
 			$scope.rightminDate = $scope.starttime;
 		}
-		
+
 		$scope.rightopened = true;
 	};
 	$scope.dateOptions = {
 		formatYear : 'yy',
 		startingDay : 1
 	};
-	$scope.format = 'yyyy-MM-dd';	
+	$scope.format = 'yyyy-MM-dd';
 }
 /**
  * 忽略加载进度的请求方法
@@ -1049,7 +1049,7 @@ function ignoreLoadingBarPost(request, data, $q) {
                 str.push(encodeURIComponent(p) + "="
                         + encodeURIComponent(obj[p]));
             }
-            
+
             return str.join("&");
         }
     }).success(function(req,status, headers, cfg) {
@@ -1109,12 +1109,12 @@ function getWindowHeight(){
 　　return windowHeight;
 }
 //判断滚动条是否滚动到了底部
-function scrollbottom(){ 
-      var flag = false;     
+function scrollbottom(){
+      var flag = false;
      if(getScrollTop() + getWindowHeight() == getScrollHeight()){
            flag=true;
       }
-      
+
       return flag;
 }
 
@@ -1123,7 +1123,7 @@ function scrollbottom(){
 function hasClass(obj, cls) {
     return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 }
- 
+
 //removeClass:删除指定dom元素的样式。
 function addClass(obj, cls) {
     if (!this.hasClass(obj, cls)) {
@@ -1146,18 +1146,5 @@ function fullscreenRemove(){
   node= document.body;
    if(hasClass(node,"page-portlet-fullscreen")){
         removeClass(node, "page-portlet-fullscreen");
-    } 
+    }
 }
-
-
-
-//切换日历的语言
-function datepicker_i18n(localei18n){ 
-  localei18n='angular-locale_'+localei18n+'.js';
-  angular.element('#datepicker-i18').remove();
-  angular.element('body').append("<script src='resources/global/plugins/angularjs/plugins/datepicker/i18n/"+localei18n+"' type='text/javascript' id='datepicker-i18'></script> ")
-}
-
-
-
-           
