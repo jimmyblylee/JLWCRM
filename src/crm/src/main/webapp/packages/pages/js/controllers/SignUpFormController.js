@@ -238,8 +238,8 @@ MetronicApp.controller('signInFormCtrl',function($scope, $http, $window, $q, $in
 										},function(error) {
 											$scope.getVerifyCode();
 											// 更换验证码信息
-											errorMsg = JSON.parse(error);
-											if(errorMsg.success != undefined && errorMsg.success !=null && errorMsg.success == false){
+											var errorMsg = JSON.parse(error);
+											if(errorMsg && errorMsg.success == false){
 												$scope.checkcodeIsCorrect = false;
 												$scope.loginerror = true;
 												$scope.singOnForm = true;
