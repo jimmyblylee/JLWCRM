@@ -1,0 +1,186 @@
+{
+    "manage.budget_mgmt": {
+        "name":"budget_mgmt",
+        "url":"manage_budget_mgmt.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "经营",
+        "files":[
+        ]
+    },
+    "manage.budget_sales": {
+        "name":"budget_sales",
+        "url":"manage_budget_sales.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "营销",
+        "files":[
+        ]
+    },
+    "manage.budget_impl": {
+        "name":"budget_impl",
+        "url":"manage_budget_impl.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "实施",
+        "files":[
+        ]
+    },
+    "manage.received_payments": {
+        "name":"received_payments",
+        "url":"manage_received_payments.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "回款",
+        "files":[
+        ]
+    },
+    "manage.cost_sales": {
+        "name":"cost_sales",
+        "url":"manage_cost_sales.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "销售",
+        "files":[
+        ]
+    },
+    "manage.cost_impl": {
+        "name":"cost_impl",
+        "url":"manage_cost_impl.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "实施",
+        "files":[
+        ]
+    },
+    "manage.cost_travel": {
+        "name":"cost_travel",
+        "url":"manage_cost_travel.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "差旅",
+        "files":[
+        ]
+    },
+    "manage.risk_mgmt": {
+        "name":"risk_mgmt",
+        "url":"manage_risk_mgmt.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "经营",
+        "files":[
+        ]
+    },
+    "manage.risk_sales": {
+        "name":"risk_sales",
+        "url":"manage_risk_sales.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "销售",
+        "files":[
+        ]
+    },
+    "manage.risk_project": {
+        "name":"risk_project",
+        "url":"manage_risk_project.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "项目",
+        "files":[
+        ]
+    },
+    "sales.customer": {
+        "name":"customer",
+        "url":"sales_customer.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "客户管理",
+        "files":[
+        ]
+    },
+    "sales.linkman": {
+        "name":"linkman",
+        "url":"sales_linkman.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "联系人管理",
+        "files":[
+        ]
+    },
+    "sales.cule": {
+        "name":"cule",
+        "url":"sales_cule.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "线索管理",
+        "files":[
+        ]
+    },
+    "sales.biz_opportunity": {
+        "name":"biz_opportunity",
+        "url":"sales_biz_opportunity.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "商机管理",
+        "files":[
+        ]
+    },
+    "sales.salespersion": {
+        "name":"salespersion",
+        "url":"sales_salespersion.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "销售人员管理",
+        "files":[
+        ]
+    },
+    "sales.activity": {
+        "name":"activity",
+        "url":"sales_activity.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "活动管理",
+        "files":[
+        ]
+    },
+    "sales.opponent": {
+        "name":"opponent",
+        "url":"sales_opponent.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "竞争对手管理",
+        "files":[
+        ]
+    },
+    "sales.compact": {
+        "name":"compact",
+        "url":"sales_compact.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "合同管理",
+        "files":[
+        ]
+    },
+    "sales.archives": {
+        "name":"archives",
+        "url":"sales_archives.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "方案管理",
+        "files":[
+        ]
+    },
+    "impl.project": {
+        "name":"project",
+        "url":"impl_project.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "项目管理",
+        "files":[
+        ]
+    },
+    "impl.process": {
+        "name":"process",
+        "url":"impl_process.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "进度管理",
+        "files":[
+        ]
+    },
+    "impl.files": {
+        "name":"files",
+        "url":"impl_files.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "文档管理",
+        "files":[
+        ]
+    },
+    "impl.employee": {
+        "name":"employee",
+        "url":"impl_employee.html",
+        "templateUrl": "packages/index/tpl/blank.html",
+        "pageTitle": "实施人员管理",
+        "files":[
+        ]
+    }
+}

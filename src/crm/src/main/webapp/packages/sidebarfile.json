@@ -6,5 +6,9 @@
     "dict":{
         "name":"dict",
         "url":"packages/dict/sidebarfile.json"
+    },
+    "crm":{
+        "name":"crm",
+        "url":"packages/crm/sidebarfile.json"
     }
 }
