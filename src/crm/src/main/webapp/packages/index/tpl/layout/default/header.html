@@ -3,12 +3,12 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
         <a href="#/home.html">
-            <img src="{{settings.layoutPath}}/img/logo.png" alt="logo" class="logo-default" /> </a>
+            <img src="{{settings.layoutPath}}/img/logo.png" alt="logo" class="logo-default" style="margin: -8px 0 0 -10px; width: 160px;" /> </a>
         <div class="menu-toggler sidebar-toggler">
             <span></span>
         </div>
     </div>
-    <!-- END LOGO -->    
+    <!-- END LOGO -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
         <span></span>
@@ -43,9 +43,9 @@
                 </ul>
             </li>
             <li class="dropdown dropdown-extended dropdown-inbox hidden-xs hidden-sm" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}"
-				id="header_inbox_bar"><a href="#/{{clickUrl}}" class="dropdown-toggle" 
+				id="header_inbox_bar"><a href="#/{{clickUrl}}" class="dropdown-toggle"
 				dropdown-menu-hover data-toggle="dropdown" data-close-others="true">
-					<i class="icon-bell" ng-show="messagePngShow"></i> 
+					<i class="icon-bell" ng-show="messagePngShow"></i>
 					<img src="{{settings.globalPath}}/img/message.gif" ng-show="messageGifShow"/>
 					<span class="badge badge-default" ng-show="messageCountShow"> {{messageCount}} </span>
 			</a></li>

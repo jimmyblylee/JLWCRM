@@ -4,15 +4,15 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo page-logo-horizontal ">
         <a href="#/home.html">
-            <img src="{{settings.layoutPath}}/img/logo.png" alt="logo" class="logo-default" /> </a>        
+            <img src="{{settings.layoutPath}}/img/logo.png" alt="logo" class="logo-default" style="margin: -8px 0 0 -10px; width: 160px;"/> </a>
     </div>
     <!-- END LOGO -->
     <!-- BEGIN MEGA MENU -->
     <!-- DOC: Remove "hor-menu-light" class to have a horizontal menu with theme background instead of white background -->
     <!-- DOC: This is desktop version of the horizontal menu. The mobile version is defined(duplicated) in the responsive menu below along with sidebar menu. So the horizontal menu has 2 seperate versions -->
     <div class="hor-menu hidden-sm hidden-xs" ng-class="{'hor-menu-light': settings.dropdownDark !='dark'}">
-        <ul class="nav navbar-nav">  
-            <!-- DOC: Remove data-hover="megamenu-dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->           
+        <ul class="nav navbar-nav">
+            <!-- DOC: Remove data-hover="megamenu-dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
             <li class="classic-menu-dropdown" ng-repeat="item in token.func.children | orderBy:'order' " ng-class="{'active': pageBarData.pageBarParneItme== item.name || pageBarData.pageBarItme== item.name || pageBarData.pageBarChildItme== item.name || pageBarData.pageBarChildItmeSub== item.name}">
                  <a href="#/{{sidebarConfig[item.code].url}}" ng-if="item.type.code=='FEATURE' && item.isVisible && item.code!=='home.home' && sidebarConfig[item.code].url!=null && sidebarConfig[item.code].url!='' && sidebarConfig[item.code].url!=undefined " >
                       <span ng-click="$parent.pageBar(sidebarConfig[item.code].url,item.name,null,null,null)"> {{item.name}}
@@ -26,20 +26,20 @@
                     <i class="fa fa-angle-down"></i>
                       <span class="selected"> </span>
                  </a>
-                 <ul class="dropdown-menu pull-left" ng-if="item.type.code=='MENU' && item.isVisible && item.hasChildren">                  
+                 <ul class="dropdown-menu pull-left" ng-if="item.type.code=='MENU' && item.isVisible && item.hasChildren">
                    <li  ng-repeat="subitem in item.children | orderBy:'order'" ng-class="{'dropdown-submenu': subitem.type.code=='MENU' && subitem.isVisible,'active': pageBarData.pageBarItme== subitem.name || pageBarData.pageBarChildItme== subitem.name || pageBarData.pageBarChildItmeSub== subitem.name}" >
                         <a href="#/{{sidebarConfig[subitem.code].url}}" ng-if="subitem.type.code=='FEATURE' && subitem.isVisible && subitem.code!=='home.home' && sidebarConfig[subitem.code].url!=null && sidebarConfig[subitem.code].url!='' && sidebarConfig[subitem.code].url!=undefined ">
                           <span ng-click="$parent.pageBar(sidebarConfig[subitem.code].url,subitem.name,item.name,null,null);">
-                            <i class="{{subitem.icon}}"></i> {{subitem.name}} 
+                            <i class="{{subitem.icon}}"></i> {{subitem.name}}
                            </span>
                         </a>
                         <a href="javascript:;" ng-if="subitem.type.code=='LINK' && subitem.isVisible" target="_blank" ng-click="skip(subitem.url)">
-                            <i class="{{subitem.icon}}"></i> {{subitem.name}} 
-                        </a>                                
-                        <a  href="javascript:;"  ng-if="subitem.type.code=='MENU' && subitem.isVisible" >
-                            <i class="{{subitem.icon}}"></i> {{subitem.name}} 
+                            <i class="{{subitem.icon}}"></i> {{subitem.name}}
                         </a>
-                        <ul class="dropdown-menu" ng-if="subitem.type.code=='MENU' && subitem.isVisible && subitem.hasChildren">                                      
+                        <a  href="javascript:;"  ng-if="subitem.type.code=='MENU' && subitem.isVisible" >
+                            <i class="{{subitem.icon}}"></i> {{subitem.name}}
+                        </a>
+                        <ul class="dropdown-menu" ng-if="subitem.type.code=='MENU' && subitem.isVisible && subitem.hasChildren">
                             <li  ng-repeat="subitem_child in subitem.children | orderBy:'order'" ng-class="{'dropdown-submenu': subitem_child.type.code=='MENU' && subitem_child.isVisible,'active': pageBarData.pageBarChildItme == subitem_child.name || pageBarData.pageBarChildItmeSub == subitem_child.name}" >
                                  <a href="#/{{sidebarConfig[subitem_child.code].url}}" ng-if="sidebarConfig[subitem_child.code].url!=null && sidebarConfig[subitem_child.code].url!='' &&sidebarConfig[subitem_child.code].url!=undefined && subitem_child.type.code=='FEATURE' && subitem_child.isVisible && subitem_child.code!=='home.home'">
                                      <span ng-click="$parent.pageBar(sidebarConfig[subitem_child.code].url,subitem_child.name,subitem.name,item.name,null)">
@@ -54,21 +54,21 @@
                                               <span  ng-click="$parent.pageBar(sidebarConfig[subitem_child_2.code].url,subitem_child_2.name,subitem_child.name,subitem.name,item.name)">
                                                 <i class="{{subitem_child_2.icon}}"></i>{{subitem_child_2.name}}
                                               </span>
-                                            </a>                                        
+                                            </a>
                                             <a href="javascript:;" ng-if="subitem_child_2.type.code=='LINK' && subitem_child.isVisible" target="_blank" ng-click="skip(subitem_child_2.url)">
                                                 <i class="{{subitem_child_2.icon}}"></i>
                                                 {{subitem_child_2.name}}
                                             </a>
-                                      </li>                                                 
+                                      </li>
                                 </ul>
-                            </li>                                      
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
-    <!-- END MEGA MENU --> 
+    <!-- END MEGA MENU -->
     <!-- BEGIN RESPONSIVE MENU TOGGLER -->
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
         <span></span>
@@ -76,7 +76,7 @@
     <!-- END RESPONSIVE MENU TOGGLER -->
     <!-- BEGIN TOP NAVIGATION MENU -->
     <div class="top-menu">
-        <ul class="nav navbar-nav pull-right">                       
+        <ul class="nav navbar-nav pull-right">
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
               <li class="dropdown dropdown-user" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}">
@@ -101,12 +101,12 @@
                     </li>
                 </ul>
             </li>
-            <!-- END USER LOGIN DROPDOWN --> 
+            <!-- END USER LOGIN DROPDOWN -->
              <li class="dropdown hidden-xs hidden-sm" ng-class="{'dropdown-dark': settings.dropdownDark =='dark'}" ng-show="setThemeUserType=='ADMIN'">
                 <a href="javascript:;" class="dropdown-toggle t-setTheme">
                      <i class="icon-settings"></i>
                 </a>
-            </li>                  
+            </li>
         </ul>
     </div>
     <!-- END TOP NAVIGATION MENU -->
