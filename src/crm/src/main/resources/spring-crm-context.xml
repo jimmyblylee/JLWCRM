@@ -3,10 +3,12 @@
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.2.xsd
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd"
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+        http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.2.xsd"
     xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:jee="http://www.springframework.org/schema/jee">
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx">
 
     <!-- dict -->
     <context:component-scan base-package="com.asdc.jbp.dict" />
@@ -18,17 +20,16 @@
     <bean id="crmEntityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="crm_mgmt" />
         <property name="dataSource">
-            <bean class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-                <property name="uniqueResourceName" value="crm_ds" />
-                <property name="xaDataSource">
-                    <jee:jndi-lookup jndi-name="jdbc/crm" />
-                </property>
-                <property name="poolSize" value="3" />
-                <property name="maxLifetime" value="20000" />
-
-            </bean>
+            <jee:jndi-lookup jndi-name="jdbc/crm" />
         </property>
     </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="crmEntityManager" />
+    </bean>
+
     <bean id="globalVariable" class="com.asdc.jbp.sys.entity.GlobalVariable">
     </bean>
     <bean id="multipartResolver" name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

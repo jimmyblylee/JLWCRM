@@ -165,17 +165,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
         </dependency>
-        <!-- distributed tx support -->
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-jdbc</artifactId>
-            <version>${atomikos.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atomikos</groupId>
-            <artifactId>transactions-jta</artifactId>
-            <version>${atomikos.version}</version>
-        </dependency>
+        <!-- net work support -->
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>

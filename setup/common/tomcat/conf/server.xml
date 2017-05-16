@@ -43,15 +43,12 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
-    <Resource name="jdbc/crm" auth="Container" description="XA Sys DB Connection" 
-              driverClassName="com.mysql.jdbc.Driver" 
-              factory="com.mysql.jdbc.jdbc2.optional.MysqlDataSourceFactory" 
-              type="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource" 
-              url="jdbc:mysql://192.168.2.3:3306/crm?useUnicode=true&amp;characterEncoding=utf-8"
-              pinGlobalTxToPhysicalConnection="true"
-              explicitUrl="true"
-              user="root" 
-              password="root"  />
+              
+    <Resource name="jdbc/crm" auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              username="root" password="root"
+              url="jdbc:mysql://192.168.2.3:3306/crm?useUnicode=true&amp;characterEncoding=utf-8" />
   </GlobalNamingResources>
 
   <!-- A "Service" is a collection of one or more "Connectors" that share

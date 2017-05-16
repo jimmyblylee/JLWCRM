@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
-    <persistence-unit name="crm_mgmt" transaction-type="JTA">
+    <persistence-unit name="crm_mgmt" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--############## including entities ##############-->
         <!-- User management needs -->
@@ -33,7 +33,6 @@
             <property name="hibernate.validator.autoregister_listeners" value="false" />
             <property name="hibernate.jdbc.batch_size" value="50" />
             <property name="hibernate.jdbc.fetch_size" value="100" />
-            <property name="hibernate.transaction.jta.platform" value="com.asdc.jbp.framework.jta.JtaPlatform" />
 
             <!-- auditing about -->
             <property name="org.hibernate.envers.revision_field_name" value="REV_ID"/>
