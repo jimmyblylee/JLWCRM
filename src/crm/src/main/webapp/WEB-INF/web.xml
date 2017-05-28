@@ -31,18 +31,6 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-    <filter>
-        <filter-name>CompressingFilter</filter-name>
-        <filter-class>com.planetj.servlet.filter.compression.CompressingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CompressingFilter</filter-name>
-        <url-pattern>*.js</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>CompressingFilter</filter-name>
-        <url-pattern>*.css</url-pattern>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/mvc/*</url-pattern>
