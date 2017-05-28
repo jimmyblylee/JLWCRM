@@ -25,6 +25,15 @@
         <mapping-file>hbm/mysql/log/ModifiedEntityTypeEntity.hbm.xml</mapping-file>
         <!--############## including entities ##############-->
 
+        <class>com.asdc.jbp.crm.entity.Sales</class>
+        <class>com.asdc.jbp.crm.entity.Activity</class>
+        <class>com.asdc.jbp.crm.entity.Competitor</class>
+        <class>com.asdc.jbp.crm.entity.Contact</class>
+        <class>com.asdc.jbp.crm.entity.Customer</class>
+        <class>com.asdc.jbp.crm.entity.Dict</class>
+        <class>com.asdc.jbp.crm.entity.Clew</class>
+        <class>com.asdc.jbp.crm.entity.Pact</class>
+
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
