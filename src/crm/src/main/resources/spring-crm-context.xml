@@ -16,6 +16,7 @@
     <context:component-scan base-package="com.asdc.jbp.attachment" />
     <!-- sys -->
     <context:component-scan base-package="com.asdc.jbp.sys" />
+    <context:component-scan base-package="com.asdc.jbp.crm" />
 
     <bean id="crmEntityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="crm_mgmt" />
