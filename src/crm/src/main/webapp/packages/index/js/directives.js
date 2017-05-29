@@ -4,7 +4,7 @@ MetronicApp.directive('ngSpinnerBar', ['$rootScope','$http','$q','$modal',
     function($rootScope,$http,$q,$modal) {
         return {
             link: function(scope, element, attrs) {
-            	
+
                 // by defult hide the spinner bar
                 element.addClass('hide'); // hide spinner bar by default
 
@@ -24,13 +24,13 @@ MetronicApp.directive('ngSpinnerBar', ['$rootScope','$http','$q','$modal',
                      // auto scorll to page top
                      setTimeout(function () {
                          App.scrollTop(); // scroll to the top on content load
-                     }, $rootScope.settings.layout.pageAutoScrollOnLoad);     
+                     }, $rootScope.settings.layout.pageAutoScrollOnLoad);
                 });
 
                 // handle errors
                 $rootScope.$on('$stateNotFound', function() {
                     element.addClass('hide'); // hide spinner bar
-                    
+
                 });
 
                 // handle errors
@@ -52,7 +52,7 @@ MetronicApp.directive('a', function() {
                     e.preventDefault(); // prevent link click for above criteria
                 });
             }
-            
+
         }
     };
 });
@@ -63,7 +63,7 @@ MetronicApp.directive('dropdownMenuHover', function () {
     link: function (scope, elem) {
       elem.dropdownHover();
     }
-  };  
+  };
 });
 
 MetronicApp.directive('bsPopup', function ($parse) {
@@ -72,9 +72,9 @@ MetronicApp.directive('bsPopup', function ($parse) {
             restrict: 'A',
             link: function (scope, elem, attrs, ctrl) {
                 scope.$watch(function () {
-                    return $parse(ctrl.$modelValue)(scope);                    
+                    return $parse(ctrl.$modelValue)(scope);
                 }, function (newValue) {
-                    if (newValue ==0) {                      
+                    if (newValue ==0) {
                         $(elem).modal('hide');
                         return;
                     }
@@ -98,9 +98,9 @@ MetronicApp.directive('resize', function ($window) {
             scope.windowHeight = newValue.h;
             scope.windowWidth = newValue.w;
             scope.style = function () {
-                return { 
+                return {
                     'height': (newValue.h - 100) + 'px',
-                    'width': (newValue.w - 100) + 'px' 
+                    'width': (newValue.w - 100) + 'px'
                 };
             };
             headeh=angular.element(".page-header").height();
@@ -121,10 +121,10 @@ MetronicApp.directive('modalsize', function ($window) {
         var widowsObj = angular.element($window);
         scope.getwidowsObjDimensions = function () {
             return { 'h': widowsObj.height(), 'w': widowsObj.width() };
-        };         
+        };
         scope.$watch(scope.getwidowsObjDimensions, function (newValue, oldValue) {
             scope.modalSizeHeight = newValue.h;
-            scope.modalSizeWidth = newValue.w;            
+            scope.modalSizeWidth = newValue.w;
             if (scope.modalSizeWidth < 992  &&  element.find('.tools').css("display")=="block" ) {
                 element.find('.fullscreen').click();
                 element.find('.tools').css({display: 'none'});
@@ -140,3 +140,12 @@ MetronicApp.directive('modalsize', function ($window) {
     }
 });
 
+MetronicApp.directive("tablePagingFooter", [function() {
+    return {
+        restrict: "A",
+        link: function() {
+            return null;
+        },
+        templateUrl: "packages/index/tpl/table-paging-footer.html"
+    }
+}]);
