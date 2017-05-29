@@ -20,9 +20,10 @@ public class PactController extends ControllerHelper {
     private PactService service;
 
     public void query() throws IntrospectionException {
-        Pact condition = workDTO.convertJsonToBeanByKey("condition", Pact.class);
+        Pact condition = workDTO.convertJsonToBeanByKey("pageQuery", Pact.class);
 
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

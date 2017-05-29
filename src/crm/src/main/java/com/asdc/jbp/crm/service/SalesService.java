@@ -37,6 +37,20 @@ public class SalesService {
         return query.getResultList();
     }
 
+    public Integer getCount(Sales condition) {
+        String hql = "";
+        hql += " select count(s)";
+        hql += "  from Sales s";
+        if (!StringUtils.isEmpty(condition.getName())) {
+            hql += " where s.name like :name";
+        }
+        Query query = em.createQuery(hql);
+        if (!StringUtils.isEmpty(condition.getName())) {
+            query.setParameter("name", "%" + condition.getName() + "%");
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Sales entity) {
         em.persist(entity);
     }

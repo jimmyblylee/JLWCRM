@@ -28,8 +28,9 @@ public class ClewController extends ControllerHelper {
     private ClewService service;
 
     public void query() throws IntrospectionException {
-        Clew condition = workDTO.convertJsonToBeanByKey("condition", Clew.class);
+        Clew condition = workDTO.convertJsonToBeanByKey("pageQuery", Clew.class);
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

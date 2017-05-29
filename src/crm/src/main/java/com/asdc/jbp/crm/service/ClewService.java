@@ -83,6 +83,64 @@ public class ClewService {
         return query.getResultList();
     }
 
+    public Integer getCount(Clew condition) {
+        String hql = "";
+        hql += " select count(p)";
+        hql += " from Clew p";
+        hql += " where 1=1";
+
+        if (!StringUtils.isEmpty(condition.getName())) {
+            hql += "  and p.name like :name";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
+            hql += "  and p.customer.id = :customerId";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
+            hql += "  and p.contact.id = :contactId";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getBudget())) {
+            hql += "  and p.budget > :budget";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getPeriod()) && !StringUtils.isEmpty(condition.getPeriod().getCode())) {
+            hql += "  and p.period.code = :period";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
+            hql += "  and p.sales.id = :sales";
+        }
+
+        Query query = em.createQuery(hql);
+
+        if (!StringUtils.isEmpty(condition.getName())) {
+            query.setParameter("name", "%" + condition.getName() + "%");
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
+            query.setParameter("customerId", condition.getCustomer().getId());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
+            query.setParameter("contactId", condition.getContact().getId());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getBudget())) {
+            query.setParameter("budget", condition.getBudget());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getPeriod()) && !StringUtils.isEmpty(condition.getPeriod().getCode())) {
+            query.setParameter("period", condition.getPeriod().getCode());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
+            query.setParameter("sales", condition.getSales().getId());
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Clew entity) {
 
         entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));

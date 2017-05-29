@@ -20,10 +20,9 @@ public class ActivityController extends ControllerHelper {
     private ActivityService service;
 
     public void query() throws IntrospectionException {
-        Activity condition = new Activity();
-        condition.setDate(workDTO.get("date"));
-        condition.setContent(workDTO.get("content"));
+        Activity condition = workDTO.convertJsonToBeanByKey("pageQuery", Activity.class);
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

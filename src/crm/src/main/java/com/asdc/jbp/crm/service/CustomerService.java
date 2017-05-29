@@ -40,6 +40,22 @@ public class CustomerService {
         return query.getResultList();
     }
 
+    public Integer getCount(Customer condition) {
+        String hql = "";
+        hql += " select count(c)";
+        hql += "  from Customer c";
+        hql += "  left join fetch c.trade";
+        hql += "  left join fetch c.quality";
+        if (!StringUtils.isEmpty(condition.getName())) {
+            hql += " where c.name like :name";
+        }
+        Query query = em.createQuery(hql);
+        if (!StringUtils.isEmpty(condition.getName())) {
+            query.setParameter("name", "%" + condition.getName() + "%");
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Customer entity) {
         entity.setTrade(em.find(Dict.class, entity.getTrade().getId()));
         entity.setQuality(em.find(Dict.class, entity.getQuality().getId()));

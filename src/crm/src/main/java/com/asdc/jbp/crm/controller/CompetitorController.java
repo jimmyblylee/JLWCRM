@@ -20,10 +20,11 @@ public class CompetitorController extends ControllerHelper {
     private CompetitorService service;
 
     public void query() throws IntrospectionException {
-        Competitor condition = new Competitor();
-        condition.setName(workDTO.get("name"));
+        Competitor condition = workDTO.convertJsonToBeanByKey("pageQuery", Competitor.class);
 
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
+
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

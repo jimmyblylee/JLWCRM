@@ -43,6 +43,27 @@ public class ActivityService {
         return query.getResultList();
     }
 
+    public Integer getCount(Activity condition) {
+        String hql = "";
+        hql += " select count(a)";
+        hql += "  from Activity a";
+        hql += " where 1=1";
+        if (!StringUtils.isEmpty(condition.getDate())) {
+            hql += "  and a.date = :date";
+        }
+        if (!StringUtils.isEmpty(condition.getContent())) {
+            hql += "  and a.content like :content";
+        }
+        Query query = em.createQuery(hql);
+        if (!StringUtils.isEmpty(condition.getDate())) {
+            query.setParameter("date", condition.getDate());
+        }
+        if (!StringUtils.isEmpty(condition.getContent())) {
+            query.setParameter("content", condition.getContent());
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Activity entity) {
         em.persist(entity);
     }

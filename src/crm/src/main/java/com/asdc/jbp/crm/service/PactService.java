@@ -70,6 +70,48 @@ public class PactService {
         return query.getResultList();
     }
 
+    public Integer getCount(Pact condition) {
+        String hql = "";
+        hql += " select count(p)";
+        hql += " from Pact p";
+        hql += " where 1=1";
+
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
+            hql += "  and p.customer.id = :customerId";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getStatus()) && !StringUtils.isEmpty(condition.getStatus().getCode())) {
+            hql += "  and p.status.code = :status";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSum())) {
+            hql += "  and p.sum > :sumValue";
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSales())) {
+            hql += "  and p.sales.id = :salesId";
+        }
+
+        Query query = em.createQuery(hql);
+
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
+            query.setParameter("customerId", condition.getCustomer().getId());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getStatus()) && !StringUtils.isEmpty(condition.getStatus().getCode())) {
+            query.setParameter("status", condition.getStatus().getCode());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSum())) {
+            query.setParameter("sumValue", condition.getSum());
+        }
+
+        if (!ObjectUtils.isEmpty(condition.getSales())) {
+            query.setParameter("salesId", condition.getSales().getId());
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Pact entity) {
 
         entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));

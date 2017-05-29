@@ -42,6 +42,25 @@ public class CompetitorService {
         return query.getResultList();
     }
 
+    public Integer getCount(Competitor condition) {
+
+        String hql = "";
+        hql += " select count(c)";
+        hql += "  from Competitor c";
+        hql += " where 1=1";
+
+        if (!StringUtils.isEmpty(condition.getName())) {
+            hql += "  and c.name like :name";
+        }
+
+        Query query = em.createQuery(hql);
+
+        if (!StringUtils.isEmpty(condition.getName())) {
+            query.setParameter("name", condition.getName());
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Competitor entity) {
         em.persist(entity);
     }

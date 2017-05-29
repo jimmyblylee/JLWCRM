@@ -20,10 +20,9 @@ public class CustomerController extends ControllerHelper {
     private CustomerService service;
 
     public void query() throws IntrospectionException {
-        Customer condition = new Customer();
-        condition.setName(workDTO.get("name"));
+        Customer condition = workDTO.convertJsonToBeanByKey("pageQuery", Customer.class);
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
-
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

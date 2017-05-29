@@ -20,10 +20,9 @@ public class ContactController extends ControllerHelper {
     private ContactService service;
 
     public void query() throws IntrospectionException {
-        Contact condition = new Contact();
-        condition.setName(workDTO.get("name"));
+        Contact condition = workDTO.convertJsonToBeanByKey("pageQuery", Contact.class);
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
-
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

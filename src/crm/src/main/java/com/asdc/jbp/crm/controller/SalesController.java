@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Resource;
 import java.beans.IntrospectionException;
 
 @SuppressWarnings("unused")
@@ -15,13 +16,13 @@ import java.beans.IntrospectionException;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SalesController extends ControllerHelper {
 
+    @Resource
     private SalesService service;
 
     public void query() throws IntrospectionException {
-
-        Sales condition = new Sales();
-        condition.setName(workDTO.get("name"));
+        Sales condition = workDTO.convertJsonToBeanByKey("pageQuery", Sales.class);
         workDTO.setResult(ProxyStripper.cleanFromProxies(service.query(condition, workDTO.getStart(), workDTO.getLimit())));
+        workDTO.setTotle(service.getCount(condition));
     }
 
     public void create() {

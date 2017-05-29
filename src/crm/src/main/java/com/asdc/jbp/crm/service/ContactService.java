@@ -40,6 +40,21 @@ public class ContactService {
         return query.getResultList();
     }
 
+    public Integer getCount(Contact condition) {
+        String hql = "";
+        hql += " select count(c)";
+        hql += "  from Contact c";
+        hql += "  left join fetch c.customer";
+        if (!StringUtils.isEmpty(condition.getName())) {
+            hql += " where c.name like :name";
+        }
+        Query query = em.createQuery(hql);
+        if (!StringUtils.isEmpty(condition.getName())) {
+            query.setParameter("name", "%" + condition.getName() + "%");
+        }
+        return ((Number)query.getSingleResult()).intValue();
+    }
+
     public void create(Contact entity) {
         entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));
         em.persist(entity);
