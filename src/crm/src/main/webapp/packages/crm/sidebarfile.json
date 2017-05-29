@@ -117,6 +117,9 @@
         "templateUrl": "packages/crm/views/sales/main.html",
         "pageTitle": "销售人员管理",
         "files":[
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css",
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload.css",
+
             "packages/crm/js/sales/SalesListCtrl.js",
             "packages/crm/js/sales/SalesModifyCtrl.js"
         ]

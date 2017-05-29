@@ -18,6 +18,8 @@ public class Sales {
     private String tel;
     @Column(name = "SALES_MAIL")
     private String mail;
+    @Column(name = "SALES_IMG")
+    private String img;
 
     public Integer getId() {
         return id;
@@ -57,5 +59,13 @@ public class Sales {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
