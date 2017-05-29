@@ -12,7 +12,7 @@
             <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
         </div>
     </div>
-    <div class="portlet box blue mt10">
+    <div class="portlet light portlet-fit bordered mt10">
         <div class="portlet-title">
             <div class="caption">
                 <i class="icon-user-following"></i> 销售人员
@@ -27,32 +27,57 @@
             </div>
         </div>
         <div class="portlet-body">
-            <table class="table table-bordered table-scrollable">
-                <thead>
-                <tr>
-                    <th class="text-center wid90px">名称</th>
-                    <th class="text-center wid90px">薪资</th>
-                    <th class="text-center wid90px">手机</th>
-                    <th class="text-center wid140px">邮箱</th>
-                    <th class="text-center wid140px">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in list">
-                    <td class="text-center">{{item.name}}</td>
-                    <td class="text-right">{{item.pay}}</td>
-                    <td class="text-center">{{item.tel}}</td>
-                    <td class="text-left">{{item.mail}}</td>
-                    <td class="text-center">
-                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="delete(item)">
-                            <i class="fa fa-ban"></i>
-                        </a>
-                        <a href="/#modifySalesModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
-                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="mt-element-card mt-element-overlay">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="item in list">
+                        <div class="mt-card-item">
+                            <div class="mt-card-avatar mt-overlay-1">
+                                <img src="data:image/png;base64,{{item.img}}" />
+                                <div class="mt-overlay">
+                                    <ul class="mt-info">
+                                        <li>
+                                            <a class="btn default btn-outline red" href="javascript:" ng-click="delete(item)"
+                                               bs-tooltip data-title="删除">
+                                                <i class="fa fa-ban"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn default btn-outline yellow-gold"
+                                               href="/#modifySalesModalDiv" data-toggle="modal"
+                                               ng-click="prepareToUpdate(item)" bs-tooltip data-title="修改">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-card-content">
+                                <h3 class="mt-card-name">{{item.name}}</h3>
+                                <p class="mt-card-desc font-grey-mint"><i class="glyphicon glyphicon-phone-alt"></i> {{item.tel}}</p>
+                                <div class="mt-card-social">
+                                    <ul>
+                                        <li>
+                                            <a href="mailto:{{item.mail}}">
+                                                <i class="icon-envelope-open"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:{{item.tel}}">
+                                                <i class="fa fa-phone"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:">
+                                                <i class="icon-info"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div table-paging-footer></div>
         </div>
     </div>
