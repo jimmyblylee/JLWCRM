@@ -1,0 +1,59 @@
+<div ng-controller="SalesListCtrl">
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">名称</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="名称" ng-model="condition.name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+        </div>
+    </div>
+    <div class="portlet box blue mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 销售人员
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifySalesModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 增加一个销售人员
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid90px">名称</th>
+                    <th class="text-center wid90px">薪资</th>
+                    <th class="text-center wid90px">手机</th>
+                    <th class="text-center wid140px">邮箱</th>
+                    <th class="text-center wid140px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-center">{{item.name}}</td>
+                    <td class="text-right">{{item.pay}}</td>
+                    <td class="text-center">{{item.tel}}</td>
+                    <td class="text-left">{{item.mail}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="delete(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifySalesModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

@@ -114,9 +114,11 @@
     "sales.salespersion": {
         "name":"salespersion",
         "url":"sales_salespersion.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/sales/main.html",
         "pageTitle": "销售人员管理",
         "files":[
+            "packages/crm/js/sales/SalesListCtrl.js",
+            "packages/crm/js/sales/SalesModifyCtrl.js"
         ]
     },
     "sales.activity": {
