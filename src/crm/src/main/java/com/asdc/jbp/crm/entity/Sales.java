@@ -1,5 +1,9 @@
 package com.asdc.jbp.crm.entity;
 
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +24,11 @@ public class Sales {
     private String mail;
     @Column(name = "SALES_IMG")
     private String img;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumnsOrFormulas({
+        @JoinColumnOrFormula(column = @JoinColumn(name = "SALES_LEVEL", referencedColumnName = "DICT_CODE", nullable = false)),
+        @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'SALES_LEVEL'")) })
+    private Dict level;
 
     public Integer getId() {
         return id;
@@ -67,5 +76,13 @@ public class Sales {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Dict getLevel() {
+        return level;
+    }
+
+    public void setLevel(Dict level) {
+        this.level = level;
     }
 }

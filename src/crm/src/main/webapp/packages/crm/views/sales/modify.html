@@ -66,6 +66,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">销售级别<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" bs-tooltip data-title="销售级别" title="销售级别"
+                                                ng-model="sales.level.id"
+                                                ng-options="item.id as item.value for item in levelList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -68,7 +68,10 @@
                                         </li>
                                         <li>
                                             <a href="javascript:">
-                                                <i class="icon-info"></i>
+                                                <i class="fa fa-black-tie" ng-class="{
+                                                'font-yellow-gold': item.level.code == '1',
+                                                'font-purple': item.level.code == '2',
+                                                'font-yellow': item.level.code == '3'}"></i>
                                             </a>
                                         </li>
                                     </ul>

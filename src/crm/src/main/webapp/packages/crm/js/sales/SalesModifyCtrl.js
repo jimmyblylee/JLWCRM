@@ -2,6 +2,12 @@
  * Created by Jimmybly Lee on 2017/5/29.
  */
 function SalesModifyCtrl($scope, $http, $q) {
+    getSelectValueByDictList($http, $q, "SALES_LEVEL", "NATURE").then(function(success) {
+        $scope.levelList = StrParesJSON(success).result;
+        console.log($scope.levelList);
+    }, function(error) {
+        console.log(error);
+    });
     $scope.submit = function() {
         var sales = $scope.sales;
 
@@ -28,7 +34,6 @@ function SalesModifyCtrl($scope, $http, $q) {
                 },
                 transformRequest : angular.identity
             }).success(function(success) {
-                console.log(success);
                 $scope.sales.img = success.result;
             }).error(function(error){
                 console.log(error);
