@@ -23,7 +23,7 @@ function CostModifyCtrl($scope, $http, $q) {
         } else if ($scope.pageBarData.pageBarChildItmeSub == "实施") {
             cost.type = { "id" : -10110003}
         } else {
-            cost.type = { "id" : -10110003}
+            cost.type = { "id" : -10110004}
         }
         sendPost($http, {
             controller: "CostController",

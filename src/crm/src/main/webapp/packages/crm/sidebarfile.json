@@ -94,9 +94,10 @@
     "manage.risk_project": {
         "name":"risk_project",
         "url":"manage_risk_project.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/risk/proj.html",
         "pageTitle": "项目",
         "files":[
+            "packages/crm/js/risk/ProjRiskCtrl.js"
         ]
     },
     "sales.customer": {
