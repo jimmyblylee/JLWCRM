@@ -184,9 +184,10 @@
     "impl.process": {
         "name":"process",
         "url":"impl_process.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/proj/process.html",
         "pageTitle": "进度管理",
         "files":[
+            "packages/crm/js/proj/ProjectListCtrl.js"
         ]
     },
     "impl.files": {

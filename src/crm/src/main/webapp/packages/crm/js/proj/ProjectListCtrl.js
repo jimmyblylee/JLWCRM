@@ -58,5 +58,14 @@ function ProjectListCtrl($scope, $http, $q, $listService) {
                 }
             }
         });
+    };
+
+    $scope.changeProcess = function(item, size) {
+        item.process  = item.process + size;
+        sendPost($http, {
+            controller: "ProjectController",
+            method: "update",
+            "entity": JSON.stringify(item)
+        }, $q);
     }
 }

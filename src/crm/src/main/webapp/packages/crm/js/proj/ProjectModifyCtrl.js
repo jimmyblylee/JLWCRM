@@ -34,6 +34,6 @@ function ProjectModifyCtrl($scope, $http, $q) {
             "entity": JSON.stringify(project)
         }, $q).then(function() {
             $("div[ng-controller='ProjectListCtrl']").scope().load();
-        })
+        });
     }
 }

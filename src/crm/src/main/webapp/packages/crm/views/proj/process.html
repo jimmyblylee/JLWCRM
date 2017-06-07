@@ -1,3 +1,7 @@
+<!-- BEGIN PAGE HEADER-->
+<div data-ng-include="'packages/index/tpl/pagebar.html'"> </div>
+<!-- END PAGE HEADER-->
+
 <div ng-controller="ProjectListCtrl">
     <div class="row mt10">
         <div class="col-md-4">
@@ -20,10 +24,10 @@
             </div>
         </div>
         <div class="col-md-4">
-            <a href="javascript:" class="btn btn-outline btn-sm yellow-gold" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+            <a href="javascript:" class="btn btn-outline btn-sm green" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
         </div>
     </div>
-    <div class="portlet box yellow-gold mt10">
+    <div class="portlet box green mt10">
         <div class="portlet-title">
             <div class="caption">
                 <i class="icon-user-following"></i> 项目管理
@@ -31,21 +35,14 @@
             <div class="tools">
                 <a href="javascript:" class="fullscreen"> </a>
             </div>
-            <div class="actions">
-                <a href="/#modifyProjectModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
-                    <i class="fa fa-plus"></i> 新项目立项
-                </a>
-            </div>
         </div>
         <div class="portlet-body">
             <table class="table table-bordered table-scrollable">
                 <thead>
                 <tr>
                     <th class="text-center wid90px">项目名称</th>
-                    <th class="text-center wid90px">开始时间</th>
-                    <th class="text-center wid90px">结束时间</th>
                     <th class="text-center wid90px">状态</th>
-                    <th class="text-center wid90px">进度</th>
+                    <th class="text-center wid330px">进度</th>
                     <th class="text-center wid90px">实施负责人</th>
                     <th class="text-center wid140px">操作</th>
                 </tr>
@@ -53,17 +50,21 @@
                 <tbody>
                 <tr ng-repeat="item in list">
                     <td class="text-center">{{item.pact.name}}</td>
-                    <td class="text-center">{{item.start}}</td>
-                    <td class="text-center">{{item.end}}</td>
                     <td class="text-center">{{item.status.value}}</td>
-                    <td class="text-center">{{item.process}}%</td>
+                    <td class="text-center">
+                        <div class="progress progress-striped active" style="height: 20px">
+                            <div class="progress-bar progress-bar-success" style="width: {{item.process}}%;"
+                                 role="progressbar" aria-valuenow="{{item.process}}" aria-valuemin="0" aria-valuemax="100">
+                                <span class="sr-only">{{item.process}}%</span>
+                            </div>
+                        </div>
+                    </td>
                     <td class="text-center">{{item.charger.name}}</td>
                     <td class="text-center">
-                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="remove(item)">
-                            <i class="fa fa-ban"></i>
-                        </a>
-                        <a href="/#modifyProjectModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
-                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:" class="btn btn-sm green" bs-tooltip data-title="上调5%" ng-click="changeProcess(item, 5)">
+                            <i class="fa fa-thumbs-up"></i></a>
+                        <a href="javascript:" class="btn btn-sm red" bs-tooltip data-title="下调5%" ng-click="changeProcess(item, -5)">
+                            <i class="fa fa-thumbs-down"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -72,3 +73,4 @@
         </div>
     </div>
 </div>
+
