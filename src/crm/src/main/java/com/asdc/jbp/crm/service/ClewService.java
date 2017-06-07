@@ -27,7 +27,9 @@ public class ClewService {
     public List<Clew> query(Clew condition, Integer start, Integer limit) {
         String hql = "";
         hql += " from Clew p";
-        hql += " where 1=1";
+        hql += " left join fetch p.customer";
+        hql += " left join fetch p.contact";
+        hql += " left join fetch p.sales";
 
         if (!StringUtils.isEmpty(condition.getName())) {
             hql += "  and p.name like :name";
@@ -143,14 +145,23 @@ public class ClewService {
 
     public void create(Clew entity) {
 
-        entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));
-        entity.setContact(em.find(Contact.class, entity.getContact().getId()));
-        entity.setPeriod(em.find(Dict.class, entity.getPeriod().getId()));
-        entity.setSales(em.find(Sales.class, entity.getSales().getId()));
+        if(entity.getCustomer()!= null && entity.getCustomer().getId() != null){
+            entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));
+        }
+        if(entity.getContact() != null && entity.getContact().getId() != null){
+            entity.setContact(em.find(Contact.class, entity.getContact().getId()));
+        }
+        if(entity.getPeriod() != null && entity.getPeriod().getId() != null){
+            entity.setPeriod(em.find(Dict.class, entity.getPeriod().getId()));
+        }
+        if(entity.getSales() != null && entity.getSales().getId() != null){
+            entity.setSales(em.find(Sales.class, entity.getSales().getId()));
+        }
 
         entity.setCreate(new Date());
-        entity.setUpdate(entity.getCreate());
-
+        if(entity.getCreate() != null){
+            entity.setUpdate(entity.getCreate());
+        }
         em.persist(entity);
     }
 

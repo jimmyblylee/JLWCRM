@@ -1,0 +1,79 @@
+<div class="modal fade" id="modifyPactsModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="PactsModifyCtrl">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> {{title}}</h4>
+            </div>
+            <div class="modal-body form">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="errorMessageDiv"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="pacts.customer.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">合同状态<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <select class="form-control" bs-tooltip data-title="合同状态" title="合同状态"
+                                                ng-model="pacts.status.id"
+                                                ng-options="item.id as item.value for item in StatusList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">合同总额<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="合同总额" ng-model="pacts.sum">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">已回款<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="已回款" ng-model="pacts.recPay">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">签订时间<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="date" class="form-control" placeholder="签订时间" ng-model="pacts.date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">销售人<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="销售人" ng-model="pacts.sales.name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true" ng-click="submit()"> 提交</button>
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

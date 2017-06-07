@@ -30,7 +30,9 @@ public class PactService {
     public List<Pact> query(Pact condition, Integer start, Integer limit) {
         String hql = "";
         hql += " from Pact p";
-        hql += " where 1=1";
+        hql+= " left join fetch p.customer";
+        hql+= " left join fetch p.sales";
+        hql += " where 1 = 1";
 
         if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
             hql += "  and p.customer.id = :customerId";

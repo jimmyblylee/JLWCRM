@@ -44,7 +44,6 @@ public class ContactService {
         String hql = "";
         hql += " select count(c)";
         hql += "  from Contact c";
-        hql += "  left join fetch c.customer";
         if (!StringUtils.isEmpty(condition.getName())) {
             hql += " where c.name like :name";
         }

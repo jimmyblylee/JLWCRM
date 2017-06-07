@@ -44,8 +44,7 @@ public class CustomerService {
         String hql = "";
         hql += " select count(c)";
         hql += "  from Customer c";
-        hql += "  left join fetch c.trade";
-        hql += "  left join fetch c.quality";
+
         if (!StringUtils.isEmpty(condition.getName())) {
             hql += " where c.name like :name";
         }
@@ -65,13 +64,10 @@ public class CustomerService {
 
     public void update(Customer entity) {
         Customer entityInDB = em.find(Customer.class, entity.getId());
-
         entityInDB.setTrade(em.find(Dict.class, entity.getTrade().getId()));
         entityInDB.setQuality(em.find(Dict.class, entity.getQuality().getId()));
         entityInDB.setScope(em.find(Dict.class, entity.getScope().getId()));
-
         BeanUtils.copyProperties(entity, entityInDB, "id", "trade", "quality", "scope");
-
     }
 
     public void remove(Integer id) {

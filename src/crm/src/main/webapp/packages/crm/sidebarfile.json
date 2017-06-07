@@ -82,25 +82,34 @@
     "sales.customer": {
         "name":"customer",
         "url":"sales_customer.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/customers/main.html",
         "pageTitle": "客户管理",
         "files":[
+            "packages/crm/js/customers/CustomersListCtrl.js",
+            "packages/crm/js/customers/CustomersModifyCtrl.js"
         ]
     },
     "sales.linkman": {
         "name":"linkman",
         "url":"sales_linkman.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/contact/main.html",
         "pageTitle": "联系人管理",
         "files":[
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css",
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload.css",
+
+            "packages/crm/js/contact/ContactListCtrl.js",
+            "packages/crm/js/contact/ContactModifyCtrl.js"
         ]
     },
     "sales.cule": {
         "name":"cule",
         "url":"sales_cule.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/clews/main.html",
         "pageTitle": "线索管理",
         "files":[
+            "packages/crm/js/clews/ClewsListCtrl.js",
+            "packages/crm/js/clews/ClewsModifyCtrl.js"
         ]
     },
     "sales.biz_opportunity": {
@@ -127,25 +136,31 @@
     "sales.activity": {
         "name":"activity",
         "url":"sales_activity.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/activities/main.html",
         "pageTitle": "活动管理",
         "files":[
+            "packages/crm/js/activities/ActivitiesListCtrl.js",
+            "packages/crm/js/activities/ActivitiesModifyCtrl.js"
         ]
     },
     "sales.opponent": {
         "name":"opponent",
         "url":"sales_opponent.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/competitors/main.html",
         "pageTitle": "竞争对手管理",
         "files":[
+            "packages/crm/js/competitors/CompetitorsListCtrl.js",
+            "packages/crm/js/competitors/CompetitorsModifyCtrl.js"
         ]
     },
     "sales.compact": {
         "name":"compact",
         "url":"sales_compact.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/pacts/main.html",
         "pageTitle": "合同管理",
         "files":[
+            "packages/crm/js/pacts/PactsListCtrl.js",
+            "packages/crm/js/pacts/PactsModifyCtrl.js"
         ]
     },
     "sales.archives": {
@@ -183,9 +198,14 @@
     "impl.employee": {
         "name":"employee",
         "url":"impl_employee.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/impl/main.html",
         "pageTitle": "实施人员管理",
         "files":[
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css",
+            "resources/global/plugins/jquery-file-upload/css/jquery.fileupload.css",
+
+            "packages/crm/js/impl/ImplListCtrl.js",
+            "packages/crm/js/impl/ImplModifyCtrl.js"
         ]
     }
 }

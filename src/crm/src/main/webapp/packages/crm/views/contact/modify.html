@@ -1,0 +1,88 @@
+<div class="modal fade" id="modifyContactModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ContactModifyCtrl">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> {{title}}</h4>
+            </div>
+            <div class="modal-body form">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="errorMessageDiv"></div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <img src="data:image/png;base64,{{contact.img}}" style="width: 100%;" />
+                                </div>
+                                <div class="row mt10 fileupload-buttonbar">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6">
+                                    <span class="btn blue fileinput-button">
+                                        <i class="fa fa-upload"></i>
+                                        <span>上传照片</span>
+                                        <input type="file" accept="image/png"
+                                               onchange="angular.element(this).scope().uploadImage()">
+                                    </span>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row mt10">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">名称<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="名称" ng-model="contact.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">电话<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="电话" ng-model="contact.tel">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">邮箱<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="邮箱" ng-model="contact.mail">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">职位<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="职位" ng-model="contact.job">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">关联客户<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="关联客户" ng-model="contact.customer.name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true" ng-click="submit()"> 提交</button>
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

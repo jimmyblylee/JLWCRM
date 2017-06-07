@@ -1,0 +1,120 @@
+<div ng-controller="ClewsListCtrl">
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">项目名称</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="项目名称" ng-model="condition.name">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">项目阶段<span class="required">*</span></label>
+                <div class="col-md-9 btn-group">
+                    <select class="form-control" bs-tooltip data-title="项目阶段" title="项目阶段"
+                            ng-model="condition.period.code"
+                            ng-options="item.code as item.value for item in PeriodList">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">客户名称</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="客户名称" ng-model="condition.customer.sum">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">联系人</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="联系人" ng-model="condition.contact.name">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">预算</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="预算" ng-model="condition.budget">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">销售人员</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="销售人员" ng-model="condition.sales.name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt10">
+        <!--<div class="col-md-10">
+            <span> </span>
+        </div>-->
+        <div class="col-md-12" align="right">
+            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+        </div>
+    </div>
+    <div class="portlet box red mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 线索管理
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyClewsModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 添加线索
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid90px">项目名称</th>
+                    <th class="text-center wid90px">客户名称</th>
+                    <th class="text-center wid90px">联系人</th>
+                    <th class="text-center wid90px">预算</th>
+                    <th class="text-center wid90px">项目阶段</th>
+                    <th class="text-center wid90px">销售人</th>
+                    <th class="text-center wid90px">预计立项时间</th>
+                    <th class="text-center wid140px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-center">{{item.name}}</td>
+                    <td class="text-center">{{item.customer.name}}</td>
+                    <td class="text-center">{{item.contact.name}}</td>
+                    <td class="text-center">{{item.budget}}</td>
+                    <td class="text-center">{{item.period.value}}</td>
+                    <td class="text-center">{{item.sales.name}}</td>
+                    <td class="text-center">{{item.proposal|date:'yyyy-MM-dd'}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="remove(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifyClewsModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

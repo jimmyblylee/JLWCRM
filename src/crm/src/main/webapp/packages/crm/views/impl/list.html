@@ -1,0 +1,87 @@
+<div ng-controller="ImplListCtrl">
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">名称</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="名称" ng-model="condition.name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+        </div>
+    </div>
+    <div class="portlet light portlet-fit bordered mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 实施人员
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyImplModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 增加一个实施人员
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="mt-element-card mt-element-overlay">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="item in list">
+                        <div class="mt-card-item">
+                            <div class="mt-card-avatar mt-overlay-1">
+                                <img src="data:image/png;base64,{{item.img}}" />
+                                <div class="mt-overlay">
+                                    <ul class="mt-info">
+                                        <li>
+                                            <a class="btn default btn-outline red" href="javascript:" ng-click="delete(item)"
+                                               bs-tooltip data-title="删除">
+                                                <i class="fa fa-ban"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn default btn-outline yellow-gold"
+                                               href="/#modifyImplModalDiv" data-toggle="modal"
+                                               ng-click="prepareToUpdate(item)" bs-tooltip data-title="修改">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-card-content">
+                                <h3 class="mt-card-name">{{item.name}}</h3>
+                                <p class="mt-card-desc font-grey-mint"><i class="glyphicon glyphicon-phone-alt"></i> {{item.tel}}</p>
+                                <div class="mt-card-social">
+                                    <ul>
+                                        <li>
+                                            <a href="mailto:{{item.mail}}">
+                                                <i class="icon-envelope-open"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="tel:{{item.tel}}">
+                                                <i class="fa fa-phone"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:">
+                                                <i class="fa fa-black-tie" ng-class="{
+                                                'font-yellow-gold': item.role.code == '1',
+                                                'font-purple': item.role.code == '2',
+                                                'font-yellow': item.role.code == '3'}"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

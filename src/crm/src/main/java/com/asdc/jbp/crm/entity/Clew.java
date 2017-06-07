@@ -26,7 +26,7 @@ public class Clew {
     private Integer budget;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumnsOrFormulas({
-        @JoinColumnOrFormula(column = @JoinColumn(name = "CLEW_PERIOD", referencedColumnName = "DICT_CODE", nullable = false)),
+        @JoinColumnOrFormula(column = @JoinColumn(name = "CLEW_PERIOD", referencedColumnName = "DICT_CODE" ,nullable = false)),
         @JoinColumnOrFormula(formula = @JoinFormula(referencedColumnName = "DICT_NATURE", value = "'CLEW_PERIOD'")) })
     private Dict period;
     @Column(name = "CLEW_CREATE")
@@ -36,7 +36,7 @@ public class Clew {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLEW_CHARGE_ID")
     private Sales sales;
-    @JoinColumn(name = "CLEW_PROPOSAL_DATE")
+    @Column(name = "CLEW_PROPOSAL_DATE")
     private String proposal;
 
     public Integer getId() {

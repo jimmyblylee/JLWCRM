@@ -33,6 +33,8 @@
         <class>com.asdc.jbp.crm.entity.Dict</class>
         <class>com.asdc.jbp.crm.entity.Clew</class>
         <class>com.asdc.jbp.crm.entity.Pact</class>
+        <class>com.asdc.jbp.crm.entity.Project</class>
+        <class>com.asdc.jbp.crm.entity.Implementer</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

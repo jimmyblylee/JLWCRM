@@ -30,4 +30,20 @@ public class ImageController extends ControllerHelper {
             e.printStackTrace();
         }
     }
+
+    public void convertContactFileToBase64() {
+        try {
+            MultipartHttpServletRequest fileReq = (MultipartHttpServletRequest) servletRequest;
+            InputStream uploadFileStream = fileReq.getFile("contactImage").getInputStream();
+            Base64 encoder = new Base64();
+            byte[] data = new byte[uploadFileStream.available()];
+            //noinspection ResultOfMethodCallIgnored
+            uploadFileStream.read(data);
+            uploadFileStream.close();
+            String base64String = encoder.encodeToString(data);
+            workDTO.setResult(base64String);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

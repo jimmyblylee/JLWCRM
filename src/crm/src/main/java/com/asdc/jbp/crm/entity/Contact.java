@@ -21,6 +21,10 @@ public class Contact {
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
+    @Column(name = "CONTACT_IMG")
+    private String img;
+
+
     public Integer getId() {
         return id;
     }
@@ -68,4 +72,13 @@ public class Contact {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
 }

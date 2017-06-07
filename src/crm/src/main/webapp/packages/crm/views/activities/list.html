@@ -1,0 +1,67 @@
+<div ng-controller="ActivitiesListCtrl">
+    <div class="row mt10">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-3">时间：</label>
+                <div class="col-md-9">
+                    <input type="date" class="form-control" placeholder="时间" ng-model="condition.date">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-3">内容：</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="内容" ng-model="condition.content">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-:4">
+            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+        </div>
+    </div>
+    <div class="portlet box green mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 活动管理
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyActivitiesModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 增加活动
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid90px">活动内容</th>
+                    <th class="text-center wid90px">预计效果</th>
+                    <th class="text-center wid90px">活动时间</th>
+                    <th class="text-center wid90px">涉及金额</th>
+                    <th class="text-center wid140px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-center">{{item.content}}</td>
+                    <td class="text-center">{{item.effect}}</td>
+                    <td class="text-center">{{item.date | date:'yyyy-MM-dd'}}</td>
+                    <td class="text-center">{{item.cost}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="delete(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifyActivitiesModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="modal fade" id="modifyClewsModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ClewsModifyCtrl">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> {{title}}</h4>
+            </div>
+            <div class="modal-body form">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="errorMessageDiv"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">项目名称<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="项目名称" ng-model="clews.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">项目阶段<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <select class="form-control" bs-tooltip data-title="项目阶段" title="项目阶段"
+                                                ng-model="clews.period.id"
+                                                ng-options="item.id as item.value for item in PeriodList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="clews.customer.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">联系人<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="联系人" ng-model="clews.contact.name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">预算<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="预算" ng-model="clews.budget">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">销售人员<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="销售人员" ng-model="clews.sales.name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">预计立项时间<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="date" class="form-control" placeholder="预计立项时间" ng-model="clews.proposal">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true" ng-click="submit()"> 提交</button>
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

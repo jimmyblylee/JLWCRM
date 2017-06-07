@@ -1,0 +1,63 @@
+<div ng-controller="CustomersListCtrl">
+    <div class="row mt10">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-3">客户名称</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" placeholder="客户名称" ng-model="condition.name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+        </div>
+    </div>
+    <div class="portlet box blue mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 客户管理
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyCustomersModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 增加客户
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid90px">客户名称</th>
+                    <th class="text-center wid90px">客户所在地</th>
+                    <th class="text-center wid90px">所在行业</th>
+                    <th class="text-center wid90px">客户质量</th>
+                    <th class="text-center wid90px">开发年份</th>
+                    <th class="text-center wid90px">客户规模</th>
+                    <th class="text-center wid140px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-center">{{item.name}}</td>
+                    <td class="text-center">{{item.add}}</td>
+                    <td class="text-center">{{item.trade.value}}</td>
+                    <td class="text-center">{{item.quality.value}}</td>
+                    <td class="text-center">{{item.found}}</td>
+                    <td class="text-center">{{item.scope.value}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="remove(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifyCustomersModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

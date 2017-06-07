@@ -14,6 +14,8 @@ public class Pact {
     @Column(name = "PACT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "PACT_NAME")
+    private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
@@ -40,6 +42,14 @@ public class Pact {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Customer getCustomer() {

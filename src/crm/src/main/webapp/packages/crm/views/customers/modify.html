@@ -1,0 +1,87 @@
+<div class="modal fade" id="modifyCustomersModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="CustomersModifyCtrl">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> {{title}}</h4>
+            </div>
+            <div class="modal-body form">
+                <form action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="errorMessageDiv"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="customers.name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户所在地<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="客户所在地" ng-model="customers.add">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">所在行业<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <select class="form-control" bs-tooltip data-title="所在行业" title="所在行业"
+                                                ng-model="customers.trade.id"
+                                                ng-options="item.id as item.value for item in TradeList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户质量<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <select class="form-control" bs-tooltip data-title="客户质量" title="客户质量"
+                                                ng-model="customers.quality.id"
+                                                ng-options="item.id as item.value for item in QualityList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">开发年份<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="开发年份" ng-model="customers.found">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">客户规模<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <select class="form-control" bs-tooltip data-title="客户规模" title="客户规模"
+                                                ng-model="customers.scope.id"
+                                                ng-options="item.id as item.value for item in ScopeList">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true" ng-click="submit()"> 提交</button>
+                <button type="button" class="btn btn-outline dark" data-dismiss="modal" aria-hidden="true"> 关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
