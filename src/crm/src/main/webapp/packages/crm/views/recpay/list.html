@@ -1,0 +1,77 @@
+<div ng-controller="RecPayListCtrl" ng-init="initDatePicker()">
+    <div class="form">
+        <form action="#" class="form-horizontal">
+            <div class="row mt10">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">合同名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="合同名称" ng-model="condition.pact.name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">回款时间大于</label>
+                        <div class="col-md-9 btn-group">
+                            <div class="input-group date-picker">
+                                <input type="text" class="form-control" readonly placeholder="年/月/日" ng-model="condition.date"  data-date-format="yyyy/mm/dd">
+                                <span class="input-group-btn">
+                            <a href="javascript:" class="btn btn-sm btn-icon-only grey" ng-click="condition.date = ''"><i class="fa fa-close"></i></a>
+                            <a href="javascript:" class="btn btn-sm btn-icon-only purple" onclick="$('input[ng-model=\'condition.date\']').focus();"><i class="fa fa-calendar-check-o"></i></a>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <a href="javascript:" class="btn btn-outline btn-sm purple" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="portlet box purple">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-user-following"></i> 回款管理
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyRecPayModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 新增回款
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid140px">合同名称</th>
+                    <th class="text-center wid90px">时间</th>
+                    <th class="text-center wid90px">回款金额</th>
+                    <th class="text-center wid140px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-left">{{item.pact.name}}</td>
+                    <td class="text-center">{{item.date}}</td>
+                    <td class="text-right">￥{{item.num}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="remove(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifyRecPayModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

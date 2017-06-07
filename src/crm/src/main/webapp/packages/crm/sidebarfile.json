@@ -26,33 +26,53 @@
     "manage.received_payments": {
         "name":"received_payments",
         "url":"manage_received_payments.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/recpay/main.html",
         "pageTitle": "回款",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
+            "packages/crm/js/recpay/RecPayListCtrl.js",
+            "packages/crm/js/recpay/RecPayModifyCtrl.js"
         ]
     },
     "manage.cost_sales": {
         "name":"cost_sales",
         "url":"manage_cost_sales.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/cost/main.html",
         "pageTitle": "销售",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
+            "packages/crm/js/cost/CostListCtrl.js",
+            "packages/crm/js/cost/CostModifyCtrl.js"
         ]
     },
     "manage.cost_impl": {
         "name":"cost_impl",
         "url":"manage_cost_impl.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/cost/main.html",
         "pageTitle": "实施",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
+            "packages/crm/js/cost/CostListCtrl.js",
+            "packages/crm/js/cost/CostModifyCtrl.js"
         ]
     },
     "manage.cost_travel": {
         "name":"cost_travel",
         "url":"manage_cost_travel.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/cost/main.html",
         "pageTitle": "差旅",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
+            "packages/crm/js/cost/CostListCtrl.js",
+            "packages/crm/js/cost/CostModifyCtrl.js"
         ]
     },
     "manage.risk_mgmt": {
@@ -177,6 +197,9 @@
         "templateUrl": "packages/crm/views/proj/main.html",
         "pageTitle": "项目管理",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
             "packages/crm/js/proj/ProjectListCtrl.js",
             "packages/crm/js/proj/ProjectModifyCtrl.js"
         ]

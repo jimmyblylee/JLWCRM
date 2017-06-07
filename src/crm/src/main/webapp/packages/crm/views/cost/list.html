@@ -1,0 +1,84 @@
+<div ng-controller="CostListCtrl">
+    <div class="form">
+        <form action="#" class="form-horizontal">
+            <div class="row mt10">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">项目名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="项目名称" ng-model="condition.pact.name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">时间大于</label>
+                        <div class="col-md-9 btn-group">
+                            <div class="input-group date-picker">
+                                <input type="text" class="form-control" readonly placeholder="年/月/日" ng-model="condition.time"  data-date-format="yyyy/mm/dd">
+                                <span class="input-group-btn">
+                                    <a href="javascript:" class="btn btn-sm btn-icon-only grey" ng-click="condition.time = ''"><i class="fa fa-close"></i></a>
+                                    <a href="javascript:" class="btn btn-sm btn-icon-only"
+                                       ng-class="{'yellow': pageBarData.pageBarChildItmeSub == '差旅','blue-steel': pageBarData.pageBarChildItmeSub == '销售','green-haze': pageBarData.pageBarChildItmeSub == '实施'}"
+                                       onclick="$('input[ng-model=\'condition.time\']').focus();"><i class="fa fa-calendar-check-o"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="javascript:" class="btn btn-outline btn-sm" ng-click="load();"
+                       ng-class="{'yellow': pageBarData.pageBarChildItmeSub == '差旅','blue-steel': pageBarData.pageBarChildItmeSub == '销售','green-haze': pageBarData.pageBarChildItmeSub == '实施'}">
+                        <i class="fa fa-search"></i> 搜索
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="portlet box"
+         ng-class="{'yellow': pageBarData.pageBarChildItmeSub == '差旅','blue-steel': pageBarData.pageBarChildItmeSub == '销售','green-haze': pageBarData.pageBarChildItmeSub == '实施'}">
+        <div class="portlet-title">
+            <div class="caption">
+                <i ng-class="{'icon-plane': pageBarData.pageBarChildItmeSub == '差旅','icon-basket': pageBarData.pageBarChildItmeSub == '销售','icon-cup': pageBarData.pageBarChildItmeSub == '实施'}"></i> {{pageBarData.pageBarChildItmeSub}} 成本管理
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="actions">
+                <a href="/#modifyCostModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                    <i class="fa fa-plus"></i> 新增 {{pageBarData.pageBarChildItmeSub}} 支出
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-bordered table-scrollable">
+                <thead>
+                <tr>
+                    <th class="text-center wid90px">项目名称</th>
+                    <th class="text-center wid90px">时间</th>
+                    <th class="text-center wid90px">金额</th>
+                    <th class="text-center wid220px">说明</th>
+                    <th class="text-center wid90px">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="text-left">{{item.pact ? item.pact.name : "项目外"}}</td>
+                    <td class="text-center">{{item.time}}</td>
+                    <td class="text-right">￥{{item.num}}</td>
+                    <td class="text-left">{{item.comment}}</td>
+                    <td class="text-center">
+                        <a href="javascript:" class="btn btn-sm btn-icon-only red" ng-click="remove(item)">
+                            <i class="fa fa-ban"></i>
+                        </a>
+                        <a href="/#modifyCostModalDiv" data-toggle="modal" class="btn btn-sm btn-icon-only yellow-gold"
+                           ng-click="prepareToUpdate(item)"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div table-paging-footer></div>
+        </div>
+    </div>
+</div>

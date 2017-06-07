@@ -1,4 +1,4 @@
-<div class="modal fade" id="modifyProjectModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ProjectModifyCtrl">
+<div class="modal fade" id="modifyProjectModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ProjectModifyCtrl" ng-init="initDatePicker()">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,7 +59,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">开始时间<span class="required">*</span></label>
                                     <div class="col-md-9 btn-group">
-                                        <input type="text" class="form-control" placeholder="开始时间" ng-model="project.start">
+                                        <div class="input-group date-picker">
+                                            <input type="text" class="form-control" readonly placeholder="年/月/日" ng-model="project.start"  data-date-format="yyyy/mm/dd">
+                                            <span class="input-group-btn">
+                                                <a href="javascript:" class="btn btn-sm btn-icon-only grey" ng-click="project.start = ''"><i class="fa fa-close"></i></a>
+                                                <a href="javascript:" class="btn btn-sm btn-icon-only green" onclick="$('input[ng-model=\'project.start\']').focus();"><i class="fa fa-calendar-check-o"></i></a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +73,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">结束时间<span class="required">*</span></label>
                                     <div class="col-md-9 btn-group">
-                                        <input type="text" class="form-control" placeholder="结束时间" ng-model="project.end">
+                                        <div class="input-group date-picker">
+                                            <input type="text" class="form-control" readonly placeholder="年/月/日" ng-model="project.end"  data-date-format="yyyy/mm/dd">
+                                            <span class="input-group-btn">
+                                                <a href="javascript:" class="btn btn-sm btn-icon-only grey" ng-click="project.end = ''"><i class="fa fa-close"></i></a>
+                                                <a href="javascript:" class="btn btn-sm btn-icon-only green" onclick="$('input[ng-model=\'project.end\']').focus();"><i class="fa fa-calendar-check-o"></i></a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

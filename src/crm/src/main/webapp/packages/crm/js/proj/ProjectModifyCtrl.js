@@ -2,6 +2,10 @@
  * Created by Jimmybly Lee on 2017/5/29.
  */
 function ProjectModifyCtrl($scope, $http, $q) {
+    $scope.initDatePicker = function() {
+        $('input[ng-model="project.start"]').datepicker();
+        $('input[ng-model="project.end"]').datepicker();
+    };
     getSelectValueByDictList($http, $q, "PROJ_STATUS", "NATURE").then(function(success) {
         $scope.statusList = StrParesJSON(success).result;
     });

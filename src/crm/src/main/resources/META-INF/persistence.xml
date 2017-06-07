@@ -35,6 +35,8 @@
         <class>com.asdc.jbp.crm.entity.Pact</class>
         <class>com.asdc.jbp.crm.entity.Project</class>
         <class>com.asdc.jbp.crm.entity.Implementer</class>
+        <class>com.asdc.jbp.crm.entity.Cost</class>
+        <class>com.asdc.jbp.crm.entity.RecPay</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
