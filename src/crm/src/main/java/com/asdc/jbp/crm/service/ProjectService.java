@@ -32,14 +32,14 @@ public class ProjectService {
         hql += "  left join fetch p.status";
         hql += "  left join fetch p.charger";
         hql += " where 1 = 1 ";
-        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getCustomer().getName())) {
+        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
             hql += "   and p.pact.name like :pactName";
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {
             hql += "   and p.status.id = :statusId";
         }
         Query query = em.createQuery(hql);
-        if (!ObjectUtils.isEmpty(condition.getPact()) && !ObjectUtils.isEmpty(condition.getPact().getCustomer()) && !StringUtils.isEmpty(condition.getPact().getCustomer().getName())) {
+        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
             query.setParameter("pactName", condition.getPact().getName());
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {
@@ -54,14 +54,14 @@ public class ProjectService {
         hql += " select count(p)";
         hql += "  from Project p";
         hql += " where 1 = 1 ";
-        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getCustomer().getName())) {
+        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
             hql += "   and p.pact.name like :pactName";
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {
             hql += "   and p.status.id = :statusId";
         }
         Query query = em.createQuery(hql);
-        if (!ObjectUtils.isEmpty(condition.getPact()) && !ObjectUtils.isEmpty(condition.getPact().getCustomer()) && !StringUtils.isEmpty(condition.getPact().getCustomer().getName())) {
+        if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
             query.setParameter("pactName", condition.getPact().getName());
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {

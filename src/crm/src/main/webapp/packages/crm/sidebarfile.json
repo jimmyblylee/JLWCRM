@@ -174,9 +174,11 @@
     "impl.project": {
         "name":"project",
         "url":"impl_project.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/proj/main.html",
         "pageTitle": "项目管理",
         "files":[
+            "packages/crm/js/proj/ProjectListCtrl.js",
+            "packages/crm/js/proj/ProjectModifyCtrl.js"
         ]
     },
     "impl.process": {

@@ -66,6 +66,7 @@
             <table class="table table-bordered table-scrollable">
                 <thead>
                 <tr>
+                    <th class="text-center wid140px">项目名称</th>
                     <th class="text-center wid90px">客户名称</th>
                     <th class="text-center wid90px">合同状态</th>
                     <th class="text-center wid90px">合同总额</th>
@@ -77,6 +78,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in list">
+                    <td class="text-center">{{item.name}}</td>
                     <td class="text-center">{{item.customer.name}}</td>
                     <td class="text-center">{{item.status.value}}</td>
                     <td class="text-center">{{item.sum}}</td>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="modifyPactsModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="PactsModifyCtrl">
+<div class="modal fade" id="modifyProjectModalDiv" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="ProjectModifyCtrl">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,31 +10,24 @@
                     <div class="form-body">
                         <div class="errorMessageDiv"></div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">项目名称<span class="required">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="项目名称" ng-model="pacts.name">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">对应合同<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="pacts.customer.name">
+                                        <select class="form-control" bs-tooltip data-title="对应合同" title="对应合同"
+                                                ng-model="project.pact.id"
+                                                ng-options="item.id as item.name for item in pactList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">合同状态<span class="required">*</span></label>
-                                    <div class="col-md-9 btn-group">
-                                        <select class="form-control" bs-tooltip data-title="合同状态" title="合同状态"
-                                                ng-model="pacts.status.id"
-                                                ng-options="item.id as item.value for item in StatusList">
+                                    <label class="control-label col-md-3">项目状态<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" bs-tooltip data-title="项目状态" title="项目状态"
+                                                ng-model="project.status.id"
+                                                ng-options="item.id as item.value for item in statusList">
                                         </select>
                                     </div>
                                 </div>
@@ -43,36 +36,38 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">合同总额<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">当前进度<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="合同总额" ng-model="pacts.sum">
+                                        <input type="number" defaultValue="0" min="0" max="100" class="form-control" placeholder="当前进度" ng-model="project.process">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">已回款<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">项目负责人<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="已回款" ng-model="pacts.recPay">
+                                        <select class="form-control" bs-tooltip data-title="项目负责人" title="项目负责人"
+                                                ng-model="project.charger.id"
+                                                ng-options="item.id as item.name for item in chargerList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">签订时间<span class="required">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="date" class="form-control" placeholder="签订时间" ng-model="pacts.date">
+                                    <label class="control-label col-md-3">开始时间<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <input type="text" class="form-control" placeholder="开始时间" ng-model="project.start">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">销售人<span class="required">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="销售人" ng-model="pacts.sales.name">
+                                    <label class="control-label col-md-3">结束时间<span class="required">*</span></label>
+                                    <div class="col-md-9 btn-group">
+                                        <input type="text" class="form-control" placeholder="结束时间" ng-model="project.end">
                                     </div>
                                 </div>
                             </div>
