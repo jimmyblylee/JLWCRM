@@ -30,6 +30,7 @@ public class ClewService {
         hql += " left join fetch p.customer";
         hql += " left join fetch p.contact";
         hql += " left join fetch p.sales";
+        hql += " where 1 = 1";
 
         if (!StringUtils.isEmpty(condition.getName())) {
             hql += "  and p.name like :name";

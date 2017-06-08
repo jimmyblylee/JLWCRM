@@ -12,6 +12,26 @@ function PactsListCtrl($scope, $http, $q, $listService) {
         console.log(error);
     });
 
+    sendPost($http, {
+        "controller" : "CustomerController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.customerList = StrParesJSON(success).result;
+    });
+
+    sendPost($http, {
+        "controller" : "SalesController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.saleList = StrParesJSON(success).result;
+    });
+
     $listService.init($scope, {
         "controller": "PactController",
         "method": "query",

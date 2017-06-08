@@ -2,9 +2,12 @@
     <div class="row mt10">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-3">名称</label>
+                <label class="control-label col-md-3">销售人员姓名</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="名称" ng-model="condition.name">
+                    <select class="form-control" bs-tooltip data-title="销售人员姓名" title="销售人员姓名"
+                            ng-model="condition.id"
+                            ng-options="item.id as item.name for item in saleList">
+                    </select>
                 </div>
             </div>
         </div>

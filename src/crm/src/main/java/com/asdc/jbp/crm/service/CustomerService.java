@@ -28,13 +28,23 @@ public class CustomerService {
         hql += "  from Customer c";
         hql += "  left join fetch c.trade";
         hql += "  left join fetch c.quality";
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where c.name like :name";
+        hql += "  where 1 = 1 ";
+//        if (!StringUtils.isEmpty(condition.getName())) {
+//            hql += " and c.name like :name";
+//        }
+//        Query query = em.createQuery(hql);
+//        query.setFirstResult(start).setMaxResults(limit);
+//        if (!StringUtils.isEmpty(condition.getName())) {
+//            query.setParameter("name", "%" + condition.getName() + "%");
+//        }
+
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " and c.id like :id";
         }
         Query query = em.createQuery(hql);
         query.setFirstResult(start).setMaxResults(limit);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id", condition.getId());
         }
         //noinspection unchecked
         return query.getResultList();
@@ -44,13 +54,13 @@ public class CustomerService {
         String hql = "";
         hql += " select count(c)";
         hql += "  from Customer c";
-
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where c.name like :name";
+        hql += "  where 1 = 1";
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " and c.id like :id";
         }
         Query query = em.createQuery(hql);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id", condition.getId());
         }
         return ((Number)query.getSingleResult()).intValue();
     }

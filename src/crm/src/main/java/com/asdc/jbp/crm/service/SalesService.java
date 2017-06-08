@@ -26,13 +26,13 @@ public class SalesService {
     public List<Sales> query(Sales condition, Integer start, Integer limit) {
         String hql = "";
         hql += "  from Sales s";
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where s.name like :name";
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " where s.id like :id";
         }
         Query query = em.createQuery(hql);
         query.setFirstResult(start).setMaxResults(limit);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id",+ condition.getId());
         }
         //noinspection unchecked
         return query.getResultList();
@@ -42,12 +42,12 @@ public class SalesService {
         String hql = "";
         hql += " select count(s)";
         hql += "  from Sales s";
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where s.name like :name";
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " where s.id like :id";
         }
         Query query = em.createQuery(hql);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id",condition.getId());
         }
         return ((Number)query.getSingleResult()).intValue();
     }

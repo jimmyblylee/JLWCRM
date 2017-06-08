@@ -28,13 +28,14 @@ public class ContactService {
         String hql = "";
         hql += "  from Contact c";
         hql += "  left join fetch c.customer";
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where c.name like :name";
+        hql += "  where 1 = 1";
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " and c.id like :id";
         }
         Query query = em.createQuery(hql);
         query.setFirstResult(start).setMaxResults(limit);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id", condition.getId());
         }
         //noinspection unchecked
         return query.getResultList();
@@ -44,12 +45,13 @@ public class ContactService {
         String hql = "";
         hql += " select count(c)";
         hql += "  from Contact c";
-        if (!StringUtils.isEmpty(condition.getName())) {
-            hql += " where c.name like :name";
+        hql += "  where 1 = 1";
+        if (!StringUtils.isEmpty(condition.getId())) {
+            hql += " and c.id like :id";
         }
         Query query = em.createQuery(hql);
-        if (!StringUtils.isEmpty(condition.getName())) {
-            query.setParameter("name", "%" + condition.getName() + "%");
+        if (!StringUtils.isEmpty(condition.getId())) {
+            query.setParameter("id",condition.getId());
         }
         return ((Number)query.getSingleResult()).intValue();
     }

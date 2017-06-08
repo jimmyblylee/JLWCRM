@@ -10,7 +10,7 @@
                     <div class="form-body">
                         <div class="errorMessageDiv"></div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">项目名称<span class="required">*</span></label>
                                     <div class="col-md-9">
@@ -18,16 +18,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="pacts.customer.name">
+                                        <select class="form-control" bs-tooltip data-title="客户名称" title="客户名称"
+                                                ng-model="pacts.customer.id"
+                                                ng-options="item.id as item.name for item in customerList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">合同状态<span class="required">*</span></label>
@@ -39,8 +43,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">合同总额<span class="required">*</span></label>
@@ -49,6 +51,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">已回款<span class="required">*</span></label>
@@ -57,9 +62,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label col-md-3">签订时间<span class="required">*</span></label>
@@ -68,11 +70,18 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">销售人<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">销售人员<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="销售人" ng-model="pacts.sales.name">
+                                        <select class="form-control" bs-tooltip data-title="销售人员" title="销售人员"
+                                                ng-model="pacts.sales.id"
+                                                ng-options="item.id as item.name for item in saleList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>

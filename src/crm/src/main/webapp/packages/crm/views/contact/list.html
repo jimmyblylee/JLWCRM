@@ -4,7 +4,10 @@
             <div class="form-group">
                 <label class="control-label col-md-3">联系人姓名</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="联系人姓名" ng-model="condition.name">
+                    <select class="form-control" bs-tooltip data-title="联系人姓名" title="联系人姓名"
+                            ng-model="condition.id"
+                            ng-options="item.id as item.name for item in contactList">
+                    </select>
                 </div>
             </div>
         </div>

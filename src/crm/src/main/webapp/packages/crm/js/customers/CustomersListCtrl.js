@@ -5,6 +5,16 @@ function CustomersListCtrl($scope, $http, $q, $listService) {
 
     $scope.condition = {};
 
+    sendPost($http, {
+        "controller" : "CustomerController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.customerList = StrParesJSON(success).result;
+    });
+
     $listService.init($scope, {
         "controller": "CustomerController",
         "method": "query",

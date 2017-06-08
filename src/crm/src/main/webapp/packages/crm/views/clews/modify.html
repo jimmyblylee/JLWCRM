@@ -35,7 +35,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">客户名称<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="客户名称" ng-model="clews.customer.name">
+                                        <select class="form-control" bs-tooltip data-title="客户名称" title="客户名称"
+                                                ng-model="project.customer.id"
+                                                ng-options="item.id as item.name for item in customerList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +46,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">联系人<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="联系人" ng-model="clews.contact.name">
+                                        <select class="form-control" bs-tooltip data-title="联系人" title="联系人"
+                                                ng-model="project.contact.id"
+                                                ng-options="item.id as item.name for item in contactList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +68,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">销售人员<span class="required">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" placeholder="销售人员" ng-model="clews.sales.name">
+                                        <select class="form-control" bs-tooltip data-title="销售人员" title="销售人员"
+                                                ng-model="project.sale.id"
+                                                ng-options="item.id as item.name for item in saleList">
+                                        </select>
                                     </div>
                                 </div>
                             </div>

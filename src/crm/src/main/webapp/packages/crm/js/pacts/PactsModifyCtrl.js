@@ -8,6 +8,27 @@ function PactsModifyCtrl($scope, $http, $q) {
     }, function(error) {
         console.log(error);
     });
+
+    sendPost($http, {
+        "controller" : "CustomerController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.customerList = StrParesJSON(success).result;
+    });
+
+    sendPost($http, {
+        "controller" : "SalesController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.saleList = StrParesJSON(success).result;
+    });
+
     $scope.submit = function() {
         var pacts = $scope.pacts;
         sendPost($http, {

@@ -3,9 +3,18 @@
  */
 function ContactModifyCtrl($scope, $http, $q) {
 
+    sendPost($http, {
+        "controller" : "CustomerController",
+        "method" : "query",
+        "pageQuery" : "{}",
+        "start" : 0,
+        "limit" : 1000
+    },$q).then(function(success) {
+        $scope.customerList = StrParesJSON(success).result;
+    });
+
     $scope.submit = function() {
         var contact = $scope.contact;
-
         sendPost($http, {
             controller: "ContactController",
             method: $scope.method,
