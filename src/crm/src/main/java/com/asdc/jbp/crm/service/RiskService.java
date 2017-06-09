@@ -48,7 +48,7 @@ public class RiskService {
             try {
                 risk.setRecPay(((Number) em.createQuery(hql)
                     .setParameter("packId", proj.getPact().getId()).getSingleResult()).intValue());
-            } catch (NoResultException ex) {
+            } catch (NoResultException | NullPointerException ex) {
                 risk.setRecPay(0);
             }
 
@@ -57,7 +57,7 @@ public class RiskService {
             try {
                 risk.setCost(((Number) em.createQuery(hql)
                     .setParameter("packId", proj.getPact().getId()).getSingleResult()).intValue());
-            } catch (NoResultException ex) {
+            } catch (NoResultException | NullPointerException ex) {
                 risk.setCost(0);
             }
 
@@ -68,8 +68,12 @@ public class RiskService {
             risk.setGain(risk.getRecPay() - risk.getCost());
 
             // 实时利润率
-            risk.setGainRate(new BigDecimal(risk.getGain()*100)
-                .divide(new BigDecimal(risk.getRecPay()), 2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            if (risk.getRecPay() == 0) {
+                risk.setGainRate(0);
+            } else {
+                risk.setGainRate(new BigDecimal(risk.getGain()*100)
+                    .divide(new BigDecimal(risk.getRecPay()), 2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            }
 
             result.add(risk);
         }

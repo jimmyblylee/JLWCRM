@@ -2,9 +2,12 @@
  * Created by Jimmybly Lee on 2017/5/29.
  */
 function ClewsModifyCtrl($scope, $http, $q) {
+
+    $scope.initDatePicker = function() {
+        $('input[ng-model=\'clews.proposal\']').datepicker();
+    };
     getSelectValueByDictList($http, $q, "CLEW_PERIOD", "NATURE").then(function(success) {
         $scope.PeriodList = StrParesJSON(success).result;
-        console.log($scope.PeriodList);
     }, function(error) {
         console.log(error);
     });

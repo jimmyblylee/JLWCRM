@@ -19,11 +19,11 @@ function CostModifyCtrl($scope, $http, $q) {
     $scope.submit = function() {
         var cost = $scope.cost;
         if ($scope.pageBarData.pageBarChildItmeSub == "销售") {
-            cost.type = { "id" : -10110002}
+            cost.type = { "id" : -10901}
         } else if ($scope.pageBarData.pageBarChildItmeSub == "实施") {
-            cost.type = { "id" : -10110003}
+            cost.type = { "id" : -10902}
         } else {
-            cost.type = { "id" : -10110004}
+            cost.type = { "id" : -10903}
         }
         sendPost($http, {
             controller: "CostController",

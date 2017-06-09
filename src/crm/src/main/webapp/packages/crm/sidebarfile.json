@@ -133,6 +133,9 @@
         "templateUrl": "packages/crm/views/clews/main.html",
         "pageTitle": "线索管理",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
             "packages/crm/js/clews/ClewsListCtrl.js",
             "packages/crm/js/clews/ClewsModifyCtrl.js"
         ]
@@ -184,6 +187,9 @@
         "templateUrl": "packages/crm/views/pacts/main.html",
         "pageTitle": "合同管理",
         "files":[
+            "resources/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css",
+
+            "resources/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js",
             "packages/crm/js/pacts/PactsListCtrl.js",
             "packages/crm/js/pacts/PactsModifyCtrl.js"
         ]

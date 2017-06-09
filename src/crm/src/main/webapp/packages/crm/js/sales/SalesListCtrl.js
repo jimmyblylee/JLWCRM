@@ -5,19 +5,11 @@ function SalesListCtrl($scope, $http, $q, $listService) {
 
     $scope.condition = {};
 
-    sendPost($http, {
-        "controller" : "SalesController",
-        "method" : "query",
-        "pageQuery" : "{}",
-        "start" : 0,
-        "limit" : 1000
-    },$q).then(function(success) {
-        $scope.saleList = StrParesJSON(success).result;
-    });
-
     $listService.init($scope, {
         "controller": "SalesController",
         "method": "query",
+        "pageSize": 4,
+        "pageSizeList": [4, 8, 12],
         callback: function(success) {
             $scope.list = success.data.result;
         }

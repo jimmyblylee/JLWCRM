@@ -36,12 +36,12 @@ public class ClewService {
             hql += "  and p.name like :name";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
-            hql += "  and p.customer.id = :customerId";
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !StringUtils.isEmpty(condition.getCustomer().getName())) {
+            hql += "  and p.customer.name like :customerName";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
-            hql += "  and p.contact.id = :contactId";
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !StringUtils.isEmpty(condition.getContact().getName())) {
+            hql += "  and p.contact.name like :contactName";
         }
 
         if (!ObjectUtils.isEmpty(condition.getBudget())) {
@@ -52,8 +52,8 @@ public class ClewService {
             hql += "  and p.period.code = :period";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
-            hql += "  and p.sales.id = :sales";
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !StringUtils.isEmpty(condition.getSales().getName())) {
+            hql += "  and p.sales.name = :salesName";
         }
 
         Query query = em.createQuery(hql);
@@ -63,12 +63,12 @@ public class ClewService {
             query.setParameter("name", "%" + condition.getName() + "%");
         }
 
-        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
-            query.setParameter("customerId", condition.getCustomer().getId());
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !StringUtils.isEmpty(condition.getCustomer().getName())) {
+            query.setParameter("customerName", "%" + condition.getCustomer().getName() + "%");
         }
 
-        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
-            query.setParameter("contactId", condition.getContact().getId());
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !StringUtils.isEmpty(condition.getContact().getName())) {
+            query.setParameter("contactName", "%" + condition.getContact().getName() + "%");
         }
 
         if (!ObjectUtils.isEmpty(condition.getBudget())) {
@@ -79,8 +79,8 @@ public class ClewService {
             query.setParameter("period", condition.getPeriod().getCode());
         }
 
-        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
-            query.setParameter("sales", condition.getSales().getId());
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !StringUtils.isEmpty(condition.getSales().getName())) {
+            query.setParameter("salesName", "%" + condition.getSales().getName() + "%");
         }
         //noinspection unchecked
         return query.getResultList();
@@ -96,12 +96,12 @@ public class ClewService {
             hql += "  and p.name like :name";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
-            hql += "  and p.customer.id = :customerId";
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !StringUtils.isEmpty(condition.getCustomer().getName())) {
+            hql += "  and p.customer.name like :customerName";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
-            hql += "  and p.contact.id = :contactId";
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !StringUtils.isEmpty(condition.getContact().getName())) {
+            hql += "  and p.contact.name like :contactName";
         }
 
         if (!ObjectUtils.isEmpty(condition.getBudget())) {
@@ -112,8 +112,8 @@ public class ClewService {
             hql += "  and p.period.code = :period";
         }
 
-        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
-            hql += "  and p.sales.id = :sales";
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !StringUtils.isEmpty(condition.getSales().getName())) {
+            hql += "  and p.sales.name = :salesName";
         }
 
         Query query = em.createQuery(hql);
@@ -122,12 +122,12 @@ public class ClewService {
             query.setParameter("name", "%" + condition.getName() + "%");
         }
 
-        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !ObjectUtils.isEmpty(condition.getCustomer().getId())) {
-            query.setParameter("customerId", condition.getCustomer().getId());
+        if (!ObjectUtils.isEmpty(condition.getCustomer()) && !StringUtils.isEmpty(condition.getCustomer().getName())) {
+            query.setParameter("customerName", "%" + condition.getCustomer().getName() + "%");
         }
 
-        if (!ObjectUtils.isEmpty(condition.getContact()) && !ObjectUtils.isEmpty(condition.getContact().getId())) {
-            query.setParameter("contactId", condition.getContact().getId());
+        if (!ObjectUtils.isEmpty(condition.getContact()) && !StringUtils.isEmpty(condition.getContact().getName())) {
+            query.setParameter("contactName", "%" + condition.getContact().getName() + "%");
         }
 
         if (!ObjectUtils.isEmpty(condition.getBudget())) {
@@ -138,29 +138,29 @@ public class ClewService {
             query.setParameter("period", condition.getPeriod().getCode());
         }
 
-        if (!ObjectUtils.isEmpty(condition.getSales()) && !ObjectUtils.isEmpty(condition.getSales().getId())) {
-            query.setParameter("sales", condition.getSales().getId());
+        if (!ObjectUtils.isEmpty(condition.getSales()) && !StringUtils.isEmpty(condition.getSales().getName())) {
+            query.setParameter("salesName", "%" + condition.getSales().getName() + "%");
         }
         return ((Number)query.getSingleResult()).intValue();
     }
 
     public void create(Clew entity) {
 
-        if(entity.getCustomer()!= null && entity.getCustomer().getId() != null){
+        if (entity.getCustomer() != null && entity.getCustomer().getId() != null) {
             entity.setCustomer(em.find(Customer.class, entity.getCustomer().getId()));
         }
-        if(entity.getContact() != null && entity.getContact().getId() != null){
+        if (entity.getContact() != null && entity.getContact().getId() != null) {
             entity.setContact(em.find(Contact.class, entity.getContact().getId()));
         }
-        if(entity.getPeriod() != null && entity.getPeriod().getId() != null){
+        if (entity.getPeriod() != null && entity.getPeriod().getId() != null) {
             entity.setPeriod(em.find(Dict.class, entity.getPeriod().getId()));
         }
-        if(entity.getSales() != null && entity.getSales().getId() != null){
+        if (entity.getSales() != null && entity.getSales().getId() != null) {
             entity.setSales(em.find(Sales.class, entity.getSales().getId()));
         }
 
         entity.setCreate(new Date());
-        if(entity.getCreate() != null){
+        if (entity.getCreate() != null) {
             entity.setUpdate(entity.getCreate());
         }
         em.persist(entity);

@@ -50,17 +50,6 @@ public class PactController extends ControllerHelper {
 
     public void create() {
         Pact entity = workDTO.convertJsonToBeanByKey("entity", Pact.class);
-        if(entity.getCustomer() != null){
-            Customer customer = entity.getCustomer();
-            List<Customer> customerList = customerService.query(customer,0,1);
-            entity.setCustomer(customerList.get(0));
-        }
-
-        if(entity.getSales() != null){
-            Sales sales = entity.getSales();
-            List<Sales> salesList = salesService.query(sales,0,1);
-            entity.setSales(salesList.get(0));
-        }
         service.create(entity);
     }
 

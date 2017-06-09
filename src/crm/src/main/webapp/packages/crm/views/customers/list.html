@@ -1,32 +1,31 @@
 <div ng-controller="CustomersListCtrl">
-    <div class="row mt10">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="control-label col-md-3">客户名称</label>
-                <div class="col-md-9">
-                    <select class="form-control" bs-tooltip data-title="客户名称" title="客户名称"
-                            ng-model="condition.id"
-                            ng-options="item.id as item.name for item in customerList">
-                    </select>
+    <div class="form">
+        <form action="#" class="form-horizontal">
+            <div class="row mt10">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">客户名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control", ng-model="condition.name" placeholder="请输入要查询的客户名称">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <a href="javascript:" class="btn btn-outline btn-sm blue" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
-        </div>
+        </form>
     </div>
     <div class="portlet box blue mt10">
         <div class="portlet-title">
             <div class="caption">
                 <i class="icon-user-following"></i> 客户管理
             </div>
-            <div class="tools">
-                <a href="javascript:" class="fullscreen"> </a>
-            </div>
             <div class="actions">
-                <a href="/#modifyCustomersModalDiv" data-toggle="modal" class="btn btn-sm btn-default" ng-click="prepareToAdd()">
+                <a href="/#modifyCustomersModalDiv" data-toggle="modal" class="btn btn-default btn-circle" ng-click="prepareToAdd()">
                     <i class="fa fa-plus"></i> 增加客户
                 </a>
+                <a href="javascript:" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
             </div>
         </div>
         <div class="portlet-body">
@@ -44,7 +43,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in list">
-                    <td class="text-center">{{item.name}}</td>
+                    <td class="text-left">{{item.name}}</td>
                     <td class="text-center">{{item.add}}</td>
                     <td class="text-center">{{item.trade.value}}</td>
                     <td class="text-center">{{item.quality.value}}</td>

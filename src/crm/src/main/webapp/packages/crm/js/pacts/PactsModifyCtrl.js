@@ -2,6 +2,9 @@
  * Created by Jimmybly Lee on 2017/5/29.
  */
 function PactsModifyCtrl($scope, $http, $q) {
+    $scope.initDatePicker = function() {
+        $('input[ng-model=\'pacts.date\']').datepicker();
+    };
     getSelectValueByDictList($http, $q, "PACT_STATUS", "NATURE").then(function(success) {
         $scope.StatusList = StrParesJSON(success).result;
         console.log($scope.StatusList);

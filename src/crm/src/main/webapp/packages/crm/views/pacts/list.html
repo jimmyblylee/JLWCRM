@@ -57,7 +57,7 @@
     <div class="portlet box blue mt10">
         <div class="portlet-title">
             <div class="caption">
-                <i class="icon-user-following"></i> 合同管理
+                <i class="icon-layers"></i> 合同管理
             </div>
             <div class="tools">
                 <a href="javascript:" class="fullscreen"> </a>
@@ -73,7 +73,7 @@
                 <thead>
                 <tr>
                     <th class="text-center wid140px">项目名称</th>
-                    <th class="text-center wid90px">客户名称</th>
+                    <th class="text-center wid140px">客户名称</th>
                     <th class="text-center wid90px">合同状态</th>
                     <th class="text-center wid90px">合同总额</th>
                     <th class="text-center wid90px">已回款</th>
@@ -84,11 +84,13 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in list">
-                    <td class="text-center">{{item.name}}</td>
-                    <td class="text-center">{{item.customer.name}}</td>
-                    <td class="text-center">{{item.status.value}}</td>
-                    <td class="text-center">{{item.sum}}</td>
-                    <td class="text-center">{{item.recPay}}</td>
+                    <td class="text-left">{{item.name}}</td>
+                    <td class="text-left">{{item.customer.name}}</td>
+                    <td class="text-center">
+                        <span class="label label-sm" ng-class="{'bg-green':item.status.code == '1', 'bg-red':item.status.code == '2'}">{{item.status.value}}</span>
+                    </td>
+                    <td class="text-right">{{item.sum}}</td>
+                    <td class="text-right">{{item.recPay}}</td>
                     <td class="text-center">{{item.date|date:'yyyy-MM-dd'}}</td>
                     <td class="text-center">{{item.sales.name}}</td>
                     <td class="text-center">

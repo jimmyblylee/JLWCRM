@@ -2,7 +2,7 @@
  * Created by Jimmybly Lee on 2017/6/8.
  */
 function MgmtRiskCtrl($scope, $http, $q) {
-    $scope.year = 2017;
+    $scope.year = 2016;
     $scope.initRecPayAndCostChart = function(risk) {
 
         var i, categories = [];

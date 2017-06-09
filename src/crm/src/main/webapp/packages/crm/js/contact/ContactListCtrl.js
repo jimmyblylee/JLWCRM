@@ -5,19 +5,11 @@ function ContactListCtrl($scope, $http, $q, $listService) {
 
     $scope.condition = {};
 
-    sendPost($http, {
-        "controller" : "ContactController",
-        "method" : "query",
-        "pageQuery" : "{}",
-        "start" : 0,
-        "limit" : 1000
-    },$q).then(function(success) {
-        $scope.contactList = StrParesJSON(success).result;
-    });
-
     $listService.init($scope, {
         "controller": "ContactController",
         "method": "query",
+        "pageSize": 4,
+        "pageSizeList": [4, 8, 12],
         callback: function(success) {
             $scope.list = success.data.result;
         }

@@ -40,7 +40,7 @@ public class ProjectService {
         }
         Query query = em.createQuery(hql);
         if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
-            query.setParameter("pactName", condition.getPact().getName());
+            query.setParameter("pactName", "%" + condition.getPact().getName() + "%");
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {
             query.setParameter("statusId", condition.getStatus().getId());
@@ -62,7 +62,7 @@ public class ProjectService {
         }
         Query query = em.createQuery(hql);
         if (!ObjectUtils.isEmpty(condition.getPact()) && !StringUtils.isEmpty(condition.getPact().getName())) {
-            query.setParameter("pactName", condition.getPact().getName());
+            query.setParameter("pactName", "%" + condition.getPact().getName() + "%");
         }
         if (!ObjectUtils.isEmpty(condition.getStatus()) && !ObjectUtils.isEmpty(condition.getStatus().getId())) {
             query.setParameter("statusId", condition.getStatus().getId());

@@ -7,46 +7,13 @@ function ClewsListCtrl($scope, $http, $q, $listService) {
 
     getSelectValueByDictList($http, $q, "CLEW_PERIOD", "NATURE").then(function(success) {
         $scope.PeriodList = StrParesJSON(success).result;
-        console.log($scope.PeriodList);
     }, function(error) {
         console.log(error);
     });
 
-    sendPost($http, {
-        "controller" : "CustomerController",
-        "method" : "query",
-        "pageQuery" : "{}",
-        "start" : 0,
-        "limit" : 1000
-    },$q).then(function(success) {
-        $scope.customerList = StrParesJSON(success).result;
-    });
-
-    sendPost($http, {
-        "controller" : "ContactController",
-        "method" : "query",
-        "pageQuery" : "{}",
-        "start" : 0,
-        "limit" : 1000
-    },$q).then(function(success) {
-        $scope.contactList = StrParesJSON(success).result;
-    });
-
-    sendPost($http, {
-        "controller" : "SalesController",
-        "method" : "query",
-        "pageQuery" : "{}",
-        "start" : 0,
-        "limit" : 1000
-    },$q).then(function(success) {
-        $scope.saleList = StrParesJSON(success).result;
-    });
-
-
     $listService.init($scope, {
         "controller": "ClewController",
         "method": "query",
-        // "pageQuery" : $scope.condition,
         callback: function(success) {
             $scope.list = success.data.result;
         }

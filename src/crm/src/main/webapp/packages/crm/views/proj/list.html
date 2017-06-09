@@ -1,27 +1,31 @@
 <div ng-controller="ProjectListCtrl">
-    <div class="row mt10">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label col-md-3">项目名称</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="项目名称" ng-model="condition.pact.name">
+    <div class="form">
+        <form action="#" class="form-horizontal">
+            <div class="row mt10">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">项目名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="项目名称" ng-model="condition.pact.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">项目状态</label>
+                        <div class="col-md-9">
+                            <select class="form-control" bs-tooltip data-title="项目状态" title="项目状态"
+                                    ng-model="condition.status.id"
+                                    ng-options="item.id as item.value for item in statusList">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="javascript:" class="btn btn-outline btn-sm yellow-gold" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="control-label col-md-3">项目状态</label>
-                <div class="col-md-9">
-                    <select class="form-control" bs-tooltip data-title="项目状态" title="项目状态"
-                            ng-model="condition.status.id"
-                            ng-options="item.id as item.value for item in statusList">
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <a href="javascript:" class="btn btn-outline btn-sm yellow-gold" ng-click="load();"><i class="fa fa-search"></i> 搜索</a>
-        </div>
+        </form>
     </div>
     <div class="portlet box yellow-gold mt10">
         <div class="portlet-title">
@@ -41,7 +45,7 @@
             <table class="table table-bordered table-scrollable">
                 <thead>
                 <tr>
-                    <th class="text-center wid90px">项目名称</th>
+                    <th class="text-center wid140px">项目名称</th>
                     <th class="text-center wid90px">开始时间</th>
                     <th class="text-center wid90px">结束时间</th>
                     <th class="text-center wid90px">状态</th>
@@ -52,10 +56,19 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in list">
-                    <td class="text-center">{{item.pact.name}}</td>
+                    <td class="text-left">{{item.pact.name}}</td>
                     <td class="text-center">{{item.start}}</td>
                     <td class="text-center">{{item.end}}</td>
-                    <td class="text-center">{{item.status.value}}</td>
+                    <td class="text-center">
+                        <span class="label label-sm"
+                              ng-class="{
+                              'bg-blue': item.status.code == '1',
+                              'bg-yellow': item.status.code == '2',
+                              'bg-red': item.status.code == '3',
+                              'bg-greed': item.status.code == '4'}">
+                            {{item.status.value}}
+                        </span>
+                    </td>
                     <td class="text-center">{{item.process}}%</td>
                     <td class="text-center">{{item.charger.name}}</td>
                     <td class="text-center">

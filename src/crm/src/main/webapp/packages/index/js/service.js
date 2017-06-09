@@ -31,7 +31,7 @@ MetronicApp.service("$listService", function($http) {
     this.init = function($scope, option) {
         var options = $.extend({}, defaultOptions, option);
         // $scopeLocal = $scope;
-        $scope.pageSizeList = pageSizeList;
+        $scope.pageSizeList = option.pageSizeList ? option.pageSizeList : pageSizeList;
         $scope.pageRequest = {"pageNum": 1, "pageSize": options.pageSize};
         $scope.pageRequest.getResponse = function() {
             var requestData = {
