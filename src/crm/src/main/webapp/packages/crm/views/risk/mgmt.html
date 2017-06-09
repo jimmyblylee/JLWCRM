@@ -1,0 +1,46 @@
+<!-- BEGIN PAGE HEADER-->
+<div data-ng-include="'packages/index/tpl/pagebar.html'"> </div>
+
+<div ng-controller="MgmtRiskCtrl" ng-init="initChart()">
+    <div class="portlet light portlet-fit bordered mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-bar-chart font-green-haze"></i> 经营风险 - 收入与支出
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+            <div class="inputs">
+                <div class="portlet-input input-inline input-large">
+                    <div class="input-group">
+                        <span class="input-group-addon input-circle-left">
+                            请填写年份
+                        </span>
+                        <input type="number" class="form-control" placeholder="2017" ng-model="year">
+                        <span class="input-group-btn">
+                            <a href="javascript:" class="btn btn-circle-right btn-default" ng-click="initChart()">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div id="costAndRecPayChart" style="height: 500px;"></div>
+        </div>
+    </div>
+    <div class="portlet light portlet-fit bordered mt10">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-bar-chart font-green-haze"></i> 经营风险 - 资金占用
+            </div>
+            <div class="tools">
+                <a href="javascript:" class="fullscreen"> </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div id="costPossessionChart" class="chart"></div>
+        </div>
+    </div>
+</div>

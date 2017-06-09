@@ -19,4 +19,12 @@ public class RiskController extends ControllerHelper {
     public void queryProjectRisk() {
         workDTO.setResult(service.getProjectRist());
     }
+
+    public void querySalesRisk() {
+        workDTO.setResult(service.getSalesRisk(workDTO.get("year")));
+    }
+
+    public void queryMgmtRisk() {
+        workDTO.setResult(service.getMgmtRisk(workDTO.get("year")));
+    }
 }

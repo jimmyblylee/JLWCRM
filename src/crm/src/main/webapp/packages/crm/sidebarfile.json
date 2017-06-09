@@ -78,17 +78,21 @@
     "manage.risk_mgmt": {
         "name":"risk_mgmt",
         "url":"manage_risk_mgmt.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/risk/mgmt.html",
         "pageTitle": "经营",
         "files":[
+            "resources/global/plugins/highcharts/js/highcharts.js",
+
+            "packages/crm/js/risk/MgmtRiskCtrl.js"
         ]
     },
     "manage.risk_sales": {
         "name":"risk_sales",
         "url":"manage_risk_sales.html",
-        "templateUrl": "packages/index/tpl/blank.html",
+        "templateUrl": "packages/crm/views/risk/sales.html",
         "pageTitle": "销售",
         "files":[
+            "packages/crm/js/risk/SalesRiskCtrl.js"
         ]
     },
     "manage.risk_project": {
